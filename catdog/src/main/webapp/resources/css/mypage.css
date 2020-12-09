@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+.mypageBody {
+	margin: 0px auto;
+	max-width: 1080px;
+}
+
+.mypageLayout {
+	margin: 70px auto;
+	text-align: center;
+}
+
+.mypagemenu {
+	margin: 50px auto;
+	width: 600px;
+}
+
+.mypagemenu ul {
+	border-bottom: 3px solid #dadada36;
+}
+
+.mypagemenu ul li {
+	display: inline-block;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.mypagemenu ul li:hover {
+	display: inline-block;
+	margin-right: 10px;
+	border-collapse: 0;
+	border-bottom: 3px solid #71da65;
+}
+
+.mypage {
+	margin: 50px auto;
+	width: 800px;
+	border: 1px solid #71da65;
+	padding: 15px;
+}
+
+.mypagetab {
+	margin: 5px;
+}
+
+.mypagetab::after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.mypage .mypagetab p {
+	font-size: 30px;
+	font-weight: bold;
+	float: left;
+}
+
+.mypageLayout button {
+    border: 0;
+    background: none;
+    float: right;
+}
+
+.mypagetab ul li {
+	display: inline-block;
+}
+
+.mypagesub2 {
+	background: #71da65;
+	padding: 10px;
+	border-radius: 10px;
+	color: white;
+	font-weight: bold;
+}
+
+.mypagesub1 li {
+	display: inline-block;
+	width: 23%;
+	
+}
+
+.mypage1 {
+	margin: 20px auto;
+	width: 800px;
+	padding: 15px;
+}
+
+.mypage1 p {
+	font-size: 24px;
+	float: left;
+	font-weight: bold;
+}
+
+.mypage1 .mypagelist {
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 10px;
+	height: 200px;
+}
+
+.mypage2 {
+	margin: 50px auto;
+	width: 800px;
+	padding: 30px;
+	text-align: center;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+}
+
+.mypage2 .mypagetab p {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.mypage2 .mypagetab select {
+	float: right;
+	outline: 0;
+	border: 0;
+	padding: 5px;
+}
+
+.mypage2 .mypagetab option:hover {
+	background: #71da65;
+}
+
+.mypage2 .mypagelist ul li {
+	display: inline-block;
+	margin: 5px;
+}
+
+.mypagelist .td1 {
+	width: 15%;
+}
+
+.mypagelist .td2 {
+	width: 45%;
+}
+
+.mypagelist .td3 {
+	width: 7%;
+}
+
+.mypagelist ul {
+	border-bottom: 1px solid #dadada;
+	padding-bottom: 10px;
+}
+
+#listtab {
+	border-bottom: 1px solid #71da65;
+	padding: 10px;
+}
+
+.mypage2 .pagenum {
+	padding: 10px;
+} 
+
+.mypage2 button {
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 5px;
+	margin: 5px;
+}
+
+.qnalist .td2 {
+	text-align: left;
+}

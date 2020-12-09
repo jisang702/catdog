@@ -1,0 +1,220 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.board {
+	width: 900px;	
+	margin: 100px auto;
+}
+
+.boardlist {
+	width: 100%;
+	margin-bottom: 20px;
+	border-bottom: 2px solid #71da65;
+}
+
+.listtitle li  {
+	padding: 5px;
+	font-size: 30px;
+	font-weight: bold;
+	color: #646464;
+}
+
+.boardoption {
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+.boardoption select {
+	width: 80px;
+	height: 30px;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	outline: 0;
+}
+
+.listheader {
+	border: 0;
+	background: #71da65;
+	border-radius: 5px;
+	line-height: 30px;
+	color: white;
+	margin: 0;
+	
+}
+
+.boardlist ul li {
+	display: inline-block;
+	width: 7%;
+}
+
+.boardlist ul .td1 {
+	width: 45%;
+}
+
+.boardlist .tr .td1 {
+	text-align: left;
+}
+
+.boardlist .tr .td1 a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.boardlist ul .td2 {
+	width: 15%;
+}
+
+.boardlist .tr {
+	padding: 5px;
+	margin: 0;
+	border-bottom: 1px solid #dadada;
+}
+
+.listfooter select, input {
+	height: 30px;
+	border-radius: 5px;
+	outline: 0;
+	padding: 5px;
+	border: 1px solid #dadada;
+}
+
+.article {
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 25px;
+	margin-bottom: 30px;
+}
+
+.articletitle {
+	text-align: left;
+	font-size: 26px;
+	font-weight: bold;
+	border-bottom: 2px solid #71da65;
+	color: #646464;
+	margin: 0;
+}
+
+.articletitle li {
+	display: inline-block;
+}
+
+.articletitle .like {
+	float: right;
+}
+
+.article .tr {
+	border-bottom: 1px solid #dadada;
+	line-height: 25px;
+	padding: 5px;
+	text-align: right;
+	margin: 0;
+}
+
+
+.article .tr li {
+	display: inline-block;
+}
+
+.articlecontent ul {
+	width: 850px;
+	padding: 15px;
+	border-bottom: 1px solid #dadada;
+}
+
+.articlebtn {
+	text-align: right;
+}
+
+.comment {
+	border-bottom: 1px solid #dadada;
+}
+
+.commentLayout textarea {
+	padding: 10px;
+	resize: none;
+	outline: 0;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+    vertical-align: middle;
+}
+
+.commenttitle {
+	text-align: left;
+}
+
+.commentcount {
+	font-size: 30px;
+	color: #71da65;
+}
+
+.commentinput li .mybtn2 {
+	height: 80px;
+	width: 85px;
+	float: right;
+}
+
+.commentlist {
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #dadada;
+}
+
+.profile ul li {
+	display: inline-block;
+	font-size: 15px;
+}
+
+.profile ul li p {
+	font-weight: bold;
+}
+
+.profile ul li button {
+	border: none;
+}
+
+.commentwrap {
+	display: inline-block;
+}
+
+.commentbtn {
+	display: inline-block;
+	float: right;
+	margin-bottom: 10px;
+}
+
+.reply {
+	padding-left: 15px;
+	margin: 10px;
+}
+
+.replyinput .mybtn2 {
+	height: 65px;
+	width: 65px;
+}
+
+.createdtitle {
+	font-size: 30px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.created {
+	text-align: center;
+}
+
+.created .tr .td input {
+	width: 95%;
+	height: 50px;	
+}
+
+.created .tr .td textarea {
+	padding: 10px;
+	resize: none;
+	outline: 0;
+	border: 1px solid #dadada;
+	border-radius: 5px;
+	margin: 10px;

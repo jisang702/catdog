@@ -1,0 +1,281 @@
+@charset "UTF-8";
+
+ul {
+	list-style: none;
+}
+
+button {
+	outline: 0;
+}
+
+.floatright {
+	float: right;
+	clear: both;
+}
+
+.floatleft {
+	float: left;
+	clear: both;
+}
+
+.main-header {
+	margin: 30px auto;
+	text-align: center;
+	width: 100%;
+}
+
+.header {
+	display: inline-block;
+	height: 80px;
+	position: relative;
+	width: 100%;
+}
+
+.headerinner {
+	display: inherit;
+}
+
+.logo {
+	position: absolute;
+}
+
+.logo img {
+	width: 70px;
+}
+
+.myMenu {
+	float: right;
+    position: relative;
+    left: 400px;
+}
+
+.myMenu a {
+	text-decoration: none;
+	color: #646464;
+	font-size: 16px;
+}
+
+.mybtn1 {
+	font-size: 12px;
+	background: white;
+	border: 1px solid #dadada;
+	color: #646464;
+	padding: 7px;
+	border-radius: 10px;
+}
+
+.mybtn2 {
+	font-size: 12px;
+	background: #71da65;
+	border: 1px solid #71da65;
+	color: white;
+	padding: 7px;
+	border: none;
+	border-radius: 10px;
+}
+
+.unlikebtn {
+	background: none;
+	border: none;
+	border-radius: 10px;
+}
+
+#mainMenu {
+	width: 100%;
+	background: white;
+}
+
+.mainFixed {
+	position: fixed;
+	top: 0;
+}
+
+#mainMenu ul {
+	border-top: 1px solid #e4e4e4;
+	border-bottom: 1px solid #e4e4e4;
+}
+
+#mainMenu ul li{
+	display: inline-block;
+	line-height: 50px;     
+	text-align: center;
+	position: relative;
+	width: 120px;
+}
+
+#mainMenu .menu .menunav {
+	margin: 0;
+}
+
+#mainMenu .menu1 a {
+	text-decoration: none;
+	color: #646464;
+}
+
+#mainMenu .menu1 a:hover, a:active {
+	font-weight: bold;
+	color: #71da65;
+}
+
+#mainMenu .menu1:hover, .menu1:active {
+	border-bottom: 3px solid #71da65;
+}
+
+#mainMenu .menu2 {
+	text-align: right;
+	width: 200px;
+}
+
+#mainMenu li .submenu1 {
+	margin-top: 3px;
+	position: absolute;
+	display: none;
+	background: #9c9c9cde;
+	color: white;
+	border: none;
+}
+
+
+#mainMenu li:hover .submenu1 {
+	display: block;
+}
+
+#mainMenu li .submenu1 li {
+	display: block;
+}
+
+#mainMenu li .submenu1 li:hover {
+	display: block;
+	color: #3f3e3e;
+}
+
+.footerLayout {
+	border-top: 1px solid #e4e4e4;
+	margin-top: 100px;
+}
+
+.footercontent {
+	margin: 30px auto;
+	max-width: 1080px;
+}
+
+.footer-menu {
+	padding: 10px;
+	margin: 10px;
+}
+
+.footer-menu li {
+	float: left;
+	margin: 5px;
+}
+
+.loginLayout {
+	margin: 100px auto;
+	text-align: center;
+}
+
+.login ul li {
+	margin: 10px;
+}
+
+.logininput {
+	padding: 10px;
+	width: 500px;
+	height: 50px;	
+	outline: 0;
+	border: 1px solid #b7b7b7;
+	border-radius: 10px;
+}
+
+.loginbtn {
+	width: 500px;
+	height: 50px;
+	border: none;
+	background: #71da65;
+	color: white;
+	border-radius: 10px;
+}
+
+.login .loginmenu a, a:hover, a:active {
+	text-decoration: none;
+	color: none;
+}
+
+.layoutBody {
+	max-width: 1080px;
+    margin: 0 auto;
+}
+
+.jointitle {
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold;
+	padding: 20px;
+	
+}
+
+.joinmember {
+	display: table;
+	margin: 100px auto;
+	max-width: 800px;
+	border: 1px solid #e4e4e4;
+	padding: 50px;
+}
+
+.joinmember ul .th {
+	width: 200px;
+	margin: 5px;
+}
+
+.joinmember ul .td, .td1 {
+	margin: 5px;
+}
+
+.joinmember ul .td input {
+	padding: 10px;
+	width: 500px;
+	outline: 0;
+	border: 1px solid #b7b7b7;
+	border-radius: 10px;
+	height: 40px;
+}
+.selectemail {
+	width: 150px;
+	outline: 0;
+	border: 1px solid #b7b7b7;
+	border-radius: 10px;
+	height: 40px;
+}
+
+.joinmember ul .td1 input {
+	padding: 10px;
+	width: 150px;
+	outline: 0;
+	border: 1px solid #b7b7b7;
+	border-radius: 10px;
+	height: 40px;
+}
+
+.joinlayout {
+	font-size: 15px;
+}
+
+.joinbtn {
+	text-align: center;
+	padding: 10px;
+	margin-top: 20px; 
+}
+
+.td1 .mybtn1 {
+	width: 100px;
+	height: 40px;
+	margin: 5px;
+}
+
+.joinbtn button {
+	width: 100px;
+	height: 40px;
+	font-size: 16px;
+}
+
+
