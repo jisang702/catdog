@@ -24,15 +24,15 @@ $(function() {
 				<a href="##"><img src="${pageContext.request.contextPath}/resources/css/images/cat.jpeg"></a>
 			</div>
 			<div class="myMenu">
-				<button class="mybtn1" type="button">로그인</button>
-				<button class="mybtn2" type="button">회원가입</button>
+				<a class="mybtn1" type="button" href="${pageContext.request.contextPath}/member/login">로그인</a>
+				<a class="mybtn2" type="button" href="${pageContext.request.contextPath}/member/register">회원가입</a>
 			</div>
 		</div>
 	</div>
 	<div id="mainMenu">
 		<div class="menu">
 			<ul class="menunav">
-				<li class="menu1"><a href="#">HOME</a></li>
+				<li class="menu1"><a href="${pageContext.request.contextPath}/store">HOME</a></li>
 	            <li class="menu1"><a href="#">강아지상품</a>
 	            </li>
 	            <li class="menu1"><a href="#">고양이상품</a>

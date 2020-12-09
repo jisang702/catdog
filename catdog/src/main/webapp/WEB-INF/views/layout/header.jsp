@@ -35,35 +35,35 @@ $(function() {
 			</div>
 			<div class="myMenu">
 				<a class="mybtn1" type="button" href="${pageContext.request.contextPath}/member/login">로그인</a>
-				<button class="mybtn2" type="button">회원가입</button>
+				<a class="mybtn2" type="button" href="${pageContext.request.contextPath}/member/register">회원가입</a>
 			</div>
 		</div>
 	</div>
 	<div id="mainMenu">
 		<div class="menu">
 			<ul class="menunav">
-				<li class="menu1"><a href="#">HOME</a></li>
+				<li class="menu1"><a href="${pageContext.request.contextPath}/commu/">HOME</a></li>
 	            <li class="menu1"><a href="#">커뮤니티</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/bbs/list">자유게시판</a></li>
-	            		<li>포토갤러리</li>
-	            		<li>실종게시판</li>
-	            		<li>중고거래</li>
+	            		<li><a href="#">포토갤러리</a></li>
+	            		<li><a href="#">실종게시판</a></li>
+	            		<li><a href="#">중고거래</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">수의사</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/faq/faq">QnA</a></li>
-	            		<li>동영상</li>
-	            		<li>FAQ</li>
+	            		<li><a href="#">동영상</a></li>
+	            		<li><a href="#">FAQ</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">이벤트</a></li>
 	            <li class="menu1"><a href="#">고객센터</a>
 	            	<ul class="submenu1">
-	            		<li>공지사항</li>
-	            		<li>1:1 문의</li>
-	            		<li>FAQ</li>
+	            		<li><a href="#">공지사항</a></li>
+	            		<li><a href="#">1:1 문의</a></li>
+	            		<li><a href="#">FAQ</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a></li>
