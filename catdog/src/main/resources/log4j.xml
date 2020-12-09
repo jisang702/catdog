@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.sp.catdog">
+	<logger name="com.sp.app">
 		<level value="info" />
 	</logger>
 	
