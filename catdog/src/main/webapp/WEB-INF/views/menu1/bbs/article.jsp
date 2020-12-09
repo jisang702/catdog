@@ -2,13 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script type="text/javascript">
 $(function() {
 	$('.reply').hide();
@@ -16,15 +10,7 @@ $(function() {
 		$(this).parents().next('.reply').toggle();		
 	});
 });
-
-
 </script>
-</head>
-<body>
-
-<div class="header">
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/layout/header.jsp"></jsp:include>
-</div>
 
 <div class="articleBody">
 	<div class="boardLayout">
@@ -182,10 +168,3 @@ $(function() {
 		</div>
 	</div>
 </div>
-
-<div class="footer">
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/layout/footer.jsp"></jsp:include>
-</div>
-
-</body>
-</html>
