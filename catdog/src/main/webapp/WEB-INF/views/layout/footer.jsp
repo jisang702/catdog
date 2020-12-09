@@ -2,14 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
-</head>
-<body>
 
 <div class="footerLayout">
 	<div class="footercontent">
@@ -31,6 +23,3 @@
 		</ul>
 	</div>
 </div>
-
-</body>
-</html>
