@@ -66,8 +66,8 @@ $(function() {
 	            		<li><a href="#">FAQ</a></li>
 	            	</ul>
 	            </li>
-	            <li class="menu1"><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></a></li>
-	            <li class="menu2"><a><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+	            <li class="menu1"><a href="#">조회?</a></li>
+	            <li class="menu2"><a href="${pageContext.request.contextPath}/store">SHOP</a></li>
 	         </ul>
 		</div>
 	</div>

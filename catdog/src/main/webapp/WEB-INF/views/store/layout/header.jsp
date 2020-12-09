@@ -41,7 +41,7 @@ $(function() {
 	            <li class="menu1"><a href="#">제휴문의</a>
 	            </li>
 	            <li class="menu1"><a href="#">장바구니</a></li>
-	            <li class="menu2"><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+	            <li class="menu2"><a href="${pageContext.request.contextPath}/commu">커뮤니티</a></li>
 	         </ul>
 		</div>
 	</div>
