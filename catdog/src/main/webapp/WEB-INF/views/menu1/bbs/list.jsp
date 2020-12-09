@@ -30,7 +30,7 @@
 			</ul>
 			<ul class="tr">
 				<li class="td">2</li>
-				<li class="td1"><a href="#">가나다라마바사</a></li>
+				<li class="td1"><a href="${pageContext.request.contextPath}/bbs/article">가나다라마바사</a></li>
 				<li class="td2">김김김</li>
 				<li class="td2">2020-10-10</li>
 				<li class="td">5</li>
@@ -57,7 +57,7 @@
 			</select>
 			<input type="text">
 			<button type="button" class="mybtn1">검색</button>
-			<button type="button" class="mybtn1 floatright">글쓰기</button>
+			<a type="button" class="mybtn1 floatright" href="${pageContext.request.contextPath}/bbs/created">글쓰기</a>
 		</div>
 	</div>
 </div>
