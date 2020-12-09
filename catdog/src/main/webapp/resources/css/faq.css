@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.faqLayout {
+	margin: 100px auto;
+	width: 900px;
+}
+
+.faqlist ul li {
+	display: inline-block;
+}
+
+.faqnav {
+	padding: 10px;
+	border-bottom: 1px solid #dadada;
+	font-size: 16px;
+}
+
+.faqnav ul li {
+	display: inline-block;
+}
+
+.faqlist {
+	border-bottom: 1px solid #dadada;
+	padding: 10px;
+}
+
+.faqQ {
+	padding: 10px;
+	margin: 10px;
+	text-align: left;
+	font-size: 18px;
+}
+
+.faqA {
+	padding: 10px;
+	margin: 10px;
+	text-align: left;
+	padding-left: 20px;
+	font-size: 18px;
+}
+
+.faqQA {
+	color: #71da65;
+	font-weight: bold;
+}
+
+.faqfooter {
+	padding: 20px;
+	margin: 20px;
+	background: #c6f3c0;
+}

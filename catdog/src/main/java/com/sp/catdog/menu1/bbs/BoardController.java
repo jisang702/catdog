@@ -1,4 +1,4 @@
-package com.sp.catdog.bbs;
+package com.sp.catdog.menu1.bbs;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

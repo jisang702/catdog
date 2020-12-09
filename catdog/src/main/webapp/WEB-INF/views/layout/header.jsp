@@ -45,7 +45,7 @@ $(function() {
 	            </li>
 	            <li class="menu1"><a>수의사</a>
 	            	<ul class="submenu1">
-	            		<li><a href="${pageContext.request.contextPath}/faq/faq">QnA</a></li>
+	            		<li><a href="">QnA</a></li>
 	            		<li><a href="#">동영상</a></li>
 	            		<li><a href="#">FAQ</a></li>
 	            	</ul>
@@ -55,7 +55,7 @@ $(function() {
 	            	<ul class="submenu1">
 	            		<li><a href="#">공지사항</a></li>
 	            		<li><a href="#">1:1 문의</a></li>
-	            		<li><a href="#">FAQ</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/faq/faq">FAQ</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">조회?</a></li>

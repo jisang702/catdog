@@ -18,6 +18,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faq.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
