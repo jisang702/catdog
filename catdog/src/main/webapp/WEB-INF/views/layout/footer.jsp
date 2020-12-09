@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
 </head>
 <body>
 
