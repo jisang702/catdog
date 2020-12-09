@@ -83,4 +83,21 @@
     	  <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 
+	<definition name=".storeLayout" template="/WEB-INF/views/store/layout/layout3.jsp">
+	    <put-attribute name="title" value="spring" />
+	  	<put-attribute name="header" value="/WEB-INF/views/store/layout/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/store/main/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+	
+	<definition name=".store.*.*.*" extends=".storeLayout">
+		<put-attribute name="body" value="/WEB-INF/views/store/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".store.*.*" extends=".storeLayout">
+		<put-attribute name="body" value="/WEB-INF/views/store/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".store.*" extends=".storeLayout">
+    	<put-attribute name="body" value="/WEB-INF/views/store/{1}.jsp" />
+	</definition>
+
 </tiles-definitions>
