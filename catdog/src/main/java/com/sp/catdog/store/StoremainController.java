@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("store.storemainController")
 public class StoremainController {
-	@RequestMapping(value="/store/")
-	public String list() throws Exception {
+	@RequestMapping(value="/store")
+	public String store() throws Exception {
 	
 		return ".store.storemain.store";
 	}
