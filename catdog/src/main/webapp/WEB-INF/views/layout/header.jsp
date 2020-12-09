@@ -4,14 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript">
-$(function() {
-	$("#mainMenu .menu1 a").on("click", function () {
-		  $("#mainMenu .menu1 a").css('color', 'inherit');
-		  $("#mainMenu .menu1 a").parent().css('border-bottom', 'none');
-		  $(this).css('color', '#71da65');
-		  $(this).parent().css('border-bottom', '3px solid #71da65');
-	});
-});
 
 $(function() {
 	 var jbOffset = $('#mainMenu').offset();
@@ -43,7 +35,7 @@ $(function() {
 		<div class="menu">
 			<ul class="menunav">
 				<li class="menu1"><a href="${pageContext.request.contextPath}/commu/">HOME</a></li>
-	            <li class="menu1"><a href="#">커뮤니티</a>
+	            <li class="menu1"><a>커뮤니티</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/bbs/list">자유게시판</a></li>
 	            		<li><a href="#">포토갤러리</a></li>
@@ -51,7 +43,7 @@ $(function() {
 	            		<li><a href="#">중고거래</a></li>
 	            	</ul>
 	            </li>
-	            <li class="menu1"><a href="#">수의사</a>
+	            <li class="menu1"><a>수의사</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/faq/faq">QnA</a></li>
 	            		<li><a href="#">동영상</a></li>
@@ -59,7 +51,7 @@ $(function() {
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">이벤트</a></li>
-	            <li class="menu1"><a href="#">고객센터</a>
+	            <li class="menu1"><a>고객센터</a>
 	            	<ul class="submenu1">
 	            		<li><a href="#">공지사항</a></li>
 	            		<li><a href="#">1:1 문의</a></li>

@@ -19,7 +19,7 @@ $(function() {
 				<div>
 					<ul class="articletitle">
 						<li>가나다라마바사</li>
-						<li class="like"><button class="unlikebtn"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></button></li>
+						<li class="like"><button class="unlikebtn">추천</button></li>
 					</ul>
 					<ul class="tr">
 						<li>가가가</li>
@@ -31,7 +31,7 @@ $(function() {
 				<div class="articlecontent">
 					<ul>
 						<li>
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
+						가~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
 						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
 						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
 						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
@@ -57,7 +57,7 @@ $(function() {
 					</ul>				
 					<ul class="commentinput">
 						<li>
-							<textarea rows="3" cols="110" maxlength="150"></textarea>
+							<textarea rows="4" cols="110" maxlength="150"></textarea>
 							<button type="button" class="mybtn2">등록하기</button>
 						</li>
 					</ul>	
@@ -105,7 +105,7 @@ $(function() {
 							<div class="replyinput">
 								<ul>
 									<li>
-										<textarea rows="2" cols="95" maxlength="100"></textarea>
+										<textarea rows="3" cols="95" maxlength="100"></textarea>
 										<button type="button" class="mybtn2">등록하기</button>
 									</li>
 								</ul>
@@ -156,7 +156,7 @@ $(function() {
 							<div class="replyinput">
 								<ul>
 									<li>
-										<textarea rows="2" cols="95" maxlength="100"></textarea>
+										<textarea rows="3" cols="95" maxlength="100"></textarea>
 										<button type="button" class="mybtn2">등록하기</button>
 									</li>
 								</ul>

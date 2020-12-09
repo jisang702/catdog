@@ -153,7 +153,6 @@ button {
 
 .footerLayout {
 	border-top: 1px solid #e4e4e4;
-	margin-top: 100px;
 }
 
 .footercontent {
@@ -239,7 +238,6 @@ button {
 	outline: 0;
 	border: 1px solid #b7b7b7;
 	border-radius: 10px;
-	height: 40px;
 }
 .selectemail {
 	width: 150px;
@@ -255,7 +253,6 @@ button {
 	outline: 0;
 	border: 1px solid #b7b7b7;
 	border-radius: 10px;
-	height: 40px;
 }
 
 .joinlayout {

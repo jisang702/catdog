@@ -8,6 +8,9 @@
 .board {
 	width: 900px;	
 	margin: 100px auto;
+	border: 1px solid #dadada;
+    padding: 25px;
+    border-radius: 10px;
 }
 
 .boardlist {
@@ -74,17 +77,19 @@
 	border-bottom: 1px solid #dadada;
 }
 
+.listfooter {
+	margin: 15px;
+}
+
 .listfooter select, input {
 	height: 30px;
 	border-radius: 5px;
 	outline: 0;
-	padding: 5px;
 	border: 1px solid #dadada;
+    vertical-align: middle;
 }
 
 .article {
-	border: 1px solid #dadada;
-	border-radius: 10px;
 	padding: 25px;
 	margin-bottom: 30px;
 }
@@ -120,8 +125,8 @@
 }
 
 .articlecontent ul {
-	width: 850px;
 	padding: 15px;
+	margin: 15px;
 	border-bottom: 1px solid #dadada;
 }
 
@@ -131,6 +136,7 @@
 
 .comment {
 	border-bottom: 1px solid #dadada;
+	padding-bottom: 10px;
 }
 
 .commentLayout textarea {
@@ -161,6 +167,7 @@
 	padding: 10px;
 	text-align: left;
 	border-bottom: 1px solid #dadada;
+	padding-bottom: 20px;
 }
 
 .profile ul li {
@@ -183,11 +190,15 @@
 .commentbtn {
 	display: inline-block;
 	float: right;
-	margin-bottom: 10px;
 }
 
 .reply {
 	padding-left: 15px;
+	padding-top: 10px;
+	margin: 15px;
+}
+
+.replyinput ul li {
 	margin: 10px;
 }
 
