@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><!DOCTYPE html>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery/css/simplyscroll.css" media="all" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/jquery/css/jquery.simplyscroll.css" media="all" type="text/css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
@@ -40,8 +40,8 @@
 	   <div class="banner" style="float:left; width:100%;">
            <div class="banner" style="height: 100px;">
 			<ul>
-				<li class="bn1"> <img  src="${pageContext.request.contextPath}/img/banner3.jpg" alt="광고1"> </li>
-				<li class="bn2"> <img  src="${pageContext.request.contextPath}/img/banner4.jpg" alt="광고2"> </li>
+				<li class="bn1"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner3.jpg" alt="광고1"> </li>
+				<li class="bn2"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner4.jpg" alt="광고2"> </li>
 			</ul>
            </div>
       </div>  
@@ -60,13 +60,13 @@
                         <div class="Boardlayout">
                     	 <dl style=" float:left; width: 35%; clear:both;">
                         	<dt style="height:200px; sborder-radius: 10px 10px 0 0;">1등 이미지
-                        		<img src="${pageContext.request.contextPath}/img/ico_first.png" alt="1등">
+                        		<img src="${pageContext.request.contextPath}/resources/css/img/ico_first.png" alt="1등">
                         	</dt>
                         	<dt style="height:100px; border-radius: 0 0 10px 10px;">1등 정보</dt>	                        
                         </dl>	                             
                         <dl style=" float:left; width: 35%;">
                         	<dt style="height:200px;  border-radius: 10px 10px 0 0;">2등 이미지
-                        		<img src="${pageContext.request.contextPath}/img/ico_second.png" alt="2등" >
+                        		<img src="${pageContext.request.contextPath}/resources/css/img/ico_second.png" alt="2등" >
                         	</dt>
                         	<dt style="height:100px; border-radius: 0 0 10px 10px;">2등 정보</dt>	                        
                         </dl>	                             
@@ -86,19 +86,19 @@
                         <div class="Boardlayout">
                     	 <dl style=" float:left; width: 35%;  clear:both;">
                         	<dt style="height:200px;  border-radius: 10px 10px 0 0;">1등 이미지
-                        		<img src="${pageContext.request.contextPath}/img/ico_first.png" alt="1등">
+                        		<img src="${pageContext.request.contextPath}/resources/css/img/ico_first.png" alt="1등">
                         	</dt>
                         	<dt style="height:100px;  border-radius: 0 0 10px 10px;">1등 정보</dt>	                        
                         </dl>	                             
                         <dl style=" float:left; width: 35%;">
                         	<dt style="height:200px;  border-radius: 10px 10px 0 0;">2등 이미지
-                        		<img src="${pageContext.request.contextPath}/img/ico_second.png" alt="2등" >
+                        		<img src="${pageContext.request.contextPath}/resources/css/img/ico_second.png" alt="2등" >
                         	</dt>
                         	<dt style="height:100px;  border-radius: 0 0 10px 10px;">2등 정보</dt>	                        
                         </dl>	                             
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; clear:both;">3등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px;">4등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px;">5등</dt> </dl>
+					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-top: 30px; clear:both;">3등</dt> </dl>
+					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-top: 30px;">4등</dt> </dl>
+					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-top: 30px;">5등</dt> </dl>
 					   </div>
 		           </div>
 		       </div>
@@ -119,16 +119,16 @@
 		 		<p>회원들이 좋아하는</p> 
 				<h2>WEEKLY BEST PHOTO</h2>
 			<ul id="scroller">
-			    <li><img src="${pageContext.request.contextPath}/img/cat1.jpg" alt="photo1"></li>
-			    <li><img src="${pageContext.request.contextPath}/img/cat2.png" alt="photo2"></li>
-			    <li><img src="${pageContext.request.contextPath}/img/pet1.jpg" alt="photo3"></li>
-			    <li><img src="${pageContext.request.contextPath}/img/dob.jpg" alt="photo4"></li>
-			    <li><img src="${pageContext.request.contextPath}/img/wen.jpg" alt="photo5"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/dogpupple.jpg" alt="photo1"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/catblue.JPG" alt="photo2"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/pet1.jpg" alt="photo3"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/dogpink.jpg" alt="photo4"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/cat1.jpg" alt="photo5"></li>
 			</ul>	            
         </div>
 		
 	<div class="topMove">
-		<a href="#"><img src="${pageContext.request.contextPath}/img/topScroll.png" title="상단이동"></a>
+		<a href="#"><img src="${pageContext.request.contextPath}/resources/css/img/topScroll.png" title="상단이동"></a>
 	</div>
 
 	</article>
