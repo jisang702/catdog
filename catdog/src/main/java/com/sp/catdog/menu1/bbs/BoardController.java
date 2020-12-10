@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/bbs/*")
 public class BoardController {
 	@RequestMapping("list")
-	public String list() throws Exception {
+	public String bbslist() throws Exception {
 		return ".menu1.bbs.list";
 	}
 	
 	@RequestMapping("article")
-	public String article() throws Exception {
+	public String bbsarticle() throws Exception {
 		return ".menu1.bbs.article";
 	}
 	
 	@RequestMapping("created")
-	public String createdForm() throws Exception {
+	public String bbscreatedForm() throws Exception {
 		return ".menu1.bbs.created";
 	}
 }
