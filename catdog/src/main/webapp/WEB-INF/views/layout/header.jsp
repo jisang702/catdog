@@ -31,14 +31,13 @@ $(function() {
 					<a class="mybtn2" type="button" href="${pageContext.request.contextPath}/member/register">회원가입</a>
 				</c:if>
 				<c:if test="${not empty sessionScope.member}">
-					  <span style="color:blue;">${sessionScope.member.userName}</span>님
+					  <span style="color:blue;">${sessionScope.member.userNick}</span>님
 		                &nbsp;|&nbsp;
 		                <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 		                &nbsp;|&nbsp;
 		                <a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
-		                &nbsp;|&nbsp;
-		                <c:if test="${empty sessionScope.member.userId=='admin'}">
-		                	<a href="${pageContext.request.contextPath}">관리자모드</a>
+		                <c:if test="${sessionScope.member.userId=='admin'}">
+		                	&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}">관리자모드</a>
 		                </c:if>
 				</c:if>
 			</div>
