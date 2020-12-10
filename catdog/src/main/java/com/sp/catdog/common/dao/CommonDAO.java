@@ -1,4 +1,4 @@
-package com.sp.app.common.dao;
+package com.sp.catdog.common.dao;
 
 import java.util.List;
 import java.util.Map;

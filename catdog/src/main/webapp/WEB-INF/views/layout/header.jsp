@@ -26,8 +26,17 @@ $(function() {
 				<a href="##"><img src="${pageContext.request.contextPath}/resources/css/images/cat.jpeg"></a>
 			</div>
 			<div class="myMenu">
-				<a class="mybtn1" type="button" href="${pageContext.request.contextPath}/member/login">로그인</a>
-				<a class="mybtn2" type="button" href="${pageContext.request.contextPath}/member/register">회원가입</a>
+				<c:if test="${empty sessionScope.member}">
+					<a class="mybtn1" type="button" href="${pageContext.request.contextPath}/member/login">로그인</a>
+					<a class="mybtn2" type="button" href="${pageContext.request.contextPath}/member/register">회원가입</a>
+				</c:if>
+				<c:if test="${not empty sessionScope.member}">
+					  <span style="color:blue;">${sessionScope.member.userName}</span>님
+		                &nbsp;|&nbsp;
+		                <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+		                &nbsp;|&nbsp;
+		                <a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
+				</c:if>
 			</div>
 		</div>
 	</div>
