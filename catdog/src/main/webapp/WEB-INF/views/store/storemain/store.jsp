@@ -30,15 +30,14 @@ $(function(){
 
 </head>
 <body>
-<div align="center" style="width: 100%; height: 150px; background: red;"><p>헤더</p></div>
-<br>
+
 
 <div style="width: 500px; margin: 20px auto;">
 	<ul class="slider" style="margin: 0;">
-		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/img1.jpg"></a></li>
-		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/img2.jpg"></a></li>
-		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/img3.jpg"></a></li>
-		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/img1.jpg"></a></li>
+		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/images/dog1.jpg"></a></li>
+		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/images/dog1.jpg"></a></li>
+		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/images/dog1.jpg"></a></li>
+		<li><a href="#"><img src="${pageContext.request.contextPath}/resources/images/dog1.jpg"></a></li>
 	</ul>
 </div>
 
@@ -46,7 +45,7 @@ $(function(){
 <div align="center" style="width: 100%; height: 150px; background: red;"><p>이벤트배너</p></div>
 <br>
 <br>
-<div class="menu">
+<div class="menu10">
 <div align="center">강아지</div>
 <div align="center">고양이</div>
 
@@ -65,7 +64,7 @@ $(function(){
     	</ul>
   </div>
   
-<p align="center">신상품</p>
+<p align="center" style="margin-top: 30px">신상품</p>
 <div  align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -74,7 +73,7 @@ $(function(){
 </div>
 
 <br>
-<p align="center">베스트 상품</p>
+<p align="center" style="margin-top: 30px">베스트 상품</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -82,7 +81,7 @@ $(function(){
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
 <br>
-<p align="center">사료</p>
+<p align="center" style="margin-top: 30px">사료</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -90,36 +89,35 @@ $(function(){
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
 <br>
-<p align="center">옷</p>
+<p align="center" style="margin-top: 30px">옷</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center">간식</p>
+<p align="center" style="margin-top: 30px">간식</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center">장난감</p>
+<p align="center" style="margin-top: 30px">장난감</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center">기타</p>
+<p align="center" style="margin-top: 30px">기타</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<br>
+<div align="center" style="width: 100%; height: 150px; background: red; margin-top: 30px;"><p>이벤트배너</p></div>
 
-<div align="center" style="width: 100%; height: 150px; background: red;"><p>풋더</p></div>
 </body>
 </html>
