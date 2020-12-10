@@ -36,6 +36,10 @@ $(function() {
 		                <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 		                &nbsp;|&nbsp;
 		                <a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
+		                &nbsp;|&nbsp;
+		                <c:if test="${empty sessionScope.member.userId=='admin'}">
+		                	<a href="${pageContext.request.contextPath}">관리자모드</a>
+		                </c:if>
 				</c:if>
 			</div>
 		</div>
