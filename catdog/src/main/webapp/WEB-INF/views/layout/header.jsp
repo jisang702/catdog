@@ -58,7 +58,7 @@ $(function() {
 	            		<li><a href="${pageContext.request.contextPath}/faq/faq">FAQ</a></li>
 	            	</ul>
 	            </li>
-	            <li class="menu1"><a href="#">조회?</a></li>
+	            <li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>
 	            <li class="menu2"><a href="${pageContext.request.contextPath}/store"><img src="${pageContext.request.contextPath}/resources/css/images/cart.png"></a></li>
 	         </ul>
 		</div>

@@ -156,6 +156,10 @@ button {
 	color: #3f3e3e;
 }
 
+.footer {
+	clear: both;
+}
+
 .footerLayout {
 	border-top: 1px solid #e4e4e4;
 }

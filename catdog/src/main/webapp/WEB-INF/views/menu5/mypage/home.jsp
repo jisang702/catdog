@@ -5,19 +5,9 @@
 
 <div class="mypageBody">
 	<div class="mypageLayout">
-		<div class="mypagemenu">
-			<ul>
-				<li>My Pet</li>
-				<li>글목록</li>
-				<li>등급/포인트 내역</li>
-				<li>장바구니/주문현황</li>
-				<li>문의내역</li>
-				<li>회원정보수정</li>
-			</ul>
-		</div>
 		<div class="mypage">
 			<div class="mypagetab">
-					<p>가가가님의 페이지</p>
+					<p>가가가님</p>
 			</div>
 			<div class="mypagesub1">
 				<ul class="mypagesub2">

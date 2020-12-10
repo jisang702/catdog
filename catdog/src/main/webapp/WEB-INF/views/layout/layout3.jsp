@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
+<title>CatDog</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/core.css" type="text/css">
@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faq.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
