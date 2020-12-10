@@ -59,7 +59,7 @@ $(function() {
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">조회?</a></li>
-	            <li class="menu2"><a href="${pageContext.request.contextPath}/store">SHOP</a></li>
+	            <li class="menu2"><a href="${pageContext.request.contextPath}/store"><img src="${pageContext.request.contextPath}/resources/css/images/cart.png"></a></li>
 	         </ul>
 		</div>
 	</div>

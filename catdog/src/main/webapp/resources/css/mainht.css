@@ -49,6 +49,11 @@ button {
     left: 400px;
 }
 
+.menu2 img {
+	width: 40px;
+	vertical-align: middle;
+}
+
 .myMenu a {
 	text-decoration: none;
 }
