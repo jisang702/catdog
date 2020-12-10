@@ -4,13 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript">
+
 $(function() {
-	$("#mainMenu .menu1 a").on("click", function () {
-		  $("#mainMenu .menu1 a").css('color', 'inherit');
-		  $("#mainMenu .menu1 a").parent().css('border-bottom', 'none');
-		  $(this).css('color', '#ffc107');
-		  $(this).parent().css('border-bottom', '3px solid #ffc107');
-	});
+	 var jbOffset = $('#mainMenu').offset();
+     $(window).scroll(function() {
+       if ($(document).scrollTop()>jbOffset.top) {
+         $('#mainMenu').addClass('mainFixed');
+       }
+       else {
+         $('#mainMenu').removeClass('mainFixed');
+       }
+     });
 });
 </script>
 </head>
