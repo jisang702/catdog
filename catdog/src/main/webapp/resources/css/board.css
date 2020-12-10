@@ -8,9 +8,7 @@
 .board {
 	width: 900px;	
 	margin: 100px auto;
-	border: 1px solid #dadada;
     padding: 25px;
-    border-radius: 10px;
 }
 
 .boardlist {
@@ -92,6 +90,8 @@
 .article {
 	padding: 25px;
 	margin-bottom: 30px;
+	border: 1px solid #dadada;
+	border-radius: 10px;
 }
 
 .articletitle {
