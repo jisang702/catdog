@@ -7,48 +7,27 @@
 	<div class="mypageLayout">
 		<div class="mypage">
 			<div class="mypagetab">
-					<p>가가가님의 페이지</p>
+					<p>My Pet</p>
 			</div>
 			<div class="mypagesub1">
-				<ul class="mypagesub2">
-					<li>등급</li>
-					<li>포인트</li>
-					<li>주문내역</li>
-					<li>문의내역</li>
-				</ul>
-				<ul>
-					<li>level 1</li>
-					<li>7000</li>
-					<li>1</li>
-					<li>0</li>
-				</ul>
-			</div>
-		</div>
-		<div class="mypage1">
-			<div class="mypagetab">
-				<p>My Pet</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
-			</div>
-			<div class="mypagelist">
 				
 			</div>
 		</div>
 		<div class="mypage1">
-			<div class="mypagetab">
-				<p>주문내역</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
+			<div class="petlist">
+				<div>
+					<img src="${pageContext.request.contextPath}/resources/css/images/dog.jpeg">
+				</div>
+				<div>
+					<ul>
+						<li>슈슈슈</li>
+						<li>3살</li>
+						<li>말티즈</li>
+					</ul>
+				</div>				
 			</div>
-			<div class="mypagelist">
-				
-			</div>
-		</div>
-		<div class="mypage1">
-			<div class="mypagetab">
-				<p>문의내역</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
-			</div>
-			<div class="mypagelist">
-				
+			<div>
+				<button type="button">반려동물 추가</button>
 			</div>
 		</div>
 	</div>

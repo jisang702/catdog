@@ -168,3 +168,7 @@
 .qnalist .td2 {
 	text-align: left;
 }
+
+.petlist {
+	display: inline-block;
+}
