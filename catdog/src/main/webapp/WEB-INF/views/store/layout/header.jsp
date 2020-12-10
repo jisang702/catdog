@@ -44,7 +44,7 @@ $(function() {
 	            <li class="menu1"><a href="#">병원연계</a></li>
 	            <li class="menu1"><a href="#">제휴문의</a>
 	            </li>
-	            <li class="menu1"><a href="#">장바구니</li>
+	            <li class="menu1"><a href="#">장바구니</a></li>
 	            <li class="menu2"><a href="${pageContext.request.contextPath}/commu">커뮤니티</a></li>
 	         </ul>
 		</div>
