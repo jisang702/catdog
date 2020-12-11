@@ -1,4 +1,4 @@
-package com.sp.catdog.notice;
+package com.sp.catdog.customer.notice;
 
 public interface NoticeService {
 

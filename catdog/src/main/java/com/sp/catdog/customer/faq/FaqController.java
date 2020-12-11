@@ -1,4 +1,4 @@
-package com.sp.catdog.menu4.faq;
+package com.sp.catdog.customer.faq;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
