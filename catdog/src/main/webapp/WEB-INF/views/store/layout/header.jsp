@@ -37,9 +37,9 @@ $(function() {
 		<div class="menu">
 			<ul class="menunav">
 				<li class="menu1"><a href="${pageContext.request.contextPath}/store">HOME</a></li>
-	            <li class="menu1"><a href="#">강아지상품</a>
+	            <li class="menu1"><a href="${pageContext.request.contextPath}/store/dogbbs">강아지상품</a>
 	            </li>
-	            <li class="menu1"><a href="#">고양이상품</a>
+	            <li class="menu1"><a href="${pageContext.request.contextPath}/store/catbbs">고양이상품</a>
 	            </li>
 	            <li class="menu1"><a href="#">병원연계</a></li>
 	            <li class="menu1"><a href="#">제휴문의</a>

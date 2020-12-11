@@ -2,18 +2,11 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.bxslider.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storemain.css">
 
-<style type="text/css">
 
-</style>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
 
 <script type="text/javascript">
@@ -28,8 +21,6 @@ $(function(){
 });
 </script>
 
-</head>
-<body>
 
 
 <div style="width: 500px; margin: 20px auto;">
@@ -118,6 +109,3 @@ $(function(){
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
 <div align="center" style="width: 100%; height: 150px; background: red; margin-top: 30px;"><p>이벤트배너</p></div>
-
-</body>
-</html>
