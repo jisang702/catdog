@@ -103,8 +103,6 @@
 }
 
 .mypage2 {
-	margin: 50px auto;
-	width: 800px;
 	padding: 30px;
 	text-align: center;
 	border: 1px solid #dadada;
@@ -169,6 +167,64 @@
 	text-align: left;
 }
 
+.mypage3 .mypagetab p {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.mypetlist {
+	margin-bottom: 50px;
+}
+
+
+.mypetlist::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
 .petlist {
-	display: inline-block;
+	border-radius: 10px;
+	margin: 7px;
+	border: 1px solid #c6f3c0;
+	font-weight: bold;
+	width: 250px;
+	float: left;
+}
+.petlist ul li {
+	margin: 10px;
+}
+
+.petphoto img {
+	width: 200px;
+	vertical-align: middle;
+	margin: 20px;
+	border-radius: 100px;
+	border: 3px solid #71da65;
+}
+
+.petinfo {
+	text-align: center;
+	margin: 10px;
+	padding-bottom: 10px;
+	font-size: 16px;
+	color: #127d17;
+}
+
+.petbtn1 button {
+	padding: 10px;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	float: none;
+	font-size: 16px;
+}
+
+.petbtn2 button {
+	border-radius: 10px;
+	float: none;
+	background: #71da65;
+	color: white;
+	font-size: 16px;
+	padding: 10px 50px 10px 50px;
+	font-weight: bold;
 }

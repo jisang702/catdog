@@ -1,4 +1,4 @@
-package com.sp.catdog.menu1.bbs;
+package com.sp.catdog.community.bbs;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BoardController {
 	@RequestMapping("list")
 	public String list() throws Exception {
-		return ".menu1.bbs.list";
+		return ".community.bbs.list";
 	}
 	
 	@RequestMapping("article")
 	public String article() throws Exception {
-		return ".menu1.bbs.article";
+		return ".community.bbs.article";
 	}
 	
 	@RequestMapping("created")
 	public String createdForm() throws Exception {
-		return ".menu1.bbs.created";
+		return ".community.bbs.created";
 	}
 }

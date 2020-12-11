@@ -10,24 +10,24 @@ public class MypageController {
 	@RequestMapping("home")
 	public String mypagehome(Model model) throws Exception {
 		model.addAttribute("subMenu", 1);
-		return ".four.menu5.mypage.home";
+		return ".four.mypage.member.home";
 	}
 	
 	@RequestMapping("mypet")
 	public String mypagepet(Model model) throws Exception {
 		model.addAttribute("subMenu", 2);
-		return ".four.menu5.mypage.mypet";
+		return ".four.mypage.member.mypet";
 	}
 	
 	@RequestMapping("list")
 	public String mypagelist(Model model) throws Exception {
 		model.addAttribute("subMenu", 5);
-		return ".four.menu5.mypage.list";
+		return ".four.mypage.member.list";
 	}
 	
 	@RequestMapping("qna")
 	public String mypageqna(Model model) throws Exception {
 		model.addAttribute("subMenu", 6);
-		return ".four.menu5.mypage.qna";
+		return ".four.mypage.member.qna";
 	}
 }
