@@ -31,7 +31,7 @@ ul{
 	list-style: none;
 }
 
-}
+
 </style>
 
 <br>
@@ -155,6 +155,6 @@ ul{
 	</ul>
 </div>
 
-
-
+<br>
+<input type="button" value="글 등록하기" class="button">
 <div align="center">1 2 3</div>

@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery.bxslider.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/slider/css/slider/jquery.bxslider.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/storemain.css">
 
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/slider/js/jquery.bxslider.min.js"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -42,18 +42,7 @@ $(function(){
 
 </div>
 
-  <div class="submenu">
-    	<ul>
-    		<li><a href="#">신상품</a></li>
-    		<li><a href="#">베스트상품</a></li>
-    		<li><a href="#">사료</a></li>
-    		<li><a href="#">옷</a></li>
-    		<li><a href="#">간식</a></li>
-    		<li><a href="#">장난감</a></li>
-    		<li><a href="#">기타</a></li>
-    		
-    	</ul>
-  </div>
+
   
 <p align="center" style="margin-top: 30px">신상품</p>
 <div  align="center">
