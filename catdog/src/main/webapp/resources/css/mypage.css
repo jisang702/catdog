@@ -228,3 +228,54 @@
 	padding: 10px 50px 10px 50px;
 	font-weight: bold;
 }
+
+#petModal1, #petModal2 {
+	max-width: 700px;
+}
+
+#petModal1 button, #petModal2 button {
+	float: right;
+}
+
+.petModal-content img {
+	width: 200px;
+	height: 200px;
+	vertical-align: middle;
+}
+
+.petModal-content ul li {
+	margin: 10px;
+	display: inline-block;
+	font-size: 15px;
+}
+
+.petModal-content .td {
+	width: 80px;
+}
+
+.petModal-content select {
+	height: 50px;
+	padding: 5px;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+}
+
+.petModal-content input {
+	height: 20px;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	vertical-align: middle;
+	margin: 5px;
+	padding: 10px;
+}
+
+.petModal-content textarea {
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	margin: 5px;
+	resize: none;
+	padding: 10px;
+	height: 50px;
+	width: 450px;
+	vertical-align: middle;
+}
