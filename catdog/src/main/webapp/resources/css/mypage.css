@@ -55,6 +55,10 @@
 	float: left;
 }
 
+.mypagetab button {
+	float: right;
+}
+
 .mypageLayout button {
     border: 0;
     background: none;
@@ -223,12 +227,17 @@
 }
 
 .petbtn2 button {
-	border-radius: 10px;
 	float: none;
-	background: #71da65;
-	color: white;
+	border: 1px solid #71da65;
+	color: #71da65;
 	font-size: 16px;
 	padding: 10px 50px 10px 50px;
+}
+
+
+.petbtn2 button:hover {
+	color: #fff;
+	background: #71da65;
 	font-weight: bold;
 }
 
@@ -236,8 +245,15 @@
 	max-width: 700px;
 }
 
-#petModal1 button, #petModal2 button {
+.modalbtn {
 	float: right;
+}
+
+.modal-top {
+	padding-bottom: 5px;
+    border-bottom: 2px solid #222;
+    display: flex;
+    justify-content: space-between;
 }
 
 .petModal-content img {
@@ -261,6 +277,7 @@
 	padding: 5px;
 	border: 1px solid #dadada;
 	border-radius: 10px;
+	margin: 5px;
 }
 
 .petModal-content input {

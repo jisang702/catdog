@@ -71,6 +71,9 @@ function setDateBox(){
 </div>
 
 <div id="petModal1" class="modal">
+		<ul class="modal-top">
+			<li><h3>반려동물 상세정보</h3></li>
+		</ul>
 	<div class="petModal-content">
 		<ul>
 			<li class="td">이름</li>
@@ -97,50 +100,58 @@ function setDateBox(){
 			<li><img src=""></li>
 		</ul>
 	</div>
-	<a rel=""><button class="mybtn1">삭제</button></a>
-	<a href="#petModal2" rel="modal:open"><button type="button" class="mybtn1">수정</button></a>
-
+	<div class="modalbtn">
+		<a href="#petModal2" rel="modal:open"><button type="button" class="mybtn1">수정</button></a>
+		<a rel=""><button class="mybtn1">삭제</button></a>
+	</div>
 </div>
 
 <div id="petModal2" class="modal">
+		<ul class="modal-top">
+			<li><h3>반려동물 등록</h3></li>
+		</ul>
 	<div class="petModal-content">
-		<ul>
-			<li class="td">이름 </li>
-			<li><input class=""></li>
-		</ul>
-		<ul>
-			<li class="td">생년월일</li>
-			<li>
-				<select name="YEAR" id="YEAR" title="년도" class="select w80"></select>    
-				<select name="MONTH" id="MONTH" title="월" class="select w80"></select>
-				<select name="DAY" id="DAY" title="일" class="select w80"></select>
-			</li>
-		</ul>
-		<ul>
-			<li class="td">성별</li>
-			<li>
-				<label><input type="radio" name="gender">암컷</label>
-				<label><input type="radio" name="gender">수컷</label>
-			</li>
-		</ul>
-		<ul>
-			<li class="td">품종</li>
-			<li><input>
-			</li>
-		</ul>
-		<ul>
-			<li class="td">소개</li>
-			<li>
-				<textarea placeholder="간단한 정보를 입력해주세요"></textarea>
-			</li>
-		</ul>
-		<ul>
-			<li class="td">사진</li>
-			<li>
-				<input type="file">
-			</li>
-		</ul>
+		<form>
+			<ul>
+				<li class="td">이름 </li>
+				<li><input class=""></li>
+			</ul>
+			<ul>
+				<li class="td">생년월일</li>
+				<li>
+					<select name="YEAR" id="YEAR" title="년도" class="select w80"></select>    
+					<select name="MONTH" id="MONTH" title="월" class="select w80"></select>
+					<select name="DAY" id="DAY" title="일" class="select w80"></select>
+				</li>
+			</ul>
+			<ul>
+				<li class="td">성별</li>
+				<li>
+					<label><input type="radio" name="gender">암컷</label>
+					<label><input type="radio" name="gender">수컷</label>
+				</li>
+			</ul>
+			<ul>
+				<li class="td">품종</li>
+				<li><input>
+				</li>
+			</ul>
+			<ul>
+				<li class="td">소개</li>
+				<li>
+					<textarea placeholder="간단한 정보를 입력해주세요"></textarea>
+				</li>
+			</ul>
+			<ul>
+				<li class="td">사진</li>
+				<li>
+					<input type="file">
+				</li>
+			</ul>
+		</form>
 	</div>
-	<a rel="modal:close"><button class="mybtn1">닫기</button></a>
-	<button type="button" class="mybtn2">저장하기</button>
+	<div class="modalbtn">
+		<button type="button" class="mybtn2">저장하기</button>
+		<a rel="modal:close"><button class="mybtn1">닫기</button></a>
+	</div>
 </div>

@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script>
+$(function() {
+	$("body").on("click", "ul.mytab li", function() {
+		$(".mytab li").removeClass("active");
+        $(this).addClass('active');
+	});
+});
+</script>
+
 <div class="mypageBody">
 	<div class="mypageLayout">
 		<div class="mypage2">
@@ -10,9 +19,9 @@
 				<p>문의내역</p>
 			</div>
 			<div class="qnatab">
-				<ul>
-					<li><a>수의사</a></li>
-					<li class="active"><a>고객센터</a></li>
+				<ul class="mytab">
+					<li class="active"><a>수의사</a></li>
+					<li><a>고객센터</a></li>
 				</ul>
 				<table class="listtable1">
 					<thead>
