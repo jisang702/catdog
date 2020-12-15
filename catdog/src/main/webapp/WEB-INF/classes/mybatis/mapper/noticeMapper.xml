@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<select id="seq" resultType="Integer">
+		SELECT notice_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertNotice" parameterType="com.sp.catdog.customer.notice.Notice">
+		INSERT INTO notice(noNum, userId, noSubject, noContent, noCreated, noHitCount, noType)
+		VALUES(#{noNum}, #{userId}, #{noSubject}, #{noContent}, SYSDATE, 0, #{noType})
+	</insert>
+	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			(INSTR(noSubject, #{keyword}) &gt; 0  
+			 	OR DBMS_LOB.INSTR(noContent, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(noSubject, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='content' ">
+			DBMS_LOB.INSTR(noContent, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='userNick' ">
+			userNick=#{keyword}
+		</if>
+		<if test="condition=='created' ">
+			( TO_CHAR(noCreated, 'YYYY-MM-DD') = #{keyword} 
+				OR TO_CHAR(noCreated, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+	
+	<!-- 공지글 리스트 -->
+	<select id="listNoticeTop" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT n.noNum, noType, n.userId, userNick, noSubject, noHitCount,
+				TO_CHAR(noCreated, 'YYYY-MM-DD') noCreated, NVL(noFileCount,0) noFileCount
+		FROM notice n
+		JOIN member1 m ON m.userId=n.userId
+		LEFT OUTER JOIN(
+			SELECT noNum, COUNT(*) noFileCount FROM noticeFile
+			GROUP BY noNum
+		) f ON n.noNum=f.noNum
+		WHERE noType = 1
+		ORDER BY n.noNum DESC
+	</select>
+	
+	<!-- 게시글 리스트 -->
+	<select id="listNotice" parameterType="map" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT n.noNum, noType, n.userId, userNick, noSubject, noHitCount,
+				noCreated, NVL(noFileCount,0) noFileCount
+		FROM notice n
+		JOIN member1 m ON m.userId=n.userId
+		LEFT OUTER JOIN(
+			SELECT noNum, COUNT(*) noFileCount FROM noticeFile
+			GROUP BY noNum
+		) f ON n.noNum=f.noNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY n.noNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
+	</select>
+	
+	
+	<!-- 데이터 갯수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0)
+		FROM notice n
+		JOIN member1 m ON m.userId=n.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"></include>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 글 보기 -->
+	<select id="readNotice" parameterType="Integer" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT noNum, n.userId, userNick, noSubject, noContent, noCreated, noHitCount, noType
+		FROM notice n
+		JOIN member1 ON m.userId=n.userId
+		where noNum=#{noNum}
+	</select>
+	
+	<!-- 파일 -->
+	<insert id="insertFile" parameterType="com.sp.catdog.customer.notice.Notice">
+		INSERT INTO noticeFile(noFileNum, noNum, noSaveFileName, noOriginalFileName, noFileSize) 
+		VALUES(noticeFile_seq.NEXTVAL, #{noNum}, #{noSaveFileName}, #{noOriginalFileName}, #{noFileSize})
+	</insert>
+	
+	<select id="listFile" parameterType="Integer" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT noFileNum, noNum, noSaveFileName, noOriginalFileName, noFileSize
+		FROM noticeFile
+		WHERE noNum=#{noNum}
+	</select>
+</mapper>
