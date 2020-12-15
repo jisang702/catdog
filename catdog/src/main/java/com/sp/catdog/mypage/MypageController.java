@@ -19,6 +19,12 @@ public class MypageController {
 		return ".four.mypage.member.mypet";
 	}
 	
+	@RequestMapping("mypoint")
+	public String mypoint(Model model) throws Exception {
+		model.addAttribute("subMenu", 3);
+		return ".four.mypage.member.point";
+	}
+	
 	@RequestMapping("list")
 	public String mypagelist(Model model) throws Exception {
 		model.addAttribute("subMenu", 5);
@@ -30,4 +36,5 @@ public class MypageController {
 		model.addAttribute("subMenu", 6);
 		return ".four.mypage.member.qna";
 	}
+
 }

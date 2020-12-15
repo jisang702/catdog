@@ -8,52 +8,39 @@
 		<div class="mypage2">
 			<div class="mypagetab">
 				<p>문의내역</p>
-				<button type="button" class="mybtn1">1:1문의</button>
-				<button type="button" class="mybtn1">수의사 QnA</button>
 			</div>
-			<div class="mypagelist">
-				<ul id="listtab">					
-					<li class="td1">카테고리</li>
-					<li class="td2">제목</li>
-					<li class="td3">작성자</li>
-					<li class="td1">작성일</li>
-					<li class="td3">조회수</li>
+			<div class="qnatab">
+				<ul>
+					<li><a>수의사</a></li>
+					<li class="active"><a>고객센터</a></li>
 				</ul>
-				<ul class="qnalist">					
-					<li class="td1">[회원정보]</li>
-					<li class="td2">정보수정어떻게~~..</li>
-					<li class="td3">가가가</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul class="qnalist">					
-					<li class="td1">[회원정보]</li>
-					<li class="td2">└ re:정보수정어떻게~~..</li>
-					<li class="td3">관리자</li>
-					<li class="td1">2020-10-11</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul class="qnalist">					
-					<li class="td1">[회원탈퇴]</li>
-					<li class="td2">제목</li>
-					<li class="td3">작성자</li>
-					<li class="td1">작성일</li>
-					<li class="td3">조회수</li>
-				</ul>
-				<ul class="qnalist">					
-					<li class="td1">[회원탈퇴]</li>
-					<li class="td2">제목</li>
-					<li class="td3">작성자</li>
-					<li class="td1">작성일</li>
-					<li class="td3">조회수</li>
-				</ul>
-				<ul class="qnalist">					
-					<li class="td1">[교환/환불]</li>
-					<li class="td2">제목</li>
-					<li class="td3">작성자</li>
-					<li class="td1">작성일</li>
-					<li class="td3">조회수</li>
-				</ul>
+				<table class="listtable1">
+					<thead>
+						<tr>
+							<th>카테고리</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>답변상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>[<span>회원가입</span>]</td>
+							<td>회원가입ㅇㄴㄹㄹㅇ</td>
+							<td>회원</td>
+							<td>2020-10-10</td>
+							<td>완료</td>
+						</tr>
+						<tr>
+							<td>[<span>회원가입</span>]</td>
+							<td>ㄴ회원가입ㅇㄴㄹㄹㅇ</td>
+							<td>관리자</td>
+							<td>2020-10-10</td>
+							<td>답변</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<div class="pagenum">
 				1 2 3

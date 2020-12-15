@@ -58,7 +58,6 @@
 .mypageLayout button {
     border: 0;
     background: none;
-    float: right;
 }
 
 .mypagetab ul li {
@@ -112,6 +111,7 @@
 .mypage2 .mypagetab p {
 	font-size: 30px;
 	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .mypage2 .mypagetab select {
@@ -130,28 +130,6 @@
 	margin: 5px;
 }
 
-.mypagelist .td1 {
-	width: 15%;
-}
-
-.mypagelist .td2 {
-	width: 45%;
-}
-
-.mypagelist .td3 {
-	width: 7%;
-}
-
-.mypagelist ul {
-	border-bottom: 1px solid #dadada;
-	padding-bottom: 10px;
-}
-
-#listtab {
-	border-bottom: 1px solid #71da65;
-	padding: 10px;
-}
-
 .mypage2 .pagenum {
 	padding: 10px;
 } 
@@ -163,13 +141,38 @@
 	margin: 5px;
 }
 
-.qnalist .td2 {
-	text-align: left;
-}
-
 .mypage3 .mypagetab p {
 	font-size: 30px;
 	font-weight: bold;
+}
+
+.qnatab ul {
+	position: relative;
+    display: flex;
+    background-color: #fafafa;
+}
+
+.qnatab ul li {
+	flex: 1;
+}
+
+.qnatab ul li a {
+	font-weight: 700;
+    line-height: 1.54;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    letter-spacing: -0.0406rem;
+    color: #999;
+}
+
+
+.qnatab ul li.active a {
+	color: #111;
+    border: 1px solid #222;
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
 }
 
 .mypetlist {
@@ -278,4 +281,112 @@
 	height: 50px;
 	width: 450px;
 	vertical-align: middle;
+}
+
+.mypoint {
+	margin-top: 20px;
+	border: 1px solid #dadada;
+	display: flex; 
+	align-items: stretch;
+}
+
+.mypoint ul {
+	display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 30px;
+}
+
+.mypoint ul li {
+	font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.0406rem;
+}
+
+.mypoint .td span {
+	font-size: 19px;
+	font-weight: 700;
+}
+
+.settingdate {
+	margin-top: 20px;
+	padding: 15px 30px;
+	border-radius: 10px;
+	background: #f1f1f1;
+	display: flex;
+}
+
+.settingdate input {
+	font-size: 12px;
+    box-sizing: border-box;
+    width: 160px;
+    height: 35px;
+    padding: 0 15px;
+    background-color: #fff;
+    line-height: 35px;
+    border: 1px solid #dadada;
+}
+
+.settingbtn button {
+	font-size: 12px;
+    font-weight: 700;
+    width: 70px;
+    height: 35px;
+    letter-spacing: -0.0344rem;
+    border-radius: 17.5px;
+    border: 1px solid #eee;
+    background-color: #fff;
+}
+
+.settingbtn button.active {
+	color: #fff;
+    background-color: #71da65;
+}
+
+.datebox {
+	padding-left: 50px;
+}
+
+#searchbtn {
+	background: #71da65;
+	color: #fff;
+	height: 30px;
+    width: 70px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.pointlist-top {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;    
+	margin-bottom: 12px;
+}
+
+.pointlist-top .list-sort ul {
+	display: flex;
+}
+
+.pointlist-top .list-sort ul li {
+	font-weight: 700;
+    margin-left: 20px;
+    color: #999;
+}
+
+.pointlist-top .list-sort ul li .selected {
+    color: #111;
+}
+
+.listtable1 {
+	border-top: 1px solid #222;
+	width: 100%;
+}
+
+.listtable1 th, .listtable1 td {
+	padding: 20px 25px;
+    vertical-align: top;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
 }

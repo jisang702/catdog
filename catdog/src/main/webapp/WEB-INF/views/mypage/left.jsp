@@ -17,7 +17,7 @@ $(function(){
        <div class="list-group-item lefthead"><i></i> 마이페이지</div>
        <a href="${pageContext.request.contextPath}/mypage/home" class="list-group-item">홈</a>
        <a href="${pageContext.request.contextPath}/mypage/mypet" class="list-group-item">My Pet</a>
-       <a href="#" class="list-group-item">포인트</a>
+       <a href="${pageContext.request.contextPath}/mypage/mypoint" class="list-group-item">포인트</a>
        <a href="#" class="list-group-item">주문내역</a>
        <a href="${pageContext.request.contextPath}/mypage/list" class="list-group-item">작성글</a>
        <a href="${pageContext.request.contextPath}/mypage/qna" class="list-group-item">1:1문의</a>

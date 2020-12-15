@@ -15,53 +15,29 @@
 					<option>중고거래</option>
 				</select>
 			</div>
-			<div class="mypagelist">
-				<ul id="listtab">
-					<li class="td1">게시판</li>
-					<li class="td2">제목</li>
-					<li class="td1">작성일</li>
-					<li class="td3">조회수</li>
-					<li class="td3">추천수</li>
-				</ul>
-				<ul>
-					<li class="td1">[중고거래]</li>
-					<li class="td2">@@@@팝니다</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">3</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul>
-					<li class="td1">[자유게시판]</li>
-					<li class="td2">!@#$^(@*^@*)</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">3</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul>
-					<li class="td1">[중고거래]</li>
-					<li class="td2">@@@@팝니다</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">3</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul>
-					<li class="td1">[중고거래]</li>
-					<li class="td2">@@@@팝니다</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">3</li>
-					<li class="td3">1</li>
-				</ul>
-				<ul>
-					<li class="td1">[중고거래]</li>
-					<li class="td2">@@@@팝니다</li>
-					<li class="td1">2020-10-10</li>
-					<li class="td3">3</li>
-					<li class="td3">1</li>
-				</ul>
-			</div>
+			<table class="listtable1">
+				<thead>
+					<tr>
+						<th>게시판</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>추천수</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>[<span>중고거래</span>]</td>
+						<td>@@@팝니다</td>
+						<td>2020-10-10</td>
+						<td>3</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
 			<div class="pagenum">
 				1 2 3
-			</div>
+			</div>			
 		</div>
 	</div>
 </div>
