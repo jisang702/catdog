@@ -2,13 +2,171 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
+
+<style type="text/css">
+
+</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
+<script type="text/javascript">
+$(function(){
+	var menu = "${menuItem}";
+	$("#tab-"+menu).addClass("active");
+	listPage(1);
+	
+	$("ul.tabs li").click(function(){
+		tab = $(this).attr("data-tab");
+		
+		$("ul.tabs li").each(function(){
+			$(this).removeClass("active");
+		});
+		
+		$("#tab-"+tab).addClass("active");
+		
+		reloadBoard();
+	});
+});
+
+function login() {
+	location.href="${pageContext.request.contextPath}/member/login";
+}
+
+function ajaxJSON(url, method, query, fn){
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:"json",
+		success:function(data){
+			fn(data);
+		},
+		beforeSend:function(jqXHR){
+			jqXHR.setRequestHeader("AJAX",true);
+		},
+		error:function(jqXHR){
+			if(jqXHR.status===403){
+				login();
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+function ajaxFileJSON(url, method, query, fn){
+	$.ajax({
+		type:method,
+		url:url,
+		processData:false,
+		contentType:false,
+		data:query,
+		dataType:"json",
+		success:function(data){
+			fn(data);
+		},
+		beforeSend:function(jqXHR){
+			jqXHR.setRequestHeader("AJAX",true);
+		},
+		error:function(jqXHR){
+			if(jqXHR.status===403){
+				login();
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+function ajaxHTML(url, method, query, selector){
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		success:function(data){
+			$(selector).html(data);
+		},
+		beforeSend:function(jqXHR){
+			jqXHR.setRequestHeader("AJAX",true);
+		},
+		error:function(jqXHR){
+			if(jqXHR.status===403){
+				login();
+				return false;
+			}else if(jqXHR.status===410){
+				alert("삭제된 게시물입니다.");
+				return false;
+			}else if(jqXHR.status===402){
+				alert("권한이 없습니다.");
+				return false;
+			}
+			
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+//글 리스트 및 페이징 처리
+function listPage(page) {
+	var $tab = $(".tabs .active");
+	var tab = $tab.attr("data-tab");
+	
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/list";
+	var query="pageNo="+page;
+	//var search=$('form[name=customerSearchForm]').serialize();
+	//query=query+"&"+search;
+	var selector = "#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+//새로고침
+function reloadBoard(){
+	var f =document.customerSearchForm;
+	f.condition.value="all";
+	f.keyword.value="";
+	
+	listPage(1);
+}
+
+//글쓰기폼
+function insertForm(){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/created";
+	var query="tmp="+new Date().getTime();
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+//글쓰기 취소, 수정 취소, 답변 취소
+function sendCancel(page){
+	if(page==undefined || page==""){
+		page="1";
+	}
+	
+	listPage(page);
+}
+
+</script>
+
+
+<div class="body-container">     
+	<div class="faqLayout">
+		<div style="clear: both;">
+	           <ul class="tabs">
+			       <li id="tab-notice" data-tab="notice">공지사항</li>
+			       <li id="tab-inquiry" data-tab="inquiry">1:1문의</li>
+			       <li id="tab-qna" data-tab="qna">질문답변</li>
+			   </ul>
+		   </div>
+		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>
+	</div>
+</div>
+
+<form name="customerSearchForm" action="" method="post">
+    <input type="hidden" name="condition" value="all">
+    <input type="hidden" name="keyword" value="">
+</form>

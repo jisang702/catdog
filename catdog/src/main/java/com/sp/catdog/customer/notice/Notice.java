@@ -13,11 +13,13 @@ public class Notice {
 	private int noHitCount;
 	private int noType;
 	private String userId;
+	private String userNick;
 	
 	private int noFileNum;
 	private String noSaveFileName;
 	private String noOriginalFileName;
-	private int noFileSize;
+	private long noFileSize;
+	private int noFileCount;
 	
 	private List<MultipartFile> upload; 
 	
@@ -111,11 +113,11 @@ public class Notice {
 		this.noOriginalFileName = noOriginalFileName;
 	}
 
-	public int getNoFileSize() {
+	public long getNoFileSize() {
 		return noFileSize;
 	}
 
-	public void setNoFileSize(int noFileSize) {
+	public void setNoFileSize(long noFileSize) {
 		this.noFileSize = noFileSize;
 	}
 
@@ -134,7 +136,21 @@ public class Notice {
 	public void setGap(long gap) {
 		this.gap = gap;
 	}
-	
-	
+
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
+	public int getNoFileCount() {
+		return noFileCount;
+	}
+
+	public void setNoFileCount(int noFileCount) {
+		this.noFileCount = noFileCount;
+	}
 	
 }
