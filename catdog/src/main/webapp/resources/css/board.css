@@ -217,9 +217,24 @@
 	text-align: center;
 }
 
+.tr li {
+	display: inline-block;
+}
+
+.created .tr select {
+	width: 100px;
+	height: 50px;
+	border-radius: 10px;
+	border: 1px solid #dadada;
+	padding-left: 20px;
+}
+
 .created .tr .td input {
-	width: 95%;
-	height: 50px;	
+	width: 750px;
+	height: 50px;
+	border-radius: 10px;
+	border: 1px solid #dadada;	
+	padding-left: 10px;
 }
 
 .created .tr .td textarea {
@@ -227,5 +242,5 @@
 	resize: none;
 	outline: 0;
 	border: 1px solid #dadada;
-	border-radius: 5px;
+	border-radius: 10px;
 	margin: 10px;

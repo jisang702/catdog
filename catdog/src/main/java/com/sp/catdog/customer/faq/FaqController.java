@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FaqController {
 	@RequestMapping("faq/faq")
 	public String list() throws Exception {
-		return ".menu4.faq.faq";
+		return ".menu4.customer.faq";
 	}
 }

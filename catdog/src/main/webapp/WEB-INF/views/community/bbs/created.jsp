@@ -13,6 +13,12 @@
 		<form action="" method="post">
 			<div>
 				<ul class="tr">
+					<li>
+						<select>
+							<option>Dog</option>
+							<option>Cat</option>
+						</select>
+					</li>
 					<li class="td"><input type="text" placeholder="제목을 입력해주세요"></li>
 				</ul>
 				<ul class="tr">
