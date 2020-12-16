@@ -4,6 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+<c:if test="${mode=='update'}">
+	function deleteFile(noFileNum){
+		var url="${pageContext.request.contextPath}/customer/notice/deleteFile";
+		$.post(url, {noFileNum:noFileNum}, function(data){
+			$("#f"+noFileNum).remove();
+		}, "json");
+	}
+</c:if>
+</script>
+
 <form name="noticeForm" method="post" enctype="multipart/form-data">
 	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 		<tbody id="tb">
@@ -41,15 +52,27 @@
 		          <input type="file" name="upload" multiple="multiple" class="boxTF" size="53" style="width: 95%; height: 25px;">
 		       </td>
 		  </tr>
+		  
+		  <c:if test="${mode=='update'}">
+		  	<c:forEach var="vo" items="${listFile}">
+		  		<tr id="f${vo.noFileNum}" height="40" style="border-bottom: 1px solid #cccccc;">
+		  			<td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부된파일</td>
+		  			<td style="padding-left: 10px; text-align: left;">
+		  				<a href="javascript:deleteFile('${vo.noFileNum}');"><i class="far fa-trash-alt"></i></a>
+		  				${vo.noOriginalFileName}
+		  			</td>
+		  		</tr>
+		  	</c:forEach>
+		  </c:if>
 		</tbody>	
 	</table>
 	
 	<table style="width: 100%; margin: 0px auto; border-spacing: 0">
 		<tr height="45">
 			<td align="center">
-				<button type="button" class="btn" onclick="sendNotice();">등록하기</button>
+				<button type="button" class="btn" onclick="sendNotice();">${mode=='update' ? '수정완료':'등록하기' }</button>
 				<button type="reset" class="btn">다시입력</button>
-				<button type="button" class="btn" onclick="sendCancel('${page}');">등록취소</button>
+				<button type="button" class="btn" onclick="sendCancel('${page}');">${mode=='update' ? '수정취소':'등록취소' }</button>
 				 <c:if test="${mode=='update' }">
 				 	<input type="hidden" name="noNum" value="${dto.noNum}">
 				 	<input type="hidden" name="page" value="${page}">
@@ -132,10 +155,8 @@ function sendNotice(){
 		}else{
 			listPage(page);
 		}
-		
-		
-		
 	};
+	
 	ajaxFileJSON(url, "post", query, fn);
 }
 </script>

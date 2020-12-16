@@ -14,6 +14,7 @@ public class Notice {
 	private int noType;
 	private String userId;
 	private String userNick;
+	private int userType;
 	
 	private int noFileNum;
 	private String noSaveFileName;
@@ -151,6 +152,14 @@ public class Notice {
 
 	public void setNoFileCount(int noFileCount) {
 		this.noFileCount = noFileCount;
+	}
+
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
 	}
 	
 }

@@ -40,7 +40,7 @@
   		<td>${dto.noCreated}</td>
   		<td>
   			<c:if test="${dto.noFileCount > 0 }">
-  				<a href="${pageContext.request.contextPath}/customer/notice/zipdownload?num=${dto.noNum}"><i class="fas fa-file-archive"></i></a>
+  				<a href="${pageContext.request.contextPath}/customer/notice/zipdownload?noNum=${dto.noNum}"><i class="fas fa-file-archive"></i></a>
   			</c:if>
   		</td>
   		<td>${dto.noHitCount}</td>
@@ -57,7 +57,7 @@
   		<td>${dto.noCreated}</td>
   		<td>
   			<c:if test="${dto.noFileCount > 0 }">
-  				<a href="${pageContext.request.contextPath}/customer/notice/zipdownload?num=${dto.noNum}"><i class="fas fa-file-archive"></i></a>
+  				<a href="${pageContext.request.contextPath}/customer/notice/zipdownload?noNum=${dto.noNum}"><i class="fas fa-file-archive"></i></a>
   			</c:if>
   		</td>
   		<td>${dto.noHitCount}</td>

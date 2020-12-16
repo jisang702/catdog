@@ -5,9 +5,6 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
 
-<style type="text/css">
-
-</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -112,7 +109,7 @@ function listPage(page) {
 	var tab = $tab.attr("data-tab");
 	
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/list";
-	var query="pageNo="+page;
+	var query="page="+page;
 	//var search=$('form[name=customerSearchForm]').serialize();
 	//query=query+"&"+search;
 	var selector = "#tab-content";
@@ -148,6 +145,67 @@ function sendCancel(page){
 	}
 	
 	listPage(page);
+}
+
+//게시글 보기
+function articleBoard(noNum, page){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/article";
+	var query;
+	if(tab=="notice")
+		query="noNum="+noNum;
+	else 
+		query="num="+num;
+	//var search=$("form[name=customerSearchForm]").serialize();
+	query=query+"&page="+page;	//+"&"+search;
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+//글 수정 폼
+function updateForm(noNum, page){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/update";
+	
+	var query;
+	if(tab=="notice")
+		query="noNum="+noNum;
+	else 
+		query="num="+num;
+	query=query+"&page="+page;
+	
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+	
+}
+
+//글 삭제
+function deleteBoard(noNum, page){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/delete";
+	
+	var query;
+	
+	if(tab=="notice")
+		query="noNum="+noNum;
+	else 
+		query="num="+num;
+	query=query+"&page="+page;
+	
+	if(! confirm("게시글을 삭제하시겠습니까?"))
+		return;
+	
+	var fn=function(data){
+		listPage(page);
+	}
+	
+	ajaxJSON(url, "post", query, fn);
 }
 
 </script>

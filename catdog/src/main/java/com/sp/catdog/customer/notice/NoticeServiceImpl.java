@@ -1,5 +1,6 @@
 package com.sp.catdog.customer.notice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +27,8 @@ public class NoticeServiceImpl implements NoticeService{
 			int seq=dao.selectOne("notice.seq");
 			dto.setNoNum(seq);
 			
-			System.out.println("야 : "+dto.getNoNum());
-			
 			dao.insertData("notice.insertNotice", dto);
 			
-			System.out.println("야 야 : ");
 			//파일 업로드
 			if(! dto.getUpload().isEmpty()) {
 				for(MultipartFile mf:dto.getUpload()) {
@@ -90,7 +88,12 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public void updateHitCount(int noNum) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("notice.updateHitCount", noNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
@@ -107,26 +110,75 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public Notice preReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		try {
+			dto=dao.selectOne("notice.preReadNotice", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public Notice nextReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		try {
+			dto=dao.selectOne("notice.nextReadNotice", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public void updateNotice(Notice dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.updateData("notice.updateNotice", dto);
+			
+			if(! dto.getUpload().isEmpty()) {
+				for(MultipartFile mf: dto.getUpload()) {
+					String saveFilename=fileManager.doFileUpload(mf, pathname);
+					if(saveFilename==null) continue;
+					
+					String originalFilename=mf.getOriginalFilename();
+					long fileSize=mf.getSize();
+					
+					dto.setNoOriginalFileName(originalFilename);
+					dto.setNoSaveFileName(saveFilename);
+					dto.setNoFileSize(fileSize);
+					
+					insertFile(dto);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override
 	public void deleteNotice(int noNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			//파일 지우기
+			List<Notice> listFile=listFile(noNum);
+			if(listFile!=null) {
+				for(Notice dto:listFile) {
+					fileManager.doFileDelete(dto.getNoSaveFileName(), pathname);
+				}
+			}
+			
+			//파일 테이블 내용 지우기
+			Map<String, Object> map=new HashMap<>();
+			map.put("field", "noNum");
+			map.put("noNum", noNum);
+			deleteFile(map);
+			
+			dao.deleteData("notice.deleteNotice", noNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}	
 	}
 
 	@Override
@@ -142,19 +194,34 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public List<Notice> listFile(int noNum) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> listFile=null;
+		try {
+			listFile=dao.selectList("notice.listFile", noNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listFile;
 	}
 
 	@Override
 	public Notice readFile(int noFileNum) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto=null;
+		try {
+			dto=dao.selectOne("notice.readFile", noFileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public void deleteFile(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.deleteData("notice.deleteFile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

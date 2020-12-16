@@ -81,8 +81,54 @@
 	<select id="readNotice" parameterType="Integer" resultType="com.sp.catdog.customer.notice.Notice">
 		SELECT noNum, n.userId, userNick, noSubject, noContent, noCreated, noHitCount, noType
 		FROM notice n
-		JOIN member1 ON m.userId=n.userId
+		JOIN member1 m ON n.userId=m.userId
 		where noNum=#{noNum}
+	</select>
+	
+	<!-- 조회수 증가  -->
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE notice SET noHitCount=noHitCount+1 WHERE noNum=#{noNum}
+	</update>
+	
+	<!-- 글 수정 -->
+	<update id="updateNotice" parameterType="com.sp.catdog.customer.notice.Notice">
+		UPDATE notice SET noSubject=#{noSubject}, noContent=#{noContent}, noType=#{noType}
+		WHERE noNum=#{noNum}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteNotice" parameterType="Integer">
+		DELETE FROM notice WHERE noNum=#{noNum}
+	</delete>
+	
+	<!-- 이전 글 -->
+	<select id="preReadNotice" parameterType="map" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT noNum, noSubject
+		FROM notice n
+		JOIN member1 m ON m.userId=n.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND (noNum &gt; #{noNum})
+		</where>
+		ORDER BY noNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<!-- 다음 글 -->
+	<select id="nextReadNotice" parameterType="map" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT noNum, noSubject
+		FROM notice n
+		JOIN member1 m ON m.userId=n.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND (noNum &lt; #{noNum})
+		</where>
+		ORDER BY noNum DESC
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
 	<!-- 파일 -->
@@ -95,5 +141,15 @@
 		SELECT noFileNum, noNum, noSaveFileName, noOriginalFileName, noFileSize
 		FROM noticeFile
 		WHERE noNum=#{noNum}
+	</select>
+	
+	<select id="readFile" parameterType="map" resultType="com.sp.catdog.customer.notice.Notice">
+		SELECT noFileNum, noNum, noSaveFileName, noOriginalFileName, noFileSize
+		FROM noticeFile
+		WHERE noFileNum=#{noFileNum}
+	</select>
+	
+	<select id="deleteFile" parameterType="map">
+		DELETE FROM noticeFile WHERE ${field}=#{noNum}
 	</select>
 </mapper>
