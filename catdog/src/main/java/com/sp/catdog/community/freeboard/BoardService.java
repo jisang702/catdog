@@ -11,8 +11,8 @@ public interface BoardService {
 	public void insertBoardLike(Map<String, Object> map) throws Exception;
 	public int boardLikeCount(int num);
 	
-	public void updateHitCount(int boardNum) throws Exception;
-	public Board readBoard(int boardNum);
+	public void updateHitCount(int freeNum) throws Exception;
+	public Board readBoard(int freeNum);
 	public Board preReadBoard(Map<String, Object> map);
 	public Board nextReadBoard(Map<String, Object> map);
 	

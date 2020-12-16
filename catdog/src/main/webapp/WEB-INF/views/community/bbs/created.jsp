@@ -42,14 +42,20 @@ function sendOk() {
 							<option value="1">Dog</option>
 						</select>
 					</li>
-					<li class="td"><input type="text" name="freeSubject" placeholder="제목을 입력해주세요"></li>
+					<li class="td"><input type="text" name="freeSubject" placeholder="제목을 입력해주세요" value="${dto.freeSubject}"></li>
 				</ul>
 				<ul class="tr">
-					<li class="td"><textarea name="freeContent" rows="15" cols="118" placeholder="내용을 입력해주세요"></textarea> </li>
+					<li class="td"><textarea name="freeContent" rows="15" cols="118" placeholder="내용을 입력해주세요">${dto.freeContent}</textarea> </li>
 				</ul>
 				<ul>
 					<li>
-						<button type="button" class="mybtn2" onclick="sendOk();">등록하기</button>
+				      <c:if test="${mode=='update'}">
+				      		<input type="hidden" name="userId" value="${dto.userId}">
+				      		<input type="hidden" name="freeNum" value="${dto.freeNum}">
+				      		<input type="hidden" name="page" value="${page}">
+				      		<input type="hidden" name="rows" value="${rows}">
+				      </c:if>
+						<button type="button" class="mybtn2" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 						<a href="${pageContext.request.contextPath}/community/board/list"><button type="button" class="mybtn1">돌아가기</button></a>
 					</li>
 				</ul>

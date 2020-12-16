@@ -31,7 +31,7 @@
 			<c:forEach var="dto" items="${list}">
 			<ul class="tr">
 				<li class="td">${dto.freeNum}</li>
-				<li class="td1"><a href="${pageContext.request.contextPath}/community/board/article">${dto.freeSubject}</a></li>
+				<li class="td1"><a href="${pageContext.request.contextPath}/community/board/article?page=${page}&freeNum=${dto.freeNum}">${dto.freeSubject}</a></li>
 				<li class="td2">${dto.userNick}</li>
 				<li class="td2">${dto.freeCreated}</li>
 				<li class="td">${dto.freeHitCount}</li>

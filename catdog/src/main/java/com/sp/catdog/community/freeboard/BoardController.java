@@ -90,11 +90,6 @@ public class BoardController {
 		return ".community.bbs.list";
 	}
 	
-	@RequestMapping("article")
-	public String article() throws Exception {
-		return ".community.bbs.article";
-	}
-	
 	@RequestMapping("created")
 	public String createdForm(Model model) throws Exception {
 		model.addAttribute("mode", "created");
@@ -115,7 +110,97 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:/community/board/list";
+	}
+	
+	@RequestMapping("article")
+	public String article(
+			@RequestParam int freeNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue="all") String condition,
+			@RequestParam(defaultValue="") String keyword,
+			Model model
+			) throws Exception {
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		service.updateHitCount(freeNum);
+
+		Board dto = service.readBoard(freeNum);
+		if(dto==null)
+			return "redirect:/community/board/list?"+query;
+		
+		model.addAttribute("dto", dto);
+
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+		
+		return ".community.bbs.article";
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public String updateForm(
+			@RequestParam int freeNum,
+			@RequestParam String page,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Board dto=service.readBoard(freeNum);
+		
+		if(dto==null) {
+			return "redirect:/community/board/list?page="+page;
+		}
+
+		if(! info.getUserId().equals(dto.getUserId())) {
+			return "redirect:/community/board/list?page="+page;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+
+		return ".community.bbs.created";
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String updateSubmit(
+			Board dto, 
+			@RequestParam String page
+			) throws Exception {
+
+		try {
+			service.updateBoard(dto);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/community/board/list?page="+page;
+	}
+	
+	public String delete(
+			@RequestParam int freeNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue="all") String condition,
+			@RequestParam(defaultValue="") String keyword,
+			HttpSession session) throws Exception {
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		service.deleteBoard(freeNum, info.getUserId());
+		
+		return "redirect:/community/board/list?"+query;
 	}
 }

@@ -10,6 +10,7 @@ $(function() {
 		$(this).parents().next('.reply').toggle();		
 	});
 });
+
 </script>
 
 <div class="articleBody">
@@ -18,36 +19,31 @@ $(function() {
 			<div class="article">
 				<div>
 					<ul class="articletitle">
-						<li>가나다라마바사</li>
+						<li>${dto.freeSubject}</li>
 						<li class="like"><button class="unlikebtn">추천</button></li>
 					</ul>
 					<ul class="tr">
-						<li>가가가</li>
-						<li>2020-10-10 | </li>
-						<li>5 | </li>
+						<li>${dto.userNick} | </li>
+						<li>${dto.freeCreated} | </li>
+						<li>조회수 ${dto.freeHitCount} | </li>
 						<li>추천 5</li>
 					</ul>
 				</div>
 				<div class="articlecontent">
 					<ul>
 						<li>
-						가~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
-						가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~~가~~~~~~~~~~~~~~~
+							${dto.freeContent}
 						</li>
 					</ul>
 				</div>
 				<div class="articlebtn">
-					<button type="button" class="mybtn1 floatleft">글목록</button>
-					<button type="button" class="mybtn1">수정</button>
-					<button type="button" class="mybtn1">삭제</button>
+					<button type="button" class="mybtn1 floatleft" onclick="javascript:location.href='${pageContext.request.contextPath}/community/board/list?page=${page}';">글목록</button>
+			       <c:if test="${sessionScope.member.userId==dto.userId}">				    
+			          <button type="button" class="mybtn1" onclick="javascript:location.href='${pageContext.request.contextPath}/community/board/update?page=${page}&freeNum=${dto.freeNum}';">수정</button>
+			       </c:if>
+			       <c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">				    
+			          <button type="button" class="mybtn1" onclick="deleteBoard();">삭제</button>
+			       </c:if>
 				</div>
 			</div>
 			<div class="commentLayout">

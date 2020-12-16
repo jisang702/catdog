@@ -10,9 +10,9 @@
 	</insert>
 	
 	<select id="listBoard" parameterType="map" resultType="com.sp.catdog.community.freeboard.Board">
-		SELECT freeNum, f.userId, userNick, freeSubject, freeContent, to_char(freeCreated, 'YYYY-MM-DD') freeCreated, freeHitCount, freePet
-			from comfree f
-			JOIN member1 m ON m.userId=f.userId
+		SELECT freeNum, f.userId, userNick, freeSubject, to_char(freeCreated, 'YYYY-MM-DD') freeCreated, freeHitCount, freePet
+		FROM comfree f
+		JOIN member1 m ON m.userId=f.userId
 		ORDER BY freeNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
 	</select>
@@ -22,5 +22,26 @@
 		FROM comfree f
 		JOIN member1 m ON m.userId=f.userId
 	</select>
-
+	
+	<select id="readBoard" parameterType="Integer" resultType="com.sp.catdog.community.freeboard.Board">
+		SELECT freeNum, f.userId, userNick, freeSubject, freeContent, to_char(freeCreated, 'YYYY-MM-DD') freeCreated,
+			freeHitCount, freePet
+		FROM comfree f 
+		JOIN member1 m ON m.userId=f.userId
+		WHERE freeNum=#{freeNum}
+	</select>
+	
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE comfree SET freeHitCount=freeHitCount+1 WHERE freeNum = #{freeNum}
+	</update>
+	
+	<update id="updateBoard" parameterType="com.sp.catdog.community.freeboard.Board">
+		UPDATE comfree SET freeSubject=#{freeSubject}, freeContent=#{freeContent}, freePet=#{freePet}
+		WHERE freeNum=#{freeNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="map">
+		DELETE FROM comfree WHERE freeNum=#{freeNum}
+	</delete>
+	
 </mapper>

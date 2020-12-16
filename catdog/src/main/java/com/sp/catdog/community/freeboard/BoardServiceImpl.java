@@ -58,15 +58,24 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void updateHitCount(int boardNum) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void updateHitCount(int freeNum) throws Exception {
+		try {
+			dao.updateData("freeboard.updateHitCount", freeNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public Board readBoard(int boardNum) {
-		// TODO Auto-generated method stub
-		return null;
+	public Board readBoard(int freeNum) {
+		Board dto=null;
+		
+		try {
+			dto=dao.selectOne("freeboard.readBoard", freeNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
@@ -83,8 +92,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void updateBoard(Board dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.updateData("freeboard.updateBoard", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
