@@ -28,25 +28,19 @@
 				<li class="td">조회수</li>
 				<li class="td">추천수</li>
 			</ul>
+			<c:forEach var="dto" items="${list}">
 			<ul class="tr">
-				<li class="td">2</li>
-				<li class="td1"><a href="${pageContext.request.contextPath}/bbs/article">가나다라마바사</a></li>
-				<li class="td2">김김김</li>
-				<li class="td2">2020-10-10</li>
-				<li class="td">5</li>
+				<li class="td">${dto.freeNum}</li>
+				<li class="td1"><a href="${pageContext.request.contextPath}/community/board/article">${dto.freeSubject}</a></li>
+				<li class="td2">${dto.userNick}</li>
+				<li class="td2">${dto.freeCreated}</li>
+				<li class="td">${dto.freeHitCount}</li>
 				<li class="td">5</li>
 			</ul>
-			<ul class="tr">
-				<li class="td">1</li>
-				<li class="td1"><a href="#">가나다라마바사</a></li>
-				<li class="td2">김김김</li>
-				<li class="td2">2020-10-10</li>
-				<li class="td">5</li>
-				<li class="td">10</li>
-			</ul>
+			</c:forEach>
 		</div>
 		<div>
-			<p> 1 2 3 </p>
+			<p> ${dataCount==0?"등록된 게시물이 없습니다.":paging} </p>
 		</div>
 		<div class="listfooter">
 			<select>
@@ -57,7 +51,7 @@
 			</select>
 			<input type="text">
 			<button type="button" class="mybtn1">검색</button>
-			<a type="button" class="mybtn1 floatright" href="${pageContext.request.contextPath}/bbs/created">글쓰기</a>
+			<a type="button" class="mybtn1 floatright" href="${pageContext.request.contextPath}/community/board/created">글쓰기</a>
 		</div>
 	</div>
 </div>

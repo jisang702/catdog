@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="freeboard">
+	<insert id="insertBoard" parameterType="com.sp.catdog.community.freeboard.Board">
+		INSERT INTO comfree(freeNum, userId, freeSubject, freeContent, 
+			freeCreated, freeHitCount, freePet) VALUES 
+			(comfree_seq.NEXTVAL, #{userId}, #{freeSubject}, #{freeContent},
+			 SYSDATE, 0, #{freePet})
+	</insert>
+	
+	<select id="listBoard" parameterType="map" resultType="com.sp.catdog.community.freeboard.Board">
+		SELECT freeNum, f.userId, userNick, freeSubject, freeContent, to_char(freeCreated, 'YYYY-MM-DD') freeCreated, freeHitCount, freePet
+			from comfree f
+			JOIN member1 m ON m.userId=f.userId
+		ORDER BY freeNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comfree f
+		JOIN member1 m ON m.userId=f.userId
+	</select>
+
+</mapper>

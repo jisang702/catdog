@@ -49,7 +49,7 @@ $(function() {
 				<li class="menu1"><a href="${pageContext.request.contextPath}/commu/">HOME</a></li>
 	            <li class="menu1"><a>커뮤니티</a>
 	            	<ul class="submenu1">
-	            		<li><a href="${pageContext.request.contextPath}/bbs/list">자유게시판</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/community/board/list">자유게시판</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/gallery/list">포토갤러리</a></li>
 	            		<li><a href="#">실종게시판</a></li>
 	            		<li><a href="#">중고거래</a></li>
