@@ -174,6 +174,10 @@
 	border-bottom: 1px solid #dadada;
 	padding-bottom: 20px;
 }
+.profile {
+	height: 30px;
+	margin: 5px;
+} 
 
 .profile ul li {
 	display: inline-block;
@@ -190,6 +194,16 @@
 
 .commentwrap {
 	display: inline-block;
+	margin-left: 15px;
+}
+
+.commentwrap textarea {
+	height: 30px;
+	width: 500px;
+	resize: none;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 .commentbtn {
@@ -198,9 +212,7 @@
 }
 
 .reply {
-	padding-left: 15px;
-	padding-top: 10px;
-	margin: 15px;
+	padding-top: 20px;
 }
 
 .replyinput ul li {
@@ -210,6 +222,16 @@
 .replyinput .mybtn2 {
 	height: 65px;
 	width: 65px;
+}
+
+.replyinput textarea {
+	resize: none;
+	height: 45px;
+	width: 89%;
+	vertical-align: middle;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 .createdtitle {

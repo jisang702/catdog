@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
 import com.sp.catdog.member.SessionInfo;
@@ -120,6 +121,7 @@ public class BoardController {
 			@RequestParam String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
+			Reply rdto,
 			Model model
 			) throws Exception {
 		keyword = URLDecoder.decode(keyword, "utf-8");
@@ -137,6 +139,11 @@ public class BoardController {
 		
 		model.addAttribute("dto", dto);
 
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("freeNum", freeNum);
+		int dataCount=service.replyCount(map);
+
+		model.addAttribute("replyCount", dataCount);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		
@@ -184,6 +191,7 @@ public class BoardController {
 		return "redirect:/community/board/list?page="+page;
 	}
 	
+	@RequestMapping("delete")
 	public String delete(
 			@RequestParam int freeNum,
 			@RequestParam String page,
@@ -203,4 +211,107 @@ public class BoardController {
 		
 		return "redirect:/community/board/list?"+query;
 	}
+	
+	@RequestMapping("insertReply")
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String state="true";
+		
+		try {
+			dto.setUserId(info.getUserId());
+			dto.setUserNick(info.getUserNick());
+			service.insertReply(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@RequestMapping("listReply")
+	public String listReply(
+			@RequestParam int freeNum,
+			@RequestParam(value="page", defaultValue="1") int current_page,
+			Model model
+			) throws Exception {
+		int total_page=0;
+		int rows=5;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("freeNum", freeNum);
+		
+		int dataCount=service.replyCount(map);
+		
+		total_page=myUtil.pageCount(rows, dataCount);
+		
+		if (total_page < current_page)
+			current_page = total_page;
+
+        int offset = (current_page-1) * rows;
+		if(offset < 0) offset = 0;
+        map.put("offset", offset);
+        map.put("rows", rows);
+		
+		List<Reply> listReply=service.listReply(map);
+
+		for(Reply dto : listReply) {
+			dto.setFreeReplyContent(dto.getFreeReplyContent().replaceAll("\n", "<br>"));
+		}
+		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("page", current_page);
+		model.addAttribute("replyCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		
+		return "community/bbs/listReply";
+	}
+	
+	@RequestMapping(value = "updateReply")
+	@ResponseBody
+	public String updateReply(
+			@RequestParam int freeReplyNum,
+			Reply dto,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		try {
+			dto.setUserId(info.getUserId());
+			dto.setUserNick(info.getUserNick());
+			service.updateReply(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto", dto);
+		
+		return "redirect:/community/bbs/listReply";
+	}
+	
+	@RequestMapping(value = "deleteReply")
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam Map<String, Object> paramMap
+			) throws Exception {
+		String state="true";
+		try {
+			service.deleteReply(paramMap);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", state);
+		return map;
+	}
+	
 }

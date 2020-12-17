@@ -44,4 +44,32 @@
 		DELETE FROM comfree WHERE freeNum=#{freeNum}
 	</delete>
 	
+	<insert id="insertReply" parameterType="com.sp.catdog.community.freeboard.Reply">
+		INSERT INTO comFreeReply(freeReplyNum, freeReplyContent, freeReplyCreated, freeReplyType,
+			freeNum, userId) VALUES (comfreereply_seq.NEXTVAL, #{freeReplyContent}, SYSDATE, 1, #{freeNum}, #{userId})
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comFreeReply
+		WHERE freeNum=#{freeNum} AND freeReplyType=1
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.catdog.community.freeboard.Reply">
+		SELECT freeReplyNum, r.userId, userNick, freeNum, freeReplyContent, to_char(freeReplyCreated, 'YYYY-MM-DD') freeReplyCreated
+		FROM comFreeReply r
+		JOIN member1 m ON m.userId=r.userId
+		WHERE freeNum=#{freeNum} AND freeReplyType=1
+		ORDER BY r.freeReplyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<update id="updateReply" parameterType="com.sp.catdog.community.freeboard.Reply">
+		UPDATE comFreeReply SET freeReplyContent=#{freeReplyContent}
+		WHERE freeReplyNum=#{freeReplyNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM comFreeReply WHERE freeReplyNum=#{freeReplyNum}
+	</delete>
 </mapper>

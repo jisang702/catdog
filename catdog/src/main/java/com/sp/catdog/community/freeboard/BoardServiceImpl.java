@@ -101,8 +101,64 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteBoard(int freeNum, String userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			Board dto=readBoard(freeNum);
+			if(dto==null || (! userId.equals("admin") && ! userId.equals(dto.getUserId())))
+				return;
+			
+			dao.deleteData("freeboard.deleteBoard", freeNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void insertReply(Reply dto) throws Exception {
+		try {
+			dao.insertData("freeboard.insertReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("freeboard.listReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.replyCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void updateReply(Reply dto) throws Exception {
+		try {
+			dao.updateData("freeboard.updateReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReply(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("freeboard.deleteReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

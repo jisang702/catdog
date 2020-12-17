@@ -19,4 +19,10 @@ public interface BoardService {
 	public void updateBoard(Board dto) throws Exception;
 	public void deleteBoard(int freeNum, String userId) throws Exception;
 
+	public void insertReply(Reply dto) throws Exception;
+	public List<Reply> listReply(Map<String, Object> map);
+	public int replyCount(Map<String, Object> map);
+	public void updateReply(Reply dto) throws Exception;
+	public void deleteReply(Map<String, Object> map) throws Exception;
+	
 }
