@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			(INSTR(q.qnaSubject, #{keyword}) &gt; 0 
+				OR INSTR(q.qnaContent, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='subject' ">
+			INSTR(q.qnaSubject, #{keyword}) &gt; 0 	
+		</if>
+		<if test="condition=='content' ">
+			INSTR(q.qnaContent, #{keyword}) &gt; 0 	
+		</if>
+		<if test="condition=='userNick' ">
+			 userNick=#{keyword}	
+		</if>
+		<if test="condition=='created' ">
+			( TO_CHAR(q.qnaCreated, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(q.qnaCreated, 'YYYYMMDD') = #{keyword} ) 	
+		</if>
+	</sql>
+
+	<!-- qna -->
+	<select id="seq" resultType="Integer">
+		SELECT qna_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.sp.catdog.customer.qna.Board">
+		INSERT INTO qna(qnaNum, qnaSubject, qnaContent, qnaCreated, qnaSecret, userId, qnaCategoryNum, qnaParent) 
+		VALUES(#{qnaNum}, #{qnaSubject}, #{qnaContent}, SYSDATE, #{qnaSecret}, #{userId}, #{qnaCategoryNum}, #{qnaParent, jdbcType=INTEGER})
+	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) 
+		FROM qna q
+		JOIN member1 m ON m.userId=q.userId
+		<where>
+			q.qnaParent=0 or q.qnaParent is null 
+			<if test="keyword!=null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id="listBoard" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT q.qnaNum, userNick, q.userId, q.qnaSubject, q.qnaSecret, q.qnaParent,
+				NVL2(q2.qnaParent, 1, 0) isAnswer, 
+				TO_CHAR(q.qnaCreated, 'YYYY-MM-DD') qnaCreated,
+				q.qnaCategoryNum, qnaCategoryName
+		FROM qna q
+		LEFT OUTER JOIN qna q2 ON q2.qnaParent=q.qnaNum
+		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
+		JOIN member1 m ON m.userId=q.userId
+		<where>
+			q.qnaParent=0 or q.qnaParent is null
+			<if test="keyword!=null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY qnaNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="readQuestion" parameterType="Integer" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT q.qnaNum, userNick, q.userId, qnaSubject, qnaContent, qnaCreated, qnaParent,
+				qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		FROM qna q
+		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
+		JOIN member1 m ON m.userId=q.userId
+		WHERE qnaNum=#{qnaNum}
+	</select>
+	
+	<select id="readAnswer" parameterType="Integer" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT q.qnaNum, userNick, q.userId, qnaSubject, qnaContent, qnaCreated, qnaParent,
+				qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		FROM qna q
+		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
+		JOIN member1 m ON m.userId=q.userId
+		WHERE qnaParent=#{qnaNum}
+	</select>
+	
+	<select id="preReadQuestion" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT q.qnaNum, qnaSubject, qnaSecret
+		FROM qna a
+		JOIN member1 m ON m.userId=q.userId
+		<where>
+			q.qnaParent=0 or q.qnaParent is null
+			<if test="keyword!=null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (q.qnaNum &gt; #{qnaNum})
+		</where>
+		ORDER BY qnaNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="nextReadQuestion" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT q.qnaNum, qnaSubject, qnaSecret
+		FROM qna a
+		JOIN member1 m ON m.userId=q.userId
+		<where>
+			q.qnaParent=0 or q.qnaParent is null
+			<if test="keyword!=null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (q.qnaNum &lt; #{qnaNum})
+		</where>
+		ORDER BY qnaNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateBoard" parameterType="com.sp.catdog.customer.qna.Board">
+		UPDATE qna SET qnaSubject=#{}, qnaContent=#{}, qnaCategoryNum=#{qnaCategoryNum}, qnaSecret=#{qnaSecret}
+		WHERE qnaNum=#{qnaNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteQuestion" parameterType="Integer">
+		DELETE FROM qna WHERE qnaNum IN
+			(SELECT qnaNum FROM qna START WITH qnaNum=#{qnaNum} 
+				CONNECT BY PRIOR qnaNum=qnaParent )
+	</delete>
+	
+	<delete id="deleteAnswer" parameterType="Integer">
+		DELETE FROM qna WHERE qnaNum=#{qnaNum}
+	</delete>
+	
+	<!-- file -->
+	<insert id="insertFile" parameterType="com.sp.catdog.customer.qna.Board">
+		INSERT INTO qnaFile(qnaFileNum, qnaSaveFileName, qnaOriginalFileName, qnaFileSize, qnaNum)
+		VALUES(qnaFile_seq.NEXTVAL, #{qnaSaveFileName}, #{qnaOriginalFileName}, #{qnaFileSize}, #{qnaNum})
+	</insert>
+	
+	<select id="listFile" parameterType="Integer" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT qnaNum, qnaFileNum, qnaSaveFileName, qnaOriginalFileName, qnaFileSize
+		FROM qnaFile 
+		WHERE qnaNum=#{qnaNum}
+	</select>
+	
+	<select id="readFile" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT qnaNum, qnaFileNum, qnaSaveFileName, qnaOriginalFileName, qnaFileSize
+		FROM qnaFile 
+		WHERE qnaFileNum=#{qnaFileNum}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM qnaFile WHERE ${field}=#{qnaNum}
+	</delete>
+	
+	<!-- qna Category -->
+	<insert id="insertCategory" parameterType="com.sp.catdog.customer.qna.Board">
+		INSERT INTO qnaCategory(qnaCategoryNum, qnaCategoryName) 
+		VALUES(qnaCategory_seq.NEXTVAL, #{qnaCategoryName})
+	</insert>
+	
+	<update id="updateCategory" parameterType="com.sp.catdog.customer.qna.Board">
+		UPDATE qnaCategory SET qnaCategoryName=#{qnaCategoryName}
+		WHERE qnaCategoryNum=#{qnaCategoryNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="com.sp.catdog.customer.qna.Board">
+		DELETE FROM qnaCategory WHERE qnaCategoryNum=#{qnaCategoryNum}
+	</delete>
+	
+	<select id="listCategory" resultType="com.sp.catdog.customer.qna.Board">
+		SELECT qnaCategoryNum, qnaCategoryName FROM qnaCategory 
+	</select>
+</mapper>

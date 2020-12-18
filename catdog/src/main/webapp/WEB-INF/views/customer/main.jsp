@@ -138,6 +138,52 @@ function insertForm(){
 	ajaxHTML(url, "get", query, selector);
 }
 
+//글 등록, 수정 등록, 답변 등록 - qna
+function sendOk(mode, page){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	
+	var f=document.boardForm;
+	
+	var str=f.qnaSubject.value;
+	if(! str){
+		alert("제목을 입력하세요.");
+		f.qnaSubject.focus();
+		return;
+	}
+	
+	str=f.qnaContent.value;
+	if(! str){
+		alert("내용을 입력하세요.");
+		f.qnaContent.focus();
+		return;
+	}
+	
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/created";
+	var query=new FormData(f);
+	
+	var fn = function(data){
+		var state=data.state;
+		console.log(state);
+		
+		if(state=="false"){
+			alert("게시물을 추가(수정)하지 못했습니다.");
+		}
+		
+		if(page==undefined || page==""){
+			page="1";
+		}
+		
+		if(mode=="created" || mode=="reply"){
+			reloadBoard();
+		}else{
+			listPage(page);
+		}
+	};
+	
+	ajaxFileJSON(url, "post", query, fn);
+}
+
 //글쓰기 취소, 수정 취소, 답변 취소
 function sendCancel(page){
 	if(page==undefined || page==""){
