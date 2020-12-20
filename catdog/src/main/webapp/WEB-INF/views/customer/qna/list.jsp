@@ -20,13 +20,13 @@
 </table>
 
 <table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
-  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-      <th width="60" style="color: #787878;">번호</th>
-      <th width="100" style="color: #787878;">유형</th>
-      <th style="color: #787878;">제목</th>
-      <th width="100" style="color: #787878;">작성자</th>
-      <th width="80" style="color: #787878;">문의일자</th>
-      <th width="80" style="color: #787878;">처리결과</th>
+  <tr align="center" bgcolor="#71DA65" height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+      <th width="60" style="color: #ffffff;">번호</th>
+      <th width="100" style="color: #ffffff;">유형</th>
+      <th style="color: #ffffff;">제목</th>
+      <th width="100" style="color: #ffffff;">작성자</th>
+      <th width="80" style="color: #ffffff;">문의일자</th>
+      <th width="80" style="color: #ffffff;">처리결과</th>
   </tr>
   
   <c:forEach var="dto" items="${list}">

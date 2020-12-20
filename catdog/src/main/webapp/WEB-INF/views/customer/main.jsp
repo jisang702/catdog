@@ -159,7 +159,7 @@ function sendOk(mode, page){
 		return;
 	}
 	
-	var url="${pageContext.request.contextPath}/customer/"+tab+"/created";
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/"+mode;
 	var query=new FormData(f);
 	
 	var fn = function(data){
@@ -174,7 +174,7 @@ function sendOk(mode, page){
 			page="1";
 		}
 		
-		if(mode=="created" || mode=="reply"){
+		if(mode=="created" || mode=="answer"){
 			reloadBoard();
 		}else{
 			listPage(page);
@@ -194,14 +194,16 @@ function sendCancel(page){
 }
 
 //게시글 보기
-function articleBoard(noNum, page){
+function articleBoard(num, page){
 	var $tab=$(".tabs .active");
 	var tab=$tab.attr("data-tab");
 	
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/article";
 	var query;
 	if(tab=="notice")
-		query="noNum="+noNum;
+		query="noNum="+num;
+	else if(tab=="qna")
+		query="qnaNum="+num;
 	else 
 		query="num="+num;
 	//var search=$("form[name=customerSearchForm]").serialize();
@@ -212,14 +214,16 @@ function articleBoard(noNum, page){
 }
 
 //글 수정 폼
-function updateForm(noNum, page){
+function updateForm(num, page){
 	var $tab=$(".tabs .active");
 	var tab=$tab.attr("data-tab");
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/update";
 	
 	var query;
 	if(tab=="notice")
-		query="noNum="+noNum;
+		query="noNum="+num;
+	else if(tab=="qna")
+		query="qnaNum="+num;
 	else 
 		query="num="+num;
 	query=query+"&page="+page;
@@ -231,7 +235,7 @@ function updateForm(noNum, page){
 }
 
 //글 삭제
-function deleteBoard(noNum, page){
+function deleteBoard(num, page, mode){
 	var $tab=$(".tabs .active");
 	var tab=$tab.attr("data-tab");
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/delete";
@@ -239,7 +243,9 @@ function deleteBoard(noNum, page){
 	var query;
 	
 	if(tab=="notice")
-		query="noNum="+noNum;
+		query="noNum="+num;
+	else if(tab=="qna")
+		query="qnaNum="+num+"&mode="+mode;
 	else 
 		query="num="+num;
 	query=query+"&page="+page;
@@ -248,10 +254,23 @@ function deleteBoard(noNum, page){
 		return;
 	
 	var fn=function(data){
+		console.log(data.state);
 		listPage(page);
 	}
 	
 	ajaxJSON(url, "post", query, fn);
+}
+
+//글 답변 폼
+function replyForm(num, page){
+	var $tab=$(".tabs .active");
+	var tab=$tab.attr("data-tab");
+	
+	var url="${pageContext.request.contextPath}/customer/"+tab+"/answer";
+	var query="qnaNum="+num+"&page="+page;
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
 }
 
 </script>

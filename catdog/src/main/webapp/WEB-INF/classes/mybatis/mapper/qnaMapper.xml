@@ -65,8 +65,8 @@
 	</select>
 	
 	<select id="readQuestion" parameterType="Integer" resultType="com.sp.catdog.customer.qna.Board">
-		SELECT q.qnaNum, userNick, q.userId, qnaSubject, qnaContent, qnaCreated, qnaParent,
-				qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		SELECT q.qnaNum, userNick, q.userId, q.qnaSubject, q.qnaContent, q.qnaCreated, q.qnaParent,
+				q.qnaSecret, q.qnaCategoryNum, qnaCategoryName
 		FROM qna q
 		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
 		JOIN member1 m ON m.userId=q.userId
@@ -74,8 +74,8 @@
 	</select>
 	
 	<select id="readAnswer" parameterType="Integer" resultType="com.sp.catdog.customer.qna.Board">
-		SELECT q.qnaNum, userNick, q.userId, qnaSubject, qnaContent, qnaCreated, qnaParent,
-				qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		SELECT q.qnaNum, userNick, q.userId, q.qnaSubject, q.qnaContent, q.qnaCreated, q.qnaParent,
+				q.qnaSecret, q.qnaCategoryNum, qnaCategoryName
 		FROM qna q
 		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
 		JOIN member1 m ON m.userId=q.userId
@@ -83,8 +83,8 @@
 	</select>
 	
 	<select id="preReadQuestion" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
-		SELECT q.qnaNum, qnaSubject, qnaSecret
-		FROM qna a
+		SELECT q.qnaNum, q.qnaSubject, q.qnaSecret
+		FROM qna q
 		JOIN member1 m ON m.userId=q.userId
 		<where>
 			q.qnaParent=0 or q.qnaParent is null
@@ -99,7 +99,7 @@
 
 	<select id="nextReadQuestion" parameterType="map" resultType="com.sp.catdog.customer.qna.Board">
 		SELECT q.qnaNum, qnaSubject, qnaSecret
-		FROM qna a
+		FROM qna q
 		JOIN member1 m ON m.userId=q.userId
 		<where>
 			q.qnaParent=0 or q.qnaParent is null
@@ -113,7 +113,7 @@
 	</select>
 	
 	<update id="updateBoard" parameterType="com.sp.catdog.customer.qna.Board">
-		UPDATE qna SET qnaSubject=#{}, qnaContent=#{}, qnaCategoryNum=#{qnaCategoryNum}, qnaSecret=#{qnaSecret}
+		UPDATE qna SET qnaSubject=#{qnaSubject}, qnaContent=#{qnaContent}, qnaCategoryNum=#{qnaCategoryNum}, qnaSecret=#{qnaSecret}
 		WHERE qnaNum=#{qnaNum} AND userId=#{userId}
 	</update>
 	
