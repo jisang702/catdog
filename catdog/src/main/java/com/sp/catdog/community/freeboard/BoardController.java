@@ -34,6 +34,7 @@ public class BoardController {
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
+			@RequestParam(defaultValue = "news") String array,
 			@RequestParam(value="rows", defaultValue="10") int rows,
 			HttpServletRequest req,
 			Model model
@@ -49,6 +50,7 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("array", array);
 
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(rows, dataCount);
@@ -63,6 +65,13 @@ public class BoardController {
 
 		List<Board> list = service.listBoard(map);
 
+		int num, n = 0;
+        for(Board dto : list) {
+        	num = dataCount - (offset + n);
+            dto.setNum(num);
+            n++;
+        }        
+		
 		String cp = req.getContextPath();
 		String query = "rows="+rows;
 		String listUrl = cp + "/community/board/list";
@@ -87,6 +96,7 @@ public class BoardController {
 		model.addAttribute("rows", rows);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("array", array);
 		
 		return ".community.bbs.list";
 	}
@@ -121,9 +131,11 @@ public class BoardController {
 			@RequestParam String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
-			Reply rdto,
+			HttpSession session,
 			Model model
 			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query="page="+page;
@@ -141,9 +153,15 @@ public class BoardController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("freeNum", freeNum);
-		int dataCount=service.replyCount(map);
-
-		model.addAttribute("replyCount", dataCount);
+		map.put("userId", info.getUserId());
+		
+		int replyCount=service.replyCount(map);
+		int boardLikeCount=service.boardLikeCount(freeNum);
+		int boardLikeUser=service.boardLikeUser(map);
+			
+		model.addAttribute("boardLikeUser", boardLikeUser);
+		model.addAttribute("replyCount", replyCount);
+		model.addAttribute("boardLikeCount", boardLikeCount);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		
@@ -217,7 +235,7 @@ public class BoardController {
 	public Map<String, Object> insertReply(
 			Reply dto,
 			HttpSession session
-			) throws Exception {
+			) {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		String state="true";
 		
@@ -228,7 +246,13 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("freeNum", dto.getFreeNum());
+		int replyCount=service.replyCount(map);
+		
 		Map<String, Object> model = new HashMap<>();
+		model.put("replyCount", replyCount);
 		model.put("state", state);
 		
 		return model;
@@ -238,8 +262,10 @@ public class BoardController {
 	public String listReply(
 			@RequestParam int freeNum,
 			@RequestParam(value="page", defaultValue="1") int current_page,
+			HttpSession session,
 			Model model
 			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		int total_page=0;
 		int rows=5;
 		
@@ -262,6 +288,11 @@ public class BoardController {
 
 		for(Reply dto : listReply) {
 			dto.setFreeReplyContent(dto.getFreeReplyContent().replaceAll("\n", "<br>"));
+			
+			Map<String, Object> userMap=new HashMap<>();
+			userMap.put("userId", info.getUserId());
+			userMap.put("freeReplyNum", dto.getFreeReplyNum());
+			dto.setLikeUser(service.replyLikeUser(userMap));
 		}
 		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
 		
@@ -301,7 +332,7 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> deleteReply(
 			@RequestParam Map<String, Object> paramMap
-			) throws Exception {
+			) {
 		String state="true";
 		try {
 			service.deleteReply(paramMap);
@@ -309,9 +340,139 @@ public class BoardController {
 			state="false";
 		}
 		
+		int dataCount=service.replyCount(paramMap);
 		Map<String, Object> map = new HashMap<>();
 		map.put("state", state);
+		map.put("replyCount", dataCount);
+		
 		return map;
 	}
 	
+	@RequestMapping(value = "insertBoardLike")
+	@ResponseBody
+	public Map<String, Object> insertBoardLike(
+			@RequestParam int freeNum,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String state="true";
+		int boardLikeCount=0;
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("userId", info.getUserId());
+		map.put("freeNum", freeNum);
+		
+		Board dto=service.readBoard(freeNum);
+		
+		try {
+			if(dto.getUserId()!=info.getUserId()) {
+				service.insertBoardLike(map);
+			} else {
+				state="false";
+			}
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		boardLikeCount=service.boardLikeCount(freeNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("boardLikeCount", boardLikeCount);
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@RequestMapping("deleteBoardLike")
+	@ResponseBody
+	public Map<String, Object> deleteBoardLike(
+			@RequestParam int freeNum,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("freeNum", freeNum);
+		map.put("userId", info.getUserId());
+		
+		service.deleteBoardLike(map);
+		
+		int boardLikeCount=service.boardLikeCount(freeNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("boardLikeCount", boardLikeCount);
+		
+		return model;
+	}
+	
+	@RequestMapping("listAnswerReply")
+	public String listAnswerReply(
+			@RequestParam int freeReplyType,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		List<Reply> listAnswerReply=service.listAnswerReply(freeReplyType);
+		for(Reply dto:listAnswerReply) {
+			dto.setFreeReplyContent(dto.getFreeReplyContent().replaceAll("\n", "<br>"));
+
+			Map<String, Object> userMap=new HashMap<>();
+			userMap.put("userId", info.getUserId());
+			userMap.put("freeReplyNum", dto.getFreeReplyNum());
+			dto.setLikeUser(service.replyLikeUser(userMap));
+		}
+		
+		model.addAttribute("listAnswerReply", listAnswerReply);
+		return "community/bbs/listAnswerReply";
+	}
+	
+	@RequestMapping("insertReplyLike")
+	@ResponseBody
+	public Map<String, Object> insertReplyLike(
+			@RequestParam int freeReplyNum,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", info.getUserId());
+		map.put("freeReplyNum", freeReplyNum);		
+		
+		try {
+			service.insertReplyLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int replyLikeCount=service.replyLikeCount(freeReplyNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("replyLikeCount", replyLikeCount);
+		
+		return model;
+	}
+	
+	@RequestMapping("deleteReplyLike")
+	@ResponseBody
+	public Map<String, Object> deleteReplyLike(
+			@RequestParam int freeReplyNum,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", info.getUserId());
+		map.put("freeReplyNum", freeReplyNum);		
+		
+		try {
+			service.deleteReplyLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		int replyLikeCount=service.replyLikeCount(freeReplyNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("replyLikeCount", replyLikeCount);
+		
+		return model;
+	}
 }

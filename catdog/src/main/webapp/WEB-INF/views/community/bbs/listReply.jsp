@@ -2,19 +2,12 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script>
-$(function() {
-	$('.reply').hide();
-	$('.commentbtn #replybtn').click(function() {
-		$(this).parents().next('.reply').toggle();		
-	});
-});
-</script>
+
 <c:forEach var="dto" items="${listReply}">
 <div class="commentlist">
 		<div class="profile">
 			<ul>
-				<li><p>${dto.userNick}</p></li>
+				<li><p><i class="far fa-comment-dots"></i> ${dto.userNick}</p></li>
 				<li>${dto.freeReplyCreated}</li>
 				<li>&nbsp;
 					<c:if test="${sessionScope.member.userId==dto.userId}">				 
@@ -25,6 +18,12 @@ $(function() {
 					</c:if>
 				</li>
 			</ul>
+			<c:if test="${dto.likeUser==1}">
+				<button type="button" class="replyunlikebtn" data-replyNum="${dto.freeReplyNum}"><i class="far fa-heart like"><span class="replyLikeCount"> ${dto.replyLikeCount} </span> </i></button>
+			</c:if>
+			<c:if test="${dto.likeUser!=1}">
+				<button type="button" class="replylikebtn" data-replyNum="${dto.freeReplyNum}"><i class="far fa-heart unlike"><span class="replyLikeCount"> ${dto.replyLikeCount} </span> </i></button>
+			</c:if>
 		</div>
 		<div class="commentwrap">
 			<ul>
@@ -32,17 +31,17 @@ $(function() {
 			</ul>
 		</div>
 		<div class="commentbtn">
-			<button type="button" id="replybtn" class="mybtn1">답글(1)</button>
+			<button type="button" id="replybtn" class="mybtn1" data-replyNum="${dto.freeReplyNum}">답글(${dto.answerCount})</button>
 			<button type="button" class="mybtn1">신고</button>
 		</div>
 		<div class="reply">
 			<div>
-				<div id="listReplyAnswer" ></div>
+				<div id="listAnswerReply${dto.freeReplyNum}" class="replylist"></div>
 				<div class="replyinput">
 					<ul>
 						<li>
 							<textarea rows="3" cols="95" maxlength="100"></textarea>
-							<button type="button" class="mybtn2">등록하기</button>
+							<button type="button" class="mybtn2 sendReplyAnswer" data-replyNum="${dto.freeReplyNum}">등록하기</button>
 						</li>
 					</ul>
 				</div>
@@ -51,5 +50,5 @@ $(function() {
 </div>
 </c:forEach>
 <div>
-	<p>${replyCount==0?"등록된 게시물이 없습니다.":paging}</p>
+	<p>${replyCount==0?"":paging}</p>
 </div>

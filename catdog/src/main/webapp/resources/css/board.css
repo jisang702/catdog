@@ -75,6 +75,11 @@
 	border-bottom: 1px solid #dadada;
 }
 
+.replyCnt {
+	font-weight: ;
+    color: #71da65;
+}
+
 .listfooter {
 	margin: 15px;
 }
@@ -108,8 +113,23 @@
 	display: inline-block;
 }
 
-.articletitle .like {
+.articletitle .boardlike {
 	float: right;
+}
+
+.boardlikebtn, .boardunlikebtn {
+	background: none;
+	border:0;
+	font-size:30px;
+}
+
+.unlike {
+	color:#a2a2a2;
+}
+
+.like {
+	color:#ff3535;
+	font-weight: 600;
 }
 
 .article .tr {
@@ -174,9 +194,15 @@
 	border-bottom: 1px solid #dadada;
 	padding-bottom: 20px;
 }
+
+.replylist {
+	margin-left: 20px;
+}
 .profile {
 	height: 30px;
 	margin: 5px;
+	display: flex;
+	justify-content: space-between;
 } 
 
 .profile ul li {
@@ -190,6 +216,11 @@
 
 .profile ul li button {
 	border: none;
+}
+
+.profile .replylikebtn, .replyunlikebtn {
+	border: 0;
+    background: none;
 }
 
 .commentwrap {
@@ -213,6 +244,7 @@
 
 .reply {
 	padding-top: 20px;
+	display: none;
 }
 
 .replyinput ul li {
@@ -227,11 +259,15 @@
 .replyinput textarea {
 	resize: none;
 	height: 45px;
-	width: 89%;
+	width: 85%;
 	vertical-align: middle;
 	border: 1px solid #dadada;
 	border-radius: 10px;
 	padding: 10px;
+}
+
+.answerReplylist {
+	margin-bottom: 10px;
 }
 
 .createdtitle {
