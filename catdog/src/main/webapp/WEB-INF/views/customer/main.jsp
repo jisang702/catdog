@@ -283,7 +283,7 @@ function replyForm(num, page){
 		<div style="clear: both;">
 	           <ul class="tabs">
 			       <li id="tab-notice" data-tab="notice">공지사항</li>
-			       <li id="tab-qna" data-tab="qna">질문답변</li>
+			       <li id="tab-qna" data-tab="qna">QnA</li>
 			       <li id="tab-faq" data-tab="faq">자주하는질문</li>
 			   </ul>
 		   </div>

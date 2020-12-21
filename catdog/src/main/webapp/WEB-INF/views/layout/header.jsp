@@ -63,11 +63,11 @@ $(function() {
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">이벤트</a></li>
-	            <li class="menu1"><a>고객센터</a>
+	            <li class="menu1"><a href="${pageContext.request.contextPath}/customer/notice">고객센터</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/customer/notice">공지사항</a></li>
-	            		<li><a href="${pageContext.request.contextPath}/customer/qna">QNA</a></li>
-	            		<li><a href="${pageContext.request.contextPath}/faq/faq">FAQ</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/customer/qna">QnA</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/faq/faq">자주하는질문</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>
