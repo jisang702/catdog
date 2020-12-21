@@ -252,7 +252,7 @@ public class BoardServiceImpl implements BoardService{
 	public Board readFile(int qnaFileNum) {
 		Board dto=null;
 		try {
-			dao.selectOne("qna.readFile", qnaFileNum);
+			dto=dao.selectOne("qna.readFile", qnaFileNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

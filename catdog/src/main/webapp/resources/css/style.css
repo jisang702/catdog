@@ -73,8 +73,8 @@ textarea:focus, input:focus{
 }
 
 .boxTF {
-	border:1px solid #999999;
-	padding:3px 5px 5px;
+	border:1px solid #c0c0c0;
+	padding:0px 0px 0px;
 	border-radius:4px;
 	background-color:#ffffff;
 	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
@@ -85,8 +85,8 @@ textarea:focus, input:focus{
 }
 
 .selectField {
-	border:1px solid #999999;
-	padding:2px 5px 4px;
+	border:1px solid #c0c0c0;
+	padding:3.5px 5px 7px;
 	border-radius:4px;
 	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
 }

@@ -66,7 +66,7 @@ $(function() {
 	            <li class="menu1"><a>고객센터</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/customer/notice">공지사항</a></li>
-	            		<li><a href="#">1:1 문의</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/customer/qna">QNA</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/faq/faq">FAQ</a></li>
 	            	</ul>
 	            </li>

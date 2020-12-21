@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -281,8 +283,8 @@ function replyForm(num, page){
 		<div style="clear: both;">
 	           <ul class="tabs">
 			       <li id="tab-notice" data-tab="notice">공지사항</li>
-			       <li id="tab-inquiry" data-tab="inquiry">1:1문의</li>
 			       <li id="tab-qna" data-tab="qna">질문답변</li>
+			       <li id="tab-faq" data-tab="faq">자주하는질문</li>
 			   </ul>
 		   </div>
 		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>
