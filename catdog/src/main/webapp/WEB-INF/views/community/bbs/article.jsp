@@ -262,6 +262,8 @@ $(function() {
 			$tb.find("textarea").focus();
 			return false;
 		}
+		content=encodeURIComponent(content);
+		
 		
 		var url="${pageContext.request.contextPath}/community/board/insertReply";
 		var query="freeNum="+freeNum+"&freeReplyContent="+content+"&freeReplyType="+replyNum;
