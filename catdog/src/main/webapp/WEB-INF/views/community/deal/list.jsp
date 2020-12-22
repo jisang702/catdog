@@ -48,7 +48,14 @@ function commas(t) {
 				</div>
 				<div>
 					<ul>
-						<li style="font-weight: bold; font-size: 20px;"><a href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">${dto.dealSubject}</a></li>
+						<li style="font-weight: bold; font-size: 20px;">
+						<a style="vertical-align: middle;" href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">${dto.dealSubject}</a>
+						<c:if test="${dto.dealState==2}">
+			    			<span class="dealState" style="background: #409444;">
+					   			예약중
+					   		</span>					   	
+						</c:if>
+						</li>
 					</ul>
 					<ul>
 						<li class="dealCreated" style="color:#a2a2a2;">

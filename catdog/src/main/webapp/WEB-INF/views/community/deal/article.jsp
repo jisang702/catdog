@@ -186,7 +186,7 @@ $(function() {
 	    </div>
 	    <div class="fleausergoods">
 	    	<div class="fleagoodstitle">
-	    		${dto.userNick}님의 다른 중고 상품
+	    		${dto.userNick}님의 중고 상품
 	    	</div>
 	    	<div class="fleagoodslist">
 	    		<c:forEach var="vo" items="${sublist}">
@@ -215,5 +215,19 @@ $(function() {
 	    		</c:forEach>
 	    	</div>
 	    </div>
+	    <div class="commentLayout">
+			<div class="comment">
+				<ul class="commenttitle">
+					<li><span id="replyCount" class="commentcount">0</span>개의 댓글</li>
+				</ul>				
+				<ul class="commentinput">
+					<li>
+						<textarea name="reply" rows="4" cols="110" maxlength="150"></textarea>
+						<button type="button" class="mybtn2 sendreplybtn">등록하기</button>
+					</li>
+				</ul>	
+			</div>
+		</div>
+		<div id="listReply"></div>
     </div>
 </div>

@@ -13,63 +13,29 @@ public class TimeUtil {
 		public static final int DAY = 30;
 		public static final int MONTH = 12;
 	}
-
-
-
+	
+	// 글 작성 시간 현재기준으로 구하는 클래스
 	public String formatTimeString(Date tempDate) {
-
-
-
 		long curTime = System.currentTimeMillis();
-
 		long regTime = tempDate.getTime();
-
 		long diffTime = (curTime - regTime) / 1000;
-
-
 
 		String msg = null;
 
 		if (diffTime < TIME_MAXIMUM.SEC) {
-
-			// sec
-
 			msg = "방금 전";
-
 		} else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN) {
-
-			// min
-
 			msg = diffTime + "분 전";
-
 		} else if ((diffTime /= TIME_MAXIMUM.MIN) < TIME_MAXIMUM.HOUR) {
-
-			// hour
-
 			msg = (diffTime) + "시간 전";
-
 		} else if ((diffTime /= TIME_MAXIMUM.HOUR) < TIME_MAXIMUM.DAY) {
-
-			// day
-
 			msg = (diffTime) + "일 전";
-
 		} else if ((diffTime /= TIME_MAXIMUM.DAY) < TIME_MAXIMUM.MONTH) {
-
-			// day
-
 			msg = (diffTime) + "달 전";
-
 		} else {
-
 			msg = (diffTime) + "년 전";
-
 		}
-
-
-
+		
 		return msg;
-
 	}
-
 }
