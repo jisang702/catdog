@@ -2,6 +2,8 @@ package com.sp.catdog.community.deal;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
+import com.sp.catdog.common.TimeUtil;
 import com.sp.catdog.member.SessionInfo;
 
 @Controller("deal.dealController")
@@ -28,6 +32,8 @@ public class DealController {
 	
 	@Autowired
 	private MyUtil myUtil;
+	@Autowired
+	private TimeUtil timeUtil;
 	
 	@RequestMapping("list")
 	public String list(
@@ -62,11 +68,22 @@ public class DealController {
         map.put("rows", rows);
 
 		List<Deal> list = service.listDeal(map);
-
+		List<String> imagelist;
+		
 		int num, n = 0;
         for(Deal dto : list) {
         	num = dataCount - (offset + n);
             dto.setNum(num);
+            imagelist=myUtil.getImgSrc(dto.getDealContent());
+            if(imagelist.size()>0) {
+            	dto.setImgFileName(imagelist.get(0));
+            }
+            
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date writeday=sdf.parse(dto.getDealCreated());
+            
+            dto.setDealCreated(timeUtil.formatTimeString(writeday));
+            
             n++;
         }            
 		
@@ -123,6 +140,20 @@ public class DealController {
 		
 		List<Deal> sublist=service.userDeal(map);
 		
+		for(Deal subdto : sublist) {
+			List<String> imagelist=myUtil.getImgSrc(subdto.getDealContent());
+		       if(imagelist.size()>0) {
+		    	   subdto.setImgFileName(imagelist.get(0));
+		       }
+		}
+        
+        service.updateHitCount(dealNum);
+        
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date writeday=sdf.parse(dto.getDealCreated());
+        
+        dto.setDealCreated(timeUtil.formatTimeString(writeday));
+		
 		model.addAttribute("sublist", sublist);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
@@ -157,4 +188,82 @@ public class DealController {
 		
 		return "redirect:/community/deal/list";
 	}
+	
+	@RequestMapping("update")
+	public String updateForm(
+			@RequestParam int dealNum,
+			@RequestParam String page,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		Deal dto=service.readBoard(dealNum);
+		
+		if(dto==null) {
+			return "redirect:/community/deal/list?page="+page;
+		}
+
+		if(! info.getUserId().equals(dto.getUserId())) {
+			return "redirect:/community/deal/list?page="+page;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+
+		return ".community.deal.created";
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String updateSubmit(
+			Deal dto,
+			@RequestParam String page
+			) throws Exception {
+		try {
+			service.updateDeal(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/community/deal/list?page="+page;
+	}
+	
+	@RequestMapping("delete")
+	public String delete(
+			@RequestParam int dealNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue="all") String condition,
+			@RequestParam(defaultValue="") String keyword,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		service.deleteDeal(dealNum, info.getUserId());
+		
+		return "redirect:/community/deal/list?"+query;
+	}
+	
+	@RequestMapping("updateDealState")
+	@ResponseBody
+	public String updateDealState(
+			@RequestParam int dealNum,
+			@RequestParam String page,
+			Deal dto
+			) throws Exception {
+		try {
+			service.updateDealState(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/community/deal/article?"+page+"&dealNum="+dealNum;
+	}
+	
 }

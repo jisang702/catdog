@@ -17,7 +17,8 @@ public class Deal {
 	private int dealWay;
 	private int dealType;
 	private int dealState;
-	
+	private String dealZone;
+
 	private String imgFileName;
 	private MultipartFile upload;
 
@@ -142,6 +143,13 @@ public class Deal {
 	public void setUpload(MultipartFile upload) {
 		this.upload = upload;
 	}
-	
+
+	public String getDealZone() {
+		return dealZone;
+	}
+
+	public void setDealZone(String dealZone) {
+		this.dealZone = dealZone;
+	}
 	
 }

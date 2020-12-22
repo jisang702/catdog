@@ -14,6 +14,6 @@ public interface DealService {
 	public void updateHitCount(int dealNum) throws Exception;
 	public Deal readBoard(int dealNum);
 	
-	public void updateDealState(int dealNum) throws Exception;
+	public void updateDealState(Deal dto) throws Exception;
 	public List<Deal> userDeal(Map<String, Object> map);
 }

@@ -25,14 +25,23 @@ public class DealServiceImpl implements DealService {
 
 	@Override
 	public void updateDeal(Deal dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.updateData("deal.updateDeal", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void deleteDeal(int dealNum, String userId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			Deal dto=readBoard(dealNum);
+			if(dto==null || (! userId.equals("admin") && ! userId.equals(dto.getUserId())))
+				return;
+			dao.deleteData("deal.deleteDeal", dealNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -59,8 +68,11 @@ public class DealServiceImpl implements DealService {
 	
 	@Override
 	public void updateHitCount(int dealNum) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.updateData("deal.updateHitCount", dealNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -75,11 +87,11 @@ public class DealServiceImpl implements DealService {
 	}
 
 	@Override
-	public void updateDealState(int dealNum) throws Exception {
+	public void updateDealState(Deal dto) throws Exception {
 		try {
-			
+			dao.updateData("deal.updateDealState", dto);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

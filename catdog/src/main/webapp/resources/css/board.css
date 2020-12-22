@@ -322,6 +322,13 @@ button {
 	font-size: 16px;
 	float: left;
 	padding: 15px;
+	max-height: 295px;
+}
+
+.fleamarket ul li {
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
 }
 
 .fleaLayout:after {
@@ -336,10 +343,28 @@ button {
 	text-align: center;
 	height: 200px;
     overflow: hidden;
+    position: relative;
+}
+
+.listimg-cover {
+	height: 200px;
+    position: absolute;
+    background: #6f6d6db0;
+    width: 230px;
+    top: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
 }
 
 .fleamarket-img img {
 	width: 100%;
+	height: 100%;
+    border-radius: 10px;
 }
 
 .fleaprice , .fleabtn {
@@ -355,13 +380,35 @@ button {
 .flea-articleimg {
 	border: 1px solid #dadada;
 	border-radius: 10px;
-	width: 850px;
+	width: 500px;
 	height: 350px;
     margin: 5px auto;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    float: left;
+    position: relative;
+}
+
+.img-cover {
+	height: 350px;
+    position: absolute;
+    background: #6f6d6db0;
+    width: 500px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+}
+
+.flea-articletop:after {
+	content:"";
+	display: block;
+	clear: both;
 }
 
 .flea-articleimg img {
@@ -375,18 +422,19 @@ button {
 
 .flea-title {
 	text-align: left;
-	border-bottom: 1px solid #dadada;
-	padding: 15px;
+	width: 300px;
+	float: left;
+	margin: 45px;
 }
 
 .flea-title .title {
-	font-size: 24px;
+	font-size: 30px;
 	font-weight: bold;
 }
 
 .flea-title .price {
 	font-weight: bold;
-	font-size: 22px;
+	font-size: 35px;
 	color: #71da65;
 }
 
@@ -399,19 +447,35 @@ button {
 	color: #a2a2a2;
 }
 
+.dealType {
+	font-size: 20px;
+	font-weight: bold;
+	color: #6b6b6b;
+}
+
 .dealState, .dealWay {
 	background: #c5c5c5;
 	color: white;
 	border-radius: 5px;
 	padding: 3px 6px;
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
+	margin: 10px 0px;
 }
 
 .dealinfo {
 	justify-content: space-between;
 	display: flex;
 	margin-top: 5px;
+	font-size: 14px;
+}
+
+.dealuser {
+	border-top: 1px solid #dadada;
+	font-size: 16px;
+	margin-top: 40px;
+	padding-top: 15px;
+	text-align: right;
 }
 
 .flea-user {
@@ -425,6 +489,7 @@ button {
 .flea-content {
 	min-height: 200px;
 	padding: 20px;
+	border-top: 1px solid #dadada;
 	border-bottom: 1px solid #dadada;
 	line-height: 20px;
 	display: flex;

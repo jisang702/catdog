@@ -30,6 +30,20 @@ function removeComma(n) {
     var txtNumber = '' + n;
     return txtNumber.replace(/(,)/g, "");
 }
+
+$(function() {
+	 $("input:radio[name=dealWay]").click(function(){
+		 
+	        if($("input[name=dealWay]:checked").val()=="1"){
+	            $("select[name=dealZone]").attr("disabled",false);
+	            $("input:hidden[name=dealZone]").attr("disabled",true);
+	 
+	        } else if($("input[name=dealWay]:checked").val()=="2"){
+	              $("select[name=dealZone]").attr("disabled",true);
+				  $("input:hidden[name=dealZone]").attr("disabled",false);
+	        }
+	    });
+});
 </script>
 
 <div class="body-container">
@@ -38,13 +52,13 @@ function removeComma(n) {
 			  <table class="dealtable" style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left"> 
 			      <td>
-			      	<select name="dealType">
+			      	<select name="dealType" ${mode=='update'?"disabled='true'":""}>
 			      		<option value="1">팝니다</option>
 			      		<option value="2">삽니다</option>
 			      	</select>
 			      </td>
 			      <td style="padding-left:10px;"> 
-			        <input style="width: 90%;" type="text" name="dealSubject" maxlength="100" value="${dto.subject}" placeholder="제목을 입력하세요">
+			        <input style="width: 90%;" type="text" name="dealSubject" maxlength="20" value="${dto.dealSubject}" placeholder="제목을 입력하세요">
 			      </td>
 			  </tr>
 			
@@ -58,43 +72,34 @@ function removeComma(n) {
 			  <tr align="left">
 				  <td>가격</td>
 			      <td style="padding-left:10px;">
-			      	<input style="width: 20%;" type="text" id="dealPrice" name="dealPrice" onkeyup="commas(this)"> 원(￦)
+			      	<input style="width: 20%;" type="text" id="dealPrice" name="dealPrice" onkeyup="commas(this)" value="${dto.dealPrice}"> 원(￦)
 			      </td> 
 			  </tr>
 			  
 			  <tr align="left">
 			      <td>거래방법</td>
 			      <td style="padding-left:10px;">
-			      	<input type="radio" name="dealWay" value="1"> 직거래
-			      	<input type="radio" name="dealWay" value="2"> 택배
+			      	<input type="radio" name="dealWay" value="1" ${dto.dealWay=="1"?"checked='checked'":""}> 직거래
+			      	<select name="dealZone">
+			      		<option value="">선택</option>
+			      		<option value="서울" ${dto.dealZone=="서울"?"selected='selected'":""}>서울</option>
+			      		<option value="경기" ${dto.dealZone=="경기"?"selected='selected'":""}>경기</option>
+			      		<option value="인천" ${dto.dealZone=="인천"?"selected='selected'":""}>인천</option>
+			      		<option value="전주" ${dto.dealZone=="전주"?"selected='selected'":""}>전주</option>
+			      		<option value="부산" ${dto.dealZone=="부산"?"selected='selected'":""}>부산</option>
+			      	</select>
+			      	<input type="radio" name="dealWay" value="2" ${dto.dealWay=="2"?"checked='checked'":""}> 택배
 			      </td>
 			  </tr>
 			
 			  <tr align="left"> 
-			      <td width="100"style="padding-top:5px;" valign="top">상세설명</td>
+			      <td width="100"style="padding-top:5px;" valign="top">상세정보
+			      	<span style="font-size: 11px"><br>* 맨 처음 첨부한 이미지가 상품 대표 이미지로 설정됩니다.</span>
+			      </td>
 			      <td valign="top" style="padding:5px 0 5px 10px;"> 
-			        <textarea name="dealContent" id="content" style="width:95%; height: 270px;">${dto.content}</textarea>
+			        <textarea name="dealContent" id="content" style="width:95%; height: 270px;">${dto.dealContent}</textarea>
 			      </td>
 			  </tr>
-			  
-			  <tr align="left">
-			      <td width="100">파일첨부</td>
-			      <td style="padding-left:10px;"> 
-			          <input type="file" name="upload" class="boxTF" size="53" style="width: 97%; height: 25px;">
-			       </td>
-			  </tr>
-			  
-			  <c:if test="${mode=='update' }">
-				  <tr align="left">
-				      <td width="100">첨부된파일</td>
-				      <td style="padding-left:10px;">
-				          <c:if test="${not empty dto.saveFilename}">
-				          		<a href="${pageContext.request.contextPath}/bbs/deleteFile?num=${dto.num}&page=${page}"><i class="far fa-trash-alt"></i></a>
-				          </c:if>
-						  ${dto.originalFilename}
-				       </td>
-				  </tr>
-			  </c:if>
 
 			  </table>
 			
@@ -104,10 +109,10 @@ function removeComma(n) {
 			        <button type="button" class="mybtn2" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="mybtn1">다시입력</button>
 			        <button type="button" class="mybtn1" onclick="javascript:location.href='${pageContext.request.contextPath}/community/deal/list';">${mode=='update'?'수정취소':'등록취소'}</button>
+			         	<input type="hidden" name="dealZone" value="0">
 			         <c:if test="${mode=='update'}">
-			         	 <input type="hidden" name="num" value="${dto.num}">
-			         	 <input type="hidden" name="saveFilename" value="${dto.saveFilename}">
-			         	 <input type="hidden" name="originalFilename" value="${dto.originalFilename}">
+			         	 <input type="hidden" name="dealNum" value="${dto.dealNum}">
+			         	 <input type="hidden" name="userId" value="${dto.userId}">
 			        	 <input type="hidden" name="page" value="${page}">
 			        </c:if>
 			      </td>
@@ -175,7 +180,7 @@ function sendOk() {
     }
     
     f.dealPrice.value=str;
-    	
+    
 	f.action="${pageContext.request.contextPath}/community/deal/${mode}";
     f.submit();
 }

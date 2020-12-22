@@ -29,29 +29,38 @@ function commas(t) {
 			<div class="fleamarket">
 				<div>
 					<div class="fleamarket-img">
-						<img src="${pageContext.request.contextPath}/resources/css/images/dog.jpeg">
+						<a href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">
+						<c:choose>
+							<c:when test="${not empty dto.imgFileName}">
+								<img src="${dto.imgFileName}">
+							</c:when>
+							<c:otherwise>
+								<img src="${pageContext.request.contextPath}/resources/css/images/noimage.gif">
+							</c:otherwise>
+						</c:choose>
+						<c:if test="${dto.dealState==3}">							
+							<div class="listimg-cover">
+								<div>거래완료</div>
+							</div>
+						</c:if>
+						</a>
 					</div>
 				</div>
 				<div>
 					<ul>
-						<li style="font-weight: bold; font-size: 24px;"><a href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">${dto.dealSubject}</a></li>
+						<li style="font-weight: bold; font-size: 20px;"><a href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">${dto.dealSubject}</a></li>
 					</ul>
 					<ul>
-						<li style="color:#a2a2a2;">
-							<c:if test="${dto.dealWay==1}">
-								<i class="fas fa-people-carry"></i>
-							</c:if>
-							<c:if test="${dto.dealWay!=1}">
-								<i class="fas fa-truck"></i>
-							</c:if>
+						<li class="dealCreated" style="color:#a2a2a2;">
+							${dto.dealCreated}
 						</li>
 					</ul>
 					<ul class="fleaprice">
 						<li>
-							<i class="far fa-eye"><span class=""> 0 </span> </i>
+							<i class="far fa-eye"><span class=""> ${dto.dealHitCount} </span> </i>
 							<i class="far fa-comments"><span class=""> 0 </span> </i>
 						</li>
-						<li style="font-weight: bold; font-size:18px; color:#71da65;">${dto.dealPrice}원</li>
+						<li style="font-weight: bold; font-size:24px; color:#71da65;">${dto.dealPrice}원</li>
 					</ul>
 				</div>
 			</div>
