@@ -67,7 +67,7 @@ $(function() {
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/customer/notice">공지사항</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/customer/qna">QnA</a></li>
-	            		<li><a href="${pageContext.request.contextPath}/faq/faq">자주하는질문</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/customer/faq">자주하는질문</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>
