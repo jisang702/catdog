@@ -13,51 +13,44 @@ $(function() {
 </script>
 
 <div style="border-bottom: 1px solid #dadada;">
+
 <nav class="faqnav">
 	<ul>
-		<li>전체</li>
-		<li>이용문의</li>
-		<li>포인트</li>
-		<li>구매문의</li>
-		<li>배송문의</li>
-		<li>서류발급</li>
-		<li>기타</li>
+		<c:forEach var="dto" items="${listCategory}">
+			<li>${dto.faqCateName}</li>
+		</c:forEach>
 	</ul>
 </nav>
+
 </div>
+
+<c:forEach var="dto" items="${list}">
 <div class="faqlist">
 	<div class="faqQ" >
 		<ul>
-			<li class="faqQA">[회원가입]</li>
+			<li class="faqQA">${dto.faqCateName}</li>
 			<li class="faqQA">Q</li>
-			<li>질~~~~~~~~~~문</li>
+			<li>${dto.faqQuestion}</li>
 		</ul>
 	</div>
 	<div class="faqA">
 		<ul>
 			<li class="faqQA">A</li>
-			<li>답변!!!!!!!!!!!!!</li>
+			<li>${dto.faqAnswer}</li>
+			<c:if test="${sessionScope.member.userType==0}">
+				<li style="float: right">
+					<button type="button" class="mybtn1" onclick="deleteBoard('${dto.faqNum}','${page}')">삭제</button>
+					<button type="button" class="mybtn2" onclick="updateForm('${dto.faqNum}','${page}')">수정</button>
+				</li>
+			</c:if>
 		</ul>
 	</div>
 </div>
-<div class="faqlist">
-	<div class="faqQ">
-		<ul>
-			<li class="faqQA">[기타]</li>
-			<li class="faqQA">Q</li>
-			<li>질~~~~~~~~~~문</li>
-		</ul>
-	</div>
-	<div class="faqA">
-		<ul>
-			<li class="faqQA">A</li>
-			<li>답변!!!!!!!!!!!!!</li>
-		</ul>
-	</div>
-</div>
+</c:forEach>
+
 <div class="faqfooter">
 	<p>다른 질문이 있다면 ?</p>
-	<button type="button" class="mybtn2">1:1문의하기</button>
+	<button type="button" class="mybtn2" onclick="javascript:location.href='${pageContext.request.contextPath}/customer/qna'">1:1문의하기</button>
 </div>
 
 <div align="right">

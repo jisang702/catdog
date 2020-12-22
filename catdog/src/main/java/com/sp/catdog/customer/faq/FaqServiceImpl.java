@@ -26,7 +26,7 @@ public class FaqServiceImpl implements FaqService{
 	@Override
 	public void updateFaq(Faq dto) throws Exception {
 		try {
-			
+			dao.updateData("faq.updateFaq", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,7 +36,7 @@ public class FaqServiceImpl implements FaqService{
 	@Override
 	public void deleteFaq(Map<String, Object> map) throws Exception {
 		try {
-			
+			dao.deleteData("faq.deleteFaq", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class FaqServiceImpl implements FaqService{
 	public Faq readFaq(int faqNum) {
 		Faq dto=null;
 		try {
-			
+			dto=dao.selectOne("faq.readFaq", faqNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,7 +58,7 @@ public class FaqServiceImpl implements FaqService{
 	public List<Faq> listFaq(Map<String, Object> map) {
 		List<Faq> list=null;
 		try {
-			
+			list=dao.selectList("faq.listFaq", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +69,7 @@ public class FaqServiceImpl implements FaqService{
 	public int dataCount(Map<String, Object> map) {
 		int result=0;
 		try {
-			
+			result=dao.selectOne("faq.dataCount", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +79,7 @@ public class FaqServiceImpl implements FaqService{
 	@Override
 	public void insertCategory(Faq dto) throws Exception {
 		try {
-			
+			dao.insertData("faq.insertCategory", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +89,7 @@ public class FaqServiceImpl implements FaqService{
 	@Override
 	public void updateCategory(Faq dto) throws Exception {
 		try {
-			
+			dao.updateData("faq.updateCategory", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,7 +98,7 @@ public class FaqServiceImpl implements FaqService{
 	@Override
 	public void deleteCategory(Map<String, Object> map) throws Exception {
 		try {
-			
+			dao.deleteData("faq.deleteCategory", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,10 +106,21 @@ public class FaqServiceImpl implements FaqService{
 	}
 
 	@Override
+	public List<Faq> listCategory(Map<String, Object> map) {
+		List<Faq> list=null;
+		try {
+			list=dao.selectList("faq.listCategory", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
 	public List<Faq> listCategory() {
 		List<Faq> list=null;
 		try {
-			
+			list=dao.selectList("faq.listCategory");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

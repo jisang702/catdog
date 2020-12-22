@@ -226,8 +226,8 @@ function updateForm(num, page){
 		query="noNum="+num;
 	else if(tab=="qna")
 		query="qnaNum="+num;
-	else 
-		query="num="+num;
+	else if(tab="faq")
+		query="faqNum="+num;
 	query=query+"&page="+page;
 	
 	var selector="#tab-content";
@@ -248,8 +248,8 @@ function deleteBoard(num, page, mode){
 		query="noNum="+num;
 	else if(tab=="qna")
 		query="qnaNum="+num+"&mode="+mode;
-	else 
-		query="num="+num;
+	else if(tab="faq")
+		query="faqNum="+num;
 	query=query+"&page="+page;
 	
 	if(! confirm("게시글을 삭제하시겠습니까?"))

@@ -15,5 +15,6 @@ public interface FaqService {
 	public void updateCategory(Faq dto) throws Exception;
 	public void deleteCategory(Map<String, Object> map) throws Exception;
 	public List<Faq> listCategory();
+	public List<Faq> listCategory(Map<String, Object> map);
 	
 }
