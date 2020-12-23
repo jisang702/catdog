@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deal">
+	<insert id="insertDeal" parameterType="com.sp.catdog.community.deal.Deal">
+		INSERT INTO comDeal(dealNum, dealSubject, userId, dealCreated, dealContent, dealPrice,
+			dealWay, dealType, dealState, dealHitCount, dealZone
+		) VALUES (comdeal_seq.NEXTVAL, #{dealSubject}, #{userId}, SYSDATE, #{dealContent}, #{dealPrice},
+			#{dealWay}, #{dealType}, 1, 0, #{dealZone})		
+	</insert>
+	
+	<select id="listDeal" parameterType="map" resultType="com.sp.catdog.community.deal.Deal">
+		SELECT dealNum, m.userId, userNick, dealSubject, dealCreated, to_char(dealPrice, 'FM999,999') dealPrice, dealWay, dealType, dealState,
+			 dealHitCount, dealContent, dealZone
+		FROM comDeal d
+		JOIN member1 m ON m.userId=d.userId
+		ORDER BY dealNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comDeal d
+		JOIN member1 m ON m.userId=d.userId	
+	</select>
+	
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE comDeal SET dealHitCount=dealHitCount+1 WHERE dealNum=#{dealNum}
+	</update>
+	
+	<select id="readDeal" parameterType="Integer" resultType="com.sp.catdog.community.deal.Deal">
+		SELECT dealNum, m.userId, userNick, dealSubject, dealCreated, dealContent, to_char(dealPrice, 'FM999,999') dealPrice, dealWay, dealType,
+			dealState, dealHitCount, dealZone
+		FROM comDeal d
+		JOIN member1 m ON m.userId=d.userId
+		WHERE dealNum=#{dealNum}
+	</select>
+	
+	<update id="updateDeal" parameterType="com.sp.catdog.community.deal.Deal">
+		UPDATE comDeal SET dealSubject=#{dealSubject}, dealContent=#{dealContent}, dealPrice=#{dealPrice}, 
+			dealWay=#{dealWay}, dealZone=#{dealZone}
+		WHERE dealNum=#{dealNum} AND userId=#{userId}
+	</update>
+	
+	<select id="userDeal" parameterType="map" resultType="com.sp.catdog.community.deal.Deal">
+		<![CDATA[
+		SELECT ROWNUM, dealNum, m.userId, dealSubject, to_char(dealPrice, 'FM999,999') dealPrice, dealContent
+		FROM comDeal d
+		JOIN member1 m ON m.userId=d.userId 
+		WHERE d.userId=#{userId} AND dealState!=3 AND ROWNUM <= 3
+		]]>
+	</select>
+	
+	<delete id="deleteDeal" parameterType="map">
+		DELETE FROM comDeal WHERE dealNum=#{dealNum}
+	</delete>
+	
+	<update id="updateDealState" parameterType="com.sp.catdog.community.deal.Deal">
+		UPDATE comDeal SET dealState=#{dealState}
+		WHERE dealNum=#{dealNum}
+	</update>
+</mapper>

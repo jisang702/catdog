@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -302,7 +301,7 @@ public class BoardController {
 		
 		try {
 			String root=session.getServletContext().getRealPath("/");
-			String pathname=root+"uploads"+File.separator+"answer";
+			String pathname=root+"uploads"+File.separator+"qna";
 			
 			dto.setUserId(info.getUserId());
 			dto.setUserNick(info.getUserNick());
@@ -334,7 +333,7 @@ public class BoardController {
 		Board dto=service.readQuestion(qnaNum);
 		if(dto!=null) {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + "uploads" + File.separator + "notice";
+			String pathname = root + "uploads" + File.separator + "qna";
 			
 			if(info.getUserId().equals(dto.getUserId()) || info.getUserType() == 0 ) {
 				try {
@@ -361,7 +360,7 @@ public class BoardController {
 			HttpSession session
 			) throws Exception{
 		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "notice";
+		String pathname = root + "uploads" + File.separator + "qna";
 		
 		boolean b=false;
 		
@@ -382,5 +381,33 @@ public class BoardController {
 				
 			}
 		}
+	}
+	
+	@RequestMapping(value = "deleteFile", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteFile(
+			@RequestParam int qnaFileNum,
+			HttpSession session,
+			HttpServletResponse resp
+			) throws Exception{
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "qna";
+		
+		Board dto=service.readFile(qnaFileNum);
+		if(dto!=null)
+			fileManager.doFileDelete(dto.getQnaSaveFileName(), pathname);
+		
+		Map<String, Object> model=new HashMap<String, Object>();
+		try {
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("field", "qnaFileNum");
+			map.put("qnaNum", qnaFileNum);
+			service.deleteFile(map);
+			
+			model.put("state", "true");
+		} catch (Exception e) {
+			model.put("state", "false");
+		}
+		return model;
 	}
 }

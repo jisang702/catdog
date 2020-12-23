@@ -12,6 +12,8 @@ public class Board {
 	private String userId;
 	private String userNick;
 	
+	private int replyCount;
+	private int boardLikeCount;
 	
 	public int getFreeNum() {
 		return freeNum;
@@ -66,6 +68,18 @@ public class Board {
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+	public int getBoardLikeCount() {
+		return boardLikeCount;
+	}
+	public void setBoardLikeCount(int boardLikeCount) {
+		this.boardLikeCount = boardLikeCount;
 	}
 	
 	

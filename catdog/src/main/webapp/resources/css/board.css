@@ -5,6 +5,11 @@
 	padding: 0;
 }
 
+button {
+	background: none;
+	border: 0;
+}
+
 .board {
 	width: 900px;	
 	margin: 100px auto;
@@ -75,6 +80,11 @@
 	border-bottom: 1px solid #dadada;
 }
 
+.replyCnt {
+	font-weight: ;
+    color: #71da65;
+}
+
 .listfooter {
 	margin: 15px;
 }
@@ -108,8 +118,23 @@
 	display: inline-block;
 }
 
-.articletitle .like {
+.articletitle .boardlike {
 	float: right;
+}
+
+.boardlikebtn, .boardunlikebtn {
+	background: none;
+	border:0;
+	font-size:30px;
+}
+
+.unlike {
+	color:#a2a2a2;
+}
+
+.like {
+	color:#ff3535;
+	font-weight: 600;
 }
 
 .article .tr {
@@ -140,7 +165,6 @@
 }
 
 .comment {
-	border-bottom: 1px solid #dadada;
 	padding-bottom: 10px;
 }
 
@@ -160,6 +184,7 @@
 .commentcount {
 	font-size: 30px;
 	color: #71da65;
+	padding-left: 5px;
 }
 
 .commentinput li .mybtn2 {
@@ -174,9 +199,15 @@
 	border-bottom: 1px solid #dadada;
 	padding-bottom: 20px;
 }
+
+.replylist {
+	margin-left: 20px;
+}
 .profile {
 	height: 30px;
 	margin: 5px;
+	display: flex;
+	justify-content: space-between;
 } 
 
 .profile ul li {
@@ -190,6 +221,11 @@
 
 .profile ul li button {
 	border: none;
+}
+
+.profile .replylikebtn, .replyunlikebtn {
+	border: 0;
+    background: none;
 }
 
 .commentwrap {
@@ -213,6 +249,7 @@
 
 .reply {
 	padding-top: 20px;
+	display: none;
 }
 
 .replyinput ul li {
@@ -227,11 +264,15 @@
 .replyinput textarea {
 	resize: none;
 	height: 45px;
-	width: 89%;
+	width: 85%;
 	vertical-align: middle;
 	border: 1px solid #dadada;
 	border-radius: 10px;
 	padding: 10px;
+}
+
+.answerReplylist {
+	margin-bottom: 10px;
 }
 
 .createdtitle {
@@ -271,3 +312,252 @@
 	border: 1px solid #dadada;
 	border-radius: 10px;
 	margin: 10px;
+}
+
+.fleamarket {
+	display: inline-block;
+	width: 250px;
+	margin: 0px 10px 20px 10px;
+	text-align: left;
+	font-size: 16px;
+	float: left;
+	padding: 15px;
+	max-height: 295px;
+}
+
+.fleamarket ul li {
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
+
+.fleaLayout:after {
+	content:"";
+	clear: both;
+	display: block;
+}
+
+.fleamarket-img {
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+	height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.listimg-cover {
+	height: 200px;
+    position: absolute;
+    background: #6f6d6db0;
+    width: 230px;
+    top: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+}
+
+.fleamarket-img img {
+	width: 100%;
+	height: 100%;
+    border-radius: 10px;
+}
+
+.fleaprice , .fleabtn {
+	justify-content: space-between;
+	display: flex;
+}
+
+.fleaprice .far {
+	color: #a2a2a2;
+	font-size: 14px;
+}
+
+.flea-articleimg {
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	width: 500px;
+	height: 350px;
+    margin: 5px auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    position: relative;
+}
+
+.img-cover {
+	height: 350px;
+    position: absolute;
+    background: #6f6d6db0;
+    width: 500px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+}
+
+.flea-articletop:after {
+	content:"";
+	display: block;
+	clear: both;
+}
+
+.flea-articleimg img {
+	width: 100%;
+}
+
+.flea-article {
+	width: 900px;
+	margin: 10px auto;
+}
+
+.flea-title {
+	text-align: left;
+	width: 300px;
+	float: left;
+	margin: 45px;
+}
+
+.flea-title .title {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.flea-title .price {
+	font-weight: bold;
+	font-size: 35px;
+	color: #71da65;
+}
+
+.flea-title ul li {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.flea-title .far {
+	color: #a2a2a2;
+}
+
+.dealType {
+	font-size: 20px;
+	font-weight: bold;
+	color: #6b6b6b;
+}
+
+.dealState, .dealWay {
+	background: #c5c5c5;
+	color: white;
+	border-radius: 5px;
+	padding: 3px 6px;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 10px 0px;
+}
+
+.dealinfo {
+	justify-content: space-between;
+	display: flex;
+	margin-top: 5px;
+	font-size: 14px;
+}
+
+.dealuser {
+	border-top: 1px solid #dadada;
+	font-size: 16px;
+	margin-top: 40px;
+	padding-top: 15px;
+	text-align: right;
+}
+
+.flea-user {
+	color: #a2a2a2;
+}
+
+.flea-user .fas {
+	color: #ffc107;
+}
+
+.flea-content {
+	min-height: 200px;
+	padding: 20px;
+	border-top: 1px solid #dadada;
+	border-bottom: 1px solid #dadada;
+	line-height: 20px;
+	display: flex;
+    align-items: center;
+}
+
+.fleaarticlebtn {
+	margin: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.fleagoodstitle {
+	font-size: 20px;
+	font-weight: bold;
+	color: #a2a2a2;
+	margin-bottom: 20px;
+}
+
+.fleausergoods {
+	width: 650px;
+	margin: 10px auto;
+	display: inline-block;
+	border: 1px solid #dadada;
+	border-radius: 10px; 
+	padding-top: 20px;
+	margin-bottom: 30px;
+}
+
+.fleagoods {
+	display: inline-block;
+	margin: 10px;
+}
+
+.fleagoodsimg {
+	width: 130px;
+	height: 130px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.fleagoodsinfo {
+	text-align: left;
+	font-size: 14px;
+	margin: 10px;
+}
+
+.fleagoodsinfo ul li {
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+	width: 120px;
+}
+
+.dealtable select {
+	outline: 0;
+	height: 30px;
+	line-height: 30px;
+	width: 80px;
+	border: 1px solid #dadada;
+	border-radius: 5px;
+}
+
+.dealtable tr {
+	border-bottom: 1px solid #dadada;
+	padding: 5px;
+	height: 50px;
+}

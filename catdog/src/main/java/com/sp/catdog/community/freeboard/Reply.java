@@ -11,6 +11,8 @@ public class Reply {
 	private int freeReplyType;
 	private int answerCount;
 	
+	private int likeUser;
+	private int replyLikeCount;
 	
 	public int getFreeNum() {
 		return freeNum;
@@ -60,7 +62,18 @@ public class Reply {
 	public void setAnswerCount(int answerCount) {
 		this.answerCount = answerCount;
 	}
-	
+	public int getLikeUser() {
+		return likeUser;
+	}
+	public void setLikeUser(int likeUser) {
+		this.likeUser = likeUser;
+	}
+	public int getReplyLikeCount() {
+		return replyLikeCount;
+	}
+	public void setReplyLikeCount(int replyLikeCount) {
+		this.replyLikeCount = replyLikeCount;
+	}
 	
 	
 }

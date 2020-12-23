@@ -9,18 +9,66 @@
 			 SYSDATE, 0, #{freePet})
 	</insert>
 	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(freeSubject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(freeContent, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition == 'writer'">
+			    DBMS_LOB.INSTR(userNick, #{keyword}) &gt; 0
+			</when>
+			<when test="condition == 'subject'">
+			    DBMS_LOB.INSTR(freeSubject, #{keyword}) &gt; 0
+			</when>
+			<when test="condition == 'content'">
+			    DBMS_LOB.INSTR(freeContent, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+
 	<select id="listBoard" parameterType="map" resultType="com.sp.catdog.community.freeboard.Board">
-		SELECT freeNum, f.userId, userNick, freeSubject, to_char(freeCreated, 'YYYY-MM-DD') freeCreated, freeHitCount, freePet
+		SELECT f.freeNum, f.userId, userNick, freeSubject, to_char(freeCreated, 'YYYY-MM-DD') freeCreated, freeHitCount, freePet,
+				NVL(replyCount, 0) replyCount, NVL(boardLikeCount, 0) boardLikeCount
 		FROM comfree f
 		JOIN member1 m ON m.userId=f.userId
-		ORDER BY freeNum DESC
+		LEFT OUTER JOIN (
+			SELECT freeNum, COUNT(*) replyCount FROM comFreeReply
+			WHERE freeReplyType=0
+			GROUP BY freeNum
+		) c ON f.freeNum=c.freeNum
+		LEFT OUTER JOIN (
+			SELECT freeNum, COUNT(*) boardLikeCount FROM comFreeLike
+			WHERE likeNo=1
+			GROUP BY freeNum
+		) l ON f.freeNum=l.freeNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 		
+		ORDER BY 
+		<choose>
+			<when test="array=='replys'">replyCount DESC</when>
+			<when test="array=='hits'">freeHitCount DESC</when>
+			<when test="array=='likes'">boardLikeCount DESC</when>
+			<when test="array=='news'">f.freeNum DESC</when>
+		</choose>
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM comfree f
-		JOIN member1 m ON m.userId=f.userId
+		JOIN member1 m ON m.userId=f.userId	
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 
 	</select>
 	
 	<select id="readBoard" parameterType="Integer" resultType="com.sp.catdog.community.freeboard.Board">
@@ -44,22 +92,50 @@
 		DELETE FROM comfree WHERE freeNum=#{freeNum}
 	</delete>
 	
+	<insert id="insertBoardLike" parameterType="map">
+		INSERT INTO comFreeLike(freeNum, userId, likeNo) VALUES (#{freeNum}, #{userId}, 1)
+	</insert>
+	
+	<select id="boardLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM comFreeLike 
+		WHERE freeNum=#{freeNum} AND likeNo=1
+	</select>
+	
+	<select id="boardLikeUser" parameterType="map" resultType="Integer">
+		SELECT likeNo FROM comFreeLike WHERE freeNum=#{freeNum} AND userId=#{userId}
+	</select>
+	
+	<delete id="deleteBoardLike" parameterType="map">
+		DELETE FROM comFreeLike WHERE freeNum=#{freeNum} AND userId=#{userId}
+	</delete>
+	
 	<insert id="insertReply" parameterType="com.sp.catdog.community.freeboard.Reply">
 		INSERT INTO comFreeReply(freeReplyNum, freeReplyContent, freeReplyCreated, freeReplyType,
-			freeNum, userId) VALUES (comfreereply_seq.NEXTVAL, #{freeReplyContent}, SYSDATE, 1, #{freeNum}, #{userId})
+			freeNum, userId) VALUES (comfreereply_seq.NEXTVAL, #{freeReplyContent}, SYSDATE, #{freeReplyType}, #{freeNum}, #{userId})
 	</insert>
 	
 	<select id="replyCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM comFreeReply
-		WHERE freeNum=#{freeNum} AND freeReplyType=1
+		WHERE freeNum=#{freeNum} AND freeReplyType=0
 	</select>
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.catdog.community.freeboard.Reply">
-		SELECT freeReplyNum, r.userId, userNick, freeNum, freeReplyContent, to_char(freeReplyCreated, 'YYYY-MM-DD') freeReplyCreated
+		SELECT r.freeReplyNum, r.userId, userNick, freeNum, freeReplyContent, 
+			to_char(freeReplyCreated, 'YYYY-MM-DD') freeReplyCreated, answerCount, replyLikeCount
 		FROM comFreeReply r
 		JOIN member1 m ON m.userId=r.userId
-		WHERE freeNum=#{freeNum} AND freeReplyType=1
+		LEFT OUTER JOIN (
+			SELECT freeReplyType, COUNT(*) answerCount FROM comFreeReply
+            where freeReplyType!=0
+            Group by freeReplyType
+		) c ON r.freeReplyNum=c.freeReplyType
+		LEFT OUTER JOIN (
+            SELECT freeReplyNum, COUNT(*) replyLikeCount FROM comFreeReplyLike
+            WHERE likeNo=1
+            GROUP BY freeReplyNum
+        ) l ON l.freeReplyNum=r.freeReplyNum
+		WHERE freeNum=#{freeNum} AND r.freeReplyType=0
 		ORDER BY r.freeReplyNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
@@ -71,5 +147,44 @@
 	
 	<delete id="deleteReply" parameterType="map">
 		DELETE FROM comFreeReply WHERE freeReplyNum=#{freeReplyNum}
+		<if test="mode=='reply'">
+			OR freeReplyType=#{freeReplyNum}
+		</if>
 	</delete>
+	
+	<select id="listAnswerReply" parameterType="Integer" resultType="com.sp.catdog.community.freeboard.Reply">
+		SELECT r.freeReplyNum, r.userId, userNick, freeNum, freeReplyContent, 
+			to_char(freeReplyCreated, 'YYYY-MM-DD') freeReplyCreated, freeReplyType, replyLikeCount
+		FROM comFreeReply r
+		JOIN member1 m ON m.userId=r.userId
+		LEFT OUTER JOIN (
+            SELECT freeReplyNum, COUNT(*) replyLikeCount FROM comFreeReplyLike
+            WHERE likeNo=1
+            GROUP BY freeReplyNum
+        ) l ON l.freeReplyNum=r.freeReplyNum
+		WHERE freeReplyType=#{freeReplyType}
+		ORDER BY r.freeReplyNum ASC
+	</select>
+	
+	<select id="answerReplyCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comFreeReply WHERE freeReplyType = #{freeReplyType}
+	</select>
+	
+	<insert id="insertReplyLike" parameterType="map">
+		INSERT INTO comFreeReplyLike(freeReplyNum, userId, likeNo) VALUES (#{freeReplyNum}, #{userId}, 1)
+	</insert>
+	
+	<select id="replyLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM comFreeReplyLike 
+		WHERE freeReplyNum=#{freeReplyNum} AND likeNo=1
+	</select>
+	
+	<delete id="deleteReplyLike" parameterType="map">
+		DELETE FROM comFreeReplyLike WHERE freeReplyNum=#{freeReplyNum} AND userId=#{userId}
+	</delete>
+	
+	<select id="replyLikeUser" parameterType="map" resultType="Integer">
+		SELECT likeNo FROM comFreeReplyLike WHERE freeReplyNum=#{freeReplyNum} AND userId=#{userId}
+	</select>
 </mapper>

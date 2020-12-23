@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/tabs.css" type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -110,11 +112,19 @@ function listPage(page) {
 	
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/list";
 	var query="page="+page;
-	//var search=$('form[name=customerSearchForm]').serialize();
-	//query=query+"&"+search;
+	var search=$('form[name=customerSearchForm]').serialize();
+	query=query+"&"+search;
 	var selector = "#tab-content";
 	
 	ajaxHTML(url, "get", query, selector);
+}
+
+//검색
+function searchList(){
+	var f=document.customerSearchForm;
+	f.condition.value=$("#condition").val();
+	f.keyword.value=$("#keyword").val();
+	listPage(1);
 }
 
 //새로고침
@@ -206,8 +216,8 @@ function articleBoard(num, page){
 		query="qnaNum="+num;
 	else 
 		query="num="+num;
-	//var search=$("form[name=customerSearchForm]").serialize();
-	query=query+"&page="+page;	//+"&"+search;
+	var search=$("form[name=customerSearchForm]").serialize();
+	query=query+"&page="+page+"&"+search;
 	var selector="#tab-content";
 	
 	ajaxHTML(url, "get", query, selector);
@@ -224,8 +234,8 @@ function updateForm(num, page){
 		query="noNum="+num;
 	else if(tab=="qna")
 		query="qnaNum="+num;
-	else 
-		query="num="+num;
+	else if(tab="faq")
+		query="faqNum="+num;
 	query=query+"&page="+page;
 	
 	var selector="#tab-content";
@@ -246,8 +256,8 @@ function deleteBoard(num, page, mode){
 		query="noNum="+num;
 	else if(tab=="qna")
 		query="qnaNum="+num+"&mode="+mode;
-	else 
-		query="num="+num;
+	else if(tab="faq")
+		query="faqNum="+num;
 	query=query+"&page="+page;
 	
 	if(! confirm("게시글을 삭제하시겠습니까?"))
@@ -273,6 +283,15 @@ function replyForm(num, page){
 	ajaxHTML(url, "get", query, selector);
 }
 
+//faq 카테고리로 리스트 정렬
+function faqlist(faqCateNum){
+	var url="${pageContext.request.contextPath}/customer/faq/list";
+	var query="faqCateNum="+faqCateNum;
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
 </script>
 
 
@@ -281,8 +300,8 @@ function replyForm(num, page){
 		<div style="clear: both;">
 	           <ul class="tabs">
 			       <li id="tab-notice" data-tab="notice">공지사항</li>
-			       <li id="tab-inquiry" data-tab="inquiry">1:1문의</li>
-			       <li id="tab-qna" data-tab="qna">질문답변</li>
+			       <li id="tab-qna" data-tab="qna">1:1문의</li>
+			       <li id="tab-faq" data-tab="faq">자주하는질문</li>
 			   </ul>
 		   </div>
 		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>

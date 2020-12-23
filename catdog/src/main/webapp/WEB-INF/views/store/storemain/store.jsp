@@ -44,7 +44,7 @@ $(function(){
 
 
   
-<p align="center" style="margin-top: 30px">신상품</p>
+<p align="center" style="margin-top: 30px; font-weight: bold; font-size: 20px;">신상품</p>
 <div  align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -53,7 +53,7 @@ $(function(){
 </div>
 
 <br>
-<p align="center" style="margin-top: 30px">베스트 상품</p>
+<p align="center" style="margin-top: 30px;  font-weight: bold; font-size: 20px;">베스트 상품</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -61,7 +61,7 @@ $(function(){
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
 <br>
-<p align="center" style="margin-top: 30px">사료</p>
+<p align="center" style="margin-top: 30px; font-weight: bold; font-size: 20px;">사료</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
@@ -69,28 +69,28 @@ $(function(){
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
 <br>
-<p align="center" style="margin-top: 30px">옷</p>
+<p align="center" style="margin-top: 30px;  font-weight: bold; font-size: 20px;">옷</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center" style="margin-top: 30px">간식</p>
+<p align="center" style="margin-top: 30px;  font-weight: bold; font-size: 20px;">간식</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center" style="margin-top: 30px">장난감</p>
+<p align="center" style="margin-top: 30px;  font-weight: bold; font-size: 20px;">장난감</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>
 </div>
-<p align="center" style="margin-top: 30px">기타</p>
+<p align="center" style="margin-top: 30px;  font-weight: bold; font-size: 20px;">기타</p>
 <div align="center">
 <a href="#"><img class="big" src="img1.jpg"> </a>
 <a href="#"><img class="big" src="img1.jpg"> </a>

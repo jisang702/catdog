@@ -47,14 +47,44 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void insertBoardLike(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.insertData("freeboard.insertBoardLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Override
+	public void deleteBoardLike(Map<String, Object> map) throws Exception {
+		try {			
+			dao.deleteData("freeboard.deleteBoardLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public int boardLikeCount(int num) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int boardLikeCount(int freeNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.boardLikeCount", freeNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	public int boardLikeUser(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.boardLikeUser", map);
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
@@ -76,18 +106,6 @@ public class BoardServiceImpl implements BoardService {
 			e.printStackTrace();
 		}
 		return dto;
-	}
-
-	@Override
-	public Board preReadBoard(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Board nextReadBoard(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -159,6 +177,69 @@ public class BoardServiceImpl implements BoardService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Reply> listAnswerReply(int freeReplyType) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("freeboard.listAnswerReply", freeReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int answerReplyCount(int freeReplyType) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.answerReplyCount", freeReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void insertReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("freeboard.insertReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("freeboard.deleteReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int replyLikeCount(int freeReplyNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.replyLikeCount", freeReplyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int replyLikeUser(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("freeboard.replyLikeUser", map);
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

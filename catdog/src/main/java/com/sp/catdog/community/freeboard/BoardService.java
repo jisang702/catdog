@@ -9,12 +9,12 @@ public interface BoardService {
 	public List<Board> listBoard(Map<String, Object> map);
 	
 	public void insertBoardLike(Map<String, Object> map) throws Exception;
+	public void deleteBoardLike(Map<String, Object> map) throws Exception;
+	public int boardLikeUser(Map<String, Object> map);
 	public int boardLikeCount(int num);
 	
 	public void updateHitCount(int freeNum) throws Exception;
 	public Board readBoard(int freeNum);
-	public Board preReadBoard(Map<String, Object> map);
-	public Board nextReadBoard(Map<String, Object> map);
 	
 	public void updateBoard(Board dto) throws Exception;
 	public void deleteBoard(int freeNum, String userId) throws Exception;
@@ -24,5 +24,13 @@ public interface BoardService {
 	public int replyCount(Map<String, Object> map);
 	public void updateReply(Reply dto) throws Exception;
 	public void deleteReply(Map<String, Object> map) throws Exception;
+	
+	public List<Reply> listAnswerReply(int freeReplyType);
+	public int answerReplyCount(int freeReplyType);
+	
+	public void insertReplyLike(Map<String, Object> map) throws Exception;
+	public void deleteReplyLike(Map<String, Object> map) throws Exception;
+	public int replyLikeUser(Map<String, Object> map);
+	public int replyLikeCount(int freeReplyNum);
 	
 }

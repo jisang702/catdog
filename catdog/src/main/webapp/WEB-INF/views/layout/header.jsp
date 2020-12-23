@@ -37,7 +37,7 @@ $(function() {
 		                &nbsp;|&nbsp;
 		                <a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
 		                <c:if test="${sessionScope.member.userId=='admin'}">
-		                	&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}">관리자모드</a>
+		                	&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/admin">관리자모드</a>
 		                </c:if>
 				</c:if>
 			</div>
@@ -52,7 +52,7 @@ $(function() {
 	            		<li><a href="${pageContext.request.contextPath}/community/board/list">자유게시판</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/gallery/list">포토갤러리</a></li>
 	            		<li><a href="#">실종게시판</a></li>
-	            		<li><a href="#">중고거래</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/community/deal/list">중고거래</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a>수의사</a>
@@ -63,11 +63,11 @@ $(function() {
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">이벤트</a></li>
-	            <li class="menu1"><a>고객센터</a>
+	            <li class="menu1"><a href="${pageContext.request.contextPath}/customer/notice">고객센터</a>
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/customer/notice">공지사항</a></li>
-	            		<li><a href="#">1:1 문의</a></li>
-	            		<li><a href="${pageContext.request.contextPath}/faq/faq">FAQ</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/customer/qna">QnA</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/customer/faq">자주하는질문</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>

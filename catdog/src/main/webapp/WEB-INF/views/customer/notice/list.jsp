@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="alert-info">
+<div class="alert-info" style="background: #c6f3c0; color: #397233; border: 1px solid #6FA869">
   <i class="fas fa-info-circle"></i>
     중요한 일정 및 알림, 이벤트 등은 공지사항 통해 고객님께 알려 드립니다.
 </div>
@@ -76,7 +76,7 @@
 <table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
    <tr height="40">
       <td align="left" width="100">
-          <button type="button" class="btn" onclick="reloadBoard();">새로고침</button>
+          <button type="button" class="mybtn1" onclick="reloadBoard();">새로고침</button>
       </td>
       <td align="center">
           <form name="searchForm" action="" method="post">
@@ -88,12 +88,12 @@
                   <option value="created" ${condition=="created"?"selected='selected'":""}>등록일</option>
             </select>
             <input type="text" id="keyword" name="keyword" class="boxTF" value="${keyword}">
-            <button type="button" class="btn" onclick="searchList();">검색</button>
+            <button type="button" class="mybtn1" onclick="searchList();">검색</button>
         </form>
       </td>
       <td align="right" width="100">
       	<c:if test="${sessionScope.member.userId=='admin'}">
-          <button type="button" class="btn" onclick="insertForm();">글올리기</button>
+          <button type="button" class="mybtn2" onclick="insertForm();">글올리기</button>
         </c:if>
       </td>
    </tr>

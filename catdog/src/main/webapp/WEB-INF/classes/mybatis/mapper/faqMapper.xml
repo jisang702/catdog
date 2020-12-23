@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+	
+	<insert id="insertFaq" parameterType="com.sp.catdog.customer.faq.Faq">
+		INSERT INTO faq(faqNum, faqQuestion, faqAnswer, faqCateNum, userId)
+		VALUES(faq_seq.NEXTVAL, #{faqQuestion}, #{faqAnswer}, #{faqCateNum}, #{userId})
+	</insert>
+	
+	<update id="updateFaq" parameterType="com.sp.catdog.customer.faq.Faq">
+		UPDATE faq SET faqQuestion=#{faqQuestion}, faqAnswer=#{faqAnswer}, faqCateNum=#{faqCateNum}
+		WHERE faqNum=#{faqNum}
+	</update>
+	
+	<delete id="deleteFaq" parameterType="map">
+		DELETE FROM faq WHERE faqNum=#{faqNum}
+	</delete>
+	
+	<select id="readFaq" parameterType="Integer" resultType="com.sp.catdog.customer.faq.Faq">
+		SELECT  f.faqNum, faqQuestion, faqAnswer, c.faqCateNum, f.userId,
+					faqCateName, faqEnabled, faqOrderNum
+		FROM faq f
+		JOIN member1 m ON m.userId=f.userId
+		JOIN faqCategory c ON c.faqCateNum=f.faqCateNum
+		WHERE f.faqNum=#{faqNum}
+	</select>
+	
+	<select id="listFaq" parameterType="map" resultType="com.sp.catdog.customer.faq.Faq">
+		SELECT f.faqNum, faqQuestion, faqAnswer, c.faqCateNum, f.userId,
+				faqCateName, faqEnabled, faqOrderNum
+		FROM faq f
+		JOIN member1 m ON m.userId=f.userId
+		JOIN faqCategory c ON c.faqCateNum=f.faqCateNum
+		<where>
+			<if test="faqCateNum!=0">
+				( c.faqCateNum=#{faqCateNum} )
+			</if>
+			AND c.faqEnabled=1
+		</where>
+		ORDER BY faqOrderNum, f.faqNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0)
+		FROM faq f
+		JOIN member1 m ON m.userId=f.userId
+		JOIN faqCategory c ON c.faqCateNum=f.faqCateNum
+		<where>
+			<if test="faqCateNum!=0">
+				( c.faqCateNum=#{faqCateNum} )
+			</if>
+			AND c.faqEnabled=1
+		</where>
+		
+	</select>
+	
+	<!-- category -->
+	<insert id="insertCategory" parameterType="com.sp.catdog.customer.faq.Faq">
+		INSERT INTO faqCategory(faqCateNum, faqCateName, faqEnabled, faqOrderNum)
+		VALUES(faqCategory_seq.NEXTVAL, #{faqCateName}, #{faqEnabled}, #{faqOrderNum})
+	</insert>
+	
+	<update id="updateCategory" parameterType="com.sp.catdog.customer.faq.Faq">
+		UPDATE faqCategory SET faqCateName=#{faqCateName}, faqEnabled=#{faqEnabled}, faqOrderNum=#{faqOrderNum}
+		WHERE faqCateNum=#{faqCateNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="Integer">
+		DELETE FROM faqCategory WHERE faqCateNum=#{faqCateNum}
+	</delete>
+	
+	<select id="listCategory" parameterType="map" resultType="com.sp.catdog.customer.faq.Faq">
+		SELECT faqCateNum, faqCateName, faqEnabled, faqOrderNum
+		FROM faqCategory
+		<where>
+			<if test="mode==enabled">
+				faqEnabled=1
+			</if>
+		</where>
+		ORDER BY faqOrderNum
+	</select>
+</mapper>
