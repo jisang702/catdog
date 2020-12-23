@@ -18,33 +18,36 @@ $(function(){
 	     });
 });
 </script>
-<div class="header-top">
-    <div class="header-left">
-        <p style="margin: 2px;">
-            <a href="${pageContext.request.contextPath}/" style="text-decoration: none;">
-                <span style="width: 200px; height: 70; position: relative; left: 0; top:20px; color: #2984ff; filter: mask(color=red) shadow(direction=135) chroma(color=red);font-style: italic; font-family: arial black; font-size: 30px; font-weight: bold;">SPRING</span>
-            </a>
-        </p>
-    </div>
-    <div class="header-right">
-        <div style="padding-top: 20px;  float: right;">
-               <span style="color:blue;">${sessionScope.member.userName}</span>님
-                &nbsp;|&nbsp;
-               <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-                &nbsp;|&nbsp;
-               <a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
-        </div>
-    </div>
-</div>
+<div class="main-header">
+	<div class="header">
+		<div class="headerinner">
+			<div class="logo">
+				<a href="#"><img src="${pageContext.request.contextPath}/resources/css/images/dog.jpeg"></a>
+				<a href="##"><img src="${pageContext.request.contextPath}/resources/css/images/cat.jpeg"></a>
+			</div>
+			<div class="myMenu">
+				<span style="color: blue;">${sessionScope.member.userNick}</span>님
+				&nbsp;|&nbsp; 
+				<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+				&nbsp;|&nbsp; 
+				<a href="${pageContext.request.contextPath}/member/pwd">정보수정</a>
+		        &nbsp;|&nbsp;
+		        <a href="${pageContext.request.contextPath}/commu">메인으로</a>
+			</div>
+    	</div>
+	</div>
 
-<div class="menu">
-    <ul class="nav">
-        <li><a href="${pageContext.request.contextPath}/admin">Home</a></li>
-        <li><a href="#">회원관리</a></li>
-        <li><a href="#">커뮤니티관리</a></li>
-        <li><a href="#">스터디관리</a></li>
-        <li><a href="#">고객센터관리</a></li>
-			
-        <li style="float: right;"><a href="#"><span style="font-size: 17px; font-weight: 700;">▦</span></a></li>
-    </ul>      
+	<div id="mainMenu">
+		<div class="menu">
+		    <ul class="menunav">
+		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin">HOME</a></li>
+		        <li class="menu1"><a href="#">회원관리</a></li>
+		        <li class="menu1"><a href="#">커뮤니티관리</a></li>
+		        <li class="menu1"><a href="#">스터디관리</a></li>
+		        <li class="menu1"><a href="#">고객센터관리</a></li>
+				<li class="menu1"><a href="#">&nbsp;</a></li>
+				<li class="menu2"><a href="#">&nbsp;</a></li>
+		    </ul>      
+	    </div>
+	</div>
 </div>
