@@ -29,7 +29,6 @@ public class DealController {
 	
 	@Autowired
 	private DealService service;
-	
 	@Autowired
 	private MyUtil myUtil;
 	@Autowired
@@ -41,6 +40,7 @@ public class DealController {
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			@RequestParam(value="rows", defaultValue="9") int rows,
+			@RequestParam(defaultValue = "1") int dealType,
 			HttpServletRequest req,
 			Model model
 			) throws Exception {
@@ -55,6 +55,7 @@ public class DealController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("dealType", dealType);
 
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(rows, dataCount);
@@ -83,10 +84,8 @@ public class DealController {
             Date writeday=sdf.parse(dto.getDealCreated());
             
             dto.setDealCreated(timeUtil.formatTimeString(writeday));
-            
             n++;
         }            
-		
 		String cp = req.getContextPath();
 		String query = "rows="+rows;
 		String listUrl = cp + "/community/deal/list";
@@ -111,6 +110,7 @@ public class DealController {
 		model.addAttribute("rows", rows);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("dealType", dealType);
 		
 		return ".community.deal.list";
 	}
@@ -135,8 +135,15 @@ public class DealController {
 		if(dto==null)
 			return "redirect:/community/deal/list?"+query;
 		
+		List<String> imglist=myUtil.getImgSrc(dto.getDealContent());
+		String imgurl="";
+		if(imglist.size()>0) {
+			imgurl=imglist.get(0).toString();
+		}
+		
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("userId", dto.getUserId());
+		map.put("dealNum", dto.getDealNum());
 		
 		List<Deal> sublist=service.userDeal(map);
 		
@@ -148,6 +155,7 @@ public class DealController {
 		}
         
         service.updateHitCount(dealNum);
+        int replyCount=service.replyCount(map);
         
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date writeday=sdf.parse(dto.getDealCreated());
@@ -155,6 +163,8 @@ public class DealController {
         dto.setDealCreated(timeUtil.formatTimeString(writeday));
 		
 		model.addAttribute("sublist", sublist);
+		model.addAttribute("imgurl", imgurl);
+		model.addAttribute("replyCount", replyCount);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
@@ -266,4 +276,123 @@ public class DealController {
 		return "redirect:/community/deal/article?"+page+"&dealNum="+dealNum;
 	}
 	
+	@RequestMapping("listReply")
+	public String listReply(
+			@RequestParam int dealNum,
+			@RequestParam(value="page", defaultValue="1") int current_page,
+			Model model
+			) throws Exception {
+		int total_page=0;
+		int rows=5;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("dealNum", dealNum);
+		
+		int dataCount=service.replyCount(map);
+		
+		total_page=myUtil.pageCount(rows, dataCount);
+		
+		if (total_page < current_page)
+			current_page = total_page;
+
+        int offset = (current_page-1) * rows;
+		if(offset < 0) offset = 0;
+        map.put("offset", offset);
+        map.put("rows", rows);
+		
+		List<Reply> listReply=service.listReply(map);
+		
+		for(Reply dto : listReply) {
+			dto.setDealReplyContent(dto.getDealReplyContent().replaceAll("\n", "<br>"));
+		}
+		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
+
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("replyCount", dataCount);
+		model.addAttribute("paging", paging);
+
+		return "community/deal/listReply";
+	}
+	
+	@RequestMapping("insertReply")
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String state="true";
+		try {
+			dto.setUserId(info.getUserId());
+			service.insertReply(dto);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("dealNum", dto.getDealNum());
+		int replyCount=service.replyCount(map);
+		
+		Map<String, Object> model=new HashMap<String, Object>();
+		model.put("replyCount", replyCount);
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@RequestMapping("updateReply")
+	@ResponseBody
+	public String updateReply(
+			Reply dto,
+			Model model
+			) throws Exception {
+		try {
+			service.updateReply(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto", dto);
+
+		return "redirect:/community/deal/listReply";
+	}
+	
+	@RequestMapping(value = "deleteReply")
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(defaultValue="0") int dealReplyType
+			) {
+		String state="true";
+		try {
+			service.deleteReply(paramMap);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		int replyCount=service.replyCount(paramMap);
+		int replyAnswerCount=service.answerReplyCount(dealReplyType);
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", state);
+		map.put("replyCount", replyCount);
+		map.put("replyAnswerCount", replyAnswerCount);
+		
+		return map;
+	}
+	
+	@RequestMapping(value = "listAnswerReply")
+	public String listAnswerReply(
+			@RequestParam int dealReplyType,
+			Model model
+			) {
+		List<Reply> listAnswerReply=service.listAnswerReply(dealReplyType);
+		
+		for(Reply dto : listAnswerReply) {
+			dto.setDealReplyContent(dto.getDealReplyContent().replaceAll("\n", "<br>"));
+		}
+		
+		model.addAttribute("listAnswerReply", listAnswerReply);
+
+		return "community/deal/listAnswerReply";
+	}
 }

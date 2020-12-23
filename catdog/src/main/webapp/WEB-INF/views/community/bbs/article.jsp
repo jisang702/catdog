@@ -273,7 +273,9 @@ $(function() {
 			
 			var state=data.state;
 			if(state==="true") {
+				var answerReplyCount=data.answerReplyCount;
 				listAnswerReply(replyNum);
+				$(this).parents(".replybtn").text("답글("+answerReplyCount+")");
 			} 
 		}
 
@@ -318,7 +320,7 @@ $(function(){
 		var freeReplyType=$(this).attr("data-replyType");
 		
 		var url="${pageContext.request.contextPath}/community/board/deleteReply";
-		var query="freeReplyNum="+freeReplyNum+"&mode=answer";
+		var query="freeReplyNum="+freeReplyNum+"&mode=answer&freeReplyType="+freeReplyType;
 		
 		var fn = function(data){
 			var state=data.state;
@@ -326,7 +328,6 @@ $(function(){
 				listAnswerReply(freeReplyType);
 			}
 		};
-		
 		ajaxJSON(url, "post", query, fn);
 	});
 });
@@ -384,7 +385,7 @@ $(function(){
 					</ul>				
 					<ul class="commentinput">
 						<li>
-							<textarea name="reply" rows="4" cols="110" maxlength="150"></textarea>
+							<textarea name="reply" rows="4" cols="110" maxlength="300"></textarea>
 							<button type="button" class="mybtn2 sendreplybtn">등록하기</button>
 						</li>
 					</ul>	

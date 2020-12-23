@@ -65,6 +65,7 @@ $(function() {
 		var query="page=${page}&dealNum=${dto.dealNum}&dealState="+state;
 		
 		var fn=function(data) {
+			
 		}
 
 		ajaxJSON(url, "post", query, fn);
@@ -72,13 +73,215 @@ $(function() {
 });
 </script>
 
+<script>
+$(function(){
+	listPage(1);
+});
+
+function listPage(page) {
+	var url = "${pageContext.request.contextPath}/community/deal/listReply";
+	var query = "page="+page+"&dealNum=${dto.dealNum}";
+	var selector = "#listReply";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+$(function() {
+	$("body").on("click", ".sendreplybtn", function() {
+		var dealNum="${dto.dealNum}";
+		var dealReplySecret="0";
+		if($(".dealReplySecret").is(":checked")) {
+			dealReplySecret="1";
+		}
+		$tb=$(this).closest("div");
+		var dealReplyContent=$tb.find("textarea").val().trim();
+		if(! dealReplyContent) {
+			$tb.find("textarea").focus();
+			return false;
+		}
+		dealReplyContent=encodeURIComponent(dealReplyContent);
+		
+		var url="${pageContext.request.contextPath}/community/deal/insertReply";
+		var query="dealNum="+dealNum+"&dealReplyContent="+dealReplyContent+"&dealReplyType=0&dealReplySecret="+dealReplySecret;
+		
+		var fn=function(data) {
+			$tb.find("textarea").val("");
+			$(".dealReplySecret").prop("checked", false);
+			
+			var state=data.state;
+			if(state==="true") {
+				listPage(1);
+				var count = data.replyCount;
+				$("#replyCount").text(count);
+			} else if(state==="false") {
+				alert("댓글을 추가 하지 못했습니다.");
+			}
+		}
+		
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+$(function() {
+	$("body").on("click", ".updateReplybtn" , function() {
+		var secret=$(this).attr("data-secret");
+		$tb=$(this).closest("div").next(".commentwrap").find("li");
+		var content=$tb.text();
+		$tb.html("<textarea>"+content+"</textarea>"+
+				"<div><input type='checkbox' class='updateSecret'> 비밀댓글</div>");
+		if(secret==1) {
+			$(".updateSecret").prop("checked", true);
+		} 
+		$(this).text("완료");
+		$(this).attr("class","mybtn1 updateReplySend");
+		$(this).next("button").text("취소");
+		$(this).next("button").attr("class","mybtn1 updateCancel");
+	});
+	
+	$("body").on("click", ".updateReplySend", function() {
+		var dealReplyNum=$(this).attr("data-replyNum");
+		var page=$(this).attr("data-page");
+		$tb=$(this).closest("div").next(".commentwrap").find("li");
+		var content=$tb.find("textarea").val().trim();
+		if(! content) {
+			$tb.find("textarea").focus();
+			return false;
+		}
+		content=encodeURIComponent(content);
+		var updateSecret="0";
+		if($(".updateSecret").is(":checked")) {
+			updateSecret="1";
+		}
+		
+		var url="${pageContext.request.contextPath}/community/deal/updateReply";
+		var query="dealReplyContent="+content+"&dealReplyNum="+dealReplyNum+"&dealReplySecret="+updateSecret;
+		
+		var fn=function(data) {
+			$tb.find("textarea").val("");
+		}
+
+		ajaxJSON(url, "post", query, fn);
+		
+		listPage(page);
+	});
+	
+	$("body").on("click", ".updateCancel", function() {
+		var page=$(this).attr("data-page");
+		listPage(page);
+	});
+});
+
+$(function() {
+	$("body").on("click", ".deleteReply", function() {
+		if(! confirm("댓글을 삭제하시겠습니까 ? ")) {
+		    return false;
+		}
+		
+		var dealReplyNum=$(this).attr("data-replyNum");
+		var page=$(this).attr("data-page");
+		
+		var url="${pageContext.request.contextPath}/community/deal/deleteReply";
+		var query="dealNum=${dto.dealNum}&dealReplyNum="+dealReplyNum+"&mode=reply";
+		
+		var fn=function(data) {
+			listPage(page);
+			var count = data.replyCount;
+			$("#replyCount").text(count);
+		}
+
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+$(function() {
+	$("body").on("click", "#replybtn", function() {
+		var $replyAnswer=$(this).closest("div").next();
+		
+		var isVisible=$replyAnswer.is(':visible');
+		var replyNum=$(this).attr("data-replyNum");
+		
+		if(isVisible) {
+			$replyAnswer.hide();
+		} else {
+			$replyAnswer.show();
+			listAnswerReply(replyNum);
+		}
+	});
+});
+
+function listAnswerReply(dealReplyType) {
+	var url="${pageContext.request.contextPath}/community/deal/listAnswerReply";
+	var query="dealReplyType="+dealReplyType;
+	var selector="#listAnswerReply"+dealReplyType;
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+$(function() {
+	$("body").on("click", ".sendReplyAnswer", function() {
+		var dealNum="${dto.dealNum}";
+		var replyNum=$(this).attr("data-replyNum");
+		var secret=$(this).attr("data-secret");
+		$tb=$(this).closest("div");
+		var content=$tb.find("textarea").val().trim();
+		if(! content) {
+			$tb.find("textarea").focus();
+			return false;
+		}
+		content=encodeURIComponent(content);
+		
+		
+		var url="${pageContext.request.contextPath}/community/deal/insertReply";
+		var query="dealNum="+dealNum+"&dealReplyContent="+content+"&dealReplyType="+replyNum+"&dealReplySecret="+secret;
+		
+		var fn=function(data) {
+			$tb.find("textarea").val("");
+			
+			var state=data.state;
+			if(state==="true") {
+				listAnswerReply(replyNum);
+			} 
+		}
+
+		ajaxJSON(url, "post", query, fn);
+		
+	});
+});
+
+$(function() {
+	$("body").on("click", ".deleteAnswerReply", function() {
+		if(! confirm("댓글을 삭제하시겠습니까 ? ")) {
+		    return false;
+		}
+		
+		var dealReplyNum=$(this).attr("data-replyNum");
+		var dealReplyType=$(this).attr("data-replyType");
+		console.log(dealReplyType);
+		
+		var url="${pageContext.request.contextPath}/community/deal/deleteReply";
+		var query="dealNum=${dto.dealNum}&dealReplyNum="+dealReplyNum+"&mode=answer&dealReplyType"+dealReplyType;
+		
+		var fn=function(data) {
+			var state=data.state;
+			if(state==="true") {
+				listAnswerReply(dealReplyType);
+			} 
+		}
+
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+
+</script>
+
 <div class="body-container">    
     <div class="board">
         <div class="flea-articletop">
         	<div class="flea-articleimg">
         		<c:choose>
-					<c:when test="${not empty dto.imgFileName}">
-						<img src="${dto.imgFileName}">
+					<c:when test="${not empty imgurl}">
+						<img src="${imgurl}">
 					</c:when>
 					<c:otherwise>
 						<img src="${pageContext.request.contextPath}/resources/css/images/noimage.gif">
@@ -218,11 +421,13 @@ $(function() {
 	    <div class="commentLayout">
 			<div class="comment">
 				<ul class="commenttitle">
-					<li><span id="replyCount" class="commentcount">0</span>개의 댓글</li>
-				</ul>				
+					<li><span id="replyCount" class="commentcount">${replyCount}</span>개의 댓글</li>				</ul>				
 				<ul class="commentinput">
-					<li>
-						<textarea name="reply" rows="4" cols="110" maxlength="150"></textarea>
+					<li style="position: relative;">
+						<textarea name="reply" rows="4" cols="110" maxlength="300"></textarea>
+						<div style="position: absolute; top: 50px; right: 100px;">
+							<input type="checkbox" class="dealReplySecret" name="dealReplySecret"> 비밀댓글
+						</div>
 						<button type="button" class="mybtn2 sendreplybtn">등록하기</button>
 					</li>
 				</ul>	

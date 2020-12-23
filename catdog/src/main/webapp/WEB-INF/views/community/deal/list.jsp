@@ -16,12 +16,85 @@ function commas(t) {
     	$(t).val(x);			
     }
 }
+
+function ajaxJSON(url, method, query, fn) {
+	$.ajax({
+		type:method
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			fn(data);
+		}
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	    ,error:function(jqXHR) {
+	    	if(jqXHR.status===403) {
+	    		login();
+	    		return false;
+	    	}
+	    	
+	    	console.log(jqXHR.responseText);
+	    }
+	});
+}
+
+function ajaxHTML(url, method, query, selector) {
+	$.ajax({
+		type:method
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		}
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	    ,error:function(jqXHR) {
+	    	if(jqXHR.status===403) {
+	    		login();
+	    		return false;
+	    	}
+	    	
+	    	console.log(jqXHR.responseText);
+	    }
+	});
+}
+
+$(function() {
+	$(".topbtn").click(function() {
+        $('html, body').animate({
+            scrollTop : 0
+        }, 400);
+        return false;
+    });
+});
+
+$(function() {
+	$("body").on("click", ".dealTypebtn", function() {
+
+		var url="${pageContext.request.contextPath}/community/deal/list";
+		var type=$(this).val();
+		var query="dealType="+type;
+		
+		var selector= "body";
+		
+		ajaxHTML(url, "post", query, selector);
+		
+		$(".dealTypebtn").removeClass("grabtn");
+        $(this).addClass('grabtn');
+	});
+});
 </script>
 <div class="body-container">
     <div class="board">
     	<div class="boardtitle">
 			<ul class="listtitle">
-				<li>중고거래</li>
+				<li>
+					<button type="button" name="dealType" value="1" class="dealTypebtn grabtn">팝니다</button>
+					<button type="button" name="dealType" value="2" class="dealTypebtn">삽니다</button>
+				</li>
 			</ul>
 		</div>
 		<div class="fleaLayout">
@@ -65,7 +138,7 @@ function commas(t) {
 					<ul class="fleaprice">
 						<li>
 							<i class="far fa-eye"><span class=""> ${dto.dealHitCount} </span> </i>
-							<i class="far fa-comments"><span class=""> 0 </span> </i>
+							<i class="far fa-comments"><span class=""> ${dto.replyCount} </span> </i>
 						</li>
 						<li style="font-weight: bold; font-size:24px; color:#71da65;">${dto.dealPrice}원</li>
 					</ul>
@@ -76,8 +149,19 @@ function commas(t) {
 		<div>
 			<p> ${dataCount==0?"등록된 게시물이 없습니다.":paging} </p>
 		</div>
-		<div class="fleabtn">
-			<a type="button" class="mybtn1">맨위로</a>
+		<div class="fleabtn listfooter" style="margin-top: 30px;">
+			<a type="button" class="mybtn1 topbtn">맨위로</a>
+			<form name="searchForm" action="${pageContext.request.contextPath}/community/deal/list" method="post">
+				<span>
+					<select name="condition">
+						<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
+						<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
+						<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+					</select>
+					<input type="text" name="keyword" value="${keyword}">
+					<button type="button" class="mybtn1" onclick="searchList();">검색</button>
+				</span>
+			</form>
 			<a type="button" class="mybtn1" href="${pageContext.request.contextPath}/community/deal/created">글쓰기</a>
 		</div>
     </div>

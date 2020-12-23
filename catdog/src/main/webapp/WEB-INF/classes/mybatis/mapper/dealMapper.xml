@@ -9,12 +9,41 @@
 			#{dealWay}, #{dealType}, 1, 0, #{dealZone})		
 	</insert>
 	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(dealSubject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition == 'subject'">
+			    DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0
+			</when>
+			<when test="condition == 'content'">
+			    DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<select id="listDeal" parameterType="map" resultType="com.sp.catdog.community.deal.Deal">
-		SELECT dealNum, m.userId, userNick, dealSubject, dealCreated, to_char(dealPrice, 'FM999,999') dealPrice, dealWay, dealType, dealState,
-			 dealHitCount, dealContent, dealZone
+		SELECT d.dealNum, m.userId, userNick, dealSubject, dealCreated, to_char(dealPrice, 'FM999,999') dealPrice, dealWay, dealType, dealState,
+			 dealHitCount, dealContent, dealZone, replyCount
 		FROM comDeal d
 		JOIN member1 m ON m.userId=d.userId
-		ORDER BY dealNum DESC
+		LEFT OUTER JOIN (
+			SELECT dealNum, COUNT(*) replyCount FROM comDealReply
+			WHERE dealReplyType=0
+			GROUP BY dealNum
+		) r ON r.dealNum=d.dealNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			AND dealType=#{dealType}
+		</where> 
+		ORDER BY dealCreated DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
 	</select>
 	
@@ -59,4 +88,61 @@
 		UPDATE comDeal SET dealState=#{dealState}
 		WHERE dealNum=#{dealNum}
 	</update>
+	
+	<insert id="insertReply" parameterType="com.sp.catdog.community.deal.Reply">
+		INSERT INTO comDealReply(dealReplyNum, dealReplyContent, dealReplyCreated, dealReplyType,
+			dealReplySecret, dealNum, userId) VALUES (
+			comDealReply_seq.NEXTVAL, #{dealReplyContent}, SYSDATE, #{dealReplyType},
+			#{dealReplySecret}, #{dealNum}, #{userId})	
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM comDealReply
+		WHERE dealNum=#{dealNum} AND dealReplyType=0
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.catdog.community.deal.Reply">
+		SELECT r.dealReplyNum, dealReplyContent, to_char(dealReplyCreated, 'YYYY-MM-DD') dealReplyCreated,
+			dealReplySecret, r.dealNum, r.userId, userNick, answerCount, writeUser
+		FROM comDealReply r
+		JOIN member1 m ON m.userId=r.userId
+		LEFT OUTER JOIN (
+			SELECT dealReplyType, COUNT(*) answerCount FROM comDealReply
+            where dealReplyType!=0
+            Group by dealReplyType
+		) c ON r.dealReplyNum=c.dealReplyType
+		LEFT OUTER JOIN (
+			SELECT dealNum, userId writeUser
+			FROM comDeal
+		) d ON r.dealNum=d.dealNum
+		WHERE r.dealNum=#{dealNum} AND r.dealReplyType=0
+		ORDER BY r.dealReplyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<update id="updateReply" parameterType="com.sp.catdog.community.deal.Reply">
+		UPDATE comDealReply SET dealReplyContent=#{dealReplyContent}, dealReplySecret=#{dealReplySecret}
+		WHERE dealReplyNum=#{dealReplyNum} 
+	</update>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM comDealReply WHERE dealReplyNum=#{dealReplyNum}
+		<if test="mode=='reply'">
+			OR dealReplyType=#{dealReplyNum}
+		</if>
+	</delete>
+	
+	<select id="answerReplyCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM comDealReply
+		WHERE dealReplyType=#{dealReplyType}
+	</select>
+	
+	<select id="listAnswerReply" parameterType="Integer" resultType="com.sp.catdog.community.deal.Reply">
+		SELECT r.dealReplyNum, dealReplyContent, to_char(dealReplyCreated, 'YYYY-MM-DD') dealReplyCreated,
+			dealNum, r.userId, userNick, dealReplySecret, dealReplyType
+		FROM comDealReply r
+		JOIN member1 m ON m.userId=r.userId
+		WHERE dealReplyType=#{dealReplyType}
+		ORDER BY dealReplyNum ASC
+	</select>
 </mapper>

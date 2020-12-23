@@ -105,5 +105,76 @@ public class DealServiceImpl implements DealService {
 		}
 		return list;
 	}
+
+	@Override
+	public void insertReply(Reply dto) throws Exception {
+		try {
+			dao.insertData("deal.insertReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("deal.listReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("deal.replyCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void updateReply(Reply dto) throws Exception {
+		try {
+			dao.updateData("deal.updateReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReply(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("deal.deleteReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int answerReplyCount(int dealReplyType) {
+		int result=0;
+		try {
+			result=dao.selectOne("deal.answerReplyCount", dealReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reply> listAnswerReply(int dealReplyType) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("deal.listAnswerReply", dealReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 }

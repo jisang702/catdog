@@ -64,14 +64,13 @@ public class BoardController {
         map.put("rows", rows);
 
 		List<Board> list = service.listBoard(map);
-
+		System.out.println(list);
 		int num, n = 0;
         for(Board dto : list) {
         	num = dataCount - (offset + n);
             dto.setNum(num);
             n++;
         }        
-		
 		String cp = req.getContextPath();
 		String query = "rows="+rows;
 		String listUrl = cp + "/community/board/list";
@@ -297,9 +296,7 @@ public class BoardController {
 		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
 		
 		model.addAttribute("listReply", listReply);
-		model.addAttribute("page", current_page);
 		model.addAttribute("replyCount", dataCount);
-		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
 		
 		return "community/bbs/listReply";
@@ -331,7 +328,8 @@ public class BoardController {
 	@RequestMapping(value = "deleteReply")
 	@ResponseBody
 	public Map<String, Object> deleteReply(
-			@RequestParam Map<String, Object> paramMap
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(defaultValue="0") int freeReplyType
 			) {
 		String state="true";
 		try {
@@ -340,10 +338,13 @@ public class BoardController {
 			state="false";
 		}
 		
-		int dataCount=service.replyCount(paramMap);
+		int replyCount=service.replyCount(paramMap);
+		int replyAnswerCount=service.answerReplyCount(freeReplyType);
 		Map<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		map.put("replyCount", dataCount);
+		map.put("replyCount", replyCount);
+		map.put("replyAnswerCount", replyAnswerCount);
+		
 		
 		return map;
 	}
