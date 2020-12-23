@@ -30,7 +30,8 @@ public class StoreProductController {
 	
 	@Autowired
 	private MyUtil myUtil;
-
+	
+	// 상품판매 글 등록
 	@RequestMapping(value="created", method = RequestMethod.GET)
 	public String createdForm(
 			Model model,
@@ -49,7 +50,8 @@ public class StoreProductController {
 		
 		return ".store.seller.created";
 	}
-
+	
+	// 상품판매 글 등록 submit
 	@RequestMapping(value="created", method=RequestMethod.POST)
 	public String createdSubmit (
 			StoreProduct dto,
@@ -75,6 +77,7 @@ public class StoreProductController {
 		return "redirect:/store/seller/list";
 	}
 	
+	// 상품 판매리스트
 	@RequestMapping(value="list")
 	public String listProduct(
 			@RequestParam(value="page", defaultValue = "1") int current_page,
@@ -98,7 +101,7 @@ public class StoreProductController {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		
-		dataCount = service.dataCount(map);
+		dataCount = service.dataCountProduct(map);
 		total_page = myUtil.pageCount(rows, dataCount);
 		
 		if(total_page < current_page)
@@ -146,9 +149,10 @@ public class StoreProductController {
 		return ".store.seller.list";
 	}
 	
+	// 상품 판매 글보기
 	@RequestMapping(value="article", method = RequestMethod.GET)
 	public String article (
-			@RequestParam int num,
+			@RequestParam int prdNum,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
@@ -160,9 +164,20 @@ public class StoreProductController {
 		if(keyword.length()!=0) {
 			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
 		}
+		
+		StoreProduct dto = service.readProduct(prdNum);
+		if(dto==null)
+			return "redirect:/store/seller/list?"+query;
+		
+		dto.setPrdContent(dto.getPrdContent().replaceAll("\n", "<br>"));
 
-	
+		model.addAttribute("dto", dto);
+		
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+		
 		return ".store.seller.article";
+		
 	}
 	
 	

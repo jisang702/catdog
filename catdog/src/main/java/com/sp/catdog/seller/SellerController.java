@@ -12,7 +12,7 @@ public class SellerController {
 	@RequestMapping(value="product")
 	public String productPage(Model model) throws Exception {
 		model.addAttribute("subMenu", 1);
-		return ".store.seller.list";
+		return "redirect:/store/seller/list";
 		
 	}
 	

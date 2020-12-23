@@ -33,7 +33,7 @@ public class StoreProductServiceImpl implements StoreProductService {
 	}
 
 	@Override
-	public int dataCount(Map<String, Object> map) {
+	public int dataCountProduct(Map<String, Object> map) {
 		int result = 0;
 		
 		try {

@@ -57,8 +57,8 @@ height: 100%;
 
 </style>
 <script type="text/javascript">
-function article(num) {
-	var url="${articleUrl}&num="+num;
+function article(prdNum) {
+	var url="${articleUrl}&prdNum="+prdNum;
 	location.href=url;
 }
 
@@ -107,7 +107,7 @@ function article(num) {
 						<img src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}"
 						onclick="javascript:article('${dto.prdNum}');" >
 					</div>
-					<span class="subject" onclick="javascript:article('$(dto.prdNum)');">제목: ${dto.prdName}</span>
+					<span class="subject" onclick="javascript:article('${dto.prdNum}');">제목: ${dto.prdName}</span>
 						<br>
 					<span>가격 :${dto.prdPrice }</span>
 						<br>
@@ -144,7 +144,7 @@ function article(num) {
 	          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/list';">새로고침</button>
 	      </td>
 	      <td align="center">
-	          <form name="searchForm" action="${pageContext.request.contextPath}/store/seller/menu/list" method="post">
+	          <form name="searchForm" action="${pageContext.request.contextPath}/store/seller/list" method="post">
 	              <select name="condition" class="selectField">
 	                  <option value="all" ${condition=="all"?"selected='selected'":""}>모두</option>
 	                  <option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>

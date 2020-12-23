@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface StoreProductService {
 	public void insertProduct(StoreProduct dto, String pathname) throws Exception;
-	public int dataCount(Map<String, Object> map);
+	public int dataCountProduct(Map<String, Object> map);
 	public List<StoreProduct> listProduct(Map<String, Object> map);
 	
 	public StoreProduct readProduct(int num);
