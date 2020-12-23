@@ -290,7 +290,7 @@ $(function(){
 });
 </script>
 
-	<div class="body-container" style="width: 1000px; margin-top: 50px;">
+	<div class="body-container" style="width: 980px; margin-top: 50px;">
    		 <div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			<tr height="55" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">

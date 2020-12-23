@@ -70,7 +70,7 @@ function article(vidNum) {
 }
 </script>
 
-<div class="body-container" style="width: 850px; margin-top: 30px; margin-bottom:50px;">
+<div class="body-container" style="width: 1000px; margin-top: 30px; margin-bottom:50px;">
     <div class="body-title" >
 	  	<img src="${pageContext.request.contextPath}/resources/css/img/doctor.jpg" style="width: 150px; height: 120px;">
       <h2> '전문가가 알려주는 이야기' </h2>
