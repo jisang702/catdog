@@ -7,17 +7,26 @@
 $(function() {
 	$('.faqA').hide();
 	$('.faqQ').click(function() {
-		$(this).next('.faqA').toggle(300);		
+		var faqQ = $(this).next(".faqA").is(":hidden");
+		
+		if(faqQ){
+			$(".faqA").hide();
+			$(this).next('.faqA').slideToggle("fast");	
+		}else{
+			$(this).next('.faqA').slideToggle("fast");
+		}
+				
 	});
 });
 </script>
 
-<div style="border-bottom: 1px solid #dadada;">
+<div style="border-bottom: 1px solid #dadada; text-align: right;">
 
 <nav class="faqnav">
 	<ul>
-		<c:forEach var="dto" items="${listCategory}">
-			<li>${dto.faqCateName}</li>
+		<li><button class="mybtn1" onclick="faqlist('0');">전체</button></li>
+		<c:forEach var="vo" items="${listCategory}">
+			<li><button class="mybtn1" onclick="faqlist('${vo.faqCateNum}');">${vo.faqCateName}</button></li>
 		</c:forEach>
 	</ul>
 </nav>
@@ -28,7 +37,7 @@ $(function() {
 <div class="faqlist">
 	<div class="faqQ" >
 		<ul>
-			<li class="faqQA">${dto.faqCateName}</li>
+			<li class="faqQA" >${dto.faqCateName}</li>
 			<li class="faqQA">Q</li>
 			<li>${dto.faqQuestion}</li>
 		</ul>
@@ -50,6 +59,7 @@ $(function() {
 
 <div class="faqfooter">
 	<p>다른 질문이 있다면 ?</p>
+	<p>&nbsp;</p>
 	<button type="button" class="mybtn2" onclick="javascript:location.href='${pageContext.request.contextPath}/customer/qna'">1:1문의하기</button>
 </div>
 

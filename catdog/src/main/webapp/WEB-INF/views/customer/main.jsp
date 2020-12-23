@@ -112,11 +112,19 @@ function listPage(page) {
 	
 	var url="${pageContext.request.contextPath}/customer/"+tab+"/list";
 	var query="page="+page;
-	//var search=$('form[name=customerSearchForm]').serialize();
-	//query=query+"&"+search;
+	var search=$('form[name=customerSearchForm]').serialize();
+	query=query+"&"+search;
 	var selector = "#tab-content";
 	
 	ajaxHTML(url, "get", query, selector);
+}
+
+//검색
+function searchList(){
+	var f=document.customerSearchForm;
+	f.condition.value=$("#condition").val();
+	f.keyword.value=$("#keyword").val();
+	listPage(1);
 }
 
 //새로고침
@@ -208,8 +216,8 @@ function articleBoard(num, page){
 		query="qnaNum="+num;
 	else 
 		query="num="+num;
-	//var search=$("form[name=customerSearchForm]").serialize();
-	query=query+"&page="+page;	//+"&"+search;
+	var search=$("form[name=customerSearchForm]").serialize();
+	query=query+"&page="+page+"&"+search;
 	var selector="#tab-content";
 	
 	ajaxHTML(url, "get", query, selector);
@@ -275,6 +283,15 @@ function replyForm(num, page){
 	ajaxHTML(url, "get", query, selector);
 }
 
+//faq 카테고리로 리스트 정렬
+function faqlist(faqCateNum){
+	var url="${pageContext.request.contextPath}/customer/faq/list";
+	var query="faqCateNum="+faqCateNum;
+	var selector="#tab-content";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
 </script>
 
 
@@ -283,7 +300,7 @@ function replyForm(num, page){
 		<div style="clear: both;">
 	           <ul class="tabs">
 			       <li id="tab-notice" data-tab="notice">공지사항</li>
-			       <li id="tab-qna" data-tab="qna">QnA</li>
+			       <li id="tab-qna" data-tab="qna">1:1문의</li>
 			       <li id="tab-faq" data-tab="faq">자주하는질문</li>
 			   </ul>
 		   </div>

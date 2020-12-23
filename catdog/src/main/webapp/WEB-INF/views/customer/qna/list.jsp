@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="alert-info">
+<div class="alert-info" style="background: #c6f3c0; color: #397233; border: 1px solid #6FA869">
   <i class="fas fa-info-circle"></i>
     질문과 답변을 할 수 있는 공간입니다.
 </div>
