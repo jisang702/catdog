@@ -58,7 +58,7 @@ $(function() {
 	            <li class="menu1"><a>수의사</a>
 	            	<ul class="submenu1">
 	            		<li><a href="">QnA</a></li>
-	            		<li><a href="#">동영상</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/doctor/video/list">동영상</a></li>
 	            		<li><a href="#">FAQ</a></li>
 	            	</ul>
 	            </li>
