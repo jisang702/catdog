@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StoreSeller">
+	<select id="productSeq" resultType="Integer">
+		SELECT product_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertProduct" parameterType="com.sp.catdog.seller.StoreProduct">
+		INSERT INTO product(prdNum, prdName, prdIntro, prdContent, prdPrice, prdDisCount, prdShip, prdPoint, prdPet, prdState,
+			prdHitCount, prdCreated, prdCategoryNum, userId)
+		VALUES (#{prdNum}, #{prdName}, #{prdIntro}, #{prdContent}, #{prdPrice}, #{prdDisCount}, #{prdShip},
+			#{prdPoint}, #{prdPet}, #{prdState}, #{prdHitCount}, SYSDATE, #{prdCategoryNum}, #{userId})
+	</insert>
+	
+	<!-- 대표이미지 -->
+	<insert id="insertImg" parameterType="com.sp.catdog.seller.StoreProduct" >
+		INSERT INTO prdImage(imgNum, imgFilename, prdNum) VALUES (prdImage_seq.NEXTVAL, #{imgFilename}, #{prdNum})
+	</insert>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+				( INSTR(subject, #keyword) &gt; 0)
+					OR DMBS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</when>
+			
+			<when test="condition == 'created' ">
+				(TO_CHAR(created, 'YYYYMMDD' ") = #{keyword}
+					OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
+			</when>
+			
+			<when test="condition == 'content' ">
+				DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 리스트 -->
+
+	
+	<!-- 글 개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM product p
+		JOIN member1 m ON p.userId=m.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 리스트 -->
+	<select id="listProduct" parameterType="map" resultType="com.sp.catdog.seller.StoreProduct">
+		SELECT p.prdNum, prdName, prdIntro, prdPrice, prdDisCount, prdPoint, prdState, prdHitCount, imgFilename
+		FROM product p
+		LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	
+	
+	<insert id="insertCategory" parameterType="com.sp.catdog.seller.StoreProduct">
+		INSERT INTO prdCategory(prdCategoryNum, prdCategoryName)
+			VALUES (qnaCategory_seq.NEXTVAL, #{prdCategoryName}) 
+	</insert>
+	
+	<update id="updateCategory" parameterType="com.sp.catdog.seller.StoreProduct">
+		UPDATE prdCategory SET prdCategoryName=#{prdCategoryName}
+		WHERE prdCategoryNum=#{prdCategoryNum}
+	</update>
+	
+	<select id="listCategory" resultType="com.sp.catdog.seller.StoreProduct">
+		SELECT prdCategoryNum, prdCategoryName FROM prdCategory
+	</select>
+	
+	<delete id="deleteCategory" parameterType="Integer">
+		DELETE FROM prdCategory WHERE prdCategoryNum=#{prdCategoryNum}
+	</delete>
+</mapper>
