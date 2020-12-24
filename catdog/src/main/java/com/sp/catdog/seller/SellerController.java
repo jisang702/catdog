@@ -9,35 +9,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SellerController {
 
 	// 상품 관리
-	@RequestMapping(value="product")
+	@RequestMapping("product")
 	public String productPage(Model model) throws Exception {
 		model.addAttribute("subMenu", 1);
-		return "redirect:/store/seller/list";
+		return ".four.store.seller.list";
 		
 	}
 	
 	// 판매현황 관리(매출)
-	@RequestMapping(value="sales")
+	@RequestMapping("sales")
 	public String sales(Model model) throws Exception {
 		model.addAttribute("subMenu", 2);
 				
-		return ".store.seller.sales";
+		return ".four.store.seller.sales";
 	}
 	
 	// 상품문의
-	@RequestMapping(value="qna")
+	@RequestMapping("qna")
 	public String productQna(Model model) throws Exception {
 		model.addAttribute("subMenu", 3);
 		
-		return ".store.seller.qna";
+		return ".four.store.seller.qna";
 	}
 	
 	// 배송관리
-	@RequestMapping(value="ship")
+	@RequestMapping("ship")
 	public String productShip(Model model) throws Exception {
 		model.addAttribute("subMenu", 4);
 		
-		return ".store.seller.ship";
+		return ".four.store.seller.ship";
 		
 	}		
 	

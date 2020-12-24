@@ -88,11 +88,11 @@
 	
 	<!-- 상품글보기 -->
 	<select id="readProduct" parameterType="Integer" resultType="com.sp.catdog.seller.StoreProduct">
-		SELECT p.prdNum, prdName, prdIntro, prdContent, prdPrice, prdDisCount, prdShip, prdPoint, prdPer, prdHitCount,
+		SELECT p.prdNum, prdName, prdIntro, prdContent, prdPrice, prdDisCount, prdShip, prdPoint, prdHitCount,
 			prdPet, prdState, prdCreated, imgFilename
 		FROM product p
 		LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
-		WHERE prdNum=#{prdNum}
+		WHERE p.prdNum=#{prdNum}
 	</select>
 	
 </mapper>
