@@ -5,6 +5,7 @@
 
 <script>
 $(function() {
+	
 	$('.faqA').hide();
 	$('.faqQ').click(function() {
 		var faqQ = $(this).next(".faqA").is(":hidden");
@@ -18,15 +19,24 @@ $(function() {
 				
 	});
 });
+
+$(function(){
+	
+	
+});
 </script>
+
+<style type="text/css">
+
+</style>
 
 <div style="border-bottom: 1px solid #dadada; text-align: right;">
 
 <nav class="faqnav">
 	<ul>
-		<li><button class="mybtn1" onclick="faqlist('0');">전체</button></li>
+		<li><button class="mybtn1 category" onclick="faqlist('0');">전체</button></li>
 		<c:forEach var="vo" items="${listCategory}">
-			<li><button class="mybtn1" onclick="faqlist('${vo.faqCateNum}');">${vo.faqCateName}</button></li>
+			<li><button class="mybtn1 category" onclick="faqlist('${vo.faqCateNum}');">${vo.faqCateName}</button></li>
 		</c:forEach>
 	</ul>
 </nav>

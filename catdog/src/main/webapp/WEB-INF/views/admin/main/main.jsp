@@ -28,7 +28,7 @@
  
     	</div>
     	<div class="box" style="width: 40%; height: 400px; display: inline-block;">
-    			<p>방문자 요약</p>
+    			<p>현황</p>
     	</div>
         
     </div>

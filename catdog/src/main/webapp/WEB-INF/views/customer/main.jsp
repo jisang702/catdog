@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mainht.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -290,6 +291,9 @@ function faqlist(faqCateNum){
 	var selector="#tab-content";
 	
 	ajaxHTML(url, "get", query, selector);
+	
+	//$(".category").removeClass("grabtn");
+    //$(this).addClass("grabtn");
 }
 
 </script>
