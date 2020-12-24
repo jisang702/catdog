@@ -73,26 +73,22 @@ $(function() {
 
 $(function() {
 	$("body").on("click", ".dealTypebtn", function() {
-
-		var url="${pageContext.request.contextPath}/community/deal/list";
 		var type=$(this).val();
+		var url="${pageContext.request.contextPath}/community/deal/list";
 		var query="dealType="+type;
-		
-		var selector= "body";
-		
+		var selector="body";
+
 		ajaxHTML(url, "post", query, selector);
-		
-		$(".dealTypebtn").removeClass("grabtn");
-        $(this).addClass('grabtn');
 	});
 });
+
 </script>
 <div class="body-container">
     <div class="board">
     	<div class="boardtitle">
 			<ul class="listtitle">
 				<li>
-					<button type="button" name="dealType" value="1" class="dealTypebtn grabtn">팝니다</button>
+					<button type="button" name="dealType" value="1" class="dealTypebtn">팝니다</button>
 					<button type="button" name="dealType" value="2" class="dealTypebtn">삽니다</button>
 				</li>
 			</ul>
