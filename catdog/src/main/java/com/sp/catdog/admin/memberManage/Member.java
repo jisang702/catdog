@@ -14,7 +14,7 @@ public class Member {
 	private int userType;
 	private int userReported;
 	private String userLast;
-	private int enabled;
+	private int userEnabled;
 	
 	private String userBirth;
 	private String userTel;
@@ -96,11 +96,11 @@ public class Member {
 	public void setUserLast(String userLast) {
 		this.userLast = userLast;
 	}
-	public int getEnabled() {
-		return enabled;
+	public int getUserEnabled() {
+		return userEnabled;
 	}
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
+	public void setUserEnabled(int userEnabled) {
+		this.userEnabled = userEnabled;
 	}
 	public String getUserBirth() {
 		return userBirth;

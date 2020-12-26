@@ -22,7 +22,11 @@ $(function() {
 
 $(function(){
 	
+	$("body").on("click", ".category", function(){
+		$(".category").removeClass("grabtn");
+	    $(this).addClass("grabtn");
 	
+	});
 });
 </script>
 
