@@ -28,6 +28,28 @@ $(function(){
 	});
 });
 
+function ajaxFun(url, method, dataType, query, fn){
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data){
+			fn(data);
+		},
+		beforeSend:function(jqXHR){
+			jqXHR.setRequestHeader("AJAX",true);
+		},
+		error:function(jqXHR){
+			if(jqXHR.status == 403){
+				location.href="${pageContext.request.contextPath}/member/login";
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
 function searchList(){
 	var f = document.searchForm;
 	f.userEnabled.value=$("#selectEnabled").val();
@@ -35,6 +57,105 @@ function searchList(){
 	f.submit();
 }
 
+function detailMember(userId, userType){
+	var dlg = $("#member-dialog").dialog({
+		autoOpen: false,
+		modal: true,
+		buttons: {
+			" 수정 " : function(){
+				updateOk();
+			},
+			" 삭제 " : function(){
+				deleteOk(userId);
+			},
+			" 닫기 " : function(){
+				$(this).dialog("close");
+			}
+		},
+		height: 520,
+		width: 800,
+		title: "회원 상세 정보",
+		close: function(event, ui){
+		
+		}
+	});
+	
+	var url="${pageContext.request.contextPath}/admin/memberManage/detail";
+	var query="userId="+userId+"&userType="+userType;
+	
+	var fn=function(data){
+		$("#member-dialog").html(data);
+		dlg.dialog("open");
+	};
+	
+	ajaxFun(url, "post", "html", query, fn);
+}
+
+function updateOk(){
+	var f = document.detailMemberForm;
+	
+	if(! f.stateCode.value){
+		f.stateCode.focus();
+		return;
+	}
+	
+	if(! $.trim(f.memo.value)){
+		f.memo.focus();
+		return;
+	}
+	
+	var url="${pageContext.request.contextPath}/admin/memberManage/updateMemberState";
+	var query=$("#detailMemberForm").serialize();
+	
+	var fn=function(data){
+		$("form input[name=page]").val("${page}");
+		searchList();
+	};
+	
+	ajaxFun(url, "post", "html", query, fn);
+	
+	$("#member-dialog").dialog("close");
+}
+
+function deleteOk(){
+	if(confirm("선택한 계정을 삭제하시겠습니까?")){
+		
+	}
+	
+	$("#member-dialog").dialog("close");
+}
+
+function memberStateDetailView(){
+	$("#memberStateDetail").dialog({
+		modal:true,
+		minHeight:100,
+		maxHeight:450,
+		width:750,
+		title:"계정 상태 상세",
+		close:function(event, ui){
+			
+		}
+	});
+}
+
+function selectStateChange(){
+	var f = document.detailMemberForm;
+	
+	var s = f.stateCode.value;
+	var txt=f.stateCode.options[f.stateCode.selectedIndex].text;
+	
+	f.memo.value = "";
+	if(! s){
+		return;
+	}
+	
+	if( s!="0" && s!="6" ){
+		f.memo.value=txt;
+	}
+	
+	f.memo.focus();
+	
+}
 </script>
 
 <div class="body-container" style="width: 900px; ">
@@ -87,9 +208,9 @@ function searchList(){
 			 <tbody class="board-list">
 			 <c:forEach var="dto" items="${list}">
 				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
-				      onclick="detailMember('${dto.userNum}');"> 
+				      onclick="detailMember('${dto.userId}', '${dto.userType}');"> 
 				      <td>${dto.listNum}</td>
-				      <td>일반</td>
+				      <td>${dto.userType==1 ? "일반" : (dto.userType==2 ? "수의사" : "판매자") }</td>
 				      <td>${dto.userId}</td>
 				      <td>${dto.userNick}</td>
 				      <td>${dto.userBirth}</td>

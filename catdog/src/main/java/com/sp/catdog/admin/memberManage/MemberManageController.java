@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
 
@@ -120,4 +122,61 @@ public class MemberManageController {
 		return ".admin.memberManage.list";
 	}
 	
+	@RequestMapping(value = "detail")
+	public String detailMember(
+			@RequestParam(defaultValue = "1") int userType,
+			@RequestParam String userId,
+			Model model
+			) throws Exception{
+		
+		Member dto=null;
+		
+		if(userType==1) {
+			dto=service.readComMember(userId);
+		}else if(userType==2) {
+			dto=service.readVetMember(userId);
+		}else if(userType==3) {
+			dto=service.readSellMember(userId);
+		}
+		
+		Member memberState=service.readMemberState(userId);
+		List<Member> listState=service.listMemberState(userId);
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("memberState", memberState);
+		model.addAttribute("listState", listState);
+		
+		return "admin/memberManage/detail";
+	}
+	
+	@RequestMapping(value = "updateMemberState", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateMemberState(
+			Member dto
+			) throws Exception{
+
+		String state="true";
+		try {
+			//회원 활성, 비활성 변경
+			Map<String, Object> map = new HashMap<>();
+			map.put("userId", dto.getUserId());
+			if(dto.getStateCode() == 0) {
+				map.put("userEnabled", 1);
+			}else {
+				map.put("userEnabled", 0);
+			}
+			service.updateUserEnabled(map);
+			
+			//회원 상태 변경 사항 저장
+			service.insertMemberState(dto);
+
+			
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
 }

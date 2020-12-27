@@ -116,4 +116,56 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
+	<select id="readComMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, c.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM comMember c 
+		JOIN Member1 m1 on m1.userId=c.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE c.userId=#{userId}
+	</select>
+	
+	<select id="readVetMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, v.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM vetMember v 
+		JOIN Member1 m1 on m1.userId=v.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE v.userId=#{userId}
+	</select>
+	
+	<select id="readSellMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, s.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM sellMember s 
+		JOIN Member1 m1 on m1.userId=s.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE s.userId=#{userId}
+	</select>
+	
+	<update id="updateUserEnabled" parameterType="map">
+		UPDATE member1 SET userEnabled=#{userEnabled} WHERE userId=#{userId}
+	</update>
+	
+	<!-- memberState -->
+	<insert id="insertMemberState" parameterType="com.sp.catdog.admin.memberManage.Member">
+		INSERT INTO memberState(num, userId, stateCode, memo, registerId, register_date)
+		VALUES(memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo}, #{registerId}, SYSDATE)
+	</insert>
+	
+	<select id="listMemberState" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, TO_CHAR(register_date, 'YYYY-MM-DD') register_date
+		FROM memberState
+		WHERE userId=#{userId}
+		ORDER BY num DESC
+	</select>
+	
+	<select id="readMemberState" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, TO_CHAR(register_date, 'YYYY-MM-DD') register_date
+		FROM memberState
+		WHERE userId=#{userId}
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
 </mapper>
