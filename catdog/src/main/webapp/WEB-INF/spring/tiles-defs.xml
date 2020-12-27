@@ -35,8 +35,8 @@
 		<put-attribute name="footer" value="/WEB-INF/views/admin/layout/footer.jsp" />
 	</definition>
 	<definition name=".admin4.*.*.*" extends=".admin4Layout">
-	  	<put-attribute name="left" value="/WEB-INF/views/admin/{1}/left.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp"/>
+	  	<put-attribute name="left" value="/WEB-INF/views/{1}/{2}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
 	<definition name=".admin4.*.*" extends=".admin4Layout">
 	  	<put-attribute name="left" value="/WEB-INF/view/admin/{1}/left.jsp" />

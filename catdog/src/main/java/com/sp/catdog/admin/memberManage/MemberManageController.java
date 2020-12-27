@@ -118,8 +118,9 @@ public class MemberManageController {
 		model.addAttribute("userEnabled", userEnabled);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
-		
-		return ".admin.memberManage.list";
+		model.addAttribute("subMenu", 1);
+
+		return ".admin4.admin.memberManage.list";
 	}
 	
 	@RequestMapping(value = "detail")

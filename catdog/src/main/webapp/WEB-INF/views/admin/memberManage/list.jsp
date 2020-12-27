@@ -165,15 +165,14 @@ function selectStateChange(){
      </div>
      
      <div>
-     
-	     <div style="clear: both;">
+	     <div style="clear: both; margin-top: 20px;">
 	     	<ul class="tabs">
 	     		<li id="tab-com" data-tab="comMember">일반회원</li>
 	     		<li id="tab-vet" data-tab="vetMember">수의사회원</li>
 	     		<li id="tab-sell" data-tab="sellMember">판매자회원</li>
 	     	</ul>
 	     </div>
-	     <div class="tab-content" style="clear: both; padding: 40px 0px 0px;">
+	     <div class="tab-content" style="clear: both; padding: 10px 10px 10px;">
 	     	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 			   <tr height="35">
 			      <td align="left" width="50%">
