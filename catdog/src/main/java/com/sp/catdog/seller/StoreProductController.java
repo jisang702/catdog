@@ -91,7 +91,7 @@ public class StoreProductController {
 		
 		int rows = 30;
 		int total_page = 0;
-		int dataCount = 0;
+		int dataCountProduct = 0;
 		
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			keyword = URLDecoder.decode(keyword, "utf-8");
@@ -101,8 +101,8 @@ public class StoreProductController {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		
-		dataCount = service.dataCountProduct(map);
-		total_page = myUtil.pageCount(rows, dataCount);
+		dataCountProduct = service.dataCountProduct(map);
+		total_page = myUtil.pageCount(rows, dataCountProduct);
 		
 		if(total_page < current_page)
 			current_page = total_page;
@@ -114,9 +114,10 @@ public class StoreProductController {
 		
 		List<StoreProduct> list = service.listProduct(map);
 		
+		// 글 번호
 		int listNum, n = 0;
 		for(StoreProduct dto : list) {
-			listNum = dataCount - (offset + n);
+			listNum = dataCountProduct - (offset + n);
 			dto.setListNum(listNum);
 			n++;
 		}
@@ -130,13 +131,13 @@ public class StoreProductController {
 		
 		if(query.length()!=0) {
 			listUrl = cp+"/store/seller/list?" + query;
-			articleUrl = cp+"store/seller/page=" + current_page + "&" + query;
+			articleUrl = cp+"store/seller/article?page=" + current_page + "&" + query;
 		}
 		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("dataCountProduct", dataCountProduct);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("articleUrl", articleUrl);
 		model.addAttribute("page", current_page);

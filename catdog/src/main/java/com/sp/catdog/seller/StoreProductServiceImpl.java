@@ -37,7 +37,7 @@ public class StoreProductServiceImpl implements StoreProductService {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("StoreSeller.dataCount", map);
+			result = dao.selectOne("StoreSeller.dataCountProduct", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -125,7 +125,7 @@ public class StoreProductServiceImpl implements StoreProductService {
 		StoreProduct dto = null;
 		
 		try {
-			dto=dao.selectOne("seller.readProduct", num);
+			dto=dao.selectOne("StoreSeller.readProduct", num);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

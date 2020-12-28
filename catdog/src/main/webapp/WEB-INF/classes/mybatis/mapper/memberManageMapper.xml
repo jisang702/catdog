@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberManage">
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition=='userId'">
+				INSTR(m1.userId, #{keyword}) &gt;= 1
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="comDataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member1 m1
+		JOIN comMember c ON c.userId=m1.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>	
+	</select>
+	
+	<select id="vetDataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member1 m1
+		JOIN vetMember v ON v.userId=m1.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>	
+	</select>
+	
+	<select id="sellDataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member1 m1
+		JOIN sellMember s ON s.userId=m1.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>	
+	</select>
+	
+	<select id="comList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m1.userNum, c.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported 
+		FROM comMember c 
+		JOIN Member1 m1 on m1.userId=c.userId
+		JOIN member m on m.userNum=m1.userNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>
+		ORDER BY userCreated DESC	
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="vetList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m1.userNum, v.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported 
+		FROM vetMember v 
+		JOIN Member1 m1 on m1.userId=v.userId
+		JOIN member m on m.userNum=m1.userNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>
+		ORDER BY userCreated DESC	
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="sellList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m1.userNum, s.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported 
+		FROM sellMember s 
+		JOIN Member1 m1 on m1.userId=s.userId
+		JOIN member m on m.userNum=m1.userNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="userEnabled!='' ">
+				AND m1.userEnabled = #{userEnabled}
+			</if>
+			AND m1.userId != 'admin'
+		</where>
+		ORDER BY userCreated DESC	
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="readComMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, c.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM comMember c 
+		JOIN Member1 m1 on m1.userId=c.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE c.userId=#{userId}
+	</select>
+	
+	<select id="readVetMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, v.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM vetMember v 
+		JOIN Member1 m1 on m1.userId=v.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE v.userId=#{userId}
+	</select>
+	
+	<select id="readSellMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT userType, userOk, m.userNum, s.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+		FROM sellMember s 
+		JOIN Member1 m1 on m1.userId=s.userId
+		JOIN member m on m.userNum=m1.userNum
+		WHERE s.userId=#{userId}
+	</select>
+	
+	<update id="updateUserEnabled" parameterType="map">
+		UPDATE member1 SET userEnabled=#{userEnabled} WHERE userId=#{userId}
+	</update>
+	
+	<!-- memberState -->
+	<insert id="insertMemberState" parameterType="com.sp.catdog.admin.memberManage.Member">
+		INSERT INTO memberState(num, userId, stateCode, memo, registerId, register_date)
+		VALUES(memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo}, #{registerId}, SYSDATE)
+	</insert>
+	
+	<select id="listMemberState" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, TO_CHAR(register_date, 'YYYY-MM-DD') register_date
+		FROM memberState
+		WHERE userId=#{userId}
+		ORDER BY num DESC
+	</select>
+	
+	<select id="readMemberState" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
+		SELECT num, userId, stateCode, memo, registerId, TO_CHAR(register_date, 'YYYY-MM-DD') register_date
+		FROM memberState
+		WHERE userId=#{userId}
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+</mapper>

@@ -41,9 +41,9 @@ $(function(){
 		<div class="menu">
 		    <ul class="menunav">
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin">HOME</a></li>
-		        <li class="menu1"><a href="#">회원관리</a></li>
+		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/memberManage/list">회원관리</a></li>
 		        <li class="menu1"><a href="#">커뮤니티관리</a></li>
-		        <li class="menu1"><a href="#">스터디관리</a></li>
+		        <li class="menu1"><a href="#">스토어관리</a></li>
 		        <li class="menu1"><a href="#">고객센터관리</a></li>
 				<li class="menu1"><a href="#">&nbsp;</a></li>
 				<li class="menu2"><a href="#">&nbsp;</a></li>

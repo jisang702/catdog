@@ -97,7 +97,7 @@ function updatePhoto() {
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/photo/list?${query}';">리스트</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/list?${query}';">리스트</button>
 			    </td>
 			</tr>
 			</table>
