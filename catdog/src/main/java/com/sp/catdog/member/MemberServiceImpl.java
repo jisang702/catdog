@@ -79,4 +79,15 @@ public class MemberServiceImpl implements MemberService{
 		return null;
 	}
 
+	@Override
+	public Member loginMemberState(String userId) {
+		Member dto=null;
+		try {
+			dto=dao.selectOne("member.loginMemberState", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
 }

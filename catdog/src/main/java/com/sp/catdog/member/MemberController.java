@@ -29,8 +29,18 @@ public class MemberController {
 			) throws Exception {
 		
 		Member dto=service.loginMember(userId);
-		if(dto==null || ! userPwd.equals(dto.getUserPwd())) {
+		if(dto==null ) {
+			model.addAttribute("message", "존재하지 않는 계정입니다.");
+			return ".member.login";
+			
+		}else if(! userPwd.equals(dto.getUserPwd())) {	
 			model.addAttribute("message", "아이디 또는 패스워드가 일치하지 않습니다.");
+			return ".member.login";
+
+		}else if(dto.getUserEnabled()==0) {	//계정 잠금일 경우
+			dto=service.loginMemberState(userId);
+			String msg = dto.getUserId()+"님은 ["+dto.getMemo().trim()+"] 의 이유로 계정 정지입니다.";
+			model.addAttribute("message", msg);
 			return ".member.login";
 		}
 		

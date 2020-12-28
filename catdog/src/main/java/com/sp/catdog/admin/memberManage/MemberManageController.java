@@ -180,4 +180,21 @@ public class MemberManageController {
 		model.put("state", state);
 		return model;
 	}
+	
+	@RequestMapping("analysis")
+	public String analysis(Model model) throws Exception{
+		model.addAttribute("subMenu", 2);
+
+		return ".admin4.admin.memberManage.analysis";
+	}
+	
+	@RequestMapping("ageAnalysis")
+	@ResponseBody
+	public Map<String, Object> listAgeSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> list=service.listAgeSection();
+		model.put("list", list);
+		return model;
+	}
 }

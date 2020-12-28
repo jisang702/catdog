@@ -168,4 +168,27 @@
 		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
+	<!-- 차트 쿼리 -->
+	<select id="listAgeSection" resultType="com.sp.catdog.admin.memberManage.Analysis">
+		WITH memberAge AS(
+			SELECT userId, TRUNC(MONTHS_BETWEEN(SYSDATE, userBirth)/12) age
+			FROM comMember
+		)
+<![CDATA[
+		SELECT '10대' section, COUNT(*) count FROM memberAge WHERE age>=10 AND age<20
+		UNION ALL
+		SELECT '20대' section, COUNT(*) count FROM memberAge WHERE age>=20 AND age<30
+		UNION ALL
+		SELECT '30대' section, COUNT(*) count FROM memberAge WHERE age>=30 AND age<40
+		UNION ALL
+		SELECT '40대' section, COUNT(*) count FROM memberAge WHERE age>=40 AND age<50
+		UNION ALL
+		SELECT '50대' section, COUNT(*) count FROM memberAge WHERE age>=50 AND age<60
+		UNION ALL
+		SELECT '60대' section, COUNT(*) count FROM memberAge WHERE age>=60 AND age<70
+		UNION ALL
+		SELECT '기타' section, COUNT(*) count FROM memberAge WHERE age<10 OR age>70
+]]>				
+	</select>
+
 </mapper>

@@ -23,4 +23,7 @@ public interface MemberManageService {
 	public void insertMemberState(Member dto) throws Exception;
 	public Member readMemberState(String userId) throws Exception;
 	public List<Member> listMemberState(String userId) throws Exception;
+	
+	//차트
+	public List<Analysis> listAgeSection();
 }
