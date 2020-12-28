@@ -13,7 +13,7 @@ public class Member {
 	private int userType;
 	private int userReported;
 	private String userLast;
-	private int enabled;
+	private int userEnabled;
 	
 	private String userBirth;
 	private String userTel;
@@ -30,6 +30,9 @@ public class Member {
 	private String userSellName; //판매자 사업장 이름
 	private String userSellNum; //판매자 사업자번호
 	private int compNum; //배송업체코드
+	
+	private String memo;
+	
 	public long getUserNum() {
 		return userNum;
 	}
@@ -95,12 +98,6 @@ public class Member {
 	}
 	public void setUserLast(String userLast) {
 		this.userLast = userLast;
-	}
-	public int getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(int enabled) {
-		this.enabled = enabled;
 	}
 	public String getUserBirth() {
 		return userBirth;
@@ -186,6 +183,17 @@ public class Member {
 	public void setCompNum(int compNum) {
 		this.compNum = compNum;
 	}
-	
+	public int getUserEnabled() {
+		return userEnabled;
+	}
+	public void setUserEnabled(int userEnabled) {
+		this.userEnabled = userEnabled;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	
 }

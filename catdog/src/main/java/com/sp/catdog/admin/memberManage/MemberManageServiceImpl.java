@@ -168,4 +168,15 @@ public class MemberManageServiceImpl implements MemberManageService{
 		}
 	}
 
+	@Override
+	public List<Analysis> listAgeSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("memberManage.listAgeSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }
