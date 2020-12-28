@@ -110,6 +110,7 @@ button {
 
 #mainMenu .menu .menunav {
 	margin: 0;
+	max-height: 50px;
 }
 
 #mainMenu .menu1 a {

@@ -7,37 +7,106 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/se/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script>
+
+var sel_files=[];
+
+$(document).ready(function() {
+	$("#upload").on("change", preview);
+});
+
+function fileUpload() {
+	$("#upload").trigger('click');
+}
+
+function preview(e) {
+	sel_files=[];
+	$("#previewImg").empty();
+	
+	var files=e.target.files;
+	var filesArr=Array.prototype.slice.call(files);
+	
+	filesArr.forEach(function(f) {
+		if(!f.type.match("image.*")) {
+			alert("이미지만 업로드 가능합니다.");
+			return;
+		}
+		sel_files.push(f);
+		
+		var index=1;
+		var reader=new FileReader();
+		reader.onload=function(e) {
+			var html="<img src=\""+e.target.result+"\" data-file='"+f.name+"'></a>";
+			var h="<input type=\"file\" name=upload id=\"upload\" multiple=\"multiple\" style=\"display: none;\">";
+			$("#previewImg").append(html);
+			index++;
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+function sendOk() {
+	var f = document.photoForm;
+
+  	var str = f.photoSubject.value;
+        if(!str) {
+            alert("제목을 입력하세요. ");
+            f.photoSubject.focus();
+            return false;
+        }
+
+        str = f.photoContent.value;
+        if(!str || str=="<p>&nbsp;</p>") {
+        	alert("내용을 입력하세요. ");
+     		f.photoContent.focus();
+        	return false;
+        }
+        
+        str=f.upload.value;
+        if(!str) {
+        	alert("사진을 첨부해주세요.");
+        	return false;
+        }
+        
+        f.action="${pageContext.request.contextPath}/community/photo/${mode}";
+        f.submit();
+}
+</script>
+
 
 <div class="body-container">
     <div class="board">
-			<form name="boardForm" method="post" enctype="multipart/form-data">
-			  <table class="phototable" style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			  <tr align="left"> 
-			      <td>
+			<form name="photoForm" method="post" enctype="multipart/form-data">
+			  <table class="comtable" style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+			  <tr> 
+			      <td width="100">
 			      	<select name="photoPet" ${mode=='update'?"disabled='true'":""}>
 			      		<option value="1">강아지</option>
 			      		<option value="2">고양이</option>
 			      	</select>
 			      </td>
 			      <td style="padding-left:10px;"> 
-			        <input style="width: 90%;" type="text" name="photoSubject" maxlength="20" value="${dto.photoSubject}" placeholder="제목을 입력하세요">
+			        <input style="width: 95%;" type="text" name="photoSubject" maxlength="20" value="${dto.photoSubject}" placeholder="제목을 입력하세요">
 			      </td>
 			  </tr>
 			
-			  <tr align="left"> 
-			      <td>작성자</td>
-			      <td style="padding-left:10px;"> 
-			          ${sessionScope.member.userNick}
-			      </td>
-			  </tr>
-			
-			  <tr align="left"> 
-			      <td width="100"style="padding-top:5px;" valign="top">내용</td>
+			  <tr class="photocontent"> 
+			      <td width="100" style="padding-top:5px;">내용</td>
 			      <td valign="top" style="padding:5px 0 5px 10px;"> 
-			        <textarea name="photoContent" id="content" style="width:95%; height: 270px;">${dto.dealContent}</textarea>
+			        <textarea name="photoContent" id="photoContent" style="width:95%; height: 270px;">${dto.photoContent}</textarea>
 			      </td>
 			  </tr>
+			  			  
+			  <tr>
+			  	<td>사진</td>
+			  	<td id="preview" height="150" align="left">
+			  		<span id="previewImg"></span>
+			  		<span id="addImg">
+			  			<input type="file" name="upload" id="upload" multiple="multiple" style="display: none;">
+				  	</span>
+			  		<button type="button" onclick="fileUpload();" style="width: 150px; height: 150px;"><img src="${pageContext.request.contextPath}/resources/css/images/addphoto.png"> </button>
+			  	</td>
+			  </tr>  
 
 			  </table>
 			
@@ -58,76 +127,4 @@
 			  </table>
 			</form>
     </div>
-    
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "content",
-	sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",	
-	htParams : {bUseToolbar : true,
-		fOnBeforeUnload : function(){
-		}
-	},
-	fOnAppLoad : function(){
-	},
-	fCreator: "createSEditor2"
-});
-
-function pasteHTML() {
-	var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-	oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
-}
-
-function showHTML() {
-	var sHTML = oEditors.getById["content"].getIR();
-	alert(sHTML);
-}
-	
-function sendOk() {
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-	
-	var f = document.boardForm;
-
-    var str = f.dealSubject.value;
-    if(!str) {
-       alert("제목을 입력하세요. ");
-       f.dealSubject.focus();
-       return false;
-    }
-    
-    str=f.dealWay.value;
-    if(!str) {
-    	alert("거래방식을 선택하세요.");
-    	return false;
-    }
-    
-    str = f.dealContent.value;
-    if(!str || str=="<p>&nbsp;</p>") {
-     	alert("내용을 입력하세요. ");
-    	f.dealContent.focus();
-    	return false;
-    }
-
-    str=f.dealPrice.value;
-    str=removeComma(str);
-    if(!str) {
-    	alert("가격을 입력하세요.");	
-    	f.dealPrice.focus();
-    	return false;
-    }
-    
-    f.dealPrice.value=str;
-    
-	f.action="${pageContext.request.contextPath}/community/deal/${mode}";
-    f.submit();
-}
-
-function setDefaultFont() {
-	var sDefaultFont = '돋움';
-	var nFontSize = 24;
-	oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
-}
-</script>    
-    
 </div>

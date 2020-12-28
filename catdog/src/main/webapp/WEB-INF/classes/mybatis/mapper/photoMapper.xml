@@ -2,5 +2,52 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="photo">
+	<select id="seq" resultType="Integer">
+		SELECT comPhoto_seq.NEXTVAL FROM dual
+	</select>
 	
+	<insert id="insertPhoto" parameterType="com.sp.catdog.community.photo.Photo">
+		INSERT INTO comPhoto(photoNum, photoSubject, photoContent, photoHitCount, photoCreated, photoPet, userId) VALUES 
+			(#{photoNum}, #{photoSubject}, #{photoContent}, 0, SYSDATE, #{photoPet}, #{userId})
+	</insert>
+	
+	<insert id="insertImage" parameterType="com.sp.catdog.community.photo.Photo">
+		INSERT INTO comPhotoImg(photoNum, imgNum, photoImgOriginalname, photoImgSavename) VALUES
+			(#{photoNum}, comPhotoImg_seq.NEXTVAL, #{photoImgOriginalname}, #{photoImgSavename})
+	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comPhoto p
+		JOIN member1 m ON m.userId=p.userId	
+	</select>
+	
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE comPhoto SET photoHitCount=photoHitCount+1 WHERE photoNum=#{photoNum}
+	</update>
+	
+	<select id="listPhoto" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
+		SELECT p.photoNum, p.userId, userNick, photoSubject, photoContent, photoHitCount,
+			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename
+		FROM comPhoto p
+		JOIN member1 m ON p.userId=m.userId
+		LEFT OUTER JOIN (
+			select photonum, imgnum, photoImgOriginalname, photoImgSavename 
+			from (
+			select row_number() over(PARTITION by comphotoimg.photonum 
+			order by comphotoimg.imgnum desc) as rnum, comphotoimg.* from comphotoimg) 
+			where rnum=1
+		) i ON p.photoNum=i.photoNum
+		ORDER BY photoNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="readPhoto" parameterType="Integer" resultType="com.sp.catdog.community.photo.Photo">
+		
+	</select>
+	
+	<update id="updatePhoto" parameterType="com.sp.catdog.community.photo.Photo">
+		UPDATE comPhoto SET photoSubject=#{photoSubject}, photoContent=#{photoContent} 
+		WHERE photoNum=#{photoNum}
+	</update>
 </mapper>

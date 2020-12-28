@@ -49,7 +49,7 @@ $(function() {
 <div class="body-container">
     <div class="board">
 			<form name="boardForm" method="post" enctype="multipart/form-data">
-			  <table class="dealtable" style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+			  <table class="comtable" style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			  <tr align="left"> 
 			      <td>
 			      	<select name="dealType" ${mode=='update'?"disabled='true'":""}>

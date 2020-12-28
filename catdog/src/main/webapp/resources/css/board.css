@@ -550,7 +550,7 @@ button {
 	width: 120px;
 }
 
-.dealtable select {
+.comtable select {
 	outline: 0;
 	height: 30px;
 	line-height: 30px;
@@ -559,7 +559,7 @@ button {
 	border-radius: 5px;
 }
 
-.dealtable tr {
+.comtable tr {
 	border-bottom: 1px solid #dadada;
 	padding: 5px;
 	height: 50px;
@@ -582,4 +582,17 @@ button {
 	border: 0;
     color: #fff;
     background: #71da65;
+}
+
+.photocontent textarea {
+	resize: none;
+	border: 1px solid #dadada;
+	outline: 0;
+	border-radius: 10px;
+}
+
+#preview img {
+	width: 120px;
+	height: 120px;
+	margin: 10px;
 }
