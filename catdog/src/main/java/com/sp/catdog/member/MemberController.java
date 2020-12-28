@@ -29,7 +29,7 @@ public class MemberController {
 			) throws Exception {
 		
 		Member dto=service.loginMember(userId);
-		if(dto==null ) {
+		if(dto==null || dto.getUserEnabled()==2) {
 			model.addAttribute("message", "존재하지 않는 계정입니다.");
 			return ".member.login";
 			
@@ -42,6 +42,7 @@ public class MemberController {
 			String msg = dto.getUserId()+"님은 ["+dto.getMemo().trim()+"] 의 이유로 계정 정지입니다.";
 			model.addAttribute("message", msg);
 			return ".member.login";
+			
 		}
 		
 		//세션에 로그인 정보 저장

@@ -147,6 +147,10 @@
 		UPDATE member1 SET userEnabled=#{userEnabled} WHERE userId=#{userId}
 	</update>
 	
+	<update id="updateUserOk" parameterType="map">
+		UPDATE member SET userOk=0 WHERE userNum=#{userNum}
+	</update>
+	
 	<!-- memberState -->
 	<insert id="insertMemberState" parameterType="com.sp.catdog.admin.memberManage.Member">
 		INSERT INTO memberState(num, userId, stateCode, memo, registerId, register_date)

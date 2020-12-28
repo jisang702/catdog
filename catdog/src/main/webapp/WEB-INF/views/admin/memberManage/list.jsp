@@ -12,8 +12,9 @@
 
 <script type="text/javascript">
 $(function(){
-	$("#tab-${group}").addClass("active");
-		
+	var group="${group}";
+	$("#tab-"+group).addClass("active");
+	
 	$("ul.tabs li").click(function(){
 		tab=$(this).attr("data-tab");
 			
@@ -65,7 +66,7 @@ function detailMember(userId, userType){
 			" 수정 " : function(){
 				updateOk();
 			},
-			" 삭제 " : function(){
+			" 탈퇴 " : function(){
 				deleteOk(userId);
 			},
 			" 닫기 " : function(){
@@ -117,9 +118,17 @@ function updateOk(){
 	$("#member-dialog").dialog("close");
 }
 
-function deleteOk(){
-	if(confirm("선택한 계정을 삭제하시겠습니까?")){
+function deleteOk(userId){
+	if(confirm("선택한 계정을 탈퇴 처리하시겠습니까?")){
+		var url="${pageContext.request.contextPath}/admin/memberManage/delete";
+		var query="userId="+userId+"&userEnabled="+2;
 		
+		var fn=function(data){
+			$("form input[name=page]").val("${page}");
+			searchList();
+		};
+		
+		ajaxFun(url, "post", "html", query, fn);
 	}
 	
 	$("#member-dialog").dialog("close");
@@ -161,7 +170,7 @@ function selectStateChange(){
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
      <div class="body-title">
-         <h3><i class="fas fa-user"></i>&nbsp;회원 관리 </h3>
+         <h2><i class="fas fa-user"></i>&nbsp;회원 관리 </h2>
      </div>
      
      <div>
@@ -184,6 +193,7 @@ function selectStateChange(){
 			          		<option value="" ${userEnabled=="" ? "selected='selected'":""}>::계정상태::</option>
 			          		<option value="0" ${userEnabled=="0" ? "selected='selected'":""}>잠금 계정</option>
 			          		<option value="1" ${userEnabled=="1" ? "selected='selected'":""}>활성 계정</option>
+			          		<option value="2" ${userEnabled=="2" ? "selected='selected'":""}>탈퇴 계정</option>
 			          </select>
 			      </td>
 			   </tr>
@@ -199,8 +209,8 @@ function selectStateChange(){
 				      <th style="width: 100px; color: #787878;">생년월일</th>
 				      <th style="width: 120px; color: #787878;">전화번호</th>
 				      <th style="color: #787878;">이메일</th>
-				      <th style="width: 60px; color: #787878;">상태</th>
-				      <th style="width: 60px; color: #787878;">신고</th>				      
+				      <th style="width: 60px; color: #787878;">신고</th>
+				      <th style="width: 60px; color: #787878;">상태</th>				      
 				  </tr>
 			 </thead>
 			 
@@ -215,8 +225,8 @@ function selectStateChange(){
 				      <td>${dto.userBirth}</td>
 				      <td>${dto.userTel}</td>
 				      <td>${dto.userEmail}</td>
-				      <td>${dto.userEnabled==1 ? "활성" : "잠금"}</td>
-				      <td>${dto.userReported}</td>				      
+				      <td>${dto.userReported}</td>
+				      <td>${dto.userEnabled==1 ? "활성" : (dto.userEnabled==0 ? "잠금" : "탈퇴")}</td>				      
 				  </tr>
 			</c:forEach>
 			</tbody>

@@ -179,4 +179,15 @@ public class MemberManageServiceImpl implements MemberManageService{
 		return list;
 	}
 
+	@Override
+	public void updateUserOk(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("memberManage.updateUserOk", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 }

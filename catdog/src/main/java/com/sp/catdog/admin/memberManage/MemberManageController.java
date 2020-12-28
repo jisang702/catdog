@@ -181,6 +181,31 @@ public class MemberManageController {
 		return model;
 	}
 	
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> delete(
+			Member dto
+			) throws Exception{
+		String state="true";
+		Map<String, Object> model = new HashMap<>();
+		
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("userId", dto.getUserId());
+			map.put("userEnabled", 2);		
+			dto.setStateCode(7);
+			
+			service.updateUserEnabled(map);
+			
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		model.put("state", state);
+		return model;
+	}
+	
+	
 	@RequestMapping("analysis")
 	public String analysis(Model model) throws Exception{
 		model.addAttribute("subMenu", 2);
@@ -197,4 +222,6 @@ public class MemberManageController {
 		model.put("list", list);
 		return model;
 	}
+	
+	
 }

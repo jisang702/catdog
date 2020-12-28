@@ -18,6 +18,7 @@ public interface MemberManageService {
 	public int sellDataCount(Map<String, Object> map) throws Exception;
 	
 	public void updateUserEnabled(Map<String, Object> map) throws Exception;
+	public void updateUserOk(Map<String, Object> map) throws Exception;
 	
 	//memberState
 	public void insertMemberState(Member dto) throws Exception;

@@ -18,5 +18,4 @@ $(function(){
        <a href="${pageContext.request.contextPath}/admin/memberManage/list" class="list-group-item">회원목록</a>
        <a href="${pageContext.request.contextPath}/admin/memberManage/analysis" class="list-group-item">회원분석</a>       
        <a href="${pageContext.request.contextPath}/admin" class="list-group-item">탈퇴회원관리</a>
-       <a href="#" class="list-group-item">주문내역</a>    
 </div>

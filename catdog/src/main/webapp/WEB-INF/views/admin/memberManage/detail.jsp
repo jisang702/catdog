@@ -38,7 +38,7 @@
 	<tr height="37" style="background: #ffffff;">
 	    <td align="right" width="15%" style="padding-right: 9px;"><label style="font-weight: 900;">계정상태</label></td>
 	    <td align="left" colspan="3" style="padding-left: 5px;">
-			  ${dto.userEnabled==1?"활성":"잠금"}
+			  ${dto.userEnabled==1?"활성":(dto.userEnabled==0 ? "잠금" : "탈퇴")}
 			  <c:if test="${dto.userEnabled==0 && not empty memberState}">, ${memberState.memo}</c:if>
 			  &nbsp;<span class="btn" onclick="memberStateDetailView();" style="cursor: pointer;">자세히</span>
 	    </td>
@@ -55,6 +55,9 @@
 					<option value="">::상태코드::</option>
 					<c:if test="${dto.userEnabled == 0 }">
 						<option value="0">잠금 해제</option>
+					</c:if>
+					<c:if test="${dto.userEnabled == 2 }">
+						<option value="7">탈퇴 해제</option>
 					</c:if>
 					<option value="2">불법적인 방법으로 로그인</option>
 					<option value="3">불건전 게시물 등록</option>
@@ -74,6 +77,7 @@
 	
 	<input type="hidden" name="userNum" value="${dto.userNum}">
 	<input type="hidden" name="userId" value="${dto.userId}">
+	<input type="hidden" name="userEnabled" value="${dto.userEnabled}">
 	<input type="hidden" name="registerId" value="${sessionScope.member.userId}">
 </form>
 
