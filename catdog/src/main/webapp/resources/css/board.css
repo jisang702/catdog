@@ -584,6 +584,44 @@ button {
     background: #71da65;
 }
 
+.photoLayout {
+	margin-top: 50px;
+}
+
+.photolist {
+	display: inline-block;
+    width: 278px;
+    margin: 0px 10px 20px 10px;
+    font-size: 16px;
+    float: left;
+    max-height: 370px;
+    border: 1px solid #dadada;
+    border-radius: 10px;
+}
+
+.photolist-img {
+    text-align: center;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+}
+
+.photolist-img img {
+	width: 100%;
+	height: 97%;	
+}
+
+.photoInfo {
+	padding: 15px;
+}
+
+.photocm {
+	text-align: right;
+	color: #a2a2a2;
+	font-size: 13px;
+}
+
 .photocontent textarea {
 	resize: none;
 	border: 1px solid #dadada;
@@ -595,4 +633,74 @@ button {
 	width: 120px;
 	height: 120px;
 	margin: 10px;
+}
+
+.photoArticle {
+	max-width: 1000px;
+	height: 470px;	
+	border: 1px solid #dadada;
+	border-radius: 10px;
+}
+
+.photoImg {
+	width: 450px;
+	float: left;
+}
+
+.photoImg img {
+	width: 400px;
+	height: 350px;
+	padding: 10px;
+}
+
+.photoArea {
+	width: 440px;
+	float: left;
+	text-align: left;
+}
+
+.photoArea ul {
+	margin: 15px;
+}
+
+.photoSubject {
+	font-size: 28px;
+	color: #71da65;
+	font-weight: bold;
+}
+
+.photobtn {
+	width: 49%;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 10px;
+    color: #a2a2a2;
+    font-size: 15px;
+}
+
+.photoContent {
+	padding: 15px;
+	border-bottom: 1px solid #dadada;
+	border-top: 1px solid #dadada;
+	min-height: 70px;
+}
+
+.photoCreated {
+	display: flex;
+	justify-content: space-between;
+}
+
+.photoReplybtn {
+	background: #71da65;
+	border-radius: 10px;
+	color: white;
+	padding: 10px;
+}
+
+.photoReply input {
+	margin: 0px 3px;
+	padding: 3px 0px 3px 10px;
+	width: 85%;
+	border-radius: 10px;
+	vertical-align: middle;
 }

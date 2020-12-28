@@ -91,7 +91,7 @@ button {
 .mainFixed {
 	position: fixed;
 	top: 0;
-	z-index: 50;
+	z-index: 1;
 }
 
 #mainMenu ul {
@@ -105,7 +105,7 @@ button {
 	text-align: center;
 	position: relative;
 	width: 120px;
-	z-index: 9999;
+	z-index: 1;
 }
 
 #mainMenu .menu .menunav {
@@ -288,5 +288,4 @@ button {
 	height: 40px;
 	font-size: 16px;
 }
-
 

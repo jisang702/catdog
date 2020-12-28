@@ -41,6 +41,7 @@
 			<if test="keyword!=null and keyword!='' ">
 				<include refid="where-list"/>
 			</if>
+			AND dealType=#{dealType}
 		</where> 
 		ORDER BY dealCreated DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 
@@ -50,6 +51,11 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM comDeal d
 		JOIN member1 m ON m.userId=d.userId	
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 
 	</select>
 	
 	<update id="updateHitCount" parameterType="Integer">

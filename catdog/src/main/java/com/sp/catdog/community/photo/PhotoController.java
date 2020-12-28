@@ -105,8 +105,44 @@ public class PhotoController {
 		
 		return ".community.photo.list";
 	}
+	
 	@RequestMapping("article")
-	public String article() throws Exception {
+	public String article(
+			@RequestParam int photoNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue="all") String condition,
+			@RequestParam(defaultValue="") String keyword,
+			Model model
+			) throws Exception {
+		
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+
+		service.updateHitCount(photoNum);
+
+		Photo dto = service.readPhoto(photoNum);
+		if(dto==null)
+			return "redirect:/community/photo/list?"+query;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("photonum", photoNum);
+
+		Photo preReadDto = service.preReadBoard(map);
+		Photo nextReadDto = service.nextReadBoard(map);
+        
+		model.addAttribute("dto", dto);
+		model.addAttribute("preReadDto", preReadDto);
+		model.addAttribute("nextReadDto", nextReadDto);
+
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+
 		return ".community.photo.article";
 	}
 	

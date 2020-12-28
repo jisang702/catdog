@@ -40,6 +40,7 @@ public class DealController {
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			@RequestParam(value="rows", defaultValue="9") int rows,
+			@RequestParam(defaultValue = "1") int dealType,
 			HttpServletRequest req,
 			Model model
 			) throws Exception {
@@ -54,6 +55,7 @@ public class DealController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("dealType", dealType);
 
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(rows, dataCount);

@@ -26,6 +26,25 @@
 		UPDATE comPhoto SET photoHitCount=photoHitCount+1 WHERE photoNum=#{photoNum}
 	</update>
 	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(subject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition == 'created' ">
+			   ( TO_CHAR(created, 'YYYYMMDD') = #{keyword}
+		          OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
+			</when>
+			<when test="condition == 'content'">
+			    DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<select id="listPhoto" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
 		SELECT p.photoNum, p.userId, userNick, photoSubject, photoContent, photoHitCount,
 			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename
@@ -43,11 +62,43 @@
 	</select>
 	
 	<select id="readPhoto" parameterType="Integer" resultType="com.sp.catdog.community.photo.Photo">
-		
+		SELECT p.photoNum, p.userId, userNick, photoSubject, photoContent, photoHitCount, 
+			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename
+		FROM comPhoto p
+		LEFT OUTER JOIN (
+			SELECT photoNum, imgNum, photoImgOriginalname, photoImgSavename FROM comPhotoImg
+		) i ON p.photoNum=i.photoNum
+		JOIN member1 m ON p.userId=m.userId
+		WHERE p.photoNum=#{photoNum}
+	</select>
+	
+	<select id="preReadPhoto" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
+		SELECT photoNum, p.userId
+		FROM comPhoto p
+		JOIN member1 m ON p.userId=m.userId
+		WHERE (photoNum &gt; #{photoNum})
+		ORDER BY photoNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="nextReadPhoto" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
+		SELECT photoNum, p.userId
+		FROM comPhoto p
+		JOIN member1 m ON p.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (photoNum &lt; #{photoNum})
+		</where>
+		ORDER BY photoNum DESC
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
 	<update id="updatePhoto" parameterType="com.sp.catdog.community.photo.Photo">
 		UPDATE comPhoto SET photoSubject=#{photoSubject}, photoContent=#{photoContent} 
 		WHERE photoNum=#{photoNum}
 	</update>
+	
+	
 </mapper>

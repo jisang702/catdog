@@ -7,39 +7,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
-
 </script>
 <div class="body-container">
     <div class="board">
     	<div class="boardtitle">
 			<ul class="listtitle">
+				<li>PHOTO</li>
 			</ul>
 		</div>
-		<div class="fleaLayout">
-			<c:forEach var="dto" items="${list}">
-			<div class="fleamarket">
+		<div class="photoLayout">
+			<c:forEach var="vo" items="${list}">
+			<div class="photolist">
 				<div>
-					<div class="fleamarket-img">
-						<a href="#photoModal1" rel="modal:open">
-							<img src="${pageContext.request.contextPath}/uploads/photo/${dto.photoImgSavename}">
+					<div class="photolist-img">
+						<a href="#">
+							<img src="${pageContext.request.contextPath}/uploads/photo/${vo.photoImgSavename}">
 						</a>
 					</div>
 				</div>
-				<div>
+				<div class="photoInfo">
 					<ul>
-						<li style="font-weight: bold; font-size: 20px;">
-						<a style="vertical-align: middle;" href="${pageContext.request.contextPath}/community/photo/article?page=${page}&photoNum=${dto.photoNum}">${dto.photoSubject}</a>
+						<li style="font-weight: bold; font-size: 24px;">
+						<a style="vertical-align: middle;" href="${pageContext.request.contextPath}/community/photo/article?page=${page}&photoNum=${vo.photoNum}">${vo.photoSubject}</a>
 						</li>
 					</ul>
 					<ul>
-						<li class="photoCreated" style="color:#a2a2a2;">
-							${dto.photoCreated}
+						<li style="color:#a2a2a2; font-size: 13px;">
+							${vo.photoCreated}
 						</li>
 					</ul>
-					<ul class="fleaprice">
+					<ul class="photocm">
 						<li>
-							<i class="far fa-eye"><span class=""> ${dto.photoHitCount} </span> </i>
-							<i class="far fa-comments"><span class="">  </span> </i>
+							<i class="far fa-eye"><span class=""> ${vo.photoHitCount} </span> </i>
+							<i class="far fa-comments"><span> 0 </span></i>
 						</li>
 					</ul>
 				</div>
@@ -65,12 +65,4 @@
 			<a type="button" class="mybtn1" href="${pageContext.request.contextPath}/community/photo/created">글쓰기</a>
 		</div>
     </div>
-</div>
-
-<div id="photoModal1" class="modal">
-	<div>
-		<ul>
-			<li>사진</li>
-		</ul>
-	</div>
 </div>

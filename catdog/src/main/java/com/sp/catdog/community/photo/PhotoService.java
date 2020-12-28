@@ -14,5 +14,8 @@ public interface PhotoService {
 	
 	public void updateHitCount(int photoNum) throws Exception;
 	public Photo readPhoto(int photoNum);
+	
+	public Photo preReadBoard(Map<String, Object> map);
+	public Photo nextReadBoard(Map<String, Object> map);
 
 }

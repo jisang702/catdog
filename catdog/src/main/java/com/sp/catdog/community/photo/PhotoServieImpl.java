@@ -122,7 +122,38 @@ public class PhotoServieImpl implements PhotoService {
 
 	@Override
 	public Photo readPhoto(int photoNum) {
-		// TODO Auto-generated method stub
-		return null;
+		Photo dto=null;
+		try {
+			dto=dao.selectOne("photo.readPhoto", photoNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public Photo preReadBoard(Map<String, Object> map) {
+		Photo dto=null;
+		
+		try {
+			dto=dao.selectOne("photo.preReadPhoto", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public Photo nextReadBoard(Map<String, Object> map) {
+		Photo dto=null;
+		
+		try {
+			dto=dao.selectOne("photo.nextReadPhoto", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 }
