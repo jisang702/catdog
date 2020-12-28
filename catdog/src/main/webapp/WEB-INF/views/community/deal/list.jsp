@@ -17,6 +17,11 @@ function commas(t) {
     }
 }
 
+function searchList() {
+	var f=document.searchForm;
+	f.submit();
+}
+
 function ajaxJSON(url, method, query, fn) {
 	$.ajax({
 		type:method
@@ -146,7 +151,7 @@ $(function() {
 			<p> ${dataCount==0?"등록된 게시물이 없습니다.":paging} </p>
 		</div>
 		<div class="fleabtn listfooter" style="margin-top: 30px;">
-			<a type="button" class="mybtn1 topbtn">맨위로</a>
+			<a type="button" class="mybtn1" href="javascript:location.href='${pageContext.request.contextPath}/community/deal/list'">새로고침</a>
 			<form name="searchForm" action="${pageContext.request.contextPath}/community/deal/list" method="post">
 				<span>
 					<select name="condition">

@@ -16,7 +16,7 @@
 		          OR DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0 )
 			</when>
 			<when test="condition == 'subject'">
-			    DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0
+			    DBMS_LOB.INSTR(dealSubject, #{keyword}) &gt; 0
 			</when>
 			<when test="condition == 'content'">
 			    DBMS_LOB.INSTR(dealContent, #{keyword}) &gt; 0
@@ -41,7 +41,6 @@
 			<if test="keyword!=null and keyword!='' ">
 				<include refid="where-list"/>
 			</if>
-			AND dealType=#{dealType}
 		</where> 
 		ORDER BY dealCreated DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY 

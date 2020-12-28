@@ -61,7 +61,8 @@
 		<div>
 			<p> ${dataCount==0?"등록된 게시물이 없습니다.":paging} </p>
 		</div>
-		<div class="listfooter">
+		<div class="listfooter fleabtn">
+			<a type="button" class="mybtn1" href="javascript:location.href='${pageContext.request.contextPath}/community/board/list'">새로고침</a>
 			<form name="searchForm" action="${pageContext.request.contextPath}/community/board/list" method="post">
 				<select name="condition">
 					<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>

@@ -40,7 +40,6 @@ public class DealController {
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			@RequestParam(value="rows", defaultValue="9") int rows,
-			@RequestParam(defaultValue = "1") int dealType,
 			HttpServletRequest req,
 			Model model
 			) throws Exception {
@@ -55,11 +54,10 @@ public class DealController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
-		map.put("dealType", dealType);
 
 		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(rows, dataCount);
-
+		
 		if (total_page < current_page)
 			current_page = total_page;
 
@@ -69,6 +67,7 @@ public class DealController {
         map.put("rows", rows);
 
 		List<Deal> list = service.listDeal(map);
+		
 		List<String> imagelist;
 		
 		int num, n = 0;
@@ -110,7 +109,6 @@ public class DealController {
 		model.addAttribute("rows", rows);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("dealType", dealType);
 		
 		return ".community.deal.list";
 	}

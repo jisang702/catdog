@@ -171,7 +171,7 @@
 
 <div  style="min-height: 1000px;">
 	<div align="center" width="100" style="margin-top: 100px;">
-		 <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/gallery/created';">글쓰기</button>
+		 <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/photo/created';">글쓰기</button>
 	</div>
 		
 	<section id="grid" class="grid clearfix" style="min-height: 1000px;">

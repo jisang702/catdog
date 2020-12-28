@@ -64,7 +64,6 @@ public class BoardController {
         map.put("rows", rows);
 
 		List<Board> list = service.listBoard(map);
-		System.out.println(list);
 		int num, n = 0;
         for(Board dto : list) {
         	num = dataCount - (offset + n);
