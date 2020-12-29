@@ -160,7 +160,7 @@
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "content",
+	elPlaceHolder: "prdContent",
 	sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",	
 	htParams : {bUseToolbar : true,
 		fOnBeforeUnload : function(){
@@ -176,16 +176,16 @@ nhn.husky.EZCreator.createInIFrame({
 
 function pasteHTML() {
 	var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-	oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+	oEditors.getById["prdContent"].exec("PASTE_HTML", [sHTML]);
 }
 
 function showHTML() {
-	var sHTML = oEditors.getById["content"].getIR();
+	var sHTML = oEditors.getById["prdContent"].getIR();
 	alert(sHTML);
 }
 	
 function submitContents(elClickedObj) {
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
+	oEditors.getById["prdContent"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
 	
@@ -198,7 +198,7 @@ function submitContents(elClickedObj) {
 function setDefaultFont() {
 	var sDefaultFont = '돋움';
 	var nFontSize = 24;
-	oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
+	oEditors.getById["prdContent"].setDefaultFont(sDefaultFont, nFontSize);
 }
 </script>    
     

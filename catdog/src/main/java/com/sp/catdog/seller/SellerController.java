@@ -12,7 +12,8 @@ public class SellerController {
 	@RequestMapping("product")
 	public String productPage(Model model) throws Exception {
 		model.addAttribute("subMenu", 1);
-		return ".four.store.seller.list";
+		// return ".four.store.seller.list";
+		return "redirect:/store/seller/product_list";
 		
 	}
 	
@@ -21,7 +22,8 @@ public class SellerController {
 	public String sales(Model model) throws Exception {
 		model.addAttribute("subMenu", 2);
 				
-		return ".four.store.seller.sales";
+		// return ".four.store.seller.sales";
+		return "redirect:/store/seller/sales_list";
 	}
 	
 	// 상품문의

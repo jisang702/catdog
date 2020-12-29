@@ -32,14 +32,14 @@ public class StoreProductController {
 	private MyUtil myUtil;
 	
 	// 상품판매 글 등록
-	@RequestMapping(value="created", method = RequestMethod.GET)
+	@RequestMapping(value="product_created", method = RequestMethod.GET)
 	public String createdForm(
 			Model model,
 			HttpSession session
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		if(!(info.getUserType()==3)) {
-			return "redirect:/store/list";
+			return "redirect:/store/product_list";
 		}
 		
 		List<StoreProduct> listCategory = service.listCategory();
@@ -48,11 +48,11 @@ public class StoreProductController {
 		model.addAttribute("listCategory", listCategory);		
 		model.addAttribute("mode", "created");
 		
-		return ".store.seller.created";
+		return ".store.seller.product_created";
 	}
 	
 	// 상품판매 글 등록 submit
-	@RequestMapping(value="created", method=RequestMethod.POST)
+	@RequestMapping(value="product_created", method=RequestMethod.POST)
 	public String createdSubmit (
 			StoreProduct dto,
 			HttpSession session
@@ -61,7 +61,7 @@ public class StoreProductController {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		if(!(info.getUserType()==3)) {
-			return "redirect:/store/seller/list";
+			return "redirect:/store/seller/product_list";
 		}
 		
 		
@@ -74,11 +74,11 @@ public class StoreProductController {
 		} catch (Exception e) {
 		}
 
-		return "redirect:/store/seller/list";
+		return "redirect:/store/seller/product_list";
 	}
 	
 	// 상품 판매리스트
-	@RequestMapping(value="list")
+	@RequestMapping(value="product_list")
 	public String listProduct(
 			@RequestParam(value="page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String condition,
@@ -123,20 +123,20 @@ public class StoreProductController {
 		}
 		
 		String query = "";
-		String listUrl = cp+"/store/seller/list";
+		String listUrl = cp+"/store/seller/product_list";
 		String articleUrl = cp+"/store/seller/article?page=" + current_page;
 		if(keyword.length()!=0) {
 			query = "condition="+condition+"&keyword="+URLEncoder.encode(keyword, "utf-8");
 		}
 		
 		if(query.length()!=0) {
-			listUrl = cp+"/store/seller/list?" + query;
+			listUrl = cp+"/store/seller/product_list?" + query;
 			articleUrl = cp+"store/seller/article?page=" + current_page + "&" + query;
 		}
 		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
-		model.addAttribute("list", list);
+		model.addAttribute("product_list", list);
 		model.addAttribute("dataCountProduct", dataCountProduct);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("articleUrl", articleUrl);
@@ -147,7 +147,8 @@ public class StoreProductController {
 		model.addAttribute("keyword", keyword);
 		
 		
-		return ".store.seller.list";
+		// return ".store.seller.list";
+		return ".four.store.seller.product_list";
 	}
 	
 	// 상품 판매 글보기
@@ -168,16 +169,27 @@ public class StoreProductController {
 		
 		StoreProduct dto = service.readProduct(prdNum);
 		if(dto==null)
-			return "redirect:/store/seller/list?"+query;
+			return "redirect:/store/seller/product_list?"+query;
 		
 		dto.setPrdContent(dto.getPrdContent().replaceAll("\n", "<br>"));
-
+		
+		// 이전글 , 다음글
+		Map<String, Object> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("prdNum", prdNum);
+		
+		StoreProduct preReadDto = service.preReadProduct(map);
+		StoreProduct nextReadDto = service.nextReadProduct(map);
+				
 		model.addAttribute("dto", dto);
+		model.addAttribute("preReadDto", preReadDto);
+		model.addAttribute("nextReadDto", nextReadDto);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 		
-		return ".store.seller.article";
+		return ".store.seller.product_article";
 		
 	}
 	

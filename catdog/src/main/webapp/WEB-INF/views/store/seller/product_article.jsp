@@ -4,10 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
-function deletePhoto() {
+function deleteProduct() {
 <c:if test="${sessionScope.member.userId=='admin' || sessionScope.member.userId==dto.userId}">
-	var q = "num=${dto.num}&${query}";
-    var url = "${pageContext.request.contextPath}/photo/delete?" + q;
+	var q = "prdNum=${dto.prdNum}&${query}";
+    var url = "${pageContext.request.contextPath}/store/seller/delete?" + q;
 
     if(confirm("위 자료를 삭제 하시 겠습니까 ? "))
   	  location.href=url;
@@ -17,10 +17,10 @@ function deletePhoto() {
 </c:if>
 }
 
-function updatePhoto() {
+function updateProduct() {
 <c:if test="${sessionScope.member.userId==dto.userId}">
-	var q = "num=${dto.num}&page=${page}";
-    var url = "${pageContext.request.contextPath}/photo/update?" + q;
+	var q = "prdNum=${dto.prdNum}&page=${page}";
+    var url = "${pageContext.request.contextPath}/store/seller/update?" + q;
 
     location.href=url;
 </c:if>
@@ -57,7 +57,7 @@ function updatePhoto() {
 			
 			<tr>
 			  <td colspan="2" align="left" style="padding: 10px 5px;">
-			      <img src="${pageContext.request.contextPath}/uploads/photo/${dto.imgFilename}" style="max-width:100%; height:auto; resize:both;">
+			      <img src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}" style="max-width:100%; height:auto; resize:both;">
 			   </td>
 			</tr>			
 			<tr style="border-bottom: 1px solid #cccccc;">
@@ -70,7 +70,7 @@ function updatePhoto() {
 			    <td colspan="2" align="left" style="padding-left: 5px;">
 			       이전글 :
 			         <c:if test="${not empty preReadDto}">
-			              <a href="${pageContext.request.contextPath}/photo/article?${query}&num=${preReadDto.num}">${preReadDto.subject}</a>
+			              <a href="${pageContext.request.contextPath}/store/seller/article?${query}&prdNum=${preReadDto.prdNum}">${preReadDto.prdName}</a>
 			        </c:if>
 			    </td>
 			</tr>
@@ -79,7 +79,7 @@ function updatePhoto() {
 			    <td colspan="2" align="left" style="padding-left: 5px;">
 			       다음글 :
 			         <c:if test="${not empty nextReadDto}">
-			              <a href="${pageContext.request.contextPath}/photo/article?${query}&num=${nextReadDto.num}">${nextReadDto.subject}</a>
+			              <a href="${pageContext.request.contextPath}/store/seller/article?${query}&prdNum=${nextReadDto.prdNum}">${nextReadDto.prdName}</a>
 			        </c:if>
 			    </td>
 			</tr>
@@ -89,15 +89,15 @@ function updatePhoto() {
 			<tr height="45">
 			    <td width="300" align="left">
 			       <c:if test="${sessionScope.member.userId==dto.userId}">				    
-			          <button type="button" class="btn" onclick="updatePhoto();">수정</button>
+			          <button type="button" class="btn" onclick="updateProduct();">수정</button>
 			       </c:if>
 			       <c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">				    
-			          <button type="button" class="btn" onclick="deletePhoto();">삭제</button>
+			          <button type="button" class="btn" onclick="deleteProduct();">삭제</button>
 			       </c:if>
 			    </td>
 			
 			    <td align="right">
-			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/list?${query}';">리스트</button>
+			        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/product_list?${query}';">리스트</button>
 			    </td>
 			</tr>
 			</table>

@@ -144,4 +144,30 @@ public class StoreProductServiceImpl implements StoreProductService {
 		return null;
 	}
 
+	@Override
+	public StoreProduct preReadProduct(Map<String, Object> map) {
+		StoreProduct dto = null;
+		
+		try {
+			dto=dao.selectOne("StoreSeller.preReadProduct", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public StoreProduct nextReadProduct(Map<String, Object> map) {
+		StoreProduct dto = null;
+		
+		try {
+			dto=dao.selectOne("StoreSeller.nextReadProduct", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 }

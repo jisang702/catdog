@@ -95,4 +95,24 @@
 		WHERE p.prdNum=#{prdNum}
 	</select>
 	
+	<!-- 이전글 -->
+	<select id="preReadProduct" parameterType="map" resultType="com.sp.catdog.seller.StoreProduct">
+		SELECT prdNum, prdName FROM product p
+		JOIN member1 m ON p.userId=m.userId
+	</select>
+	
+	<!-- 다음글 -->
+	<select id="nextReadProduct" parameterType="map" resultType="com.sp.catdog.seller.StoreProduct">
+		SELECT prdNum, prdName FROM product p
+		JOIN member1 m ON p.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (prdNum &lt; #{prdNum})
+		</where>
+		ORDER BY prdNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
 </mapper>

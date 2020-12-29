@@ -12,6 +12,9 @@ public interface StoreProductService {
 	public StoreProduct otherProductUser(Map<String, Object> map);
 	public StoreProduct otherProductCate(Map<String, Object> map);
 	
+	public StoreProduct preReadProduct(Map<String, Object> map);
+	public StoreProduct nextReadProduct(Map<String, Object> map);
+	
 	public void insertCategory(StoreProduct dto) throws Exception;
 	public void updateCategory(StoreProduct dto) throws Exception;
 	public void deleteCategory(int categoryNum) throws Exception;

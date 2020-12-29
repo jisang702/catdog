@@ -71,7 +71,7 @@ function article(prdNum) {
 <h2 align="center">사료</h2>
 <div>
 	<span>
-		<select class="box">
+		<select class="box" style="float:left;">
 			<option>사료</option>
 			<option>옷</option>
 			<option>간식</option>
@@ -91,9 +91,10 @@ function article(prdNum) {
 </div>
 
 
-<div>
-	<table style=" margin: 0px auto; border-spacing: 0px;">
-		<c:forEach var="dto" items="${list}" varStatus="status">
+
+<div style="margin:auto;">
+	<table style=" margin: 70px 0px auto; border-spacing: 0px;">
+		<c:forEach var="dto" items="${product_list}" varStatus="status">
 			<c:if test="${status.index==0}">
 				<tr>
 			</c:if>
@@ -118,8 +119,8 @@ function article(prdNum) {
 		
 		<c:set var="n" value="${list.size()}"/>
 		<c:if test="${n>0&&n%3!=0}">
-		    <c:forEach var="i" begin="${n%3+1}" end="3" step="1">
-				<td width="100">
+		    <c:forEach var="i" begin="${n%3+1}" end="1" step="1">
+				<td width="210">
 					<div class="imgLayout">&nbsp;</div>
 				</td>
 		    </c:forEach>
@@ -141,10 +142,10 @@ function article(prdNum) {
 	<table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
 	   <tr height="40">
 	      <td align="left" width="100">
-	          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/list';">새로고침</button>
+	          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/product_list';">새로고침</button>
 	      </td>
 	      <td align="center">
-	          <form name="searchForm" action="${pageContext.request.contextPath}/store/seller/list" method="post">
+	          <form name="searchForm" action="${pageContext.request.contextPath}/store/seller/product_list" method="post">
 	              <select name="condition" class="selectField">
 	                  <option value="all" ${condition=="all"?"selected='selected'":""}>모두</option>
 	                  <option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
@@ -157,7 +158,7 @@ function article(prdNum) {
 	        </form>
 	      </td>
 	      <td align="right" width="100">
-	          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/created';">등록하기</button>
+	          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/store/seller/product_created';">등록하기</button>
 	      </td>
 	   </tr>
 	</table>
