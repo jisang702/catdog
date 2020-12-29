@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardManage">
+
+	<sql id="where-list">
+		<choose>
+			<when test="condition=='userId' ">
+				INSTR(userId, #{keyword}) &gt;= 1
+			</when>
+			<when test="condition=='created' ">
+				( TO_CHAR(created, 'YYYY-MM-DD') = #{keyword}
+					OR TO_CHAR(created, 'YYYYMMDD') = #{keyword} )
+			</when>
+			<otherwise>
+				INSTR(#{condition}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="listArticle" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
+		SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
+		UNION ALL
+		SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="articleCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(boardType)
+		FROM(
+			SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
+			UNION ALL
+			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+		)
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id="listBoardType" resultType="com.sp.catdog.admin.boardManage.Board">
+		SELECT DISTINCT(boardType)
+		FROM(
+			SELECT boardType FROM comFree
+			UNION ALL
+			SELECT boardType FROM comDeal
+		)
+	</select>
+</mapper>

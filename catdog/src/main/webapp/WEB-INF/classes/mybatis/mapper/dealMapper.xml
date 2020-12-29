@@ -4,9 +4,9 @@
 <mapper namespace="deal">
 	<insert id="insertDeal" parameterType="com.sp.catdog.community.deal.Deal">
 		INSERT INTO comDeal(dealNum, dealSubject, userId, dealCreated, dealContent, dealPrice,
-			dealWay, dealType, dealState, dealHitCount, dealZone
+			dealWay, dealType, dealState, dealHitCount, dealZone, boardType
 		) VALUES (comdeal_seq.NEXTVAL, #{dealSubject}, #{userId}, SYSDATE, #{dealContent}, #{dealPrice},
-			#{dealWay}, #{dealType}, 1, 0, #{dealZone})		
+			#{dealWay}, #{dealType}, 1, 0, #{dealZone}, 'deal')		
 	</insert>
 	
 	<sql id="where-list">

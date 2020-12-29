@@ -4,9 +4,9 @@
 <mapper namespace="freeboard">
 	<insert id="insertBoard" parameterType="com.sp.catdog.community.freeboard.Board">
 		INSERT INTO comfree(freeNum, userId, freeSubject, freeContent, 
-			freeCreated, freeHitCount, freePet) VALUES 
+			freeCreated, freeHitCount, freePet, boardType) VALUES 
 			(comfree_seq.NEXTVAL, #{userId}, #{freeSubject}, #{freeContent},
-			 SYSDATE, 0, #{freePet})
+			 SYSDATE, 0, #{freePet}, 'free')
 	</insert>
 	
 	<sql id="where-list">
