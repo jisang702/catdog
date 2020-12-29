@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	
+	<!-- 메인 -->
+	
+	<!-- 총 사용자 수  -->
+	<select id="totalUserCount" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM member1 WHERE userEnabled=1
+	</select>
+	
+	<!-- 오늘자 신규 가입자 수  -->
+	<select id="todayNewUserCount" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM member1 
+		WHERE TO_CHAR(userCreated, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND userEnabled=1
+	</select>
+	
+	<!-- visitCount 저장 -->
+	<insert id="insertVisitCount" parameterType="com.sp.catdog.admin.main.Main">
+		INSERT INTO visitCount(visitNum, todayCount, totalCount, yesterdayCount, visitCreated)
+		VALUES(visitCount_seq.NEXTVAL, #{todayCount}, #{totalCount}, #{yesterdayCount}, SYSDATE)
+	</insert>
+</mapper>
