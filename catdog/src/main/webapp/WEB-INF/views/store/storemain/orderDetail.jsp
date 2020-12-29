@@ -93,7 +93,7 @@ ul{
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="userName" value="${dto.userName}" maxlength="30" class="boxTF"
+			            <input type="text" name="userId" value="" maxlength="30" class="boxTF"
 		                      style="width: 95%;"
 		                      ${mode=="update" ? "readonly='readonly' ":""}
 		                      placeholder="이름">
@@ -109,15 +109,15 @@ ul{
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <select name="selectEmail" onchange="changeEmail();" class="selectField">
 			                <option value="">선 택</option>
-			                <option value="naver.com" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>네이버 메일</option>
-			                <option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>한 메일</option>
-			                <option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>핫 메일</option>
-			                <option value="gmail.com" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>지 메일</option>
+			                <option value="naver.com" >네이버 메일</option>
+			                <option value="hanmail.net" >한 메일</option>
+			                <option value="hotmail.com" >핫 메일</option>
+			                <option value="gmail.com" >지 메일</option>
 			                <option value="direct">직접입력</option>
 			            </select>
-			            <input type="text" name="email1" value="${dto.email1}" size="13" maxlength="30"  class="boxTF">
+			            <input type="text" name="email1" value="" size="13" maxlength="30"  class="boxTF">
 			            @ 
-			            <input type="text" name="email2" value="${dto.email2}" size="13" maxlength="30"  class="boxTF" readonly="readonly">
+			            <input type="text" name="email2" value="" size="13" maxlength="30"  class="boxTF" readonly="readonly">
 			        </p>
 			      </td>
 			  </tr>
@@ -130,17 +130,17 @@ ul{
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <select class="selectField" id="tel1" name="tel1" >
 			                <option value="">선 택</option>
-			                <option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
-			                <option value="011" ${dto.tel1=="011" ? "selected='selected'" : ""}>011</option>
-			                <option value="016" ${dto.tel1=="016" ? "selected='selected'" : ""}>016</option>
-			                <option value="017" ${dto.tel1=="017" ? "selected='selected'" : ""}>017</option>
-			                <option value="018" ${dto.tel1=="018" ? "selected='selected'" : ""}>018</option>
-			                <option value="019" ${dto.tel1=="019" ? "selected='selected'" : ""}>019</option>
+			                <option value="010">010</option>
+			                <option value="011" >011</option>
+			                <option value="016" >016</option>
+			                <option value="017" >017</option>
+			                <option value="018" >018</option>
+			                <option value="019" >019</option>
 			            </select>
 			            -
-			            <input type="text" name="tel2" value="${dto.tel2}" class="boxTF" maxlength="4">
+			            <input type="text" name="tel2" value="" class="boxTF" maxlength="4">
 			            -
-			            <input type="text" name="tel3" value="${dto.tel3}" class="boxTF" maxlength="4">
+			            <input type="text" name="tel3" value="" class="boxTF" maxlength="4">
 			        </p>
 			      </td>
 			  </tr>
@@ -151,7 +151,7 @@ ul{
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="zip" id="zip" value="${dto.zip}"
+			            <input type="text" name="zip" id="zip" value=""
 			                       class="boxTF" readonly="readonly">
 			            <button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
 			        </p>
@@ -164,11 +164,11 @@ ul{
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="addr1" id="addr1"  value="${dto.addr1}" maxlength="50" 
+			            <input type="text" name="addr1" id="addr1"  value="" maxlength="50" 
 			                       class="boxTF" style="width: 95%;" placeholder="기본 주소" readonly="readonly">
 			        </p>
 			        <p style="margin-bottom: 5px;">
-			            <input type="text" name="addr2" id="addr2" value="${dto.addr2}" maxlength="50" 
+			            <input type="text" name="addr2" id="addr2" value="" maxlength="50" 
 			                       class="boxTF" style="width: 95%;" placeholder="나머지 주소">
 			        </p>
 			      </td>

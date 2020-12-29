@@ -16,8 +16,11 @@
 </select>
 
 <select id="listBuyer" parameterType="map" resultType="com.sp.catdog.buyer.Buyer">
-		SELECT prdNum, prdName, prdPrice, prdHitCount FROM product
+		SELECT p.prdNum, prdName, prdPrice, prdHitCount, imgFilename
+		FROM product p
+		LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
 		<choose>
+		
 			<when test="gubun=='dog'">
 			   WHERE prdPet=1
 			</when>
@@ -27,7 +30,15 @@
 		</choose>
 		ORDER BY prdNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		
  </select>
-
+ 
+<select id="readBuyer" parameterType="Integer" resultType="com.sp.catdog.buyer.Buyer">
+	SELECT p.prdNum,prdPrice, prdName, prdIntro, prdContent, prdDisCount,
+	 prdShip, prdPoint, prdPet, PrdHitCount,prdCreated,userId,imgFilename
+	From product p
+	LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
+	WHERE p.prdNum=#{prdNum}	
+</select>
 
 </mapper>

@@ -1,13 +1,11 @@
 package com.sp.catdog.buyer;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +26,7 @@ public class BuyerController {
 	private BuyerService service;
 	@Autowired
 	private MyUtil myUtil;
-	@Autowired
-	private FileManager fileManager;
-	
+
 	@RequestMapping(value="{gubun}/main")
 	public String buyer(
 		@PathVariable String gubun,
@@ -64,20 +60,49 @@ public class BuyerController {
 		
 		List<Buyer> list = service.listBuyer(map);
 		
-		
 		String cp = req.getContextPath();
 		String listUrl=cp+"/store/"+gubun+"/main";
+		String productUrl=cp+"/store/"+gubun+"/productInfo";
 		String paging = myUtil.paging(current_page, total_page, listUrl);
-	
+		
 		model.addAttribute("list",list);
-
 		model.addAttribute("page",current_page);
 		model.addAttribute("dataCount",dataCount);
 		model.addAttribute("total_page",total_page);
 		model.addAttribute("paging",paging);
+		model.addAttribute("productUrl",productUrl);
 		model.addAttribute("gubun",gubun);
 		
 		return ".store.storemain.main";
 	}
+	
+	@RequestMapping(value="{gubun}/productInfo", method = RequestMethod.GET)
+	public String productInfo(
+			@PathVariable String gubun,
+			@RequestParam int prdNum,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpServletRequest req,
+			Model model)throws Exception{		
+		
+		String query ="page="+page;
+		String cp=req.getContextPath();
+		String productUrl=cp+"/store/"+gubun+"/productInfo";
+		//String cart =cp+"/store"+gubun+"/cart";
+		String orderDetailUrl = cp+"/store/"+gubun+"/orderDetail"; 
+		Buyer dto = service.readBuyer(prdNum);
+		if(dto == null)
+			return "redirect:/store/"+gubun+"/productInfo?"+query;
+
+		model.addAttribute("gubun", gubun);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+		model.addAttribute("productUrl",productUrl);
+		model.addAttribute("orderDetailUrl",orderDetailUrl);
+		return ".store.storemain.productInfo";
+	}
+	
+	
 }
 

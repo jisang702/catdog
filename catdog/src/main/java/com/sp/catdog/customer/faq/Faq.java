@@ -8,10 +8,18 @@ public class Faq {
 	private String faqCateName;
 	private int faqEnabled;
 	private int faqOrderNum;
-	
+	private int updateHitCount;
 	private String userId;
 	private int userType;
 	
+	
+	
+	public int getUpdateHitCount() {
+		return updateHitCount;
+	}
+	public void setUpdateHitCount(int updateHitCount) {
+		this.updateHitCount = updateHitCount;
+	}
 	public int getFaqNum() {
 		return faqNum;
 	}

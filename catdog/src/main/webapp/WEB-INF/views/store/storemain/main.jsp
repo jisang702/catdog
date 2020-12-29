@@ -103,12 +103,12 @@ function productInfo(prdNum) {
 			     <td align="center">
 			        <div class="imgLayout">
 			        	<div class="imgbox">
-			             <img src="${pageContext.request.contextPath}/resources/css/img/mainCat.jpg"
+			             <img src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}"
 			             onclick="javascript:productInfo('${dto.prdNum}');" >
 			            </div>
 			             <span class="subject" onclick="javascript:productInfo('$(dto.prdNum)');">제목: ${dto.prdName}</span>
 			             <br>
-			             <span>가격 :${dto.prdPrice }</span>
+			             <span>가격 :${dto.prdPrice}</span>
 			       	     <br>
 			             <span>조회수:${dto.prdHitCount} </span> 
 			            

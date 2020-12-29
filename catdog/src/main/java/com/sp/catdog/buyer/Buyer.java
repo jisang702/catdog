@@ -14,8 +14,21 @@ public class Buyer {
 	private int prdCategoryNum;
 	private String userId;
 	private int prdHitCount;
+	private int imgFileNum;
+	private String imgFilename;
 	
-	
+	public int getImgFileNum() {
+		return imgFileNum;
+	}
+	public void setImgFileNum(int imgFileNum) {
+		this.imgFileNum = imgFileNum;
+	}
+	public String getImgFilename() {
+		return imgFilename;
+	}
+	public void setImgFilename(String imgFilename) {
+		this.imgFilename = imgFilename;
+	}
 	public int getPrdHitCount() {
 		return prdHitCount;
 	}
