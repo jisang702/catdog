@@ -126,7 +126,7 @@ public class BoardController {
 	@RequestMapping("article")
 	public String article(
 			@RequestParam int freeNum,
-			@RequestParam String page,
+			@RequestParam(defaultValue = "") String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			HttpSession session,
@@ -210,7 +210,7 @@ public class BoardController {
 	@RequestMapping("delete")
 	public String delete(
 			@RequestParam int freeNum,
-			@RequestParam String page,
+			@RequestParam(defaultValue = "") String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			HttpSession session) throws Exception {

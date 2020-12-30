@@ -10,6 +10,25 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery/js/jquery.form.js"></script>
 
+<style type="text/css">
+
+a{
+	text-decoration: none;
+}
+
+a .subject:hover{
+	cursor: pointer;
+	color: tomato;
+	text-decoration: none;
+}
+
+.board-list tr:hover{
+	cursor: pointer;
+	background-color: #f6f6f6;
+}
+
+</style>
+
 <script type="text/javascript">
 
 function ajaxFun(url, method, dataType, query, fn){
@@ -37,13 +56,36 @@ function ajaxFun(url, method, dataType, query, fn){
 function searchList(){
 	var f = document.searchForm;
 	f.boardType.value=$("#selectBoardType").val();
+	console.log(f.boardType.value);
 	f.action="${pageContext.request.contextPath}/admin/boardManage/listArticle";
 	f.submit();
 }
 
+function send(boardType, num){
+	var url = "${pageContext.request.contextPath}";
+	if(boardType == "free"){
+		url+="/community/board/article?freeNum="+num;		
+	}else if(boardType == "deal"){
+		url+="/community/deal/article?dealNum="+num;		
+	}
+	
+	location.href=url;
+}
 
-
-
+function deleteArticle(boardType, num){
+	var url = "${pageContext.request.contextPath}/delete/";
+	if(boardType == "free"){
+		url+="/community/board/delete?comFree&freeNum="+num;		
+	}else if(boardType == "deal"){
+		url+="/community/deal/delete?dealNum="+num;		
+	}
+	if(confirm("선택한 게시물을 삭제하시겠습니까?")){
+		location.href=url;
+		
+	}
+	
+	
+}
 </script>
 
 <div class="body-container" style="width: 900px; ">
@@ -78,7 +120,8 @@ function searchList(){
 				      <th style="width: 100px; color: #787878;">글제목</th>
 				      <th style="width: 100px; color: #787878;">아이디</th>
 				      <th style="width: 100px; color: #787878;">작성일</th>
-				      <th style="width: 60px; color: #787878;">신고</th>			      
+				      <th style="width: 60px; color: #787878;">신고</th>			  
+				      <th style="width: 60px; color: #787878;">삭제</th>	    
 				  </tr>
 			 </thead>
 			 
@@ -88,10 +131,11 @@ function searchList(){
 				      onclick="detailMember('${dto.userId}');"> 
 				      <td>${dto.listNum}</td>
 				      <td>${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : "실종") } </td>
-				      <td>${dto.subject}</td>
+				      <td><a class="subject" onclick="send('${dto.boardType}','${dto.num}');">${dto.subject}</a></td>
 				      <td>${dto.userId}</td>
 				      <td>${dto.created}</td>
-				      <td></td>		      
+				      <td>0</td>
+				      <td><button class="mybtn2" onclick="deleteArticle('${dto.boardType}','${dto.num}')">삭제</button> </td>		      
 				  </tr>
 			</c:forEach>
 			</tbody>

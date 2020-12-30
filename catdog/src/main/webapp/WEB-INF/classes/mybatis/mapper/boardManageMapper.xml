@@ -19,14 +19,21 @@
 	</sql>
 	
 	<select id="listArticle" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
-		SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
-		UNION ALL
-		SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+		SELECT * FROM
+		(
+			SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
+			UNION ALL
+			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+		)
 		<where>
 			<if test="keyword!=null and keyword!='' ">
 				<include refid="where-list"/>
 			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
 		</where>
+		ORDER BY created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -40,6 +47,9 @@
 		<where>
 			<if test="keyword!=null and keyword!='' ">
 				<include refid="where-list"/>
+			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
 			</if>
 		</where>
 	</select>

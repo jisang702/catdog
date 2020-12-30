@@ -29,29 +29,36 @@
 
 <div class="body-container">
     <div style="margin: 70px auto; width: 100%">
-    	<div class="box" style="width: 70%; height: 200px;"> 		
+    	<div class="box" style="width: 70%; height: 280px;"> 		
     		<p style="font-size: 20px; font-weight: bold; margin: 10px 20px;">오늘자 통계</p>
     		<table class="listtable1">
     			<tr>
-    				<th>오늘 방문자 수</th>
-	    			<th>총 사용자 수</th>
-	    			<th>신규 가입자 수</th>
+    				<th>현재 사용자 수</th>
+	    			<th>오늘 방문자 수</th>
+	    			<th>현재 가입자 수</th>
     			</tr>
     			<tr>
-    				<td>${todayCount}</td>
-    				<td>${totalUserCount}</td>
-    				<td>${todayNewUserCount}</td>
+    				<td style="border: none;">${currentCount}</td>
+    				<td style="border: none;">${todayCount}</td>
+    				<td style="border: none;">${todayNewUserCount}</td>
+    			</tr>
+    			<tr>
+    				<td>&nbsp;</td>
+    				<td style="font-size: 12px;">
+    					어제 방문자 수 : ${yesterdayCount}<br>
+    					&emsp;&emsp;총 방문자 수    : ${totalCount}
+    				</td>
+    				<td style="font-size: 12px;">
+    					누적 가입자 수 : ${totalUserCount}<br> 
+    					&emsp;&emsp;
+    				</td>
     			</tr>    			
     		</table>
- 			<p style="float:right; font-weight: 400; font-size: 14px; margin-top: 10px;"><%=time%> 기준</p>
+ 			<p style="float:right; font-weight: 400; font-size: 12px; margin-top: 10px;"><%=time%> 기준</p>
     	</div>
     	<div class="box" style="width: 40%; height: 400px;">
     			<p>현황</p>
-    		<div>	
-    			<p>총 방문자 수 ${totalCount}</p>
-    			<p>현재 방문자 수 ${currentCount}</p>
-    			<p>어제 방문자 수 ${yesterdayCount }</p>
-    		</div>
+    		
     	</div>
         
     </div>

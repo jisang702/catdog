@@ -17,9 +17,8 @@ public class MainController {
 	public String method(Model model) throws Exception{
 		
 		int totalUserCount = service.totalUserCount();
-		
-		
 		int todayNewUserCount = service.todayNewUserCount();
+		
 		int currentCount;
 		long todayCount, yesterdayCount, totalCount;
 		

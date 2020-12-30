@@ -4,9 +4,11 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+@WebListener
 public class CountManager implements HttpSessionListener{
 	private static int currentCount;
 	private static long todayCount, yesterdayCount, totalCount;

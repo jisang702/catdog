@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
 
@@ -47,9 +48,10 @@ public class BoardController {
 		Map<String, Object> map= new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("boardType", boardType);
 		
 		articleCount=service.articleCount(map);
-		
+
 		if(articleCount!=0)
 			total_page=myUtil.pageCount(rows, articleCount);
 		
@@ -95,4 +97,25 @@ public class BoardController {
 
 		return ".admin4.admin.boardManage.articlelist";
 	};
+
+/*
+	@RequestMapping("delete")
+	@ResponseBody
+	public Map<String, Object> deleteArticle(
+			Board dto,
+			Model model
+			) throws Exception{
+		
+		String state="true";
+		try {
+			
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		model.addAttribute("state", state);
+		
+		return model;
+	}
+*/
 }

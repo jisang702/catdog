@@ -118,7 +118,7 @@ public class DealController {
 	@RequestMapping("article")
 	public String article(
 			@RequestParam int dealNum,
-			@RequestParam String page,
+			@RequestParam(defaultValue = "") String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			Model model
