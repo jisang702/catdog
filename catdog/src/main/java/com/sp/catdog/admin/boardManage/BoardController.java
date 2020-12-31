@@ -118,4 +118,77 @@ public class BoardController {
 		return model;
 	}
 */
+	
+	@RequestMapping("listReply")
+	public String listReply(
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			@RequestParam(defaultValue = "userId") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "") String boardType,
+			HttpServletRequest req,
+			Model model
+			) throws Exception{
+		
+		String cp=req.getContextPath();
+		
+		int rows=10;
+		int total_page=0;
+		int replyCount=0;
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			keyword=URLDecoder.decode(keyword, "utf-8");
+		}
+		
+		Map<String, Object> map= new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("boardType", boardType);
+		
+		replyCount=service.replyCount(map);
+
+		if(replyCount!=0)
+			total_page=myUtil.pageCount(rows, replyCount);
+		
+		if(total_page<current_page)
+			total_page=current_page;
+		
+		int offset=(current_page-1)*rows;
+		if(offset<0) offset=0;
+		map.put("offset", offset);
+		map.put("rows", rows);
+		
+		List<Board> list=service.listReply(map);
+		
+		int listNum, n=0;
+		for(Board dto:list) {
+			listNum=replyCount-(offset+n);
+			dto.setListNum(listNum);
+			n++;
+		}
+		
+		String query="";
+		String listUrl=cp+"/admin/boardManage/listReply";
+		
+		if(keyword.length()!=0) {
+			query+="condition="+condition+"&keyword="+URLEncoder.encode(keyword, "utf-8");
+		}
+		
+		if(query.length()!=0) {
+			listUrl+=listUrl+"?"+query;
+		}
+		
+		String paging=myUtil.paging(current_page, total_page, listUrl);
+		
+		model.addAttribute("replyCount", replyCount);
+		model.addAttribute("boardType", boardType);
+		model.addAttribute("page", current_page);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("list", list);
+		model.addAttribute("subMenu", 3);
+
+		return ".admin4.admin.boardManage.replylist";
+	};
 }

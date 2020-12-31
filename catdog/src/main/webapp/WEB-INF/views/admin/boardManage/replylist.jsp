@@ -57,7 +57,7 @@ function searchList(){
 	var f = document.searchForm;
 	f.boardType.value=$("#selectBoardType").val();
 	console.log(f.boardType.value);
-	f.action="${pageContext.request.contextPath}/admin/boardManage/listArticle";
+	f.action="${pageContext.request.contextPath}/admin/boardManage/listReply";
 	f.submit();
 }
 
@@ -77,7 +77,7 @@ function send(boardType, num){
 function deleteArticle(boardType, num){
 	var url = "${pageContext.request.contextPath}/delete/";
 	if(boardType == "free"){
-		url+="/community/board/delete?freeNum="+num;		
+		url+="/community/board/delete?comFree&freeNum="+num;		
 	}else if(boardType == "deal"){
 		url+="/community/deal/delete?dealNum="+num;		
 	}
@@ -92,17 +92,17 @@ function deleteArticle(boardType, num){
 
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
-	     <div class="mypage2">
-	     	<div class="mypagetab">
-	     		<p>게시물 통합 관리</p>
-	     	</div>
-	     
+      <div class="mypage2">
+     	<div class="mypagetab">
+     		<p>댓글 통합 관리</p>
+     	</div>
+     
      <div>
 	     <div class="tab-content" style="clear: both; padding: 10px 10px 10px;">
-	     	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+	     	<table  style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 			   <tr height="35">
 			      <td align="left" width="50%">
-			          ${articleCount}개(${page}/${total_page} 페이지)
+			          ${replyCount}개(${page}/${total_page} 페이지)
 			      </td>
 			      <td align="right">
 					  <button class="mybtn2" type="button" style="background: black; color: white">&nbsp;신고&nbsp;</button>      	
@@ -118,10 +118,10 @@ function deleteArticle(boardType, num){
 			
 			<table class="listtable1" style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
                <thead>
-	               <tr align="center"  height="35" style="padding: 0"> 
+	               <tr align="center" height="35" style="padding: 0"> 
 				      <th style="width: 40px; color: #787878;">번호</th>
 				      <th style="width: 60px; color: #787878;">게시판</th>
-				      <th style="width: 250px; color: #787878;">글제목</th>
+				      <th style="width: 250px; color: #787878;">댓글내용</th>
 				      <th style="width: 100px; color: #787878;">아이디</th>
 				      <th style="width: 120px; color: #787878;">작성일</th>
 				      <th style="width: 40px; color: #787878;">신고</th>			  
@@ -131,11 +131,11 @@ function deleteArticle(boardType, num){
 			 
 			 <tbody class="board-list">
 			 <c:forEach var="dto" items="${list}">
-				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
+				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc; " class="hover-tr"
 				      onclick="detailMember('${dto.userId}');"> 
 				      <td style="padding: 0;">${dto.listNum}</td>
 				      <td style="padding: 0;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : "비디오") } </td>
-				      <td style="padding: 0;"><a class="subject" onclick="send('${dto.boardType}','${dto.num}');">${dto.subject}</a></td>
+				      <td style="padding: 0; text-overflow: ellipsis;"><a class="subject" onclick="send('${dto.boardType}','${dto.num}');">${dto.content}</a></td>
 				      <td style="padding: 0;">${dto.userId}</td>
 				      <td style="padding: 0;">${dto.created}</td>
 				      <td style="padding: 0;">0</td>
@@ -148,7 +148,7 @@ function deleteArticle(boardType, num){
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			   <tr height="40">
 				<td align="center">
-					${articleCount==0?"등록된 자료가 없습니다.":paging} 
+					${replyCount==0?"등록된 자료가 없습니다.":paging} 
 				</td>
 			   </tr>
 			</table>
@@ -178,7 +178,7 @@ function deleteArticle(boardType, num){
 			
 			
      </div>
-     </div>
+	</div>
 	</div>
 </div>
 <div id="member-dialog" style="display: none;">

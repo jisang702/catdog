@@ -129,7 +129,7 @@ public class VideoController {
 	
 	@RequestMapping(value = "article")
 	public String article(@RequestParam int vidNum,
-							@RequestParam String page,
+							@RequestParam(defaultValue =  "") String page,
 							@RequestParam(defaultValue = "all")String condition,
 							@RequestParam(defaultValue =  "")String keyword,
 							Model model) throws Exception {

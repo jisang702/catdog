@@ -6,9 +6,9 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertVideo" parameterType="com.sp.catdog.doctor.video.Video">
 		INSERT INTO vetVideo(vidNum, userId, vidSubject, vidContent, vidUrl, 
-			vidThumb, vidHitCount, vidCreated) VALUES (
+			vidThumb, vidHitCount, vidCreated, boardType) VALUES (
 			vetVideo_seq.NEXTVAL, #{userId}, #{vidSubject}, #{vidContent}, #{vidUrl}, 
-			#{vidThumb, jdbcType=VARCHAR}, 0, SYSDATE )			
+			#{vidThumb, jdbcType=VARCHAR}, 0, SYSDATE, 'vid' )			
 	</insert>
 	
 	<sql id="where-list">

@@ -17,6 +17,6 @@ $(function(){
        <div class="list-group-item lefthead"><i></i>게시판관리</div>
        <a href="${pageContext.request.contextPath}/admin" class="list-group-item">게시판관리</a>
        <a href="${pageContext.request.contextPath}/admin/boardManage/listArticle" class="list-group-item">게시물통합관리</a>       
-       <a href="${pageContext.request.contextPath}/admin" class="list-group-item">댓글통합관리</a>
+       <a href="${pageContext.request.contextPath}/admin/boardManage/listReply" class="list-group-item">댓글통합관리</a>
        <a href="${pageContext.request.contextPath}/admin" class="list-group-item">게시판통계</a>
 </div>

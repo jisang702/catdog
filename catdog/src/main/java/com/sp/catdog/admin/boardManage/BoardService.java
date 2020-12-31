@@ -7,4 +7,7 @@ public interface BoardService {
 	public List<Board> listArticle(Map<String, Object> map) throws Exception;
 	public int articleCount(Map<String, Object> map);
 	public List<Board> listBoardType();
+	
+	public List<Board> listReply(Map<String, Object> map) throws Exception;
+	public int replyCount(Map<String, Object> map);
 }

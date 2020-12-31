@@ -18,12 +18,15 @@
 		</choose>
 	</sql>
 	
+	<!-- 게시물 통합관리 -->
 	<select id="listArticle" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
 		SELECT * FROM
 		(
 			SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
 			UNION ALL
 			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+			UNION ALL
+			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
 		)
 		<where>
 			<if test="keyword!=null and keyword!='' ">
@@ -43,6 +46,8 @@
 			SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
 			UNION ALL
 			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+			UNION ALL
+			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
 		)
 		<where>
 			<if test="keyword!=null and keyword!='' ">
@@ -60,6 +65,60 @@
 			SELECT boardType FROM comFree
 			UNION ALL
 			SELECT boardType FROM comDeal
+			UNION ALL
+			SELECT boardType FROM vetVideo
 		)
+	</select>
+	
+	<!-- 댓글 통합관리 -->
+	<select id="listReply" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
+		SELECT * FROM(
+			SELECT boardType, r.freeNum AS num, freeReplyNum AS replyNum, r.userId, freeReplyCreated AS created, freeReplyContent AS content
+			FROM comFreeReply r
+			JOIN comFree f ON f.freeNum=r.freeNum
+			UNION ALL
+			SELECT boardType, r.dealNum AS num, dealReplyNum AS replyNum, r.userId, dealReplyCreated AS created, dealReplyContent AS content
+			FROM comDealReply r
+			JOIN comDeal d ON d.dealNum=r.dealNum
+			UNION ALL
+			SELECT boardType, r.vidNum AS num, vidReplyNum AS replyNum, r.userId, vidReplyCreated AS created, vidReplyContent AS content
+			FROM vetVidReply r
+			JOIN vetVideo v ON v.vidNum=r.vidNum
+		)
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY created DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(boardType) 
+		FROM(
+			SELECT boardType, r.freeNum AS num, freeReplyNum AS replyNum, r.userId, freeReplyCreated AS created, freeReplyContent AS content
+			FROM comFreeReply r
+			JOIN comFree f ON f.freeNum=r.freeNum
+			UNION ALL
+			SELECT boardType, r.dealNum AS num, dealReplyNum AS replyNum, r.userId, dealReplyCreated AS created, dealReplyContent AS content
+			FROM comDealReply r
+			JOIN comDeal d ON d.dealNum=r.dealNum
+			UNION ALL
+			SELECT boardType, r.vidNum AS num, vidReplyNum AS replyNum, r.userId, vidReplyCreated AS created, vidReplyContent AS content
+			FROM vetVidReply r
+			JOIN vetVideo v ON v.vidNum=r.vidNum
+		)
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+		</where>
 	</select>
 </mapper>

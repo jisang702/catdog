@@ -4,9 +4,12 @@ public class Board {
 	private int listNum;
 	private String boardType;
 	private int num;
+	private int replyNum;
 	private String subject;
+	private String content;
 	private String userId;
 	private String created;
+	
 	public int getListNum() {
 		return listNum;
 	}
@@ -43,6 +46,17 @@ public class Board {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	
-	
+	public int getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 }
