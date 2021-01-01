@@ -11,6 +11,8 @@ public class Store {
 	
 	private int prdCategoryNum;
 	private String prdCategoryName;
+	private int enabled;
+	private int orderNo;
 	
 	public int getListNum() {
 		return listNum;
@@ -29,18 +31,6 @@ public class Store {
 	}
 	public void setPrdName(String prdName) {
 		this.prdName = prdName;
-	}
-	public int getPrdPet() {
-		return prdPet;
-	}
-	public void setPrdPet(int prdPet) {
-		this.prdPet = prdPet;
-	}
-	public int getPrdState() {
-		return prdState;
-	}
-	public void setPrdState(int prdState) {
-		this.prdState = prdState;
 	}
 	public String getCreated() {
 		return created;
@@ -65,6 +55,24 @@ public class Store {
 	}
 	public void setPrdCategoryName(String prdCategoryName) {
 		this.prdCategoryName = prdCategoryName;
+	}
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+	public void setPrdPet(Integer prdPet) {
+		this.prdPet = prdPet;
+	}
+	public void setPrdState(Integer prdState) {
+		this.prdState = prdState;
 	}
 	
 	

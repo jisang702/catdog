@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.CountManager;
 import com.sp.catdog.common.MyUtil;
@@ -51,6 +53,106 @@ public class StoreController {
 		model.addAttribute("totalProductCount", totalProductCount);
 		model.addAttribute("subMenu", 1);
 		return ".admin4.admin.storeManage.analysis";
+	}
+	
+	@RequestMapping("listCategory")
+	public String listCategory(
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			@RequestParam(defaultValue = "all") String mode,
+			HttpServletRequest req,
+			Model model
+			) throws Exception{
+		
+		String cp=req.getContextPath();
+		
+		int rows=15;
+		int total_page=0;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("mode", mode);
+		
+		int categoryCount=service.categoryCount(map);
+		
+		total_page=myUtil.pageCount(rows, categoryCount);
+		
+		int offset=(current_page-1)*rows;
+		if(offset<0) offset=0;
+		map.put("offset", offset);
+		map.put("rows", rows);
+		
+		List<Store> list=service.listCategory(map);
+		
+		
+		String listUrl=cp+"/admin/storeManage/listCategory";
+		
+		String paging=myUtil.paging(current_page, total_page, listUrl);
+		
+		model.addAttribute("page", current_page);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("categoryCount", categoryCount);
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		model.addAttribute("subMenu", 2);
+		return ".admin4.admin.storeManage.listCategory";
+	}
+	
+	@RequestMapping("listAllCategory")
+	public String listAllCategory(Model model) throws Exception{
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("mode", "all");
+		List<Store> list=service.listCategory(map);
+		model.addAttribute("list", list);
+		
+		return "admin/storeManage/listAllCategory";
+	}
+	
+	@RequestMapping(value = "insertCategory", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertCategory(Store dto) throws Exception{
+		String state="false";
+		try {
+			service.insertCategory(dto);
+			state="true";
+		} catch (Exception e) {
+			
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@RequestMapping(value = "updateCategory", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateCategory(Store dto) throws Exception{
+		String state="false";
+		try {
+			service.updateCategory(dto);
+			state="true";
+		} catch (Exception e) {
+			
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+	
+	@RequestMapping(value = "deleteCategory", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> deleteCategory(@RequestParam int prdCategoryNum) throws Exception{
+		String state="false";
+		try {
+			service.deleteCategory(prdCategoryNum);
+			state="true";
+		} catch (Exception e) {
+			
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
 	}
 	
 	@RequestMapping("listProduct")
@@ -134,4 +236,5 @@ public class StoreController {
 		
 		return ".admin4.admin.storeManage.listProduct";
 	}
+	
 }

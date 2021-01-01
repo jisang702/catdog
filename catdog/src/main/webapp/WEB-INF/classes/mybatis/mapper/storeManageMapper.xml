@@ -57,6 +57,46 @@
 		</where>
 	</select>
 	
+	<!-- 상품 카테고리 관리 -->
+	<select id="categoryCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) 
+		FROM prdCategory
+		<where>
+			<if test="mode == 'enabled' ">
+				enabled = 1
+			</if>
+		</where>
+	</select>
+	
+	<select id="listCategory" resultType="com.sp.catdog.admin.storeManage.Store">
+		SELECT prdCategoryNum, prdCategoryName, enabled, orderNo
+		FROM prdCategory
+		<where>
+			<if test="mode == 'enabled' ">
+				enabled = 1
+			</if>
+		</where>
+		ORDER BY orderNo
+		<if test="offset!=null and rows!=null">
+			OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		</if>
+	</select>
+	
+	<insert id="insertCategory" parameterType="com.sp.catdog.admin.storeManage.Store">
+		INSERT INTO prdCategory(prdCategoryNum, prdCategoryName, enabled, orderNo)
+		VALUES(prdCategory_seq.NEXTVAL, #{prdCategoryName}, #{enabled}, #{orderNo})
+	</insert>
+	
+	<update id="updateCategory" parameterType="com.sp.catdog.admin.storeManage.Store">
+		UPDATE prdCategory SET prdCategoryName=#{prdCategoryName}, enabled=#{enabled}, orderNo=#{orderNo}
+		WHERE prdCategoryNum=#{prdCategoryNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="Integer">
+		DELETE FROM prdCategory
+		WHERE prdCategoryNum=#{prdCategoryNum}
+	</delete>
+	
 	<!-- 상품 목록 관리 -->
 	<select id="listProduct" parameterType="map" resultType="com.sp.catdog.admin.storeManage.Store">
 		SELECT prdNum, prdName, p.prdCategoryNum, prdCategoryName, prdPet, prdState, prdCreated AS created, userId 

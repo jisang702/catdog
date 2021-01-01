@@ -61,9 +61,15 @@ function searchList(){
 	f.submit();
 }
 
-function send(num){
+function send(pet,num){
 	var url = "${pageContext.request.contextPath}";
-	
+	if(pet == 0){
+		
+	}else if(pet == 1){
+		url+="/store/dog/productInfo?prdNum="+num;
+	}else if(pet == 2){
+		url+="/store/cat/productInfo?prdNum="+num;
+	}
 	
 	location.href=url;
 }
@@ -113,15 +119,15 @@ function deleteArticle( num){
 			<table class="listtable1" style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
                <thead>
 	               <tr align="center"  height="35" style="padding: 0"> 
-				      <th style="width: 40px; color: #787878;">번호</th>
-				      <th style="width: 60px; color: #787878;">분류</th>
-				      <th style="width: 60px; color: #787878;">카테고리</th>
-				      <th style="width: 250px; color: #787878;">상품명</th>
-				      <th style="width: 100px; color: #787878;">아이디</th>
-				      <th style="width: 120px; color: #787878;">등록일</th>
-				      <th style="width: 40px; color: #787878;">상태</th>			  
-				      <th style="width: 40px; color: #787878;">수정</th>	
-				      <th style="width: 40px; color: #787878;">삭제</th>		      	    
+				      <th style="width: 50px; color: #787878; padding: 15px 5px;">번호</th>
+				      <th style="width: 60px; color: #787878; padding: 15px 5px;">분류</th>
+				      <th style="width: 65px; color: #787878; padding: 15px 5px;">카테고리</th>
+				      <th style="width: 250px; color: #787878; padding: 15px 5px;">상품명</th>
+				      <th style="width: 100px; color: #787878; padding: 15px 5px;">아이디</th>
+				      <th style="width: 120px; color: #787878; padding: 15px 5px;">등록일</th>
+				      <th style="width: 50px; color: #787878; padding: 15px 5px;">상태</th>			  
+				      <th style="width: 50px; color: #787878; padding: 15px 5px;">수정</th>	
+				      <th style="width: 50px; color: #787878; padding: 15px 5px;">삭제</th>		      	    
 				  </tr>
 			 </thead>
 			 
@@ -132,7 +138,7 @@ function deleteArticle( num){
 				      <td style="padding: 0;">${dto.listNum}</td>
 				      <td style="padding: 0;">${dto.prdPet=="0" ? "전체" : (dto.prdPet=="1" ? "강아지" : "고양이") } </td>
 				      <td style="padding: 0;">${dto.prdCategoryName}</td>
-				      <td style="padding: 0;"><a class="subject" onclick="send('${dto.prdNum}');">${dto.prdName}</a></td>
+				      <td style="padding: 0;"><a class="subject" onclick="send('${dto.prdPet}','${dto.prdNum}');">${dto.prdName}</a></td>
 				      <td style="padding: 0;">${dto.userId}</td>
 				      <td style="padding: 0;">${dto.created}</td>
 				      <td style="padding: 0;">${dto.prdState=="0" ? "판매중" : "판매중지" } </td>

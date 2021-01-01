@@ -57,4 +57,54 @@ public class StoreServiceImpl implements StoreService{
 		return list;
 	}
 
+	@Override
+	public int categoryCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("storeManage.categoryCount",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Store> listCategory(Map<String, Object> map) {
+		List<Store> list=null;
+		try {
+			list=dao.selectList("storeManage.listCategory",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void insertCategory(Store dto) throws Exception {
+		try {
+			dao.insertData("storeManage.insertCategory", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateCategory(Store dto) throws Exception {
+		try {
+			dao.updateData("storeManage.updateCategory", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteCategory(int prdCategoryNum) throws Exception {
+		try {
+			dao.deleteData("storeManage.deleteCategory", prdCategoryNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }
