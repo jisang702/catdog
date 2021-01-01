@@ -16,9 +16,4 @@
 		WHERE TO_CHAR(userCreated, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND userEnabled=1
 	</select>
 	
-	<!-- visitCount 저장 -->
-	<insert id="insertVisitCount" parameterType="com.sp.catdog.admin.main.Main">
-		INSERT INTO visitCount(visitNum, todayCount, totalCount, yesterdayCount, visitCreated)
-		VALUES(visitCount_seq.NEXTVAL, #{todayCount}, #{totalCount}, #{yesterdayCount}, SYSDATE)
-	</insert>
 </mapper>

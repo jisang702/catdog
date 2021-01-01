@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeManage">
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition=='userId' ">
+				INSTR(userId, #{keyword}) &gt;= 1
+			</when>
+			<when test="condition=='created' ">
+				( TO_CHAR(created, 'YYYY-MM-DD') = #{keyword}
+					OR TO_CHAR(created, 'YYYYMMDD') = #{keyword} )
+			</when>
+			<otherwise>
+				INSTR(#{condition}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="orderCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*),0) 
+		FROM ord
+		<where>
+			<if test="state == 'today' ">
+				TO_CHAR(orderDate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			</if>
+		</where>
+	</select>
+	
+	<select id="orderPriceSum" parameterType="String" resultType="Integer">
+		SELECT NVL(SUM(orderPrice),0) 
+		FROM ord 
+		<where>
+			<if test="state == 'today' ">
+				TO_CHAR(orderDate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			</if>
+		</where>
+	</select>
+	
+	<select id="productCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) 
+		FROM product 
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="state == 'today' ">
+				AND TO_CHAR(prdCreated, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			</if>
+			<if test="prdPet != null and prdPet != '' ">
+				AND prdPet = #{prdPet, jdbcType=INTEGER}
+			</if>
+			<if test="prdState != null and prdState != '' ">
+				AND prdState = #{prdState, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 상품 목록 관리 -->
+	<select id="listProduct" parameterType="map" resultType="com.sp.catdog.admin.storeManage.Store">
+		SELECT prdNum, prdName, p.prdCategoryNum, prdCategoryName, prdPet, prdState, prdCreated AS created, userId 
+		FROM product p
+		JOIN prdCategory c ON c.prdCategoryNum=p.prdCategoryNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="prdPet != null and prdPet != '' ">
+				AND prdPet = #{prdPet, jdbcType=INTEGER}
+			</if>
+			<if test="prdState != null and prdState != '' ">
+				AND prdState = #{prdState, jdbcType=INTEGER}
+			</if>
+		</where>
+		ORDER BY created DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+</mapper>

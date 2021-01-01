@@ -43,7 +43,7 @@ $(function(){
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin">HOME</a></li>
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/memberManage/list">회원관리</a></li>
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/boardManage/listArticle">게시판관리</a></li>
-		        <li class="menu1"><a href="#">스토어관리</a></li>
+		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/storeManage/analysis">스토어관리</a></li>
 		        <li class="menu1"><a href="#">고객센터관리</a></li>
 				<li class="menu1"><a href="#">&nbsp;</a></li>
 				<li class="menu2"><a href="#">&nbsp;</a></li>
