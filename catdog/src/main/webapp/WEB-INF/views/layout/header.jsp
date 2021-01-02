@@ -51,7 +51,7 @@ $(function() {
 	            	<ul class="submenu1">
 	            		<li><a href="${pageContext.request.contextPath}/community/board/list">자유게시판</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/community/photo/list">포토갤러리</a></li>
-	            		<li><a href="#">실종게시판</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/community/miss/list">실종게시판</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/community/deal/list">중고거래</a></li>
 	            	</ul>
 	            </li>

@@ -175,7 +175,7 @@ public class PhotoController {
 		return "redirect:/community/photo/list";
 	}
 	
-	@RequestMapping("update")
+	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public String updateForm(
 			@RequestParam int photoNum,
 			@RequestParam String page,

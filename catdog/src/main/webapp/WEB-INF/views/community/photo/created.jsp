@@ -9,12 +9,13 @@
 
 <script>
 $(function() {
+
+	var index=0;
+	
 	$("body").on("change", ".image_uploads input[type=file]", function() {
 		var target=$(this)[0];
 
-		var index=0;
-		
-		if(target != null && index<5) {
+		if(target != null && index<4) {
             var fileNM = $(this).val();
  
             var ext = fileNM.slice(fileNM.lastIndexOf(".") + 1).toLowerCase();
@@ -31,18 +32,18 @@ $(function() {
             reader.readAsDataURL(fileList [0]);
             
             reader.onload = function  (e) {
-            	img_div.children('label').attr('style', 'display: none;');
-                img_div.children('img').attr('style', 'display: inherit;');
-                img_div.children('img').attr('src', e.target.result);
+            	img_div.children('label').attr('style', 'display:none;');
+                img_div.find('img').attr('style', 'display: inherit;');
+                img_div.find('img').attr('src', e.target.result);
             };
-            
+
             var div = document.createElement('div');
-            
+
             index++;
             
-            if(index<4) {
+            if(fileList.length<4) {                
                 div.className = 'image_div_'+index+'';
-                div.innerHTML='<label for ="upload_'+index+'"></label><img style="display: none;" id="previewImg_'+index+'">\<input type="file" name="upload" id="upload_'+index+'">';      
+                div.innerHTML='<label for ="upload_'+index+'"></label><a onclick="deletePreview('+index+');"><img style="display: none;" id="previewImg_'+index+'"></a><input type="file" name="upload" id="upload_'+index+'">';      
                 $('.image_uploads').append(div);
             }
 		}
@@ -65,11 +66,14 @@ function sendOk() {
         	return false;
         }
         
+        var mode="${mode}";
         str=f.upload_0.value;
-        	if(!str) {
-            	alert("사진을 첨부해주세요.");
-            	return false;
+        if(mode=='created') {
+            if(!str) {
+               	alert("사진을 첨부해주세요.");
+               	return false;
             }
+        }
         
         f.action="${pageContext.request.contextPath}/community/photo/${mode}";
         f.submit();
@@ -82,13 +86,11 @@ function deletePhotoImg(imgNum){
 	}, "json");
 }
 
-$(function() {
-	$(".image_uploads img").hover(function() {
-		$(this).attr("src", "${pageContext.request.contextPath}/resources/css/images/delete.png");
-	}, function() {
-		$(this).attr("src", "${pageContext.request.contextPath}/uploads/photo/${vo.photoImgSavename}");
-	});
-});
+function deletePreview(index) {
+	var img_div=".image_div_"+index;
+	$(img_div).remove();
+}
+
 
 </script>
 
@@ -127,9 +129,9 @@ $(function() {
 				  				</a>
 				  			</c:forEach>
 				  		</c:if>
-				  		<div class="image_div_0" style="display: inline;">
+				  		<div class="image_div_0">
 							<label for="upload_0"></label>
-							<img style="display: none;" id="previewImg_0">
+							<a onclick="deletePreview(0);"><img style="display: none;" id="previewImg_0"></a>
 					  		<input type="file" name="upload" id="upload_0">
 						</div>				  		
 			  		</div>
