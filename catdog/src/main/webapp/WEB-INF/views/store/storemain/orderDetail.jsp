@@ -49,27 +49,31 @@ ul{
    
 </ul>
 <div>
-    <div>
-        <div class="left">
-            <ul style="width: 100%">
-                <li style="background-color: gray; font-size: 25px;">주문상품 정보</li>
+    <div >
+        <div class="left" style="border: 1px solid black;">
+            <ul style="width: 80%; height: 200px;">
+                <li style="font-size: 25px; text-align: center; font-weight: bold; margin-bottom: 30px;">주문상품 정보</li>
                 <li>
-                    <a href="#"><img style="width: 100%; height: 120px; border: 1px solid teal; margin: 0px;" src="test.png"></a>
+                <div>
+                   <img style="width: 30%; height: 100px; border: 1px solid black; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
+                </div>
+                <div style="float: left; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:</div>
+                <br>
+                <div style="font-size: 20px; font-weight: bold; margin-top: 30px;">가격:</div>
+                
                 </li>
-                <div style="width:500px; height: 20px;">상품명:상품 </div>
-                <div style="width:300px; height: 60px;">수량:1개</div>
             </ul>
              
         </div>
         
-        <div class="right">
+        <div class="right" style="border: 1px solid black; height: 350px;">
             <ul style="margin-bottom: 200px;">
-                <li style="background-color: gray; font-size: 25px;">결제금액</li>
-                <li>상품금액:</li>
-                <li>할인금액:</li>
-                <li>배송비:</li>
+                <li style="font-size: 25px; font-weight: bold; text-align:center; margin-bottom: 30px;" >결제금액</li>
+                <li style="font-size: 25px;  font-weight: bold;">상품금액:</li>
+                <li style="font-size: 25px;  font-weight: bold;">할인금액:</li>
+                <li style="font-size: 25px;  font-weight: bold;">배송비:</li>
                <hr>
-                <li>최종결제금액:</li>
+                <li style="font-size: 25px; font-weight: bold; margin-top: 30px;">최종결제금액:</li>
                 
             </ul>
 
@@ -78,10 +82,10 @@ ul{
     </div>
     
 </div>
-<div class="left">
+<div class="left" style="margin-top: 40px;">
 <div class="body-container" style="width: 700px;">
     <div class="body-title">
-        <h3><i class="fas fa-user"></i> 배송지 </h3>
+        <h3  style="text-align: left; margin-left: 50px;"><i class="fas fa-user"></i> 배송지 </h3>
     </div>
     
         <div>
@@ -95,7 +99,7 @@ ul{
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="text" name="userId" value="" maxlength="30" class="boxTF"
 		                      style="width: 95%;"
-		                      ${mode=="update" ? "readonly='readonly' ":""}
+		                      
 		                      placeholder="이름">
 			        </p>
 			      </td>
@@ -105,7 +109,7 @@ ul{
 			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
 			            <label style="font-weight: 900;">이메일</label>
 			      </td>
-			      <td style="padding: 0 0 15px 15px;">
+			      <td style="padding: 0 0 15px 15px; float: left;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <select name="selectEmail" onchange="changeEmail();" class="selectField">
 			                <option value="">선 택</option>
@@ -126,9 +130,9 @@ ul{
 			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
 			            <label style="font-weight: 900;">전화번호</label>
 			      </td>
-			      <td style="padding: 0 0 15px 15px;">
+			      <td style="padding: 0 0 15px 15px; float: left;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <select class="selectField" id="tel1" name="tel1" >
+			            <select class="selectField" id="tel1" name="tel1"  >
 			                <option value="">선 택</option>
 			                <option value="010">010</option>
 			                <option value="011" >011</option>
@@ -150,7 +154,7 @@ ul{
 			            <label style="font-weight: 900;">우편번호</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
+			        <p style="margin-top: 1px; margin-bottom: 5px; float: left;">
 			            <input type="text" name="zip" id="zip" value=""
 			                       class="boxTF" readonly="readonly">
 			            <button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
@@ -176,9 +180,9 @@ ul{
 			   
 			    <tr>
 			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">전화번호</label>
+			            <label style="font-weight: 900;">배송메시지</label>
 			      </td>
-			      <td style="padding: 0 0 15px 15px;">
+			      <td style="padding: 0 0 15px 15px; float: left;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <select class="selectField" >
 			                <option>배송메시지 입력</option>
@@ -199,7 +203,7 @@ ul{
 </div>
 
 <div class="right" style="margin-top: 100px;">
-<span>결제수단</span>
+<button style="width: 90%; height: 60px;">구매하기</button>
 
 </div>
 </body> 

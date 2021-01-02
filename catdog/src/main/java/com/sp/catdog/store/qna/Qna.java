@@ -1,5 +1,7 @@
 package com.sp.catdog.store.qna;
 
+
+
 public class Qna {
 	private int qnaNum; //문의글번호
 	private String qnaSubject; //문의글제목
@@ -9,6 +11,30 @@ public class Qna {
 	private int qnaCategory;//카테고리 번호
 	private int prdNum; //상품번호
 	private String userId; //회원아이디
+	private Integer parent;
+	private int isAnswer;
+	private String created; //등록일
+	private String qnaAnswer; //문의글 내용
+	
+	
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
+	}
+	public Integer getParent() {
+		return parent;
+	}
+	public void setParent(Integer parent) {
+		this.parent = parent;
+	}
+	public int getIsAnswer() {
+		return isAnswer;
+	}
+	public void setIsAnswer(int isAnswer) {
+		this.isAnswer = isAnswer;
+	}
 	public int getQnaNum() {
 		return qnaNum;
 	}
@@ -56,6 +82,12 @@ public class Qna {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getQnaAnswer() {
+		return qnaAnswer;
+	}
+	public void setQnaAnswer(String qnaAnswer) {
+		this.qnaAnswer = qnaAnswer;
 	}
 	
 	

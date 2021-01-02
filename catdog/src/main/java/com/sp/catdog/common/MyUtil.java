@@ -13,7 +13,7 @@ public class MyUtil {
 	 * 전체 페이지수를 구하는 메소드
 	 * @param rows				한 화면에 출력할 데이터 개수
 	 * @param dataCount		총 데이터 개수
-	 * @return						총 페이지 수
+	 * @return				총 페이지 수
 	 */
 	public int pageCount(int rows, int dataCount) {
 		if(dataCount <= 0) 

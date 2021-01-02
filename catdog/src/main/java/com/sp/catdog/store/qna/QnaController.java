@@ -1,19 +1,21 @@
 package com.sp.catdog.store.qna;
 
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
+import com.sp.catdog.member.SessionInfo;
 
 @Controller("store.qna.qnaController")
 @RequestMapping(value="/prdinfo/prdqna/*")
@@ -26,21 +28,15 @@ public class QnaController {
 	@RequestMapping(value="list")
 	public String list(
 			@RequestParam(value="pageNo", defaultValue = "1") int current_page,
-			@RequestParam(defaultValue = "all") String condition,
-			@RequestParam(defaultValue = "") String keyword,
-			HttpServletRequest req,
+			@RequestParam int prdNum,
 			Model model
 			) throws Exception {
 		
 		int rows = 10;
 		int total_page;
 		int dataCount;
-		if(req.getMethod().equalsIgnoreCase("GET")) {
-			keyword = URLDecoder.decode(keyword,"UTF-8");
-		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("condition", condition);
-		map.put("keyword", keyword);
+		map.put("prdNum", prdNum);
 		
 		dataCount = service.dataCount(map);
 		total_page = MyUtil.pageCount(rows, dataCount);
@@ -55,13 +51,10 @@ public class QnaController {
 		
 		List<Qna> list = service.listQna(map);
 	
-		//글번호 만들기
-		int listNum, n=0;
 		for(Qna dto:list) {
-			listNum = dataCount - (offset +n);
-			dto.setQnaNum(listNum);
-			n++;
+			dto.setQnaContent(dto.getQnaContent().replaceAll("\n", "<br>"));
 		}
+		
 		//ajax페이징 처리
 		String paging = MyUtil.pagingMethod(current_page, total_page, "listPage");
 		model.addAttribute("list",list);
@@ -69,8 +62,27 @@ public class QnaController {
 		model.addAttribute("pageNo",current_page);
 		model.addAttribute("paging",paging);
 		model.addAttribute("total_page",total_page);
-		model.addAttribute("condition",condition);
-		model.addAttribute("keyword",keyword);
-		return "store/qna/list";
+
+		return "prdinfo/prdqna/list";
 	}
+	
+	@RequestMapping(value="created", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> createdSubmit(
+			Qna dto,
+			HttpSession session
+			) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String state = "true";
+		try {
+			dto.setUserId(info.getUserId());
+			service.insertQna(dto);
+		} catch (Exception e) {
+			state = "false";
+		}
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+
 }

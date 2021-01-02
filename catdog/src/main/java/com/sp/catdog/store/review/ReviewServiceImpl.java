@@ -1,4 +1,4 @@
-/*
+
 package com.sp.catdog.store.review;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public int dataCount(Map<String, Object> map) {
 		int result =0;
 		try {
-			result=dao.insertData("review.insertReview",map);
+			result=dao.insertData("review.dataCount",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,4 +72,3 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 }
-*/

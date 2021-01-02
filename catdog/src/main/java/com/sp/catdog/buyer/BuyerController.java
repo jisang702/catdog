@@ -12,10 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sp.catdog.common.FileManager;
 import com.sp.catdog.common.MyUtil;
 
 @Controller("buyer.buyerController")
@@ -35,7 +33,7 @@ public class BuyerController {
 		HttpServletRequest req,
 		Model model
 			)throws Exception{
-		int rows=8;
+		int rows=9;
 		int total_page = 0;
 		int dataCount= 0;
 		
@@ -75,34 +73,79 @@ public class BuyerController {
 		
 		return ".store.storemain.main";
 	}
+
 	
-	@RequestMapping(value="{gubun}/productInfo", method = RequestMethod.GET)
+	@RequestMapping(value="{gubun}/productInfo")
 	public String productInfo(
 			@PathVariable String gubun,
 			@RequestParam int prdNum,
+			@RequestParam(value="page", defaultValue = "") int current_page,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpServletRequest req,
 			Model model)throws Exception{		
 		
-		String query ="page="+page;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("gubun", gubun);
+	
 		String cp=req.getContextPath();
-		String productUrl=cp+"/store/"+gubun+"/productInfo";
-		//String cart =cp+"/store"+gubun+"/cart";
+		String cartUrl =cp+"/store/"+gubun+"/cart";
 		String orderDetailUrl = cp+"/store/"+gubun+"/orderDetail"; 
 		Buyer dto = service.readBuyer(prdNum);
-		if(dto == null)
-			return "redirect:/store/"+gubun+"/productInfo?"+query;
-
 		model.addAttribute("gubun", gubun);
+		model.addAttribute("page",current_page);
 		model.addAttribute("dto", dto);
-		model.addAttribute("page", page);
-		model.addAttribute("query", query);
-		model.addAttribute("productUrl",productUrl);
 		model.addAttribute("orderDetailUrl",orderDetailUrl);
+		model.addAttribute("cartUrl",cartUrl);
+		model.addAttribute("gubun",gubun);
 		return ".store.storemain.productInfo";
+	}
+	@RequestMapping(value ="{gubun}/orderDetail")
+	public String orderDetail(
+			
+			@PathVariable String gubun,
+			@RequestParam int prdNum,
+			@RequestParam(value="page", defaultValue = "1") int current_page,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpServletRequest req,
+			Model model
+			) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("gubun", gubun);
+	
+		Buyer dto = service.readBuyer(prdNum);
+		model.addAttribute("gubun", gubun);
+		model.addAttribute("page",current_page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("gubun",gubun);
+		
+		return ".store.storemain.orderDetail";
 	}
 	
 	
+	@RequestMapping(value ="{gubun}/cart")
+	public String cart(
+			
+			@PathVariable String gubun,
+			@RequestParam int prdNum,
+			@RequestParam(value="page", defaultValue = "1") int current_page,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "") String keyword,
+			HttpServletRequest req,
+			Model model
+			) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("gubun", gubun);
+	
+		Buyer dto = service.readBuyer(prdNum);
+		model.addAttribute("gubun", gubun);
+		model.addAttribute("page",current_page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("gubun",gubun);
+		
+		return ".store.storemain.cart";
+	}
 }
 

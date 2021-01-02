@@ -46,7 +46,15 @@ public class BuyerServiceImpl implements BuyerService{
 		}
 		return dto;
 	}
-	
-	
-	
+	@Override
+	public void prdHitCount(int prdNum) throws Exception {
+		try {
+			dao.updateData("buyer.prdHitCount",prdNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
+
+
