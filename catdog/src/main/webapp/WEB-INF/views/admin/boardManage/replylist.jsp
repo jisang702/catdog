@@ -74,19 +74,28 @@ function send(boardType, num){
 	location.href=url;
 }
 
-function deleteArticle(boardType, num){
-	var url = "${pageContext.request.contextPath}/delete/";
+function deleteReply(boardType, num){
+	var url = "${pageContext.request.contextPath}/admin/boardManage/delete";
+	var query="";
 	if(boardType == "free"){
-		url+="/community/board/delete?comFree&freeNum="+num;		
+		query="tableName=comFreeReply&numName=freeReplyNum&num="+num;	
 	}else if(boardType == "deal"){
-		url+="/community/deal/delete?dealNum="+num;		
-	}
-	if(confirm("선택한 게시물을 삭제하시겠습니까?")){
-		location.href=url;
-		
+		query="tableName=comDealReply&numName=dealReplyNum&num="+num;		
+	}else if(boardType == "vid"){
+		query="tableName=vetVidReply&numName=vidReplyNum&num="+num;		
 	}
 	
+	if(! confirm("선택한 댓글을 삭제하시겠습니까?")){
+		return;
+	}
 	
+	var fn=function(data){
+		console.log(data.state);
+		searchList();
+	}
+	
+	ajaxFun(url, "post", "json", query, fn);
+
 }
 </script>
 
@@ -131,15 +140,14 @@ function deleteArticle(boardType, num){
 			 
 			 <tbody class="board-list">
 			 <c:forEach var="dto" items="${list}">
-				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc; " class="hover-tr"
-				      onclick="detailMember('${dto.userId}');"> 
+				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc; " class="hover-tr"> 
 				      <td style="padding: 0;">${dto.listNum}</td>
 				      <td style="padding: 0;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : "비디오") } </td>
 				      <td style="padding: 0; text-overflow: ellipsis;"><a class="subject" onclick="send('${dto.boardType}','${dto.num}');">${dto.content}</a></td>
 				      <td style="padding: 0;">${dto.userId}</td>
 				      <td style="padding: 0;">${dto.created}</td>
 				      <td style="padding: 0;">0</td>
-				      <td style="padding: 0;"><button class="mybtn2" onclick="deleteArticle('${dto.boardType}','${dto.num}')">삭제</button> </td>		      
+				      <td style="padding: 0;"><button class="mybtn2" onclick="deleteReply('${dto.boardType}','${dto.replyNum}')">삭제</button> </td>		      
 				  </tr>
 			</c:forEach>
 			</tbody>

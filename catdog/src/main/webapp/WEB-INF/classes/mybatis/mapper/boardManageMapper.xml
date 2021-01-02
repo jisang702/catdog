@@ -70,6 +70,9 @@
 		)
 	</select>
 	
+	<delete id="deleteArticle" parameterType="map">
+		DELETE FROM ${tableName} WHERE ${numName}=#{num}
+	</delete>
 	<!-- 댓글 통합관리 -->
 	<select id="listReply" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
 		SELECT * FROM(

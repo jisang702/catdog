@@ -70,4 +70,13 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public void deleteArticle(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("boardManage.deleteArticle", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

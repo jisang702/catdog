@@ -98,26 +98,32 @@ public class BoardController {
 		return ".admin4.admin.boardManage.articlelist";
 	};
 
-/*
+
 	@RequestMapping("delete")
 	@ResponseBody
-	public Map<String, Object> deleteArticle(
-			Board dto,
-			Model model
+	public Map<String, Object> delete(
+			@RequestParam String tableName,
+			@RequestParam String numName,
+			@RequestParam int num
 			) throws Exception{
 		
 		String state="true";
 		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("tableName", tableName);
+			map.put("numName", numName);
+			map.put("num", num);
+			
+			service.deleteArticle(map);
 			
 		} catch (Exception e) {
 			state="false";
 		}
-		
-		model.addAttribute("state", state);
-		
-		return model;
+		Map<String, Object> model=new HashMap<>();
+		model.put("state", state);	
+		return model; 
 	}
-*/
+
 	
 	@RequestMapping("listReply")
 	public String listReply(

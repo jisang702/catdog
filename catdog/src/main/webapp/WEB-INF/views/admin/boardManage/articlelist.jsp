@@ -75,18 +75,26 @@ function send(boardType, num){
 }
 
 function deleteArticle(boardType, num){
-	var url = "${pageContext.request.contextPath}/delete/";
+	var url = "${pageContext.request.contextPath}/admin/boardManage/delete";
+	var query="";
 	if(boardType == "free"){
-		url+="/community/board/delete?freeNum="+num;		
+		query="tableName=comFree&numName=freeNum&num="+num;	
 	}else if(boardType == "deal"){
-		url+="/community/deal/delete?dealNum="+num;		
-	}
-	if(confirm("선택한 게시물을 삭제하시겠습니까?")){
-		location.href=url;
-		
+		query="tableName=comDeal&numName=dealNum&num="+num;		
+	}else if(boardType == "vid"){
+		query="tableName=vetVideo&numName=vidNum&num="+num;		
 	}
 	
+	if(! confirm("선택한 게시물을 삭제하시겠습니까?")){
+		return;
+	}
 	
+	var fn=function(data){
+		console.log(data.state);
+		searchList();
+	}
+	
+	ajaxFun(url, "post", "json", query, fn);
 }
 </script>
 

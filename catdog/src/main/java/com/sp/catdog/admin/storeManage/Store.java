@@ -74,6 +74,12 @@ public class Store {
 	public void setPrdState(Integer prdState) {
 		this.prdState = prdState;
 	}
+	public Integer getPrdPet() {
+		return prdPet;
+	}
+	public Integer getPrdState() {
+		return prdState;
+	}
 	
 	
 }
