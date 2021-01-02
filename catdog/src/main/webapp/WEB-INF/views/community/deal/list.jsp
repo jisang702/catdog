@@ -22,29 +22,6 @@ function searchList() {
 	f.submit();
 }
 
-function ajaxJSON(url, method, query, fn) {
-	$.ajax({
-		type:method
-		,url:url
-		,data:query
-		,dataType:"json"
-		,success:function(data) {
-			fn(data);
-		}
-		,beforeSend:function(jqXHR) {
-	        jqXHR.setRequestHeader("AJAX", true);
-	    }
-	    ,error:function(jqXHR) {
-	    	if(jqXHR.status===403) {
-	    		login();
-	    		return false;
-	    	}
-	    	
-	    	console.log(jqXHR.responseText);
-	    }
-	});
-}
-
 function ajaxHTML(url, method, query, selector) {
 	$.ajax({
 		type:method
@@ -77,7 +54,7 @@ $(function() {
 });
 
 $(function() {
-	$("body").on("click", ".dealTypebtn", function() {
+	$("body").on("click", "input[name=dealType]", function() {
 		var type=$(this).val();
 		var url="${pageContext.request.contextPath}/community/deal/list";
 		var query="dealType="+type;
@@ -85,6 +62,8 @@ $(function() {
 
 		ajaxHTML(url, "post", query, selector);
 	});
+	
+	$("input[name=dealType]:checked").next("span").attr("class", "arraychecked");
 });
 
 </script>
@@ -93,8 +72,8 @@ $(function() {
     	<div class="boardtitle">
 			<ul class="listtitle">
 				<li>
-					<button type="button" name="dealType" value="1" class="dealTypebtn">팝니다</button>
-					<button type="button" name="dealType" value="2" class="dealTypebtn">삽니다</button>
+					<label><input type="radio" name="dealType" value="1" ${dealType=="1"?"checked='checked'":""}><span>팝니다</span></label>
+					<label><input type="radio" name="dealType" value="2" ${dealType=="2"?"checked='checked'":""}><span>삽니다</span></label>
 				</li>
 			</ul>
 		</div>
@@ -147,8 +126,8 @@ $(function() {
 			</div>
 			</c:forEach>
 		</div>
-		<div>
-			<p> ${dataCount==0?"등록된 게시물이 없습니다.":paging} </p>
+		<div style="margin: 20px;">
+			<p> ${dataCount==0?"<p style=\"margin: 100px;\">등록된 게시물이 없습니다.</p>":paging} </p>
 		</div>
 		<div class="fleabtn listfooter" style="margin-top: 30px;">
 			<a type="button" class="mybtn1" href="javascript:location.href='${pageContext.request.contextPath}/community/deal/list'">새로고침</a>

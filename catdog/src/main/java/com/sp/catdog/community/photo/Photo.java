@@ -17,6 +17,7 @@ public class Photo {
 	private int replyCount;
 	private int photoLikeCount;
 	
+	private int imgNum;
 	private String photoImgOriginalname;
 	private String photoImgSavename;
 	private List<MultipartFile> upload;
@@ -131,6 +132,14 @@ public class Photo {
 
 	public void setUpload(List<MultipartFile> upload) {
 		this.upload = upload;
+	}
+
+	public int getImgNum() {
+		return imgNum;
+	}
+
+	public void setImgNum(int imgNum) {
+		this.imgNum = imgNum;
 	}
 	
 }

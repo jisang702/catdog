@@ -103,11 +103,30 @@ public class PhotoServieImpl implements PhotoService {
 	}
 
 	@Override
-	public void deletePhoto(Photo dto, String pathname, String userId) throws Exception {
+	public void deletePhoto(int photoNum, String pathname) throws Exception {
 		try {
+			List<Photo> list=listPhotoImg(photoNum);
 			
+			if(list!=null) {
+				for(Photo dto:list) {
+					fileManager.doFileDelete(dto.getPhotoImgSavename(), pathname);
+				}
+			}
+			
+			dao.deleteData("photo.deletePhoto", photoNum);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void deletePhotoImg(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("photo.deletePhotoImg", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -132,9 +151,30 @@ public class PhotoServieImpl implements PhotoService {
 	}
 
 	@Override
+	public List<Photo> listPhotoImg(int photoNum) {
+		List<Photo> list=null;
+		try {
+			list=dao.selectList("photo.listPhotoImg", photoNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Photo readPhotoImg(int imgNum) {
+		Photo dto=null;
+		try {
+			dto=dao.selectOne("photo.readPhotoImg", imgNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
 	public Photo preReadBoard(Map<String, Object> map) {
 		Photo dto=null;
-		
 		try {
 			dto=dao.selectOne("photo.preReadPhoto", map);
 		} catch (Exception e) {
@@ -147,7 +187,6 @@ public class PhotoServieImpl implements PhotoService {
 	@Override
 	public Photo nextReadBoard(Map<String, Object> map) {
 		Photo dto=null;
-		
 		try {
 			dto=dao.selectOne("photo.nextReadPhoto", map);
 		} catch (Exception e) {
@@ -156,4 +195,159 @@ public class PhotoServieImpl implements PhotoService {
 		
 		return dto;
 	}
+
+	@Override
+	public void insertPhotoLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("photo.insertPhotoLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deletePhotoLike(Map<String, Object> map) throws Exception {
+		try {			
+			dao.deleteData("photo.deletePhotoLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int photoLikeUser(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.photoLikeUser", map);
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int photoLikeCount(int photoNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.photoLikeCount", photoNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void insertReply(Reply dto) throws Exception {
+		try {
+			dao.insertData("photo.insertReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("photo.listReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.replyCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void updateReply(Reply dto) throws Exception {
+		try {
+			dao.updateData("photo.updateReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReply(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("photo.deleteReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void insertReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("photo.insertReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("photo.deleteReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int replyLikeUser(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.replyLikeUser", map);
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int replyLikeCount(int photoReplyNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.replyLikeCount", photoReplyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Reply> listAnswerReply(int photoReplyType) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("photo.listAnswerReply", photoReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int answerReplyCount(int photoReplyType) {
+		int result=0;
+		try {
+			result=dao.selectOne("photo.answerReplyCount", photoReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
+

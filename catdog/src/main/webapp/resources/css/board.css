@@ -565,17 +565,8 @@ button {
 	height: 50px;
 }
 
-.dealTypebtn {
-	margin: 5px;
-    padding: 0 20px;    
-    border: 1px solid #ddd;
-    color: #666;
-    border-radius: 45px;
-    background-color: #fff;
-    height: 35px;
-    font-size: 13px;
-    line-height: 33px;    
-    font-weight: 700;
+.listtitle input[type=radio] {
+	display: none;
 }
 
 .grabtn {
@@ -617,9 +608,9 @@ button {
 }
 
 .photocm {
-	text-align: right;
 	color: #a2a2a2;
 	font-size: 13px;
+	margin: 5px;
 }
 
 .photocontent textarea {
@@ -629,10 +620,28 @@ button {
 	border-radius: 10px;
 }
 
-#preview img {
+.image_uploads div {
 	width: 120px;
 	height: 120px;
-	margin: 10px;
+	display: inline-block;
+}
+
+.image_uploads img {
+	width: 120px;
+	height: 120px;
+}
+
+.image_uploads div input[type=file] {
+	display: none;
+}
+
+.image_uploads div label {
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	background-image: url('images/addphoto.png');
+	background-size: 120px;
+	margin-right: 10px;
 }
 
 .photoArticle {
@@ -642,15 +651,40 @@ button {
 	border-radius: 10px;
 }
 
-.photoImg {
+.photoImage {
+	float: left
+}
+
+.photoSlide {
 	width: 450px;
-	float: left;
+}
+
+.photoSlide img {
+	width: 400px;
+	height: 350px;
+	margin-top: 20px;
+    border-radius: 10px;
+    border: 1px solid #dadada;
+}
+
+.photoImg {
+	text-align: left;
+    padding-left: 35px;
 }
 
 .photoImg img {
-	width: 400px;
-	height: 350px;
-	padding: 10px;
+	width: 90px;
+    height: 90px;
+    border-radius: 10px;
+}
+
+.photoImg .imgLine {
+	border: 2px solid #71da65;
+	border-radius: 10px;
+}
+
+.photoImg ul li {
+	display: inline-block;
 }
 
 .photoArea {
@@ -682,7 +716,8 @@ button {
 	padding: 15px;
 	border-bottom: 1px solid #dadada;
 	border-top: 1px solid #dadada;
-	min-height: 70px;
+	min-height: 230px;
+	margin: 15px;
 }
 
 .photoCreated {
@@ -698,9 +733,61 @@ button {
 }
 
 .photoReply input {
-	margin: 0px 3px;
 	padding: 3px 0px 3px 10px;
 	width: 85%;
 	border-radius: 10px;
 	vertical-align: middle;
 }
+
+.readArrow {
+	padding-top: 200px;
+    font-size: 50px;
+    margin: 10px;
+}
+
+.readArrow a {
+   color: #71da65;
+}
+
+.photoFilter {
+	border: 1px solid #ddd;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.photoFilter .floatright input {
+	display: none;
+}
+
+.arraychecked {
+	color: #71da65;
+	font-weight: bold;
+}
+
+.photoFilter .floatleft p {
+	padding-left: 17px;
+    line-height: 45px;
+    color: #6d6d6d;
+}
+
+.photoFilter .floatright {
+	margin-right: 16px;
+}
+
+.photoFilter:after {
+	content: "";
+    display: block;
+    clear: both;
+}
+
+.photoFilter .floatright label {
+	display: inline-block;
+    position: relative;
+    line-height: 45px;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: 3px;
+    color: #6d6d6d;
+}
+

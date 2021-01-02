@@ -8,43 +8,46 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script>
+$(function() {
+	$("body").on("change", ".image_uploads input[type=file]", function() {
+		var target=$(this)[0];
 
-var sel_files=[];
-
-$(document).ready(function() {
-	$("#upload").on("change", preview);
-});
-
-function fileUpload() {
-	$("#upload").trigger('click');
-}
-
-function preview(e) {
-	sel_files=[];
-	$("#previewImg").empty();
-	
-	var files=e.target.files;
-	var filesArr=Array.prototype.slice.call(files);
-	
-	filesArr.forEach(function(f) {
-		if(!f.type.match("image.*")) {
-			alert("이미지만 업로드 가능합니다.");
-			return;
-		}
-		sel_files.push(f);
+		var index=0;
 		
-		var index=1;
-		var reader=new FileReader();
-		reader.onload=function(e) {
-			var html="<img src=\""+e.target.result+"\" data-file='"+f.name+"'></a>";
-			var h="<input type=\"file\" name=upload id=\"upload\" multiple=\"multiple\" style=\"display: none;\">";
-			$("#previewImg").append(html);
-			index++;
+		if(target != null && index<5) {
+            var fileNM = $(this).val();
+ 
+            var ext = fileNM.slice(fileNM.lastIndexOf(".") + 1).toLowerCase();
+ 
+            if (!(ext=="gif"||ext=="jpg"||ext=="png")) {
+                alert("이미지파일만 업로드 가능합니다.");
+                return false;
+            }
+            
+            var img_div = $(this).parent();
+            var fileList = target.files ;
+            
+            var reader = new FileReader();
+            reader.readAsDataURL(fileList [0]);
+            
+            reader.onload = function  (e) {
+            	img_div.children('label').attr('style', 'display: none;');
+                img_div.children('img').attr('style', 'display: inherit;');
+                img_div.children('img').attr('src', e.target.result);
+            };
+            
+            var div = document.createElement('div');
+            
+            index++;
+            
+            if(index<4) {
+                div.className = 'image_div_'+index+'';
+                div.innerHTML='<label for ="upload_'+index+'"></label><img style="display: none;" id="previewImg_'+index+'">\<input type="file" name="upload" id="upload_'+index+'">';      
+                $('.image_uploads').append(div);
+            }
 		}
-		reader.readAsDataURL(f);
 	});
-}
-
+});
 function sendOk() {
 	var f = document.photoForm;
 
@@ -62,15 +65,31 @@ function sendOk() {
         	return false;
         }
         
-        str=f.upload.value;
-        if(!str) {
-        	alert("사진을 첨부해주세요.");
-        	return false;
-        }
+        str=f.upload_0.value;
+        	if(!str) {
+            	alert("사진을 첨부해주세요.");
+            	return false;
+            }
         
         f.action="${pageContext.request.contextPath}/community/photo/${mode}";
         f.submit();
 }
+
+function deletePhotoImg(imgNum){
+	var url="${pageContext.request.contextPath}/community/photo/deletePhotoImg?type=deleteimg";
+	$.post(url, {imgNum:imgNum}, function(data){
+		$("#img"+imgNum).remove();
+	}, "json");
+}
+
+$(function() {
+	$(".image_uploads img").hover(function() {
+		$(this).attr("src", "${pageContext.request.contextPath}/resources/css/images/delete.png");
+	}, function() {
+		$(this).attr("src", "${pageContext.request.contextPath}/uploads/photo/${vo.photoImgSavename}");
+	});
+});
+
 </script>
 
 
@@ -98,15 +117,24 @@ function sendOk() {
 			  </tr>
 			  			  
 			  <tr>
-			  	<td>사진</td>
-			  	<td id="preview" height="150" align="left">
-			  		<span id="previewImg"></span>
-			  		<span id="addImg">
-			  			<input type="file" name="upload" id="upload" multiple="multiple" style="display: none;">
-				  	</span>
-			  		<button type="button" onclick="fileUpload();" style="width: 150px; height: 150px;"><img src="${pageContext.request.contextPath}/resources/css/images/addphoto.png"> </button>
+			  	<td>사진 <p style="font-size: 11px;"><br>* 최대 4장</p></td>
+			  	<td id="preview" height="150" align="left" style="padding-left: 30px;">
+			  		<div class="image_uploads">
+			  			<c:if test="${mode=='update'}">
+				  			<c:forEach var="vo" items="${list}">
+				  				<a id="img${vo.imgNum}" onclick="deletePhotoImg('${vo.imgNum}');">
+				  					<img src="${pageContext.request.contextPath}/uploads/photo/${vo.photoImgSavename}">
+				  				</a>
+				  			</c:forEach>
+				  		</c:if>
+				  		<div class="image_div_0" style="display: inline;">
+							<label for="upload_0"></label>
+							<img style="display: none;" id="previewImg_0">
+					  		<input type="file" name="upload" id="upload_0">
+						</div>				  		
+			  		</div>
 			  	</td>
-			  </tr>  
+			  </tr>
 
 			  </table>
 			
@@ -116,10 +144,8 @@ function sendOk() {
 			        <button type="button" class="mybtn2" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 			        <button type="reset" class="mybtn1">다시입력</button>
 			        <button type="button" class="mybtn1" onclick="javascript:location.href='${pageContext.request.contextPath}/community/photo/list';">${mode=='update'?'수정취소':'등록취소'}</button>
-			         	<input type="hidden" name="dealZone" value="0">
 			         <c:if test="${mode=='update'}">
-			         	 <input type="hidden" name="dealNum" value="${dto.photoNum}">
-			         	 <input type="hidden" name="userId" value="${dto.userId}">
+			         	 <input type="hidden" name="photoNum" value="${dto.photoNum}">
 			        	 <input type="hidden" name="page" value="${page}">
 			        </c:if>
 			      </td>

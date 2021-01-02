@@ -10,12 +10,10 @@ button {
 
 .floatright {
 	float: right;
-	clear: both;
 }
 
 .floatleft {
 	float: left;
-	clear: both;
 }
 
 .main-header {

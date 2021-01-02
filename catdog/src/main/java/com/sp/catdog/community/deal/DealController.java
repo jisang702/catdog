@@ -111,6 +111,7 @@ public class DealController {
 		model.addAttribute("rows", rows);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("dealType", dealType);
 		
 		return ".community.deal.list";
 	}

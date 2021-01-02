@@ -26,48 +26,43 @@
 		UPDATE comPhoto SET photoHitCount=photoHitCount+1 WHERE photoNum=#{photoNum}
 	</update>
 	
-	<sql id="where-list">
-		<choose>
-			<when test="condition == 'all' ">
-			   ( INSTR(subject, #{keyword}) &gt; 0
-		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
-			</when>
-			<when test="condition == 'created' ">
-			   ( TO_CHAR(created, 'YYYYMMDD') = #{keyword}
-		          OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
-			</when>
-			<when test="condition == 'content'">
-			    DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
-			</when>
-			<otherwise>
-			    INSTR(${condition}, #{keyword}) &gt; 0
-			</otherwise>
-		</choose>
-	</sql>
-	
 	<select id="listPhoto" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
 		SELECT p.photoNum, p.userId, userNick, photoSubject, photoContent, photoHitCount,
-			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename
+			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename,
+			NVL(photoLikeCount, 0) photoLikeCount, NVL(replyCount, 0) replyCount
 		FROM comPhoto p
 		JOIN member1 m ON p.userId=m.userId
 		LEFT OUTER JOIN (
 			select photonum, imgnum, photoImgOriginalname, photoImgSavename 
 			from (
 			select row_number() over(PARTITION by comphotoimg.photonum 
-			order by comphotoimg.imgnum desc) as rnum, comphotoimg.* from comphotoimg) 
+			order by comphotoimg.imgnum ASC) as rnum, comphotoimg.* from comphotoimg) 
 			where rnum=1
 		) i ON p.photoNum=i.photoNum
-		ORDER BY photoNum DESC
+		LEFT OUTER JOIN (
+			SELECT photoNum, COUNT(*) photoLikeCount FROM comPhotoLike
+			WHERE likeNo=1
+			GROUP BY photoNum
+		) l ON p.photoNum=l.photoNum
+		LEFT OUTER JOIN (
+			SELECT photoNum, COUNT(*) replyCount FROM comPhotoReply
+			WHERE photoReplyType=0
+			GROUP BY photoNum
+		) c ON p.photoNum=c.photoNum
+		ORDER BY 
+		<choose>
+			<when test="array=='replys'">replyCount DESC</when>
+			<when test="array=='hits'">photoHitCount DESC</when>
+			<when test="array=='likes'">photoLikeCount DESC</when>
+			<when test="array=='news'">p.photoNum DESC</when>
+		</choose>
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<select id="readPhoto" parameterType="Integer" resultType="com.sp.catdog.community.photo.Photo">
 		SELECT p.photoNum, p.userId, userNick, photoSubject, photoContent, photoHitCount, 
-			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet, imgNum, photoImgOriginalname, photoImgSavename
+			to_char(photoCreated, 'YYYY-MM-DD') photoCreated, photoPet
 		FROM comPhoto p
-		LEFT OUTER JOIN (
-			SELECT photoNum, imgNum, photoImgOriginalname, photoImgSavename FROM comPhotoImg
-		) i ON p.photoNum=i.photoNum
 		JOIN member1 m ON p.userId=m.userId
 		WHERE p.photoNum=#{photoNum}
 	</select>
@@ -85,12 +80,7 @@
 		SELECT photoNum, p.userId
 		FROM comPhoto p
 		JOIN member1 m ON p.userId=m.userId
-		<where>
-			<if test="keyword != null and keyword != '' ">
-				<include refid="where-list"/>
-			</if>
-			AND (photoNum &lt; #{photoNum})
-		</where>
+		WHERE (photoNum &lt; #{photoNum})
 		ORDER BY photoNum DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
@@ -100,5 +90,128 @@
 		WHERE photoNum=#{photoNum}
 	</update>
 	
+	<delete id="deletePhoto" parameterType="Integer">
+		DELETE FROM comPhoto WHERE photoNum=#{photoNum}
+	</delete>
+	
+	<select id="listPhotoImg" parameterType="Integer" resultType="com.sp.catdog.community.photo.Photo">
+		SELECT photoNum, imgNum, photoImgOriginalname, photoImgSavename
+		FROM comPhotoImg
+		WHERE photoNum=#{photoNum}
+	</select>
+	
+	<select id="readPhotoImg" parameterType="map" resultType="com.sp.catdog.community.photo.Photo">
+		SELECT photoNum, imgNum, photoImgOriginalname, photoImgSavename
+		FROM comPhotoImg
+		WHERE imgNum=#{imgNum}
+	</select>
+	
+	<delete id="deletePhotoImg" parameterType="map">
+		DELETE FROM comPhotoImg
+		<where>
+			<if test="type=='deletephoto'">
+				photoNum=#{photoNum}
+			</if>
+			<if test="type=='deleteimg'">
+				imgNum=#{imgNum}
+			</if>
+		</where>
+	</delete>
+	
+	<insert id="insertPhotoLike" parameterType="map">
+		INSERT INTO comPhotoLike(photoNum, userId, likeNo) VALUES (#{photoNum}, #{userId}, 1)
+	</insert>
+	
+	<select id="photoLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM comPhotoLike
+		WHERE photoNum=#{photoNum} AND likeNo=1
+	</select>
+	
+	<select id="photoLikeUser" parameterType="map" resultType="Integer">
+		SELECT likeNo FROM comPhotoLike WHERE photoNum=#{photoNum} AND userId=#{userId}
+	</select>
+	
+	<delete id="deletePhotoLike" parameterType="map">
+		DELETE FROM comPhotoLike WHERE photoNum=#{photoNum} AND userId=#{userId}
+	</delete>
+	
+	<insert id="insertReply" parameterType="com.sp.catdog.community.photo.Reply">
+		INSERT INTO comPhotoReply(photoReplyNum, photoReplyContent, photoReplyCreated, photoReplyType,
+			photoNum, userId) VALUES (comPhotoreply_seq.NEXTVAL, #{photoReplyContent}, SYSDATE, #{photoReplyType}, #{photoNum}, #{userId})
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comPhotoReply
+		WHERE photoNum=#{photoNum} AND photoReplyType=0
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.catdog.community.photo.Reply">
+		SELECT p.photoReplyNum, photoReplyContent, to_char(photoReplyCreated, 'YYYY-MM-DD') photoReplyCreated, 
+			photoNum, p.userId, userNick, p.photoReplyType, replyLikeCount, answerCount
+		FROM comPhotoReply p
+		JOIN member1 m ON m.userId=p.userId
+		LEFT OUTER JOIN (
+            SELECT photoReplyNum, COUNT(*) replyLikeCount FROM comPhotoReplyLike
+            WHERE likeNo=1
+            GROUP BY photoReplyNum
+        ) l ON l.photoReplyNum=p.photoReplyNum
+        LEFT OUTER JOIN (
+			SELECT photoReplyType, COUNT(*) answerCount FROM comPhotoReply
+            where photoReplyType!=0
+            Group by photoReplyType
+		) c ON p.photoReplyNum=c.photoReplyType
+		WHERE photoNum=#{photoNum} AND p.photoReplyType=0
+		ORDER BY p.photoReplyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<update id="updateReply" parameterType="com.sp.catdog.community.photo.Reply">
+		UPDATE comPhotoReply SET photoReplyContent=#{photoReplyContent}
+		WHERE photoReplyNum=#{photoReplyNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM comPhotoReply WHERE photoReplyNum=#{photoReplyNum}
+		<if test="mode=='reply'">
+			OR photoReplyType=#{photoReplyNum}
+		</if>
+	</delete>
+	
+	<insert id="insertReplyLike" parameterType="map">
+		INSERT INTO comPhotoReplyLike(photoReplyNum, userId, likeNo) VALUES (#{photoReplyNum}, #{userId}, 1)
+	</insert>
+	
+	<select id="replyLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM comPhotoReplyLike 
+		WHERE photoReplyNum=#{photoReplyNum} AND likeNo=1
+	</select>
+	
+	<delete id="deleteReplyLike" parameterType="map">
+		DELETE FROM comPhotoReplyLike WHERE photoReplyNum=#{photoReplyNum} AND userId=#{userId}
+	</delete>
+	
+	<select id="replyLikeUser" parameterType="map" resultType="Integer">
+		SELECT likeNo FROM comPhotoReplyLike WHERE photoReplyNum=#{photoReplyNum} AND userId=#{userId}
+	</select>
+	
+	<select id="listAnswerReply" parameterType="Integer" resultType="com.sp.catdog.community.photo.Reply">
+		SELECT p.photoReplyNum, p.userId, userNick, photoNum, photoReplyContent, 
+			to_char(photoReplyCreated, 'YYYY-MM-DD') photoReplyCreated, photoReplyType, replyLikeCount
+		FROM comphotoReply p
+		JOIN member1 m ON m.userId=p.userId
+		LEFT OUTER JOIN (
+            SELECT photoReplyNum, COUNT(*) replyLikeCount FROM comphotoReplyLike
+            WHERE likeNo=1
+            GROUP BY photoReplyNum
+        ) l ON l.photoReplyNum=p.photoReplyNum
+		WHERE photoReplyType=#{photoReplyType}
+		ORDER BY p.photoReplyNum ASC
+	</select>
+	
+	<select id="answerReplyCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comPhotoReply WHERE photoReplyType = #{photoReplyType}
+	</select>
 	
 </mapper>
