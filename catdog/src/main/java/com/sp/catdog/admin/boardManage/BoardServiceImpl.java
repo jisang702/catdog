@@ -79,4 +79,39 @@ public class BoardServiceImpl implements BoardService{
 		}
 	}
 
+	@Override
+	public List<Board> listReplyReport(Map<String, Object> map) throws Exception {
+		List<Board> list=null;
+		try {
+			list=dao.selectList("boardManage.listReplyReport",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return list;
+	}
+
+	@Override
+	public int replyReportCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("boardManage.replyReportCount",map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public Board readReplyReport(Map<String, Object> map) throws Exception {
+		Board dto=null;
+		try {
+			dto=dao.selectOne("boardManage.readReplyReport", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return dto;
+	}
+
 }
