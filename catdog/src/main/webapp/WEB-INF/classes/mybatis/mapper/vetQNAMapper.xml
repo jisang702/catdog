@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vetQna">
+
+	<insert id="insertQnA" parameterType="com.sp.catdog.doctor.qna.QnA">
+		INSERT INTO vetQNA(qnaNum, qnaCategoryNum, qnaSecret, 
+					qnaSubject, qnaContent, userId,  qnaAnc, qnaCreated)
+				VALUES (vetQNA_seq.NEXTVAL, #{qnaCategoryNum}, 
+				#{qnaSecret}, #{qnaSubject}, #{qnaContent}, #{userId}, 
+				#{qnaAnc, jdbcType=INTEGER}, SYSDATE)
+	</insert>
+
+	<sql id="where-list">
+		<if test="condition=='all'">
+			( INSTR(q.qnaSubject, #{keyword}) &gt; 0
+				OR INSTR(q.qnaContent, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='qnaContent' ">
+			INSTR(q.qnaContent, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='qnaSubject' ">
+			INSTR(q.qnaSubject, #{keyword}) &gt; 0
+		</if>		
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='qnaCreated' ">
+			( TO_CHAR(q.qndCreated, 'YYYY-MM-DD') =  #{keyword}
+				OR TO_CHAR(q.qnaCreated, 'YYMMDD' ) =  #{keyword} )
+		</if>
+	</sql>	
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM vetQNA q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			q.qnaAnc IS NULL
+			<if test="keyword!=null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+
+	<select id="listQnA" parameterType="map" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, userName, q.userId, q.qnaSubject, q.qnaSecret,
+				q.qnaAnc, NVL2(q2.qnaAnc, 1, 0) isAnswer,
+				TO_CHAR(q.qnaCreated,  'YYYY-MM-DD') qnaCreated,
+				q.qnaCategoryNum, qnaCategoryName 
+		FROM vetQNA q
+		LEFT OUTER JOIN vetQNA q2 ON q.qnaNum = q2.qnaAnc
+		JOIN vetQNACategory c 	ON q.qnaCategoryNum = c.qnaCategoryNum
+		JOIN member1 m 	ON q.userId=m.userId
+		<where>
+			q.qnaAnc Is Null
+			<if test="keyword !=null and keyword !=''">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY q.qnaNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		
+	</select>
+	
+	<select id="readQuestion" parameterType="Integer" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, q.userId, userName, q.qnaSubject, q.qnaContent, q.qnaAnc, q.qnaCreated,
+				q.qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		FROM vetQNA q
+		JOIN vetQNACategory c ON q.qnaCategoryNum= c.qnaCategoryNum
+		JOIN member1 m	ON q.userId=m.userId
+		WHERE qnaNum= #{qnaNum}
+	</select>
+	
+	<select id="readAnswer" parameterType="Integer" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, q.userId, userName, q.qnaSubject, q.qnaAnc, q.qnaContent,
+			q.qnaCreated, q.qnaSecret, q.qnaCategoryNum, qnaCategoryName
+		FROM vetQNA q
+		JOIN vetQNACategory c ON q.qnaCategoryNum=c.qnaCategoryNum
+		JOIN member1 m ON q.userId = m.userId
+		WHERE qnaAnc = #{qnaAnc}
+	</select>
+	
+	<select id="preReadQuestion" parameterType="map" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, q.qnaSubject, q.qnaSecret
+		FROM vetQNA q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			q.qnaAnc IS NULL
+			<if test="keyword != null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (q.qnaNum &gt; #{qnaNum})
+		</where>
+		ORDER BY qnaNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="nextReadQuestion" parameterType="map" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, q.qnaSubject, q.qnaSecret
+		FROM vetQNA q
+		JOIN member1 m ON q.userId=m.userId
+		<where>
+			q.qnaAnc IS NULL
+			<if test="keyword != null and keyword !='' ">
+				AND <include refid="where-list"/>
+			</if>
+			AND (q.qnaNum &lt; #{qnaNum})
+		</where>
+		ORDER BY qnaNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateQnA" parameterType="com.sp.catdog.doctor.qna.QnA">
+		UPDATE vetQNA SET qnaSubject=#{qnaSubject}, qnaContent=#{qnaContent},
+			qnaCategoryNum=#{qnaCategoryNum}, qnaSecret=#{qnaSecret}
+		WHERE qnaNum=#{qnaNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteQuestion" parameterType="Integer">
+		DELETE FROM vetQNA WHERE qnaNum IN 
+			(SELECT qnaNum FROM vetQNA START WITH qnaNum = #{qnaNum}
+				CONNECT BY PRIOR qnaNum = qnaAnc)
+	</delete>
+	
+	<delete id="deleteAnswer" parameterType="Integer">
+		DELETE FROM vetQNA WHERE qnaNum=#{qnaNum}
+	</delete>
+	<!-- 카테고리  -->	
+	<insert id="insertCategory" parameterType="com.sp.catdog.doctor.qna.QnA">
+		INSERT INTO vetQNACategory(qnaCategoryNum, qnaCategoryName) 
+			VALUES (vetQNACategory_seq.NEXTVAL, #{qnaCategoryName})
+	</insert>
+
+	<update id="updateCategory" parameterType="map">
+		UPDATE vetQNACategory SET 
+		qnaCategoryName= #{qnaCategoryName}, qnaAnc=#{qnaAnc},
+		WHERE qnaCategoryNum=#{qnaCategoryNum}
+	</update>
+		
+	<delete id="deleteCategory" parameterType="Integer">
+		DELETE FROM vetQNACategory WHERE qnaCategoryNum=#{qnaCategoryNum}
+	</delete>
+	
+	<select id="listCategory" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT qnaCategoryNum, qnaCategoryName FROM vetQNACategory
+	</select>
+
+</mapper>

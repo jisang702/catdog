@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="news">
+
+	<select id="seq" resultType="Integer">
+		SELECT vetNews_seq.NEXTVAL FROM dual
+	</select>
+	<insert id="insertNews" parameterType="com.sp.catdog.doctor.news.News">
+		INSERT INTO vetNews(newsNum, userId, newsSubject, newsContent, news, newsHitCount, newsCreated)
+			VALUES( #{newsNum}, #{userId}, #{newsSubject}, #{newsContent}, #{news}, 0, SYSDATE)
+	</insert>
+	
+	<sql id="where-list">
+		<if test="condition=='all' ">
+			( INSTR(newsSubject), #{keyword}) &gt; 0
+				OR DBMS_LOB.INSTR(newsContent, #{keyword}) &gt; 0 )
+		</if>
+		<if test="condition=='newsSubject' ">
+			INSTR(newsSubject, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='newsContent' ">
+			OR DBMS_LOB.INSTR(newsContent, #{keyword}) &gt; 0 
+		</if>
+		<if test="condition=='userName' ">
+			userName=#{keyword}
+		</if>
+		<if test="condition=='newsCreated' ">
+			( TO_CHAR(newsCreated, 'YYYY-MM-DD') = #{keyword}
+				OR TO_CHAR(newsCreated, 'YYYYMMDD') = #{keyword} )
+		</if>
+	</sql>
+		
+	<select id="listNewsTop" resultType="com.sp.catdog.doctor.news.News">
+		SELECT n.newsNum, news, n.userId, userName, newsSubject, newsHitCount,
+			TO_CHAR(newsCreated, 'YYYY-MM-DD') newsCreated,
+			NVL(fileCount, 0) fileCount
+		FROM vetNews n
+		JOIN member1 m ON n.userId = m.userId
+		LEFT OUTER JOIN (
+			SELECT newsNum, COUNT(*) fileCount FROM vetNewsFile
+			GROUP BY newsNum	
+		) f ON n.newsNum=f.newsNum
+		WHERE news = 1
+		ORDER BY n.newsNum DESC
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM vetNews n
+		JOIN member1 m ON n.userId=m.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+			
+	<select id="listNews" parameterType="map" resultType="com.sp.catdog.doctor.news.News">
+		SELECT n.newsNum, news, n.userId, userName, newsSubject, newsHitCount,
+			newsCreated, NVL(fileCount, 0) fileCount
+		FROM vetNews n
+		JOIN member1 m ON n.userId=m.userId
+		LEFT OUTER JOIN (
+			SELECT newsNum, COUNT(*) fileCount FROM vetNewsFile
+			GROUP BY newsNum
+		) f ON n.newsNum=f.newsNum
+		<where>
+			<if test="keyword !=null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY n.newsNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+
+	<select id="readNews" parameterType="Integer" resultType="com.sp.catdog.doctor.news.News">
+		SELECT newsNum, n.userId, userName, newsSubject, newsContent, newsCreated, newsHitCount, news
+		FROM vetNews n
+		JOIN member1 m ON n.userId = m.userId
+		WHERE newsNum = #{newsNum}
+	</select>
+
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE vetNews SET newsHitCount= newsHitCount+1 WHERE newsNum=#{newsNum}
+	</update>
+	
+	<select id="preReadNews" parameterType="map" resultType="com.sp.catdog.doctor.news.News">
+		SELECT newsNum, newsSubject
+		FROM vetNews n
+		JOIN member1 m ON n.userId=m.userId
+		<where>
+			<if test="keyword !=null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (newsNum &gt; #{newsNum})
+		</where>
+		ORDER BY newsNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="nextReadNews" parameterType="map" resultType="com.sp.catdog.doctor.news.News">
+		SELECT newsNum, newsSubject
+		FROM vetNews n
+		JOIN member1 m ON n.userId=m.userId
+		<where>
+			<if test="keyword !=null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (newsNum &gt; #{newsNum})
+		</where>
+		ORDER BY newsNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateNews" parameterType="com.sp.catdog.doctor.news.News">
+		UPDATE vetNews SET newsSubject=#{newsSubject},
+			newsContent=#{newsContent}, news=#{news}
+		WHERE newsNum=#{newsNum}
+	</update>
+	
+	<delete id="deleteNews" parameterType="Integer">
+		DELETE FROM vetNews WHERE newsNum=#{newsNum}
+	</delete>
+	
+	<insert id="insertFile" parameterType="com.sp.catdog.doctor.news.News">
+		INSERT INTO vetNewsFile(fileNum, newsNum, saveFilename, originalFilename, fileSize)
+			VALUES(vetNewsFile_seq.NEXTVAL, #{newsNum}, 
+				#{saveFilename}, #{originalFilename}, #{fileSize})
+	</insert>
+	
+	<select id="readFile" parameterType="Integer" resultType="com.sp.catdog.doctor.news.News">
+		SELECT fileNum, newsNum, saveFilename, originalFilename, fileSize
+		FROM vetNewsFile 
+		WHERE fileNum=#{fileNum}
+	</select>
+	
+	<select id="listFile" parameterType="Integer" resultType="com.sp.catdog.doctor.news.News">
+		SELECT fileNum, newsNum, saveFilename, originalFilename, fileSize
+		FROM vetNewsFile 
+		WHERE fileNum=#{fileNum}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM vetNewsFile WHERE ${field}= #{newsNum}
+	</delete>
+</mapper>

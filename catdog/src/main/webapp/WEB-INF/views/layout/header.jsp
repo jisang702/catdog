@@ -55,11 +55,12 @@ $(function() {
 	            		<li><a href="${pageContext.request.contextPath}/community/deal/list">중고거래</a></li>
 	            	</ul>
 	            </li>
-	            <li class="menu1"><a>수의사</a>
+	            <li class="menu1"><a>PetCare</a>
 	            	<ul class="submenu1">
-	            		<li><a href="">QnA</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/doctor/news/list">새소식</a></li>
 	            		<li><a href="${pageContext.request.contextPath}/doctor/video/list">동영상</a></li>
-	            		<li><a href="#">FAQ</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/doctor/faq/list">FAQ</a></li>
+	            		<li><a href="${pageContext.request.contextPath}/doctor/qna/list">QnA</a></li>
 	            	</ul>
 	            </li>
 	            <li class="menu1"><a href="#">이벤트</a></li>
