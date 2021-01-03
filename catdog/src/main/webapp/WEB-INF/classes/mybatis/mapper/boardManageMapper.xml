@@ -101,7 +101,7 @@
 	</select>
 	
 	<select id="replyCount" parameterType="map" resultType="Integer">
-		SELECT COUNT(boardType) 
+		SELECT NVL(COUNT(boardType),0) 
 		FROM(
 			SELECT boardType, r.freeNum AS num, freeReplyNum AS replyNum, r.userId, freeReplyCreated AS created, freeReplyContent AS content
 			FROM comFreeReply r
@@ -123,5 +123,59 @@
 				AND boardType=#{boardType, jdbcType=VARCHAR}
 			</if>
 		</where>
+	</select>
+	
+	<!-- 신고 댓글 관리 -->
+	<select id="listReplyReport" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
+		SELECT num, boardType, articleNum, replyNum, userId, reportCode, memo, report_date, report_id
+		FROM replyReport
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+		</where>
+		ORDER BY report_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="replyReportCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(boardType),0) 
+		FROM
+		(
+			SELECT num, boardType, articleNum, replyNum, userId, reportCode, memo, report_date, report_id
+			FROM replyReport
+		)
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="readReplyReport" parameterType="map" resultType="com.sp.catdog.admin.boardManage.Board">
+		SELECT * FROM
+		(
+			SELECT r.num, r.boardType, articleNum, r.replyNum, r.userId, reportCode, memo, report_date, report_id, 
+						freeReplyContent AS content, freeReplyCreated AS created
+			FROM replyReport r
+			JOIN comFreeReply f ON f.freeReplyNum=r.replyNum
+			UNION ALL
+			SELECT r.num, r.boardType, articleNum, r.replyNum, r.userId, reportCode, memo, report_date, report_id, 
+						dealReplyContent AS content, dealReplyCreated AS created
+			FROM replyReport r
+			JOIN comdealReply f ON f.dealReplyNum=r.replyNum
+			UNION ALL
+			SELECT r.num, r.boardType, articleNum, r.replyNum, r.userId, reportCode, memo, report_date, report_id, 
+						vidReplyContent AS content, vidReplyCreated AS created
+			FROM replyReport r
+			JOIN vetVidReply f ON f.vidReplyNum=r.replyNum
+		)
+		WHERE num=#{num}
 	</select>
 </mapper>

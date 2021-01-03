@@ -12,4 +12,8 @@ public interface BoardService {
 	
 	public List<Board> listReply(Map<String, Object> map) throws Exception;
 	public int replyCount(Map<String, Object> map);
+	
+	public List<Board> listReplyReport(Map<String, Object> map) throws Exception;
+	public int replyReportCount(Map<String, Object> map);
+	public Board readReplyReport(Map<String, Object> map) throws Exception;
 }
