@@ -203,9 +203,6 @@ public class PhotoController {
 			HttpSession session
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		if(! info.getUserId().equals("admin")) {
-			return "redirect:/community/photo/list?page="+page;
-		}
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
@@ -214,6 +211,7 @@ public class PhotoController {
 			dto.setUserId(info.getUserId());
 			service.updatePhoto(dto, pathname);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return "redirect:/community/photo/list?page="+page;

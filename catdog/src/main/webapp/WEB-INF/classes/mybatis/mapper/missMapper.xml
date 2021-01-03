@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="miss">
+	<select id="seq" resultType="Integer">
+		SELECT comMiss_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertMiss" parameterType="com.sp.catdog.community.miss.Miss">
+		INSERT INTO comMiss(missNum, missSubject, missCreated, missWhere, missWhen, missContent
+			missPet, missHitCount, userId, state, missWhereLat, missWhereLng) VALUES (
+				#{missNum}, #{missSubject}, SYSDATE, #{missWhere}, #{missWhen}, #{missContent},
+				#{missPet}, 0, userId, #{state}, #{missWhereLat}, #{missWhereLng})
+	</insert>
+	
+	<insert id="insertPet" parameterType="com.sp.catdog.community.miss.Miss">
+		INSERT INTO comMissPet(missNum, petBreed, petName, petAge, petGender, petCharacter, petImg) VALUES (
+			#{missNum}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petCharacter}, #{petImg})
+	</insert>
+	
+</mapper>

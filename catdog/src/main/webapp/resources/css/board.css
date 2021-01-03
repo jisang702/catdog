@@ -380,7 +380,7 @@ button {
 	font-size: 14px;
 }
 
-.flea-articleimg {
+.flea-articleimg, .miss-articleimg {
 	border: 1px solid #dadada;
 	border-radius: 10px;
 	width: 500px;
@@ -430,7 +430,7 @@ button {
 	margin: 45px;
 }
 
-.flea-title .title {
+.flea-title .title, .miss-title .title {
 	font-size: 30px;
 	font-weight: bold;
 }
@@ -790,3 +790,23 @@ button {
     color: #6d6d6d;
 }
 
+.miss-title {
+	text-align: left;
+	width: 300px;
+	float: left;
+	margin: 10px 0px 0px 30px;
+}
+
+.missInfo {
+	font-size: 20px;
+	color: #a2a2a2;
+	margin: 10px;
+}
+
+.missInfo li {
+	margin: 5px;
+}
+
+.missLayout input[type=text] {
+	padding-left: 10px;
+}
