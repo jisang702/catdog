@@ -16,7 +16,7 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public void insertQna(Qna dto) throws Exception {
 		try {
-			dao.insertData("qna.insertQna",dto);
+			dao.insertData("storeqna.insertQna",dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -27,7 +27,7 @@ public class QnaServiceImpl implements QnaService{
 	public int dataCount(Map<String, Object> map) {
 		int result=0;
 		try {
-			result=dao.insertData("qna.dataCount",map);
+			result=dao.selectOne("storeqna.dataCount",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,106 +39,18 @@ public class QnaServiceImpl implements QnaService{
 		List<Qna> list = null;
 		
 		try {
-			list=dao.selectList("qna.listQna",map);
+			list=dao.selectList("storeqna.listQna",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return list;
-	}
-
-
-
-	@Override
-	public void updateQna(Qna dto) throws Exception {
-		try {
-			dao.updateData("qna.updateQna",dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
 	}
 
 	@Override
 	public void deleteQna(int qnaNum) throws Exception {
 		try {
-			dao.deleteData("qna.updateQna", qnaNum);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-	}
-
-
-
-	@Override
-	public Qna readQuestion(int qnaNum) {
-		Qna dto =null;
-		try {
-			dto= dao.selectOne("qna.readQuestion",qnaNum);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return dto;
-	}
-
-	@Override
-	public Qna readAnswer(int qnaParent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Qna> listCategory() {
-		List<Qna> list =null;
-		try {
-			list=dao.selectList("qna.listCategory");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	@Override
-	public Qna preReadQuestion(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Qna nextReadQuestion(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void insertCategory(Qna dto) throws Exception {
-		try {
-			dao.insertData("qna.insertCategory",dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
-		}
-		
-	}
-
-	@Override
-	public void updateCategory(Qna dto) throws Exception {
-		try {
-			dao.updateData("qna.updateCategory",dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-	}
-
-	@Override
-	public void deleteCategory(int qnaCategory) throws Exception {
-		try {
-			dao.deleteData("qna.updateCategory",qnaCategory);
+			dao.deleteData("storeqna.deleteQna", qnaNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

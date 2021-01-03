@@ -84,7 +84,7 @@ public class BuyerController {
 			@RequestParam(defaultValue = "") String keyword,
 			HttpServletRequest req,
 			Model model)throws Exception{		
-		
+		service.prdHitCount(prdNum);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("gubun", gubun);

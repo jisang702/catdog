@@ -33,7 +33,6 @@ ul{
 }
 .imgLayout{
 	width:180px;
-	height: 205px;
 	padding: 10px 5px 10px;
 	margin: 5px;
 	border: none;
@@ -106,11 +105,10 @@ function productInfo(prdNum) {
 			             <img src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}"
 			             onclick="javascript:productInfo('${dto.prdNum}');" >
 			            </div>
-			             <span class="subject" onclick="javascript:productInfo('$(dto.prdNum)');">제목: ${dto.prdName}</span>
+			             <span class="subject" style="font-weight: bold;">${dto.prdName}</span>
 			             <br>
-			             <span>가격 :${dto.prdPrice}</span>
-			       	     <br>
-			             <span>조회수:${dto.prdHitCount} </span> 
+			             <span style="float: left;">조회수:${dto.prdHitCount }</span>
+			             <span style="float: right; font-weight: bold;">${dto.prdPrice}원</span>
 			            
 			         </div>
 			     </td>

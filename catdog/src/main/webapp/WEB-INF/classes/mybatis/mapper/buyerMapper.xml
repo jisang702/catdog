@@ -3,16 +3,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="buyer">
 
-
 <select id="dataCount" parameterType="map" resultType="Integer">
 	select NVL(count(*),0) from product
 	<choose>
-		<when test="gubun=='dog'">
-		   WHERE prdPet IN('1','0')
-		</when>
-		<otherwise>
-		   where prdPet IN('2','0')
-		</otherwise>
+			<when test="gubun=='dog'">
+			   WHERE prdPet=1
+			</when>
+			<otherwise>
+			   where prdPet=2
+			</otherwise>
 	</choose>
 </select>
 

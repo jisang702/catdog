@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeqna">
+<insert id="insertQna" parameterType="com.sp.catdog.store.qna.Qna">
+	INSERT INTO prdQna(qnaNum,qnaContent,qnaSecret,prdNum,userId,qnaCreated,qnaCategory)
+	VALUES(prdQna_seq.nextval,#{qnaContent},#{qnaSecret},#{prdNum},#{userId},SYSDATE,#{qnaCategory})
+</insert>
+
+<select id="dataCount" parameterType="map" resultType="Integer">
+        SELECT NVL(COUNT(*),0) 
+		FROM prdQna q
+		JOIN member1 m ON m.userId=q.userId
+		WHERE prdNum=#{prdNum}
+</select>
+
+<select id="listQna" parameterType="map" resultType="com.sp.catdog.store.qna.Qna">
+	SELECT  q.qnaNum, q.prdNum, q.userId, userName, qnaContent,qnaSecret, qnaCategory, qnaCreated,
+	        qnaansContent, answerCreated
+	FROM prdQna q
+	JOIN member1 m ON m.userId=q.userId
+	LEFT OUTER JOIN prdQNAAnswer a ON q.qnaNum = a.qnaNum
+    ORDER BY q.qnaNum DESC
+    OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY	
+</select>
+
+<delete id="deleteQna">
+	DELETE FROM prdQna WHERE qnaNum = #{QnaNum}
+</delete>
+
+
+
+</mapper>

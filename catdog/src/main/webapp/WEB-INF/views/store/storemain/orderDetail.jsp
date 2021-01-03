@@ -98,9 +98,7 @@ ul{
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="text" name="userId" value="" maxlength="30" class="boxTF"
-		                      style="width: 95%;"
-		                      
-		                      placeholder="이름">
+		                      style="width: 30%; float: left;"  placeholder="이름">
 			        </p>
 			      </td>
 			  </tr>

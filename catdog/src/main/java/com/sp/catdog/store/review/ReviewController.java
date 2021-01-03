@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sp.catdog.common.MyUtil;
 
 @Controller("store.review.reviewController")
-@RequestMapping(value="/prdinfo/prdreview/*")
+@RequestMapping(value="/storemain/review/*")
 public class ReviewController {
 	@Autowired
 	private ReviewService service;
@@ -24,7 +24,7 @@ public class ReviewController {
 			Model model
 			) throws Exception {
 
-		return "prdinfo/review/list";
+		return "storemain/review/list";
 	}
 	
 	@RequestMapping(value="created")

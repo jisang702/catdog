@@ -4,48 +4,22 @@ package com.sp.catdog.store.qna;
 
 public class Qna {
 	private int qnaNum; //문의글번호
-	private String qnaSubject; //문의글제목
 	private String qnaContent; //문의글 내용
 	private String qnaImgFilename;//문의글 첨부
 	private int qnaSecret; //비밀글여부
 	private int qnaCategory;//카테고리 번호
 	private int prdNum; //상품번호
-	private String userId; //회원아이디
-	private Integer parent;
-	private int isAnswer;
-	private String created; //등록일
-	private String qnaAnswer; //문의글 내용
+	private String userId, userName; //회원아이디
+	private String qnaCreated; //등록일
 	
+	private String qnaansContent; //답글 내용
+	private String answerCreated; //등록일
 	
-	public String getCreated() {
-		return created;
-	}
-	public void setCreated(String created) {
-		this.created = created;
-	}
-	public Integer getParent() {
-		return parent;
-	}
-	public void setParent(Integer parent) {
-		this.parent = parent;
-	}
-	public int getIsAnswer() {
-		return isAnswer;
-	}
-	public void setIsAnswer(int isAnswer) {
-		this.isAnswer = isAnswer;
-	}
 	public int getQnaNum() {
 		return qnaNum;
 	}
 	public void setQnaNum(int qnaNum) {
 		this.qnaNum = qnaNum;
-	}
-	public String getQnaSubject() {
-		return qnaSubject;
-	}
-	public void setQnaSubject(String qnaSubject) {
-		this.qnaSubject = qnaSubject;
 	}
 	public String getQnaContent() {
 		return qnaContent;
@@ -83,12 +57,29 @@ public class Qna {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getQnaAnswer() {
-		return qnaAnswer;
+	public String getQnaCreated() {
+		return qnaCreated;
 	}
-	public void setQnaAnswer(String qnaAnswer) {
-		this.qnaAnswer = qnaAnswer;
+	public void setQnaCreated(String qnaCreated) {
+		this.qnaCreated = qnaCreated;
 	}
-	
+	public String getQnaansContent() {
+		return qnaansContent;
+	}
+	public void setQnaansContent(String qnaansContent) {
+		this.qnaansContent = qnaansContent;
+	}
+	public String getAnswerCreated() {
+		return answerCreated;
+	}
+	public void setAnswerCreated(String answerCreated) {
+		this.answerCreated = answerCreated;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	
 }

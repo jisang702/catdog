@@ -8,4 +8,5 @@ public interface BuyerService {
 	public int dataCount(Map<String, Object>map);
 	public Buyer readBuyer(int prdNum);
 	public void prdHitCount(int prdNum) throws Exception;
+	
 }

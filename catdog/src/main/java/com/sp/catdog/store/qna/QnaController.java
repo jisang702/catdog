@@ -18,7 +18,7 @@ import com.sp.catdog.common.MyUtil;
 import com.sp.catdog.member.SessionInfo;
 
 @Controller("store.qna.qnaController")
-@RequestMapping(value="/prdinfo/prdqna/*")
+@RequestMapping(value="/storemain/prdqna/*")
 public class QnaController {
 	@Autowired
 	private QnaService service;
@@ -42,7 +42,7 @@ public class QnaController {
 		total_page = MyUtil.pageCount(rows, dataCount);
 		if(total_page < current_page) {
 			current_page= total_page;
-	}
+		}
 		int offset=(current_page-1)*rows;
 		if(offset < 0) offset = 0;
 
@@ -53,6 +53,9 @@ public class QnaController {
 	
 		for(Qna dto:list) {
 			dto.setQnaContent(dto.getQnaContent().replaceAll("\n", "<br>"));
+			if(dto.getQnaansContent()!=null) {
+				dto.setQnaansContent(dto.getQnaansContent().replaceAll("\n", "<br>"));
+			}
 		}
 		
 		//ajax페이징 처리
@@ -63,26 +66,30 @@ public class QnaController {
 		model.addAttribute("paging",paging);
 		model.addAttribute("total_page",total_page);
 
-		return "prdinfo/prdqna/list";
+		return "store/storemain/qna/list";
 	}
 	
-	@RequestMapping(value="created", method = RequestMethod.POST)
+	@RequestMapping(value="created", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> createdSubmit(
+	public Map<String, Object> insertReply(
 			Qna dto,
 			HttpSession session
-			) throws Exception{
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String state = "true";
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String state="true";
+		
 		try {
 			dto.setUserId(info.getUserId());
 			service.insertQna(dto);
 		} catch (Exception e) {
-			state = "false";
+			state="false";
 		}
-		Map<String, Object> model=new HashMap<>();
+		
+		Map<String, Object> model = new HashMap<>();
 		model.put("state", state);
 		return model;
 	}
+	
+	
 
 }

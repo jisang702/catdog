@@ -41,7 +41,7 @@
       			</c:if>
       		</c:when>
       		<c:otherwise>
-      			<a href="javascript:articleBoard('${dto.Qnanum}', '${pageNo}');">${dto.qnaSubject}</a>
+      			<a href="javascript:articleBoard('${dto.qnaNum}', '${pageNo}');">${dto.qnaSubject}</a>
       		</c:otherwise>
       	</c:choose>
       </td>

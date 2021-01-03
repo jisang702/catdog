@@ -17,43 +17,54 @@
 	
 	<tbody id='listQnaBody'>
 
-
-
-	    <tr height='35' style='background: #eeeeee;'>
-	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
-	           <span><b>홍길동</b></span>
-	        </td>
-	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
-	           <span>2000-10-10</span> 
-	           
-	        </td>
-	    </tr>
-	    <tr>
-	        <td colspan='2' valign='top' style='padding:5px 5px;'>
-	              내용 입니다.
-	        </td>
-	    </tr>
-	    <tr>
-	        <td colspan='2' valign='top' style='padding:5px 5px 5px 15px;'>
-	            <div style="background: #e4e4e4;">
-	            	<div style='float: left; width: 5%;'>└</div>
-            		<div style='float: left; width:95%;'>
-            	    	답변입니다.
-            		</div>
-            	</div>
-	        </td>
-	    </tr>
+<c:forEach var="dto" items="${list}">
+	<c:choose>
+		<c:when test="${dto.qnaSecret==1 && sessionScope.member.userId != dto.userId}">
+			<tr height='35' style='background: #eeeeee;'>
+				<td colspan="2" style='padding:5px 5px;'>비밀글입니다.</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+		
+		    <tr height='35' style='background: #eeeeee;'>
+		       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
+		           <span><b>${dto.userName}</b></span>
+		        </td>
+		       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
+		           <span>
+		              ${dto.qnaCategory==1?"상품문의" : (dto.qnaCategory==2?"배송문의":"교환/환불")}
+		           </span> |
+		           <span>${dto.qnaCreated}</span> 
+		        </td>
+		    </tr>
+		    <tr>
+		        <td colspan='2' valign='top' style='padding:5px 5px;'>
+		             	${dto.qnaContent}
+		        </td>
+		    </tr>
+		    <c:if test="${not empty qnaansContent }">
+			    <tr>
+			        <td colspan='2' valign='top' style='padding:5px 5px 5px 15px;'>
+			            <div style="background: #e4e4e4;">
+			            	<div style='float: left; width: 5%;'>└</div>
+		            		<div style='float: left; width:95%;'>
+		            	    	${dto.qnaansContent}
+		            		</div>
+		            	</div>
+			        </td>
+			    </tr>
+		</c:if>
+		</c:otherwise>
+	</c:choose>
 	    
-	    
-	    
-	    
+</c:forEach>    
 	    
 	</tbody>
 	
 	<tfoot id='listQnaFooter'>
 		<tr height='40' align="center">
             <td colspan='2' >
-              1 2 3
+              ${paging }
             </td>
            </tr>
 	</tfoot>
