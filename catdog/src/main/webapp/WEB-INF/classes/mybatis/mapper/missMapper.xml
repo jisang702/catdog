@@ -15,7 +15,7 @@
 	
 	<insert id="insertPet" parameterType="com.sp.catdog.community.miss.Miss">
 		INSERT INTO comMissPet(missNum, petBreed, petName, petAge, petGender, petCharacter, petImg) VALUES (
-			#{missNum}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petCharacter}, #{petImg})
+			#{missNum}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petCharacter}, #{petImg} )
 	</insert>
 	
 </mapper>

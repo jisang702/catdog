@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sp.catdog.common.MyUtil;
 import com.sp.catdog.member.SessionInfo;
 
 @Controller("miss.missController")
@@ -18,9 +17,6 @@ import com.sp.catdog.member.SessionInfo;
 public class MissController {
 	@Autowired
 	private MissService service;
-	
-	@Autowired
-	private MyUtil myUtil;
 	
 	@RequestMapping("list")
 	public String list() throws Exception {
