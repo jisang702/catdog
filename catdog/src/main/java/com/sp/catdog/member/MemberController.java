@@ -45,6 +45,9 @@ public class MemberController {
 			
 		}
 		
+		if(dto!=null)
+			service.updateLastLogin(dto.getUserId());
+		
 		//세션에 로그인 정보 저장
 		SessionInfo info=new SessionInfo();
 		info.setUserId(dto.getUserId());

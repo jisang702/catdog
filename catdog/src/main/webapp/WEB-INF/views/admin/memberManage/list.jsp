@@ -165,12 +165,20 @@ function selectStateChange(){
 	f.memo.focus();
 	
 }
+
+function blacklist(){
+	var url="${pageContext.request.contextPath}/admin/memberManage/list";
+	var query="mode=black";
+	
+	location.href=url+"?"+query;
+	console.log("${mode}");
+}
 </script>
 
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
      <div class="body-title">
-         <h2><i class="fas fa-user"></i>&nbsp;회원 관리 </h2>
+         <h2>${mode=='black' ? "신고" : ""} 회원 관리 </h2>
      </div>
      
      <div>
@@ -188,7 +196,7 @@ function selectStateChange(){
 			          ${dataCount}명(${page}/${total_page} 페이지)
 			      </td>
 			      <td align="right">
-					  <button class="mybtn2" type="button" style="background: black; color: white">&nbsp;블랙&nbsp;</button>      	
+					  <button class="mybtn2" type="button" style="background: black; color: white" onclick="blacklist();">&nbsp;신고&nbsp;</button>      	
 			          <select id="selectEnabled" class="selectField" onchange="searchList();">
 			          		<option value="" ${userEnabled=="" ? "selected='selected'":""}>::계정상태::</option>
 			          		<option value="0" ${userEnabled=="0" ? "selected='selected'":""}>잠금 계정</option>

@@ -187,4 +187,15 @@
 	<select id="replyLikeUser" parameterType="map" resultType="Integer">
 		SELECT likeNo FROM comFreeReplyLike WHERE freeReplyNum=#{freeReplyNum} AND userId=#{userId}
 	</select>
+	
+	<!-- 신고 -->
+	<update id="updateUserReported" parameterType="String">
+		UPDATE member1 SET userReported=userReported+1 WHERE userId=#{userId}
+	</update>
+	
+	<insert id="insertReplyReport" parameterType="map">
+		INSERT INTO replyReport(num, boardType, articleNum, replyNum, userId, reportCode, memo, report_date, report_id)
+		VALUES(replyReport_seq.NEXTVAL, #{boardType}, #{articleNum}, #{replyNum}, #{userId}, #{reportCode}, #{memo}, SYSDATE, #{report_id} )
+	</insert>
+	
 </mapper>

@@ -25,6 +25,9 @@
 			<if test="userEnabled!='' ">
 				AND m1.userEnabled = #{userEnabled}
 			</if>
+			<if test="mode == 'black' ">
+				AND userReported &gt;=5
+			</if>
 			AND m1.userId != 'admin'
 		</where>	
 	</select>
@@ -61,7 +64,7 @@
 	
 	<select id="comList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m1.userNum, c.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported 
+				userTel, userEmail, userEnabled, userCreated, userLast, userReported 
 		FROM comMember c 
 		JOIN Member1 m1 on m1.userId=c.userId
 		JOIN member m on m.userNum=m1.userNum
@@ -72,6 +75,9 @@
 			<if test="userEnabled!='' ">
 				AND m1.userEnabled = #{userEnabled}
 			</if>
+			<if test="mode == 'black' ">
+				AND userReported &gt;=5
+			</if>
 			AND m1.userId != 'admin'
 		</where>
 		ORDER BY userCreated DESC	
@@ -80,7 +86,7 @@
 	
 	<select id="vetList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m1.userNum, v.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported 
+				userTel, userEmail, userEnabled, userCreated, userLast, userReported 
 		FROM vetMember v 
 		JOIN Member1 m1 on m1.userId=v.userId
 		JOIN member m on m.userNum=m1.userNum
@@ -99,7 +105,7 @@
 	
 	<select id="sellList" parameterType="map" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m1.userNum, s.userId, m1.userNick, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported 
+				userTel, userEmail, userEnabled, userCreated, userLast, userReported 
 		FROM sellMember s 
 		JOIN Member1 m1 on m1.userId=s.userId
 		JOIN member m on m.userNum=m1.userNum
@@ -118,7 +124,7 @@
 	
 	<select id="readComMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m.userNum, c.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast, userCreated  
 		FROM comMember c 
 		JOIN Member1 m1 on m1.userId=c.userId
 		JOIN member m on m.userNum=m1.userNum
@@ -127,7 +133,7 @@
 	
 	<select id="readVetMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m.userNum, v.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast, userCreated  
 		FROM vetMember v 
 		JOIN Member1 m1 on m1.userId=v.userId
 		JOIN member m on m.userNum=m1.userNum
@@ -136,7 +142,7 @@
 	
 	<select id="readSellMember" parameterType="String" resultType="com.sp.catdog.admin.memberManage.Member">
 		SELECT userType, userOk, m.userNum, s.userId, m1.userNick, m1.userName, TO_CHAR(userBirth, 'YYYY-MM-DD') userBirth, 
-				userTel, userEmail, userEnabled, userReported, userUpdate, userLast  
+				userTel, userEmail, userEnabled, userReported, userUpdate, userLast, userCreated  
 		FROM sellMember s 
 		JOIN Member1 m1 on m1.userId=s.userId
 		JOIN member m on m.userNum=m1.userNum

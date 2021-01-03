@@ -27,6 +27,23 @@ public class MemberManageController {
 	@Autowired
 	private MyUtil myUtil;
 	
+	@RequestMapping("analysis")
+	public String analysis(Model model) throws Exception{
+		model.addAttribute("subMenu", 1);
+
+		return ".admin4.admin.memberManage.analysis";
+	}
+	
+	@RequestMapping("ageAnalysis")
+	@ResponseBody
+	public Map<String, Object> listAgeSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> list=service.listAgeSection();
+		model.put("list", list);
+		return model;
+	}
+	
 	@RequestMapping(value = "list")
 	public String list(
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -34,6 +51,7 @@ public class MemberManageController {
 			@RequestParam(defaultValue = "userId") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			@RequestParam(defaultValue = "") String userEnabled,
+			@RequestParam(defaultValue = "") String mode,
 			HttpServletRequest req,
 			Model model
 			) throws Exception{
@@ -54,6 +72,7 @@ public class MemberManageController {
 		map.put("keyword", keyword);
 		
 		if(group.equals("comMember")) {
+			map.put("mode", mode);
 			dataCount=service.comDataCount(map);
 		}else if(group.equals("vetMember")) {
 			dataCount=service.vetDataCount(map);
@@ -103,6 +122,10 @@ public class MemberManageController {
 				query="userEnabled="+userEnabled;
 		}
 		
+		if(mode.length()!=0) {
+			query+="&mode="+mode;
+		}
+		
 		if(query.length()!=0) {
 			listUrl=listUrl+"?"+query;
 		}
@@ -115,10 +138,11 @@ public class MemberManageController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
 		model.addAttribute("group", group);
+		model.addAttribute("mode", mode);
 		model.addAttribute("userEnabled", userEnabled);
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
-		model.addAttribute("subMenu", 1);
+		model.addAttribute("subMenu", 2);
 
 		return ".admin4.admin.memberManage.list";
 	}
@@ -206,22 +230,7 @@ public class MemberManageController {
 	}
 	
 	
-	@RequestMapping("analysis")
-	public String analysis(Model model) throws Exception{
-		model.addAttribute("subMenu", 2);
-
-		return ".admin4.admin.memberManage.analysis";
-	}
 	
-	@RequestMapping("ageAnalysis")
-	@ResponseBody
-	public Map<String, Object> listAgeSection() throws Exception{
-		Map<String, Object> model = new HashMap<>();
-		
-		List<Analysis> list=service.listAgeSection();
-		model.put("list", list);
-		return model;
-	}
 	
 	
 }

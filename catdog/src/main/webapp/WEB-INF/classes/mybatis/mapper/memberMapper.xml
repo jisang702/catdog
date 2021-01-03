@@ -9,6 +9,10 @@
 		WHERE userId=#{userId}
 	</select>
 	
+	<update id="updateLastLogin" parameterType="String">
+		UPDATE member1 SET userLast=SYSDATE WHERE userId=#{userId}
+	</update>
+	
 	<select id="loginMemberState" parameterType="String" resultType="com.sp.catdog.member.Member">
 		SELECT m.userId, memo, userEnabled
 		FROM memberState m

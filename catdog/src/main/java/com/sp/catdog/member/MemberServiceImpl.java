@@ -39,7 +39,12 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void updateLastLogin(String userId) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("member.updateLastLogin", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
