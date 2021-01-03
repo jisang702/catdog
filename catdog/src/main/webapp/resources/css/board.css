@@ -782,8 +782,8 @@ button {
 .photoFilter .floatright label {
 	display: inline-block;
     position: relative;
-    line-height: 45px;
     vertical-align: middle;
+    line-height: 45px;
     cursor: pointer;
     overflow: hidden;
     margin-left: 3px;
