@@ -6,71 +6,183 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sp.catdog.common.FileManager;
 import com.sp.catdog.common.dao.CommonDAO;
+import com.sp.catdog.community.freeboard.Reply;
 
 @Service("miss.missService")
 public class MissServiceImpl implements MissService {
 	@Autowired
 	private CommonDAO dao;
+	
+	@Autowired
+	private FileManager fileManager;
 
 	@Override
 	public void insertMiss(Miss dto, String pathname) throws Exception {
 		try {
+			if(dto.getMissWhere1().length()!=0 && dto.getMissWhere2().length()!=0) {
+				dto.setMissWhere(dto.getMissWhere1()+"/"+dto.getMissWhere2());
+			}
+			
+			if(dto.getYear().length()!=0 && dto.getMonth().length()!=0 && dto.getDay().length()!=0) {
+				dto.setMissWhen(dto.getYear()+"/"+dto.getMonth()+"/"+dto.getDay());
+			}
+			
+			if(dto.getPetGender1().length()!=0 && dto.getPetGender2().length()!=0) {
+				dto.setPetGender(dto.getPetGender1()+"("+dto.getPetGender2()+")");
+			}
+			
 			int seq=dao.selectOne("miss.seq");
 			dto.setMissNum(seq);
-			
+
 			dao.insertData("miss.insertMiss", dto);
+			
+			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename!=null) {
+				dto.setPetImg(saveFilename);
+
+				dao.insertData("miss.insertMissPet", dto);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("miss.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return result;
+	}
+
+	@Override
+	public List<Miss> listMiss(Map<String, Object> map) {
+		List<Miss> list=null;
+		try {
+			list=dao.selectList("miss.listMiss", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void updateMiss(Miss dto, String pathname) throws Exception {
+		try {
+			dao.updateData("miss.updateMiss", dto);
+			
+			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
+			if(saveFilename!=null) {
+				dto.setPetImg(saveFilename);
+
+				dao.updateData("miss.updateMissPet", dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteMiss(int missNum, String pathname) throws Exception {
+		try {
+			dao.deleteData("miss.deleteMiss", missNum);
+			dao.deleteData("miss.deleteMissPet", missNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateHitCount(int missNum) throws Exception {
+		try {
+			dao.updateData("miss.updateHitCount", missNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Miss readMiss(int missNum) {
+		Miss dto=null;
+		try {
+			dto=dao.selectOne("miss.readMiss", missNum);
+			
+			if(dto!=null) {
+				if(dto.getMissWhere()!=null) {
+					String [] s=dto.getMissWhere().split("/");
+					dto.setMissWhere1(s[0]);
+					dto.setMissWhere2(s[1]);
+				}
+
+				if(dto.getMissWhen()!=null) {
+					String [] s=dto.getMissWhen().split("-");
+					dto.setYear(s[0]);
+					dto.setMonth(s[1]);
+					dto.setDay(s[2]);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public Miss preReadMiss(Map<String, Object> map) {
+		Miss dto=null;
+		try {
+			dto=dao.selectOne("miss.preReadMiss", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public Miss nextReadMiss(Map<String, Object> map) {
+		Miss dto=null;
+		try {
+			dto=dao.selectOne("miss.nextReadMiss", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void insertReply(Reply dto) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Reply> listReply(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<Miss> listMiss(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateMiss(Miss dto, String pathname) throws Exception {
+	public void updateReply(Reply dto) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteMiss(int missNum, String pathname) throws Exception {
+	public void deleteReply(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void updateHitCount(int missNum) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Miss readMiss(int missNum) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Miss preReadMiss(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Miss nextReadMiss(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

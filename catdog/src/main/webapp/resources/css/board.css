@@ -801,6 +801,7 @@ button {
 	font-size: 20px;
 	color: #a2a2a2;
 	margin: 10px;
+	padding: 10px;
 }
 
 .missInfo li {
@@ -809,4 +810,62 @@ button {
 
 .missLayout input[type=text] {
 	padding-left: 10px;
+}
+
+.missBody {
+	margin: 30px 0px;
+}
+
+.missList ul li {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.missList {
+	padding: 10px 0px;
+	border-bottom: 1px solid #dadada;
+}
+
+.missList img {
+	width: 100px;
+	height: 100px;
+}
+
+.missPetInfo {
+	text-align: left;
+	margin-left: 10px; 
+}
+
+.missPetInfo ul li {
+	line-height: 30px;
+}
+
+.selectMiss {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 3px solid #dadada;
+	text-align: left;
+}
+
+.selectMiss select {
+	outline: 0;
+	border: 1px solid #a2a2a2;
+	padding: 10px;
+}
+
+.miss-articleimg img {
+	width: 500px;
+    height: 370px;
+    margin-top: 20px;
+}
+
+.missUserInfo {
+	padding: 15px 10px;
+	border-top: 1px solid #dadada;
+	display: flex;
+	justify-content: space-between;
+}
+
+.missUserInfo ul {
+	display: inline-block;
 }

@@ -40,61 +40,49 @@ function ajaxHTML(url, method, query, selector) {
 				</li>
 			</ul>
 		</div>
-		<div class="fleaLayout">
+		<div class="missBody">
+			<div class="selectMiss">
+				<ul>
+					<li>
+						<select>
+							<option value="전체">모든 지역</option>
+						</select>
+					</li>
+				</ul>
+			</div>
 			<c:forEach var="dto" items="${list}">
-			<div class="fleamarket">
-				<div>
-					<div class="fleamarket-img">
-						<a href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">
-						<c:choose>
-							<c:when test="${not empty dto.imgFileName}">
-								<img src="${dto.imgFileName}">
-							</c:when>
-							<c:otherwise>
-								<img src="${pageContext.request.contextPath}/resources/css/images/noimage.gif">
-							</c:otherwise>
-						</c:choose>
-						<c:if test="${dto.dealState==3}">							
-							<div class="listimg-cover">
-								<div>거래완료</div>
-							</div>
-						</c:if>
-						</a>
-					</div>
-				</div>
-				<div>
-					<ul>
-						<li style="font-weight: bold; font-size: 20px;">
-						<a style="vertical-align: middle;" href="${pageContext.request.contextPath}/community/deal/article?page=${page}&dealNum=${dto.dealNum}">${dto.dealSubject}</a>
-						<c:if test="${dto.dealState==2}">
-			    			<span class="dealState" style="background: #409444;">
-					   			예약중
-					   		</span>					   	
-						</c:if>
-						</li>
-					</ul>
-					<ul>
-						<li class="dealCreated" style="color:#a2a2a2;">
-							${dto.dealCreated}
-						</li>
-					</ul>
-					<ul class="fleaprice">
-						<li>
-							<i class="far fa-eye"><span class=""> ${dto.dealHitCount} </span> </i>
-							<i class="far fa-comments"><span class=""> ${dto.replyCount} </span> </i>
-						</li>
-						<li style="font-weight: bold; font-size:24px; color:#71da65;">${dto.dealPrice}원</li>
-					</ul>
-				</div>
+			<div class="missList">
+				<ul>
+					<li style="width: 5%;">${dto.num}</li>
+					<li><img src="${pageContext.request.contextPath}/uploads/miss/${dto.petImg}"></li>
+					<li style="width: 65%;">
+						<div class="missPetInfo">
+							<ul><li style="font-size: 16px;">
+								<a href="${pageContext.request.contextPath}/community/miss/article?page=${page}&missNum=${dto.missNum}">${dto.missSubject}</a>
+							</li></ul>
+							<ul>
+								<li>${dto.petName}</li>
+								<li>(${dto.petAge}) / </li>
+								<li>${dto.petGender}</li>
+							</ul>
+							<ul>
+								<li><i class="fas fa-map-marker-alt"></i> ${dto.missWhere} |</li>
+								<li>${dto.missWhen} 실종</li>
+							</ul>
+						</div>
+					</li>
+					<li style="width: 10%;">${dto.missCreated}</li>
+					<li style="width: 5%;">${dto.missHitCount}</li>
+				</ul>
 			</div>
 			</c:forEach>
-		</div>
+		</div>		
 		<div style="margin: 20px;">
 			<p> ${dataCount==0?"<p style=\"margin: 100px;\">등록된 게시물이 없습니다.</p>":paging} </p>
 		</div>
 		<div class="fleabtn listfooter" style="margin-top: 30px;">
 			<a type="button" class="mybtn1" href="javascript:location.href='${pageContext.request.contextPath}/community/miss/list'">새로고침</a>
-			<form name="searchForm" action="${pageContext.request.contextPath}/community/deal/list" method="post">
+			<form name="searchForm" action="${pageContext.request.contextPath}/community/miss/list" method="post">
 				<span>
 					<select name="condition">
 						<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>

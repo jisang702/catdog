@@ -7,15 +7,89 @@
 	</select>
 	
 	<insert id="insertMiss" parameterType="com.sp.catdog.community.miss.Miss">
-		INSERT INTO comMiss(missNum, missSubject, missCreated, missWhere, missWhen, missContent
+		INSERT INTO comMiss(missNum, missSubject, missCreated, missWhere, missWhen, missContent,
 			missPet, missHitCount, userId, state, missWhereLat, missWhereLng) VALUES (
 				#{missNum}, #{missSubject}, SYSDATE, #{missWhere}, #{missWhen}, #{missContent},
-				#{missPet}, 0, userId, #{state}, #{missWhereLat}, #{missWhereLng})
+				#{missPet}, 0, #{userId}, #{state}, #{missWhereLat}, #{missWhereLng})
 	</insert>
 	
-	<insert id="insertPet" parameterType="com.sp.catdog.community.miss.Miss">
+	<insert id="insertMissPet" parameterType="com.sp.catdog.community.miss.Miss">
 		INSERT INTO comMissPet(missNum, petBreed, petName, petAge, petGender, petCharacter, petImg) VALUES (
 			#{missNum}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petCharacter}, #{petImg} )
 	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comMiss s
+		JOIN member1 m ON m.userId=s.userId	
+	</select>
+	
+	<select id="listMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
+		SELECT s.missNum, missSubject, to_char(missCreated, 'YYYY-MM-DD') missCreated,
+			missHitCount, missWhere, to_char(missWhen, 'YYYY-MM-DD') missWhen, missPet, 
+			petName, petAge, petGender, petImg
+		FROM comMiss s
+		LEFT OUTER JOIN (
+			SELECT missNum, petName, petAge, petGender, petImg
+			FROM comMissPet
+		) n ON s.missNum=n.missNum
+		ORDER BY missNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<update id="updateHitCount" parameterType="Integer">
+		UPDATE comMiss SET missHitCount=missHitCount+1 WHERE missNum=#{missNum}
+	</update>
+	
+	<select id="readMiss" parameterType="Integer" resultType="com.sp.catdog.community.miss.Miss">
+		SELECT s.missNum, s.userId, userNick, missSubject, missContent, to_char(missCreated, 'YYYY-MM-DD') missCreated,
+			missHitCount, missWhere, to_char(missWhen, 'YYYY-MM-DD') missWhen, state, missWhereLat, missWhereLng,
+			petBreed, petName, petAge, petGender, petCharacter, petImg
+		FROM comMiss s
+		JOIN member1 m ON s.userId=m.userId
+		LEFT OUTER JOIN (
+			SELECT missNum, petBreed, petName, petAge, petGender, petImg, petCharacter
+			FROM comMissPet
+		) n ON s.missNum=n.missNum
+		WHERE s.missNum=#{missNum}
+	</select>
+	
+	<select id="preReadMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
+		SELECT missNum, p.userId
+		FROM comMiss p
+		JOIN member1 m ON p.userId=m.userId
+		WHERE (missNum &gt; #{missNum})
+		ORDER BY missNum ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<select id="nextReadMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
+		SELECT missNum, p.userId
+		FROM comMiss p
+		JOIN member1 m ON p.userId=m.userId
+		WHERE (missNum &lt; #{missNum})
+		ORDER BY missNum DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<delete id="deleteMiss" parameterType="Integer">
+		DELETE FROM comMiss WHERE missNum=#{missNum}
+	</delete>
+	
+	<delete id="deleteMissPet" parameterType="Integer">
+		DELETE FROM comMissPet WHERE missNum=#{missNum}
+	</delete>
+	
+	<update id="updateMiss"	parameterType="com.sp.catdog.community.miss.Miss">
+		UPDATE comMiss SET missSubject=#{missSubject}, missContent=#{missContent}, missWhere=#{missWhere},
+			missWhen=#{missWhen}, missWhereLat=#{missWhereLat}, missWhereLng=#{missWhereLat}, missPet=#{missPet}
+		WHERE missNum=#{missNum}
+	</update>
+	
+	<update id="updateMissPet" parameterType="com.sp.catdog.community.miss.Miss">
+		UPDATE comMissPet SET petBreed=#{petBreed}, petName=#{petName}, petAge=#{petAge},
+			petGender=#{petGender}, petCharacter=#{petCharacter}, petImg=#{petImg}
+		WHERE missNum=#{missNum}
+	</update>
 	
 </mapper>

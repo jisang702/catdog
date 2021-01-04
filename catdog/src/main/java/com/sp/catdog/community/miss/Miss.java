@@ -1,5 +1,7 @@
 package com.sp.catdog.community.miss;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Miss {
 	private int missNum;
 	private int num;
@@ -29,8 +31,14 @@ public class Miss {
 	private String petName;
 	private String petAge;
 	private String petGender;
+	private String petGender1;
+	private String petGender2;
 	private String petCharacter;
-	private String petimg;
+	
+	private String petImg;
+	private MultipartFile upload;
+	
+	private int replyCount;
 	
 	public int getMissNum() {
 		return missNum;
@@ -170,17 +178,42 @@ public class Miss {
 	public void setPetGender(String petGender) {
 		this.petGender = petGender;
 	}
+	
 	public String getPetCharacter() {
 		return petCharacter;
 	}
 	public void setPetCharacter(String petCharacter) {
 		this.petCharacter = petCharacter;
 	}
-	public String getPetimg() {
-		return petimg;
+	public MultipartFile getUpload() {
+		return upload;
 	}
-	public void setPetimg(String petimg) {
-		this.petimg = petimg;
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+	}
+	public String getPetImg() {
+		return petImg;
+	}
+	public void setPetImg(String petImg) {
+		this.petImg = petImg;
+	}
+	public String getPetGender1() {
+		return petGender1;
+	}
+	public void setPetGender1(String petGender1) {
+		this.petGender1 = petGender1;
+	}
+	public String getPetGender2() {
+		return petGender2;
+	}
+	public void setPetGender2(String petGender2) {
+		this.petGender2 = petGender2;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 	
 	
