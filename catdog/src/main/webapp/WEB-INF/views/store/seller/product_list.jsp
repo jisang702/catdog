@@ -31,8 +31,8 @@ ul{
 	list-style: none;
 }
 .imgLayout{
-	width:180px;
-	height: 205px;
+	width:250px;
+	height: 255px;
 	padding: 10px 5px 10px;
 	margin: 5px;
 	border: none;
@@ -40,8 +40,8 @@ ul{
 	border: 1px solid #fff;
 }
 .imgbox{
- width: 180px;
- height: 180px;
+ width: 200px;
+ height: 200px;
  border-radius: 20px 20px 20px 20px;
 }
  img{
@@ -66,7 +66,7 @@ function article(prdNum) {
 
 <br>
 <br><br>
-<h1 align="center">${gubun=="dog"?"댕댕이":"냥냥이"} 스토어</h1>
+<h1 align="center">판매 리스트</h1>
 <br>
 <h2 align="center">사료</h2>
 <div>
@@ -93,7 +93,7 @@ function article(prdNum) {
 
 
 <div style="margin:auto;">
-	<table style=" margin: 70px 0px auto; border-spacing: 0px;">
+	<table style=" margin: 100px auto; border-spacing: 0px;">
 		<c:forEach var="dto" items="${product_list}" varStatus="status">
 			<c:if test="${status.index==0}">
 				<tr>
@@ -110,7 +110,7 @@ function article(prdNum) {
 					</div>
 					<span class="subject" onclick="javascript:article('${dto.prdNum}');">제목: ${dto.prdName}</span>
 						<br>
-					<span>가격 :${dto.prdPrice }</span>
+					<span>가격 :${dto.prdPrice }</span> 
 						<br>
 					<span>조회수:${dto.prdHitCount} </span>
 				</div>
@@ -119,7 +119,7 @@ function article(prdNum) {
 		
 		<c:set var="n" value="${list.size()}"/>
 		<c:if test="${n>0&&n%3!=0}">
-		    <c:forEach var="i" begin="${n%3+1}" end="1" step="1">
+		    <c:forEach var="i" begin="${n%3+1}" end="3" step="1">
 				<td width="210">
 					<div class="imgLayout">&nbsp;</div>
 				</td>
@@ -134,7 +134,7 @@ function article(prdNum) {
 	<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 		<tr height="35">
 			<td align="center">
-				${dataCount==0?"등록된 게시물이 없습니다.":paging}
+				${dataCount==0?"등록된 상품이 없습니다.":paging}
 			</td>
 		 </tr>
 	</table>

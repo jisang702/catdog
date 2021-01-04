@@ -46,7 +46,9 @@ $(function() {
 	            </li>
 	            <li class="menu1"><a href="#">장바구니</a></li>
 	            <li class="menu2"><a href="${pageContext.request.contextPath}/commu">커뮤니티</a></li>
-	            <li class="menu2"><a href="${pageContext.request.contextPath}/store/seller/main/product">판매자메뉴</a></li>
+	            <c:if test="${sessionScope.member.userType=='3'}">
+	            	<li class="menu2"><a href="${pageContext.request.contextPath}/store/seller/main/product">판매자메뉴</a></li>
+	         	</c:if>
 	         </ul>
 		</div>
 	</div>

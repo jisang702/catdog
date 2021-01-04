@@ -89,7 +89,7 @@ public class StoreProductController {
 		
 		String cp = req.getContextPath();
 		
-		int rows = 30;
+		int rows = 9;
 		int total_page = 0;
 		int dataCountProduct = 0;
 		
@@ -148,7 +148,7 @@ public class StoreProductController {
 		
 		
 		// return ".store.seller.list";
-		return ".four.store.seller.product_list";
+		return ".seller.store.seller.product_list";
 	}
 	
 	// 상품 판매 글보기

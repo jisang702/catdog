@@ -64,8 +64,9 @@
 				<include refid="where-list"/>
 			</if>
 		</where>
+		ORDER BY p.prdNum DESC
+	    OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY	
 	</select>
-	
 	
 	
 	<insert id="insertCategory" parameterType="com.sp.catdog.seller.StoreProduct">
@@ -114,5 +115,7 @@
 		ORDER BY prdNum DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
+	
+
 	
 </mapper>

@@ -12,7 +12,7 @@ public class SellerController {
 	@RequestMapping("product")
 	public String productPage(Model model) throws Exception {
 		model.addAttribute("subMenu", 1);
-		// return ".four.store.seller.list";
+		// return ".seller.store.seller.product_list";
 		return "redirect:/store/seller/product_list";
 		
 	}
@@ -31,7 +31,8 @@ public class SellerController {
 	public String productQna(Model model) throws Exception {
 		model.addAttribute("subMenu", 3);
 		
-		return ".four.store.seller.qna";
+		// return ".seller.store.seller.qna_list";
+		return "redirect:/store/seller/qna/qna_list";
 	}
 	
 	// 배송관리
@@ -39,7 +40,7 @@ public class SellerController {
 	public String productShip(Model model) throws Exception {
 		model.addAttribute("subMenu", 4);
 		
-		return ".four.store.seller.ship";
+		return ".seller.store.seller.ship";
 		
 	}		
 	

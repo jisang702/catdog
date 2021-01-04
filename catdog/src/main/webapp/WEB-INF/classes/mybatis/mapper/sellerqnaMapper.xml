@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StoreSellerQna">
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+				( INSTR(subject, #keyword) &gt; 0)
+					OR DMBS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</when>
+			
+			<when test="condition == 'created' ">
+				(TO_CHAR(created, 'YYYYMMDD' ") = #{keyword}
+					OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
+			</when>
+			
+			<when test="condition == 'content' ">
+				DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+
+	
+	<!-- 여기부터 QnA -->
+	<!-- 문의 답변 글번호 -->
+
+	<insert id="prdQnainsertAnswer" parameterType="com.sp.catdog.seller.qna.StoreQna">
+		INSERT INTO prdQnaAnswer (qnaNum, qnaAnsContent, userId, qnaAnswerCreated)
+			VALUES (#{qnaNum}, #{qnaAnsContent}, #{userId}, SYSDATE)
+	</insert>
+	
+	<select id="prdQnadataCount" parameterType="map" resultType="Integer">
+        SELECT NVL(COUNT(*),0) 
+		FROM prdQna q
+		JOIN product p ON q.prdNum = p.prdNum
+		JOIN member1 m ON m.userId=q.userId
+		LEFT OUTER JOIN prdQNAAnswer a ON q.qnaNum = a.qnaNum
+		WHERE p.userId = #{sellerId}
+	</select>
+	
+	<select id="prdQnalist" parameterType="map" resultType="com.sp.catdog.seller.qna.StoreQna">
+		SELECT  q.qnaNum, q.prdNum, prdName, q.userId, userName, qnaContent,qnaSecret, qnaCategory, qnaCreated,
+        qnaAnsContent, answerCreated
+		FROM prdQna q
+		JOIN product p ON q.prdNum = p.prdNum
+		JOIN member1 m ON m.userId=q.userId
+		LEFT OUTER JOIN prdQNAAnswer a ON q.qnaNum = a.qnaNum
+		WHERE p.userId = #{sellerId}
+	    ORDER BY q.qnaNum DESC
+	    OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY	
+	</select>
+	
+</mapper>

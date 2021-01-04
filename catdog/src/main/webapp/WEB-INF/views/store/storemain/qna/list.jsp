@@ -19,12 +19,6 @@
 
 <c:forEach var="dto" items="${list}">
 	<c:choose>
-		<c:when test="${dto.qnaSecret==1 && sessionScope.member.userId != dto.userId}">
-			<tr height='35' style='background: #eeeeee;'>
-				<td colspan="2" style='padding:5px 5px;'>비밀글입니다.</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
 		
 		    <tr height='35' style='background: #eeeeee;'>
 		       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
@@ -54,7 +48,7 @@
 			        </td>
 			    </tr>
 		</c:if>
-		</c:otherwise>
+
 	</c:choose>
 	    
 </c:forEach>    

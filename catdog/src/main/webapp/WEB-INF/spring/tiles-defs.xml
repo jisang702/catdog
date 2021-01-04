@@ -25,6 +25,27 @@
 	  	<put-attribute name="left" value="/WEB-INF/views/{1}/left.jsp" />
    	    <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
+	
+	<!-- 4 단 판매자 -->
+	<definition name=".sellerLayout" template="/WEB-INF/views/layout/layout4.jsp">
+	    <put-attribute name="title" value="spring" />
+	  	<put-attribute name="header" value="/WEB-INF/views/store/layout/header.jsp" />
+	  	<put-attribute name="left" value="/WEB-INF/views/menu1/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+	</definition>
+	<definition name=".seller.*.*.*" extends=".sellerLayout">
+	  	<put-attribute name="left" value="/WEB-INF/views/{1}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	<definition name=".seller.*.*" extends=".sellerLayout">
+	  	<put-attribute name="left" value="/WEB-INF/views/{1}/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	<definition name=".seller.*" extends=".sellerLayout">
+	  	<put-attribute name="left" value="/WEB-INF/views/{1}/left.jsp" />
+   	    <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
 
     <!-- 4 단 관리자 -->
 	<definition name=".admin4Layout" template="/WEB-INF/views/admin/layout/layout4.jsp">
@@ -101,4 +122,6 @@
 	<definition name=".*" extends=".mainLayout">
     	  <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
+	
+	
 </tiles-definitions>
