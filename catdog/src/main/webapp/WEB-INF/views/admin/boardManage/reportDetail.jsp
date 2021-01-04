@@ -9,7 +9,7 @@
 	    <td align="right" width="15%" style="padding-right: 7px;"><label style="font-weight: 900;">번호</label></td>
 	    <td align="left" width="35%" style="padding-left: 5px;"><span>${dto.num}</span></td>
 	    <td align="right" width="15%" style="padding-right: 7px;"><label style="font-weight: 900;">게시판</label></td>
-	    <td align="left" width="35%" style="padding-left: 5px;"><span>${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : "비디오") } </span></td>
+	    <td align="left" width="35%" style="padding-left: 5px;"><span>${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : (dto.boardType=="vid" ? "비디오" : "포토")) } </span></td>
 	</tr>
 	<tr height="37" style="background: #ffffff;">
 	    <td align="right" width="15%" style="padding-right: 7px;"><label style="font-weight: 900;">아이디</label></td>

@@ -67,6 +67,8 @@ function send(boardType, num){
 		url+="/community/board/article?freeNum="+num;		
 	}else if(boardType == "deal"){
 		url+="/community/deal/article?dealNum="+num;		
+	}else if(boardType == "photo"){
+		url+="/community/photo/article?photoNum="+num;		
 	}else if(boardType == "vid"){
 		url+="/doctor/video/article?vidNum="+num;		
 	}
@@ -81,6 +83,8 @@ function deleteArticle(boardType, num){
 		query="tableName=comFree&numName=freeNum&num="+num;	
 	}else if(boardType == "deal"){
 		query="tableName=comDeal&numName=dealNum&num="+num;		
+	}else if(boardType == "photo"){
+		query="tableName=comPhoto&numName=photoNum&num="+num;		
 	}else if(boardType == "vid"){
 		query="tableName=vetVideo&numName=vidNum&num="+num;		
 	}
@@ -118,6 +122,7 @@ function deleteArticle(boardType, num){
 			          		<option value="" ${boardType=="" ? "selected='selected'":""}>::게시판::</option>
 			          		<option value="free" ${boardType=="free" ? "selected='selected'":""}>자유게시판</option>
 			          		<option value="deal" ${boardType=="deal" ? "selected='selected'":""}>중고거래</option>
+			          		<option value="photo" ${boardType=="photo" ? "selected='selected'":""}>포토갤러리</option>
 			          		<option value="vid" ${boardType=="vid" ? "selected='selected'":""}>비디오</option>
 			          </select>
 			      </td>
@@ -142,7 +147,7 @@ function deleteArticle(boardType, num){
 				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
 				      onclick="detailMember('${dto.userId}');"> 
 				      <td style="padding: 0;">${dto.listNum}</td>
-				      <td style="padding: 0;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : "비디오") } </td>
+				      <td style="padding: 0;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : (dto.boardType=="vid" ? "비디오" : "포토") ) } </td>
 				      <td style="padding: 0;"><a class="subject" onclick="send('${dto.boardType}','${dto.num}');">${dto.subject}</a></td>
 				      <td style="padding: 0;">${dto.userId}</td>
 				      <td style="padding: 0;">${dto.created}</td>

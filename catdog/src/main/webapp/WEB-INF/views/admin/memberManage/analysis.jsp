@@ -5,10 +5,10 @@
 
 <style>
 #chart-container {
-	width: 476px;
+	width: 600px;
 	box-sizing: border-box;
 	padding: 20px;
-	height: 400px;
+	height: 600px;
 	border: 1px solid #ccc;
 	margin: 10px auto;
 	text-align: center;
@@ -68,12 +68,14 @@ $(function(){
 
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
-	     <div class="body-title">
-	         <h3><i class="fas fa-user"></i>&nbsp;회원 분석 </h3>
-	     </div>
-	     
-	     <div>
-	     	<div id="chart-container"></div>
+	     <div class="mypage2">
+	     	<div class="mypagetab">
+	     		<p>회원 분석</p>
+	     	</div>
+	     	
+	     	<div id="chart-container">
+	     	
+	     	</div>
 	     </div>
 	     
 	</div>

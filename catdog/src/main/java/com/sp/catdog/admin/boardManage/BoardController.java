@@ -25,6 +25,33 @@ public class BoardController {
 	@Autowired
 	private MyUtil myUtil;
 	
+	@RequestMapping("analysis")
+	public String analysis(Model model) throws Exception{
+		model.addAttribute("subMenu", 1);
+		return ".admin4.admin.boardManage.analysis";
+	}
+	
+	@RequestMapping("boardAnalysis")
+	@ResponseBody
+	public Map<String, Object> listBoardSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> deal=service.listDealSection();
+		List<Analysis> photo=service.listPhotoSection();
+		List<Analysis> free=service.listFreeSection();
+		List<Analysis> miss=service.listMissSection();
+		List<Analysis> video=service.listVideoSection();
+		
+	
+		model.put("deal", deal);
+		model.put("photo", photo);
+		model.put("free", free);
+		model.put("miss", miss);
+		model.put("video", video);
+		
+		return model;
+	}
+	
 	@RequestMapping("listArticle")
 	public String listArticle(
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -37,7 +64,7 @@ public class BoardController {
 		
 		String cp=req.getContextPath();
 		
-		int rows=10;
+		int rows=15;
 		int total_page=0;
 		int articleCount=0;
 		
@@ -93,7 +120,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 2);
+		model.addAttribute("subMenu", 3);
 
 		return ".admin4.admin.boardManage.articlelist";
 	};
@@ -137,7 +164,7 @@ public class BoardController {
 		
 		String cp=req.getContextPath();
 		
-		int rows=10;
+		int rows=15;
 		int total_page=0;
 		int replyCount=0;
 		
@@ -193,7 +220,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 3);
+		model.addAttribute("subMenu", 4);
 
 		return ".admin4.admin.boardManage.replylist";
 	};
@@ -210,7 +237,7 @@ public class BoardController {
 		
 		String cp=req.getContextPath();
 		
-		int rows=10;
+		int rows=15;
 		int total_page=0;
 		int replyReportCount=0;
 		
@@ -266,7 +293,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 4);
+		model.addAttribute("subMenu", 5);
 
 		return ".admin4.admin.boardManage.replyReportList";
 	};
@@ -290,30 +317,5 @@ public class BoardController {
 		return "admin/boardManage/reportDetail";
 	}
 	
-	@RequestMapping("analysis")
-	public String analysis(Model model) throws Exception{
-		model.addAttribute("subMenu", 5);
-		return ".admin4.admin.boardManage.analysis";
-	}
 	
-	@RequestMapping("boardAnalysis")
-	@ResponseBody
-	public Map<String, Object> listBoardSection() throws Exception{
-		Map<String, Object> model = new HashMap<>();
-		
-		List<Analysis> deal=service.listDealSection();
-		List<Analysis> photo=service.listPhotoSection();
-		List<Analysis> free=service.listFreeSection();
-		List<Analysis> miss=service.listMissSection();
-		List<Analysis> video=service.listVideoSection();
-		
-	
-		model.put("deal", deal);
-		model.put("photo", photo);
-		model.put("free", free);
-		model.put("miss", miss);
-		model.put("video", video);
-		
-		return model;
-	}
 }

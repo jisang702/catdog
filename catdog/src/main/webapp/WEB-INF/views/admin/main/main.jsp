@@ -25,6 +25,11 @@
     float: left;
     font-weight: bold;
 }
+
+.send:hover{
+	cursor: pointer;
+	color: tomato;
+}
 </style>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -140,14 +145,86 @@ $(function(){
     				
     		</div>
     	</div>
+    	
     	<div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
-    			
+    		<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규회원</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/list'">  + 더보기</span>
+        		</p>
+        	</div>
+    		<table class="listtable1" style="width: 100%">
+	    	 <thead>
+	               <tr align="center"  height="20" style="padding: 0"> 
+				      <th style="width: 120px; color: #787878;" >유형</th>
+				      <th style="width: 250px; color: #787878;">아이디</th>
+				      <th style="width: 120px; color: #787878;">닉네임</th> 
+				  </tr>
+			 </thead>
+			 <tbody class="board-list">
+			 	<c:forEach var="dto" items="${newUserList}">
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
+				      onclick="detailMember('${dto.userId}');"> 
+				      <td style="padding: 0; height: 40px;">${dto.type==1 ? "일반" : (dto.type==2 ? "수의사" : "판매자" ) } </td>
+				      <td style="padding: 0;">${dto.userId}</td>
+				      <td style="padding: 0;">${dto.userNick}</td>      
+				  </tr>
+			</c:forEach>
+			 </tbody>
+    		</table>
     	</div>
+    	
         <div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
-        
+        	<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규게시물</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/boardManage/listArticle'">  + 더보기</span>
+        		</p>
+        	</div>
+    		<table class="listtable1" style="width: 100%">
+	    	 <thead>
+	               <tr align="center"  height="20" style="padding: 0"> 
+				      <th style="width: 120px; color: #787878;" >게시판</th>
+				      <th style="width: 250px; color: #787878;">글제목</th>
+				      <th style="width: 120px; color: #787878;">아이디</th> 
+				  </tr>
+			 </thead>
+			 <tbody class="board-list">
+			 	<c:forEach var="dto" items="${newArticleList}">
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : (dto.boardType=="vid" ? "비디오" : "포토") ) } </td>
+				      <td style="padding: 0;">${dto.subject}</td>
+				      <td style="padding: 0;">${dto.userId}</td>      
+				  </tr>
+			</c:forEach>
+			 </tbody>
+    		</table>
         </div>
         <div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
-        
+        	<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규상품</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/storeManage/listProduct'">  + 더보기</span>
+        		</p>
+        	</div>
+    		<table class="listtable1" style="width: 100%">
+	    	 <thead>
+	               <tr align="center"  height="20" style="padding: 0"> 
+				      <th style="width: 120px; color: #787878;">유형</th>
+				      <th style="width: 250px; color: #787878;">상품</th>
+				      <th style="width: 120px; color: #787878;">아이디</th> 
+				  </tr>
+			 </thead>
+			 <tbody class="board-list">
+			 	<c:forEach var="dto" items="${newProductList}">
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">${dto.type==0 ? "전체" : (dto.type==1 ? "강아지" : "고양이" )}</td>
+				      <td style="padding: 0;">${dto.subject}</td>
+				      <td style="padding: 0;">${dto.userId}</td>      
+				  </tr>
+				</c:forEach>
+			 </tbody>
+    		</table>
         </div>
     </div>
 </div>
