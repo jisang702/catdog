@@ -23,7 +23,7 @@ $(function() {
 					<li class="active"><a>수의사</a></li>
 					<li><a>고객센터</a></li>
 				</ul>
-				<table class="listtable1">
+				<table class="listtable1" style="width: 100%; height: 600px; margin-top:20;">
 					<thead>
 						<tr>
 							<th>카테고리</th>
@@ -34,25 +34,26 @@ $(function() {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>[<span>회원가입</span>]</td>
-							<td>회원가입ㅇㄴㄹㄹㅇ</td>
-							<td>회원</td>
-							<td>2020-10-10</td>
-							<td>완료</td>
-						</tr>
-						<tr>
-							<td>[<span>회원가입</span>]</td>
-							<td>ㄴ회원가입ㅇㄴㄹㄹㅇ</td>
-							<td>관리자</td>
-							<td>2020-10-10</td>
-							<td>답변</td>
-						</tr>
+       				<c:forEach var="dto" items="${listQnA}">
+					<tr> 
+       				    <td width="20%"> ${dto.qnaCategoryName} </td>
+       					<td width="25%">
+					<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${dto.qnaNum}&page=1&rows=10">
+       					 ${dto.qnaSubject}</a></td>
+       					<td width="15%"> ${dto.userName}  </td>
+       					<td width="20%"> ${dto.qnaCreated}  </td>
+       					<td width="20%"> ${dto.isAnswer==1?"답변완료":"답변대기"} </td>
+					</tr>
+       				</c:forEach>
 					</tbody>
 				</table>
 			</div>
 			<div class="pagenum">
-				1 2 3
+				<c:if test="${listQnA.size()>=5}">
+   					<td style="border: none; text-align: right; font-size: 11px;">
+   						<a href="${pageContext.request.contextPath}/doctor/qna/list">더 많은 답변 하기</a>
+   					</td>
+   				</c:if>
 			</div>
 		</div>
 	</div>
