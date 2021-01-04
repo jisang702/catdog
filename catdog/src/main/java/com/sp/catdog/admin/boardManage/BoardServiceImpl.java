@@ -114,4 +114,59 @@ public class BoardServiceImpl implements BoardService{
 		return dto;
 	}
 
+	@Override
+	public List<Analysis> listDealSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.listDealSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Analysis> listPhotoSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.listPhotoSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Analysis> listFreeSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.listFreeSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Analysis> listMissSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.listMissSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Analysis> listVideoSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.listVideoSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

@@ -290,4 +290,30 @@ public class BoardController {
 		return "admin/boardManage/reportDetail";
 	}
 	
+	@RequestMapping("analysis")
+	public String analysis(Model model) throws Exception{
+		model.addAttribute("subMenu", 5);
+		return ".admin4.admin.boardManage.analysis";
+	}
+	
+	@RequestMapping("boardAnalysis")
+	@ResponseBody
+	public Map<String, Object> listBoardSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> deal=service.listDealSection();
+		List<Analysis> photo=service.listPhotoSection();
+		List<Analysis> free=service.listFreeSection();
+		List<Analysis> miss=service.listMissSection();
+		List<Analysis> video=service.listVideoSection();
+		
+	
+		model.put("deal", deal);
+		model.put("photo", photo);
+		model.put("free", free);
+		model.put("miss", miss);
+		model.put("video", video);
+		
+		return model;
+	}
 }

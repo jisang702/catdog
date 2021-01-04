@@ -178,4 +178,163 @@
 		)
 		WHERE num=#{num}
 	</select>
+	
+	<!-- 게시판 통계 -->
+	<select id="listFreeSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		with board as (
+		    select to_date(freeCreated, 'YYYY-MM-DD') AS created
+		    FROM comFree
+		)
+<![CDATA[
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+]]>
+	</select>
+	<select id="listMissSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		with board as (
+		    select to_date(missCreated, 'YYYY-MM-DD') AS created
+		    FROM comMiss
+		)
+<![CDATA[
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+]]>
+	</select>
+	<select id="listDealSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		with board as (
+		    select to_date(dealCreated, 'YYYY-MM-DD') AS created
+		    FROM comDeal
+		)
+<![CDATA[
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+]]>
+	</select>
+	
+	<select id="listPhotoSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		with board as (
+		    select to_date(photoCreated, 'YYYY-MM-DD') AS created
+		    FROM comPhoto
+		)
+<![CDATA[
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+]]>
+	</select>
+	
+	<select id="listVideoSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		with board as (
+		    select to_date(vidCreated, 'YYYY-MM-DD') AS created
+		    FROM vetVideo
+		)
+<![CDATA[
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		UNION ALL
+		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+]]>
+	</select>
 </mapper>

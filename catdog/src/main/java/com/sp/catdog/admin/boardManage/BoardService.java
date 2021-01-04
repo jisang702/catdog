@@ -16,4 +16,12 @@ public interface BoardService {
 	public List<Board> listReplyReport(Map<String, Object> map) throws Exception;
 	public int replyReportCount(Map<String, Object> map);
 	public Board readReplyReport(Map<String, Object> map) throws Exception;
+	
+	//차트
+	public List<Analysis> listFreeSection();
+	public List<Analysis> listMissSection();
+	
+	public List<Analysis> listDealSection();
+	public List<Analysis> listPhotoSection();
+	public List<Analysis> listVideoSection();
 }

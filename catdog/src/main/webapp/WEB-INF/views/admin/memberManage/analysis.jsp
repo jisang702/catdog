@@ -32,6 +32,12 @@ $(function(){
 			values.push(data.list[i].count);
 		}
 		
+		var arr=[];
+		for(var i=0; i<data.list.length; i++){
+			var a=[data.list[i].section, data.list[i].count];
+			arr.push(a);
+		}
+		
 		Highcharts.chart('chart-container', {
 		    chart: {
 		        plotBackgroundColor: null,
@@ -46,21 +52,13 @@ $(function(){
 		        pie: {
 		            allowPointSelect: true,
 		            cursor: 'pointer',
-		            dataLabels: {
-		            	 formatter: function() {
-		                     var sliceIndex = titles;
-		                     var sliceName = this.series.chart.axes[0].categories[sliceIndex];
-		                     this.point.name = sliceName;
-		                     return sliceName
-		                   }
-		            },
 		            showInLegend: true
 		        }
 		    },
 		    series: [{
 		        name: '인원(명)',
 		        colorByPoint: true,
-		        data: values
+		        data: arr
 		    }]
 		});
 	});

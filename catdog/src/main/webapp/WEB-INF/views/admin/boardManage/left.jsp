@@ -19,5 +19,5 @@ $(function(){
        <a href="${pageContext.request.contextPath}/admin/boardManage/listArticle" class="list-group-item">게시물통합관리</a>       
        <a href="${pageContext.request.contextPath}/admin/boardManage/listReply" class="list-group-item">댓글통합관리</a>
        <a href="${pageContext.request.contextPath}/admin/boardManage/listReplyReport" class="list-group-item">신고댓글관리</a>
-       <a href="${pageContext.request.contextPath}/admin" class="list-group-item">게시판통계</a>
+       <a href="${pageContext.request.contextPath}/admin/boardManage/analysis" class="list-group-item">게시판통계</a>
 </div>
