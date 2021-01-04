@@ -13,7 +13,7 @@
 	
 	<sql id="where-list">
 		<if test="condition=='all' ">
-			( INSTR(newsSubject), #{keyword}) &gt; 0
+			( INSTR(newsSubject, #{keyword}) &gt; 0
 				OR DBMS_LOB.INSTR(newsContent, #{keyword}) &gt; 0 )
 		</if>
 		<if test="condition=='newsSubject' ">
@@ -26,8 +26,8 @@
 			userName=#{keyword}
 		</if>
 		<if test="condition=='newsCreated' ">
-			( TO_CHAR(newsCreated, 'YYYY-MM-DD') = #{keyword}
-				OR TO_CHAR(newsCreated, 'YYYYMMDD') = #{keyword} )
+			( TO_CHAR(n.newsCreated, 'YYYYMMDD') = #{keyword}
+				OR TO_CHAR(n.newsCreated, 'YYYY-MM-DD') =  #{keyword} )
 		</if>
 	</sql>
 		
@@ -107,7 +107,7 @@
 			<if test="keyword !=null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
-			AND (newsNum &gt; #{newsNum})
+			AND (newsNum &lt; #{newsNum})
 		</where>
 		ORDER BY newsNum DESC
 		FETCH FIRST 1 ROWS ONLY
@@ -138,7 +138,7 @@
 	<select id="listFile" parameterType="Integer" resultType="com.sp.catdog.doctor.news.News">
 		SELECT fileNum, newsNum, saveFilename, originalFilename, fileSize
 		FROM vetNewsFile 
-		WHERE fileNum=#{fileNum}
+		WHERE newsNum=#{newsNum}
 	</select>
 	
 	<delete id="deleteFile" parameterType="map">

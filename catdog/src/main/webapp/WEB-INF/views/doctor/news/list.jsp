@@ -85,7 +85,7 @@
 <table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
 	<tr height="40">
 		<td align="left" width="100">
-			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/news/list">새로고침</button>
+			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/news/list?${query}';">새로고침</button>
 		</td>
 		<td align="center">
 			<form name="searchForm" action="${pageContext.request.contextPath}/doctor/news/list" method="post">
@@ -103,7 +103,7 @@
 		<td align="right" width="100">
 			<c:if test="${sessionScope.member.userType==3}">
 			</c:if>
-				<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/news/created';">글올리기</button>
+			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/news/created';">글올리기</button>
 		</td>
 	</tr>
 </table>

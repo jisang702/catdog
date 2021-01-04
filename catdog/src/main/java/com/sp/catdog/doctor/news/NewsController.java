@@ -35,6 +35,7 @@ public class NewsController {
 	private MyUtil myUtil;
 	@Autowired
 	private FileManager fileManager;
+
 	
 	@RequestMapping("list")
 	public String list(
@@ -229,10 +230,6 @@ public class NewsController {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
-		if( dto==null || ! info.getUserId().equals(dto.getUserId())) {
-			return "redirect:/doctor/news/list?page="+page;
-		}
-		
 		try {
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + File.separator + "uploads" + File.separator + "news";		
@@ -364,5 +361,7 @@ public class NewsController {
 		model.put("state", "true");
 		return model;
 	}
+	
+
 	
 }

@@ -13,6 +13,7 @@ public class QnA {
 	
 	private int qnaCategoryNum;
 	private String qnaCategoryName;
+	
 	public int getListNum() {
 		return listNum;
 	}
