@@ -7,6 +7,14 @@ public class Main {
 	private long totalCount;
 	private String visitCreated;
 	
+	private String boardType;
+	private int num;
+	private String subject;
+	private String created;
+	private String userId;
+	private String userNick;
+	private int type;
+	
 	public int getVisitNum() {
 		return visitNum;
 	}
@@ -37,6 +45,47 @@ public class Main {
 	public void setVisitCreated(String visitCreated) {
 		this.visitCreated = visitCreated;
 	}
-	
+	public String getBoardType() {
+		return boardType;
+	}
+	public void setBoardType(String boardType) {
+		this.boardType = boardType;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	
 }

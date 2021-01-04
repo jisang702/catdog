@@ -26,6 +26,8 @@
 			UNION ALL
 			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
 			UNION ALL
+			SELECT boardType, photoNum as num, photoSubject as subject, photoCreated as created, userId FROM comPhoto
+			UNION ALL
 			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
 		)
 		<where>
@@ -47,6 +49,8 @@
 			UNION ALL
 			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
 			UNION ALL
+			SELECT boardType, photoNum as num, photoSubject as subject, photoCreated as created, userId FROM comPhoto
+			UNION ALL
 			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
 		)
 		<where>
@@ -66,6 +70,8 @@
 			UNION ALL
 			SELECT boardType FROM comDeal
 			UNION ALL
+			SELECT boardType FROM comPhoto
+			UNION ALL
 			SELECT boardType FROM vetVideo
 		)
 	</select>
@@ -83,6 +89,10 @@
 			SELECT boardType, r.dealNum AS num, dealReplyNum AS replyNum, r.userId, dealReplyCreated AS created, dealReplyContent AS content
 			FROM comDealReply r
 			JOIN comDeal d ON d.dealNum=r.dealNum
+			UNION ALL
+			SELECT boardType, r.photoNum AS num, photoReplyNum AS replyNum, r.userId, photoReplyCreated AS created, photoReplyContent AS content
+			FROM comPhotoReply r
+			JOIN comPhoto p ON p.photoNum=r.photoNum
 			UNION ALL
 			SELECT boardType, r.vidNum AS num, vidReplyNum AS replyNum, r.userId, vidReplyCreated AS created, vidReplyContent AS content
 			FROM vetVidReply r
@@ -110,6 +120,10 @@
 			SELECT boardType, r.dealNum AS num, dealReplyNum AS replyNum, r.userId, dealReplyCreated AS created, dealReplyContent AS content
 			FROM comDealReply r
 			JOIN comDeal d ON d.dealNum=r.dealNum
+			UNION ALL
+			SELECT boardType, r.photoNum AS num, photoReplyNum AS replyNum, r.userId, photoReplyCreated AS created, photoReplyContent AS content
+			FROM comPhotoReply r
+			JOIN comPhoto p ON p.photoNum=r.photoNum
 			UNION ALL
 			SELECT boardType, r.vidNum AS num, vidReplyNum AS replyNum, r.userId, vidReplyCreated AS created, vidReplyContent AS content
 			FROM vetVidReply r
@@ -170,6 +184,13 @@
 						dealReplyContent AS content, dealReplyCreated AS created
 			FROM replyReport r
 			JOIN comdealReply f ON f.dealReplyNum=r.replyNum
+			
+			UNION ALL
+			SELECT r.num, r.boardType, articleNum, r.replyNum, r.userId, reportCode, memo, report_date, report_id, 
+						photoReplyContent AS content, photoReplyCreated AS created
+			FROM replyReport r
+			JOIN comPhotoReply f ON f.photoReplyNum=r.replyNum
+			
 			UNION ALL
 			SELECT r.num, r.boardType, articleNum, r.replyNum, r.userId, reportCode, memo, report_date, report_id, 
 						vidReplyContent AS content, vidReplyCreated AS created

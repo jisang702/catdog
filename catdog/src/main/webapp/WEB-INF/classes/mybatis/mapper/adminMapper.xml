@@ -16,4 +16,35 @@
 		WHERE TO_CHAR(userCreated, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND userEnabled=1
 	</select>
 	
+	<!-- 신규 가입자 -->
+	<select id="newUserList" resultType="com.sp.catdog.admin.main.Main">
+		SELECT userId, userNick, userType AS type
+		FROM member1
+		ORDER BY userCreated DESC
+		FETCH FIRST 6 ROWS ONLY
+	</select>
+	
+	<!-- 신규 게시물 -->
+	<select id="newArticleList" resultType="com.sp.catdog.admin.main.Main">
+		SELECT * FROM
+		(
+			SELECT boardType, freeNum as num, freeSubject as subject, freeCreated as created, userId FROM comFree
+			UNION ALL
+			SELECT boardType, dealNum as num, dealSubject as subject, dealCreated as created, userId FROM comDeal
+			UNION ALL
+			SELECT boardType, photoNum as num, photoSubject as subject, photoCreated as created, userId FROM comPhoto
+			UNION ALL
+			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
+		)
+        ORDER BY created DESC
+        FETCH FIRST 6 ROWS ONLY
+	</select>
+	
+	<!-- 신규 상품 -->
+	<select id="newProductList" resultType="com.sp.catdog.admin.main.Main">
+		SELECT prdPet AS type, prdName AS subject, userId 
+		FROM product
+		ORDER BY prdCreated DESC
+		FETCH FIRST 6 ROWS ONLY
+	</select>
 </mapper>
