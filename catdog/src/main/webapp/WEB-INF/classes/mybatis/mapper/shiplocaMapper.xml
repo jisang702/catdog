@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shipLoca">
+<insert id="insertShipLoca" parameterType="com.sp.catdog.shiploca.ShipLoca">
+INSERT INTO shopLoca(loNum, loName, loTel, loZip, loAddr1, loaddr2, orderNum, userId)
+VALUES(shopLoca_seq.nextval,#{loName},#{loTel},#{loZip},#{loAddr1},#{loaddr2},#{orderNum},#{userId})
+</insert>
+
+</mapper>

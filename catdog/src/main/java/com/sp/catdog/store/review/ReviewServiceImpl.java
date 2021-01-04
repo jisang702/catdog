@@ -15,9 +15,9 @@ public class ReviewServiceImpl implements ReviewService{
 	private CommonDAO dao;
 	
 	@Override
-	public void insertReview(Review dto, String pathname) throws Exception {
+	public void insertReview(Review dto) throws Exception {
 		try {
-			dao.insertData("review.insertReview", dto);
+			dao.insertData("storereview.insertReview", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -28,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public int dataCount(Map<String, Object> map) {
 		int result =0;
 		try {
-			result=dao.insertData("review.dataCount",map);
+			result=dao.insertData("storereview.dataCount",map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,7 @@ public class ReviewServiceImpl implements ReviewService{
 		List<Review> list =null;
 		
 		try {
-			list= dao.selectList("review.listReview", map);
+			list= dao.selectList("storereview.listReview", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,26 +49,15 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void reHitCount(int reNum) throws Exception {
-			try {
-				dao.updateData("review.reHitCount",reNum);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e;
-			}
+	public void deleteReview(int reNum) throws Exception {
+		try {
+			dao.deleteData("storereview.delteReview",reNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
 		
 	}
 
-	@Override
-	public void updateReview(Review dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteReview(int reNum, String pathname) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }

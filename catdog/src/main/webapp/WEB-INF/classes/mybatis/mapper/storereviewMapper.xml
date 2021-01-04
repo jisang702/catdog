@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storereview">
+<insert id="insertReview" parameterType="com.sp.catdog.store.review.Review">
+	INSERT INTO prdReview(reNum,reContent,reCreated,prdNum,userId)
+	VALUES(prdReview_seq.nextval,#{reContent},SYSDATE,#{prdNum},#{userId})
+</insert>
+
+<select id="dataCount" parameterType="map" resultType="Integer">
+        SELECT NVL(COUNT(*),0) 
+		FROM prdReview r
+		JOIN member1 m ON m.userId=r.userId
+		WHERE prdNum=#{prdNum}
+</select>
+
+<select id="listReview" parameterType="map" resultType="com.sp.catdog.store.review.Review">
+	SELECT r.reNum,r.prdNum,r.userId,reContent,reCreated
+	FROM prdReview r
+	JOIN member1 m ON m.userId = r.userId
+	ORDER BY r.reNum DESC
+	OFFSET # {offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	
+	</select>
+<delete id="deleteReview">
+	DELETE FROM prdReview WHERE ReNum = #{ReNum}
+</delete>
+
+
+
+</mapper>
