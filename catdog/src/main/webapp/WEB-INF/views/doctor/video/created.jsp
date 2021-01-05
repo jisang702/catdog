@@ -47,7 +47,8 @@ function sendOk() {
 }
 
 </script>
-<div class="body-container" style="width: 850px; height:100%; margin-top: 50px;">
+
+<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
    <div class="body-title"  >
 	   <div><img src="${pageContext.request.contextPath}/resources/css/img/doctor01.jpg" style="width: 100px; height: 80px;"> </div>
 	   <div><h4> 유익한 영상을 공유 해주세요</h4></div>    

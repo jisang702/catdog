@@ -4,59 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
-
-<style type="text/css">
-
-.body-title h2{
-	font-size: 35px;
-	font-family: 'Nanum Gothic', sans-serif;
-	margin-bottom: 20px;
-}
-
-.imgLayout{
-	width: 280px;
-	height: 300px;
-	padding: 10px 5px 10px;
-	margin: 5px;
-	border: 5px solid #F6F6F6;
-	background-color: #F6F6F6;
-	cursor: pointer;
-	border-radius: 10px;
-	
-}
-.subject {
-	width: 250px;
-	height: 100px;
-	line-height:25px;
-	margin:10px auto;
-	border-top: 1px solid #DAD9FF;
-	display: inline-block;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow: ellipsis;
-	cursor: pointer;
-	font-family: "Noto Sans KR", sans-serif;
-	font-size: 15px;
-	text-align: left;
-}
-.selectField {
-	border: 
-}
-.sendBtn {
-	border: 2px solid #71DA65;
-	border-radius: 10px;
-	background: #E6F8E0;
-	height: 40px;
-	width: 80px;
-}
- .selectField{
- 	height: 40px;
- }
- .searchBtn {
- 	height: 40px;
- 	width: 70px; 
- }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/doctor.css">
 
 <script type="text/javascript">
 function searchList() {
@@ -70,17 +18,17 @@ function article(vidNum) {
 }
 </script>
 
-<div class="body-container" style="width: 1000px; margin-top: 30px; margin-bottom:50px;">
+<div class="body-container boxText" style="width: 900px; margin-top: 50px; margin-bottom:50px; align:center; ">
     <div class="body-title" >
 	  	<img src="${pageContext.request.contextPath}/resources/css/img/doctor.jpg" style="width: 150px; height: 120px;">
-      <h2> '전문가가 알려주는 이야기' </h2>
+      <h2> 전문가가 알려주는 이야기  </h2>
     </div>
         
     <div>		
 	<table style="width: 100%; height: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 	   <tr height="35">
 	      <td align="left" width="50%">
-	    	  &nbsp;&nbsp;<i class="fas fa-video"></i>&nbsp;${dataCount}개&nbsp;(${page}/${total_page} PAGES)
+	      <p>	${dataCount}개(${page}/${total_page} PAGE) </p>
 	      </td>
 	      <td align="right">
 	          

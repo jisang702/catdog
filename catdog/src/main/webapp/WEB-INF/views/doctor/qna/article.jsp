@@ -175,13 +175,13 @@ function deleteQnA(qnaNum, mode) {
 	        <c:if test="${sessionScope.member.userId==questionDto.userId || sessionScope.member.userId=='admin'}">
 	            <button type="button" class="btn" onclick="deleteQnA('${questionDto.qnaNum}', 'question');">질문삭제</button>
 	        </c:if>
-	        <c:if test="${sessionScope.member.userId=='admin' && empty answerDto}">
-	        </c:if>
+	        <c:if test="${sessionScope.member.userType==2 && empty answerDto}"> 
 	            <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/answer?qnaNum=${questionDto.qnaNum}&page=${page}&rows=${rows}';">답변</button>
-	        <c:if test="${not empty answerDto and sessionScope.member.userId=='admin'}">
 	        </c:if>
+	        <c:if test="${not empty answerDto and sessionScope.member.userType==2}">
 	            <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/update?qnaNum=${answerDto.qnaNum}&page=${page}&rows=${rows}';">답변수정</button>
-	        <c:if test="${not empty answerDto && sessionScope.member.userId=='admin'}">
+	        </c:if>
+	        <c:if test="${not empty answerDto && sessionScope.member.userId=='admin' || sessionScope.member.userType==2}">
 	            <button type="button" class="btn" onclick="deleteQnA('${answerDto.qnaNum}', 'answer');">답변삭제</button>
 	        </c:if>
 	    </td>

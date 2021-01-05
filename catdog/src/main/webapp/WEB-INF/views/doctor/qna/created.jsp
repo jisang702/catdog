@@ -27,8 +27,8 @@ function sendOk() {
 
 </script>
 
-<div class="body-container" style="width: 1000px; margin-top: 50px;" >
-   
+<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
+ 
 	<div class="alert-info">
 	    <i class="fas fa-info-circle"></i>
 	         질문과 답변을 할 수 있는 공간입니다.
@@ -37,7 +37,7 @@ function sendOk() {
 	<form name="qnaForm" method="post" enctype="multipart/form-data">
 	  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 	  <tbody id="tb">
-	  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+	  <tr align="left" height="45" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
 	      <td width="100" bgcolor="#eeeeee" style="text-align: center;">유&nbsp;&nbsp;&nbsp;&nbsp;형</td>
 	      <td style="padding-left:10px;"> 
 	        <select name="qnaCategoryNum" class="selectField" ${(mode=="update" && not empty dto.qnaAnc) || mode=="answer" ? "disabled='disabled'":"" }>
@@ -52,7 +52,7 @@ function sendOk() {
 	      </td>
 	  </tr>
 	
-	  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+	  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;">
 	      <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
 	      <td style="padding-left:10px;"> 
 	        <input type="text" name="qnaSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.qnaSubject}"
@@ -60,14 +60,14 @@ function sendOk() {
 	      </td>
 	  </tr>
 	
-	  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
+	  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;"> 
 	      <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>
 	      <td style="padding-left:10px;"> 
 	          ${sessionScope.member.userName}
 	      </td>
 	  </tr>
 	
-	  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+	  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;">
 	      <td width="100" bgcolor="#eeeeee" style="text-align: center;">공개여부</td>
 	      <td style="padding-left:10px;">
 	        <input type="radio" name="qnaSecret" value="0" ${empty dto || dto.qnaSecret==0?"checked='checked'":"" }> 공개
@@ -87,9 +87,9 @@ function sendOk() {
 	  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 	     <tr height="45"> 
 	      <td align="center" >
-		        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 		        <button type="reset" class="btn">다시입력</button>
 				<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/list';">${mode=='update'?'수정취소':'등록취소'}</button>
+		        <button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':'등록하기'}</button>
 		        
 		         <c:if test="${mode=='update'}">
 		         	 <input type="hidden" name="qnaNum" value="${dto.qnaNum}">

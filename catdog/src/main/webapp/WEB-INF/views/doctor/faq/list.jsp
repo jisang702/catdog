@@ -2,6 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Stylish&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/doctor.css">
 
 <script type="text/javascript">
 $(function(){
@@ -35,12 +37,10 @@ function searchList() {
 }
 </script>
 
-<div class="body-container" style="width: 800px; margin-top: 50px;" >
-    <div class="body-title">
-        <h3><i class="fas fa-exclamation-triangle"></i> 자주하는 질문 </h3>
-    </div>
-
-    
+	<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
+		<h2><i class="fas fa-question"></i>&nbsp;자주 하는 질문&nbsp;</h2>
+		<p>궁금한 내용을 검색해보세요</p>
+  
     <c:forEach var="vo" items="${listAllCategory}">
 	  <tr align="center" height="30" bgcolor="#fff">
 	  	<td> <input type="text" name="faqCategoryName" disabled="disabled" value="${vo.faqCategoryName}"> </td>
@@ -61,10 +61,16 @@ function searchList() {
 	  </tr>
   </c:forEach>
     
-	<div>    
-		<table style="width: 100%; margin: 20px auto 0; border-spacing: 0px; border-collapse: collapse;">
-		 
-		<c:forEach var="dto" items="${list}">
+    <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+		<tr height="35" >
+			<td align="left" width="50%">
+			<p>	${dataCount}개(${page}/${total_page} PAGE) </p> </td>
+			<td align="right">&nbsp;</td>
+		</tr>
+	</table>    
+		
+	<table style="width: 100%; height: 100%; border-spacing: 0px; border-collapse: collapse;">
+			<c:forEach var="dto" items="${list}">
 			<tr height="35" class="question" bgcolor="#eeeeee">
 				<td width="120" style="padding-left: 5px; border:1px solid #cccccc; border-right:none;">
 					${dto.faqCategoryName}
@@ -118,9 +124,9 @@ function searchList() {
 		      <td align="right" width="100">
 		      	<c:if test="${sessionScope.member.userType==2}">
 		        </c:if>
-		          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/faq/created';">글올리기</button>
+		          <button type="button" class="sendBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/faq/created';">글올리기</button>
 		      </td>
 		   </tr>
 		</table>
 	</div>
-</div>
+

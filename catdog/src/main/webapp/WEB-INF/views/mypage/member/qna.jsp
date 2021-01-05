@@ -10,6 +10,11 @@ $(function() {
         $(this).addClass('active');
 	});
 });
+
+setInterval(function(){
+	  $(".blinkEle").toggle();
+	}, 1100);
+	
 </script>
 
 <div class="mypageBody">
@@ -43,11 +48,11 @@ $(function() {
        					<td width="15%"> ${dto.userName}  </td>
        					<td width="15%"> ${dto.qnaCreated}  </td>
        					<c:if test="${dto.isAnswer==1}">
-       						<td width="10%" style="color: tomato;">답변완료</td>
-       					</c:if>
-       					<c:if test="${dto.isAnswer==0}">       					
-       						<td width="10%" style="color: blue;">답변대기</td>
-       					</c:if>
+							<td width="10%" style="color: #0390f4;">답변완료</td>
+						</c:if>
+						<c:if test="${dto.isAnswer==0}">       					
+							<td width="10%" style="color: #f75e2e;"><b class="blinkEle">답변대기</b></td>
+						</c:if>
 					</tr>
        				</c:forEach>
 					</tbody>
@@ -55,8 +60,8 @@ $(function() {
 			</div>
 			<div class="pagenum">
 				<c:if test="${listQnA.size()>=5}">
-   					<td style="border: none; text-align: right; font-size: 11px;">
-   						<a href="${pageContext.request.contextPath}/doctor/qna/list">더 많은 답변 하기</a>
+   					<td style="border: none; text-align: right;">
+   						<a href="${pageContext.request.contextPath}/doctor/qna/list"> 추가 답변하기</a>
    					</td>
    				</c:if>
 			</div>

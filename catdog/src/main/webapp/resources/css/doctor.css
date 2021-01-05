@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+.imgLayout{
+	width: 280px;
+	height: 300px;
+	padding: 10px 5px 10px;
+	margin: 5px;
+	border: 5px solid #F6F6F6;
+	background-color: #F6F6F6;
+	cursor: pointer;
+	border-radius: 10px;
+	
+}
+.subject {
+	width: 250px;
+	height: 100px;
+	line-height:25px;
+	margin:10px auto;
+	border-top: 1px solid #DAD9FF;
+	display: inline-block;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+	font-family: "Noto Sans KR", sans-serif;
+	font-size: 15px;
+	text-align: left;
+}
+
+.sendBtn {
+	border: 1px solid #71DA65;
+	border-radius: 25px;
+	background: #71DA65;
+	height: 34px;
+	width: 80px;
+	color: #ffffff;
+	font-weight: 100;
+}
+ .selectField{
+ 	height: 32px;
+ }
+ .searchBtn {
+ 	height: 32px;
+ 	width: 70px; 
+ }
+
+.body-container td {
+	font-family: 'Nanum Gothic', sans-serif;
+	 font-size: 13px;
+}
+.boxText h2 {
+    font-size: 40px;
+    font-weight: 500px;
+    max-height: 100px;
+    color: #b0b0b0;
+  	font-family: 'Nanum Gothic', sans-serif;
+  	margin-bottom: 5px;
+}
+
+.boxText p {
+    font-size: 15px;
+    max-height: 100px;
+    color: #b0b0b0;
+  	font-family: 'Nanum Gothic', sans-serif;
+}
+
+.curBox, .numBox {
+	border: 1px solid #71DA65;
+	border-radius: 50px;
+	color: #ffffff;
+	margin: 30px auto;
+}
+

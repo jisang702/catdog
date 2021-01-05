@@ -148,9 +148,9 @@ public class QnAController {
 		if(questionDto==null) {
 			return "redirect:/doctor/qna/list?"+query;
 		}
-
+		
 		if(questionDto.getQnaSecret()==1 &&
-				 (! info.getUserId().equals("admin") && ! info.getUserId().equals(questionDto.getUserId()))) {
+				 ( info.getUserType()!= 2 && ! info.getUserId().equals(questionDto.getUserId()))) {
 			return "redirect:/doctor/qna/list?"+query;
 		}
 		
@@ -245,7 +245,7 @@ public class QnAController {
 			return "redirect:/doctor/qna/list?page="+page+"&rows="+rows;
 		}
 		
-		if(! info.getUserId().equals("admin")) {
+		if( info.getUserType()!= 2 ) {
 			return "redirect:/doctor/qna/list?page="+page+"&rows="+rows;
 		}
 		

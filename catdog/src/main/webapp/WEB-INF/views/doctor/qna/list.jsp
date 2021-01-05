@@ -2,7 +2,9 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Stylish&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/doctor.css">
+ 
 <script type="text/javascript">
 function searchList() {
 	var f=document.searchForm;
@@ -13,18 +15,21 @@ function qnalist() {
 	var f=document.qnaListForm;
 	f.submit();
 }
+
+setInterval(function(){
+	  $(".blinkEle").toggle();
+	}, 1100);
 </script>
 
-<div class="body-container" style="width: 1000px; margin-top: 50px;" >
-    <div class="body-title">
-        <h3><i class="fas fa-chalkboard-teacher"></i> QnA게시판 </h3>
-    </div>
+<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
+		<h2><i class="fab fa-quora"></i>&nbsp;질문답변&nbsp;</h2>
+		<p>궁금한것은 무엇이든 물어보세요</p>
     
     <div>
 		<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 		   <tr height="35">
 		      <td align="left" width="50%">
-		          ${dataCount}개(${page}/${total_page} 페이지)
+		      <p>	${dataCount}개(${page}/${total_page} PAGE) </p>
 		      </td>
 		      <td align="right">
 		          <form action="${pageContext.request.contextPath}/doctor/qna/list" name="qnaListForm" method="post">
@@ -42,8 +47,9 @@ function qnalist() {
 		   </tr>
 		</table>
 		
-		<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
-		  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+		<table style="width: 100%; height: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse; border-bottom: 3px solid #71da65;">
+		<tr align="center" bgcolor="#eeeeee" height="50"
+			style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc; background-color: #71da65; color:#ffffff;">
 		       <th width="60" style="color: #787878;">번호</th>
 		      <th width="100" style="color: #787878;">유형</th>
 		      <th style="color: #787878;">제목</th>
@@ -53,17 +59,17 @@ function qnalist() {
 		  </tr>
 		 
 		 <c:forEach var="dto" items="${list}">
-	  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
+	  <tr align="center" bgcolor="#ffffff" height="45" style="border-bottom: 1px solid #cccccc;"> 
 	      <td>${dto.listNum}</td>
 	      <td>${dto.qnaCategoryName}</td>
 	      <td align="left" style="padding-left: 10px;">
 	      	<c:choose>
 	      		<c:when test="${dto.qnaSecret==1}">
-	      			<i class="fa fa-lock" title="공개여부" style="color: #333333;"></i>
-	      			<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userId=='admin'}">
+	      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
+	      			<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.userType==2}">
 	      				<a href="${articleUrl}&qnaNum=${dto.qnaNum}">${dto.qnaSubject}</a>
 	      			</c:if>
-	      			<c:if test="${sessionScope.member.userId!=dto.userId && sessionScope.member.userId!='admin'}">
+	      			<c:if test="${sessionScope.member.userId!=dto.userId }">
 	      				${dto.qnaSubject}
 	      			</c:if>
 	      		</c:when>
@@ -74,7 +80,12 @@ function qnalist() {
 	      </td>
 	      <td>${dto.userName}</td>
 	      <td>${dto.qnaCreated}</td>
-	      <td>${dto.isAnswer==1?"답변완료":"답변대기"}</td>
+      	<c:if test="${dto.isAnswer==1}">
+			<td width="10%" style="color: #0390f4;">답변완료</td>
+		</c:if>
+		<c:if test="${dto.isAnswer==0}">       					
+			<td width="10%" style="color: #f75e2e;"><b class="blinkEle">답변대기</b></td>
+		</c:if>
 	  </tr>
 	  </c:forEach>
 		  
@@ -108,7 +119,7 @@ function qnalist() {
 		        </form>
 		      </td>
 		      <td align="right" width="100">
-		          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/created';">글올리기</button>
+		          <button type="button" class="sendBtn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/created';">질문하기</button>
 		      </td>
 		   </tr>
 		</table>

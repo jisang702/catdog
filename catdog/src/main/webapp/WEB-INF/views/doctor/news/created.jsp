@@ -38,12 +38,8 @@
     }
 </script>
 
-<div  class="body-container" style="width: 800px; margin-top: 50px; align:center" >
-<div class="body-title">
-    <h3><i class="far fa-clipboard"></i> 새소식 </h3>
-</div>
-
-<div class="alert-info">
+<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
+<div class="alert-info"  style="background-color: #71da65; color: #ffffff;">
    <i class="fas fa-info-circle"></i>
      중요한 일정 및 알림, 이벤트 등은 공지사항 통해 고객님께 알려 드립니다.
 </div>
@@ -51,21 +47,21 @@
 <form name="newsForm" method="post" onsubmit="return submitContents(this);" enctype="multipart/form-data">
   <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
   <tbody id="tb">
-  <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+  <tr align="left" height="50" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
       <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
       <td style="padding-left:10px;"> 
         <input type="text" name="newsSubject" maxlength="100" class="boxTF" style="width: 95%;" value="${dto.newsSubject}">
       </td>
   </tr>
 
-  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
+  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;"> 
       <td width="100" bgcolor="#eeeeee" style="text-align: center;">공지여부</td>
       <td style="padding-left:10px;"> 
             <input type="checkbox" name="news" value="1" ${dto.news==1 ? "checked='checked' ":"" } > 공지
       </td>
   </tr>
 
-  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
+  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;"> 
       <td width="100" bgcolor="#eeeeee" style="text-align: center;">작성자</td>
       <td style="padding-left:10px;"> 
           ${sessionScope.member.userName}
@@ -79,7 +75,7 @@
       </td>
   </tr>
   
-  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+  <tr align="left" height="45" style="border-bottom: 1px solid #cccccc;">
       <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
       <td style="padding-left:10px;"> 
           <input type="file" name="upload" multiple="multiple" class="boxTF" size="53" style="width: 95%; height: 25px;">
@@ -89,7 +85,7 @@
   
 <c:if test="${mode=='update'}">
    <c:forEach var="vo" items="${listFile}">
-		  <tr id="${vo.fileNum}" height="40" style="border-bottom: 1px solid #cccccc;"> 
+		  <tr id="${vo.fileNum}" height="45" style="border-bottom: 1px solid #cccccc;"> 
 		      <td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부된파일</td>
 		      <td style="padding-left:10px;">
 		        <a href="javascript:deleteFile('${vo.fileNum}');"><i class="far fa-trash-alt"></i></a> 
