@@ -77,7 +77,7 @@ function article(vidNum) {
     </div>
         
     <div>		
-	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+	<table style="width: 100%; height: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 	   <tr height="35">
 	      <td align="left" width="50%">
 	    	  &nbsp;&nbsp;<i class="fas fa-video"></i>&nbsp;${dataCount}개&nbsp;(${page}/${total_page} PAGES)

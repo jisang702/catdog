@@ -12,7 +12,11 @@
 					<option>자유게시판</option>
 					<option>포토갤러리</option>
 					<option>실종게시판</option>
-					<option>중고거래</option>
+					<option>PetCare 새소식</option>
+					<option>PetCare 비디오</option>
+					<option>PetCare FAQ</option>
+					<option>PetCare QNA</option>
+
 				</select>
 			</div>
 			<table class="listtable1">

@@ -44,6 +44,9 @@
 			<if test="faqCategoryNum!=0">
 				( c.faqCategoryNum = #{faqCategoryNum} )
 			</if>
+			<if test="keyword!=null and keyword!='' ">
+				AND <include refid="where-list"/>
+			</if>
 			AND c.faqEnabled = 1
 		</where>
 		ORDER BY faqOrderNum, faqNum DESC
@@ -54,7 +57,7 @@
 		SELECT f.faqNum, f.userId, userName, f.faqQuestion, f.faqAnswer, 
 				f.faqCategoryNum, c.faqCategoryName
 		FROM vetFAQ f
-		JOIN member1 m ON f.userId =  m.userId
+		JOIN member1 m ON f.userId = m.userId
 		JOIN vetFAQCategory c ON f.faqCategoryNum = c.faqCategoryNum
 		WHERE f.faqNum = #{faqNum}
 	</select>

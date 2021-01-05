@@ -36,13 +36,18 @@ $(function() {
 					<tbody>
        				<c:forEach var="dto" items="${listQnA}">
 					<tr> 
-       				    <td width="20%"> ${dto.qnaCategoryName} </td>
-       					<td width="25%">
+       				    <td width="10%"> ${dto.qnaCategoryName} </td>
+       					<td width="40%">
 					<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${dto.qnaNum}&page=1&rows=10">
        					 ${dto.qnaSubject}</a></td>
        					<td width="15%"> ${dto.userName}  </td>
-       					<td width="20%"> ${dto.qnaCreated}  </td>
-       					<td width="20%"> ${dto.isAnswer==1?"답변완료":"답변대기"} </td>
+       					<td width="15%"> ${dto.qnaCreated}  </td>
+       					<c:if test="${dto.isAnswer==1}">
+       						<td width="10%" style="color: tomato;">답변완료</td>
+       					</c:if>
+       					<c:if test="${dto.isAnswer==0}">       					
+       						<td width="10%" style="color: blue;">답변대기</td>
+       					</c:if>
 					</tr>
        				</c:forEach>
 					</tbody>

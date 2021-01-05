@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sp.catdog.common.MyUtil;
 import com.sp.catdog.member.SessionInfo;
 
-@Controller("doctor.FaQ.faQController")
+@Controller("doctor.faq.faQController")
 @RequestMapping("/doctor/faq/*")
 public class FaQController {
 	@Autowired
@@ -80,7 +80,7 @@ public class FaQController {
 			query="&condition=" +condition+"&keyword="+ URLEncoder.encode(keyword,  "utf-8");
 		}
 		
-		listUrl = cp+"/doctor/FaQ/list?" +query;
+		listUrl = cp+"/doctor/faq/list?" +query;
 
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
