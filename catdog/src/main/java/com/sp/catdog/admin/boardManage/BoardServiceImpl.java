@@ -169,4 +169,15 @@ public class BoardServiceImpl implements BoardService{
 		return list;
 	}
 
+	@Override
+	public List<Analysis> boardAgeSection() {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("boardManage.boardAgeSection");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

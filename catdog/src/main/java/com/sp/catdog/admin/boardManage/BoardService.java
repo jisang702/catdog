@@ -20,8 +20,9 @@ public interface BoardService {
 	//차트
 	public List<Analysis> listFreeSection();
 	public List<Analysis> listMissSection();
-	
 	public List<Analysis> listDealSection();
 	public List<Analysis> listPhotoSection();
 	public List<Analysis> listVideoSection();
+	
+	public List<Analysis> boardAgeSection();
 }

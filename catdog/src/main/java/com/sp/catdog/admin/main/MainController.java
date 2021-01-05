@@ -1,21 +1,26 @@
 package com.sp.catdog.admin.main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.CountManager;
 
 @Controller("admin.mainController")
+@RequestMapping("/admin/*")
 public class MainController {
 	@Autowired
 	private MainService service;
 	
-	@RequestMapping(value="/admin", method=RequestMethod.GET)
+	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String method(Model model) throws Exception{
 		
 		//오늘자 통계
@@ -49,5 +54,24 @@ public class MainController {
 		model.addAttribute("newProductList", newProductList);
 		
 		return ".adminLayout";
+	}
+	
+	@RequestMapping("analysis")
+	@ResponseBody
+	public Map<String, Object> analysis() throws Exception{
+		
+		long total, before;
+		total=CountManager.getTotalCount();
+		before=total-CountManager.getTodayCount();
+		
+		List<Object> list= new ArrayList<>();		
+		list.add(total);
+		list.add(before);
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("total", total);
+		model.put("before", before);
+		model.put("list", list);
+		return model;
 	}
 }

@@ -2,6 +2,7 @@ package com.sp.catdog.admin.boardManage;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,9 @@ public class BoardController {
 	
 	@RequestMapping("analysis")
 	public String analysis(Model model) throws Exception{
+		
+		
+		
 		model.addAttribute("subMenu", 1);
 		return ".admin4.admin.boardManage.analysis";
 	}
@@ -36,6 +40,7 @@ public class BoardController {
 	public Map<String, Object> listBoardSection() throws Exception{
 		Map<String, Object> model = new HashMap<>();
 		
+		//게시판 통계 차트
 		List<Analysis> deal=service.listDealSection();
 		List<Analysis> photo=service.listPhotoSection();
 		List<Analysis> free=service.listFreeSection();
@@ -51,6 +56,19 @@ public class BoardController {
 		
 		return model;
 	}
+	
+	@RequestMapping("boardAgeAnalysis")
+	@ResponseBody
+	public Map<String, Object> boardAgeSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> list=service.boardAgeSection();
+		
+		model.put("list", list);
+		
+		return model;
+	}
+	
 	
 	@RequestMapping("listArticle")
 	public String listArticle(

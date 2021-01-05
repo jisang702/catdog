@@ -29,8 +29,24 @@ public class MemberManageController {
 	
 	@RequestMapping("analysis")
 	public String analysis(Model model) throws Exception{
+		
+		Map<String, Object> map=new HashMap<>();
+		map.put("userEnabled", 1);
+		
+		int comDataCount=service.comDataCount(map);
+		int vetDataCount=service.vetDataCount(map);
+		int sellDataCount=service.sellDataCount(map);
+		
+		int totalDataCount= comDataCount+vetDataCount+sellDataCount;
+		
+		
 		model.addAttribute("subMenu", 1);
-
+		model.addAttribute("comDataCount", comDataCount);
+		model.addAttribute("vetDataCount", vetDataCount);
+		model.addAttribute("sellDataCount", sellDataCount);
+		model.addAttribute("totalDataCount", totalDataCount);
+		
+		
 		return ".admin4.admin.memberManage.analysis";
 	}
 	

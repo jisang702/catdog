@@ -358,4 +358,39 @@
 		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
 ]]>
 	</select>
+	
+	<select id="boardAgeSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
+		WITH  memberAge AS (
+		    SELECT c.userId, TRUNC(MONTHS_BETWEEN(SYSDATE, userBirth)/12) age
+		    FROM comMember c
+            JOIN comFree f ON f.userId=c.userId
+            UNION ALL
+            SELECT c.userId, TRUNC(MONTHS_BETWEEN(SYSDATE, userBirth)/12) age
+		    FROM comMember c
+            JOIN comPhoto f ON f.userId=c.userId
+            UNION ALL
+            SELECT c.userId, TRUNC(MONTHS_BETWEEN(SYSDATE, userBirth)/12) age
+		    FROM comMember c
+            JOIN comDeal f ON f.userId=c.userId
+            UNION ALL
+            SELECT c.userId, TRUNC(MONTHS_BETWEEN(SYSDATE, userBirth)/12) age
+		    FROM comMember c
+            JOIN comMiss f ON f.userId=c.userId
+		)
+<![CDATA[
+        SELECT '기타' section, COUNT(*) count FROM memberAge WHERE age<10 OR age>70
+        UNION ALL
+		SELECT '10대' section, COUNT(*) count FROM memberAge WHERE age>=10 AND age<20
+		UNION ALL
+		SELECT '20대' section, COUNT(*) count FROM memberAge WHERE age>=20 AND age<30
+		UNION ALL
+		SELECT '30대' section, COUNT(*) count FROM memberAge WHERE age>=30 AND age<40
+		UNION ALL
+		SELECT '40대' section, COUNT(*) count FROM memberAge WHERE age>=40 AND age<50
+		UNION ALL
+		SELECT '50대' section, COUNT(*) count FROM memberAge WHERE age>=50 AND age<60
+		UNION ALL
+		SELECT '60대' section, COUNT(*) count FROM memberAge WHERE age>=60 AND age<70
+]]>
+	</select>
 </mapper>
