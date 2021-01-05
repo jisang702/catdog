@@ -29,8 +29,12 @@ public class MissServiceImpl implements MissService {
 				dto.setMissWhen(dto.getYear()+"/"+dto.getMonth()+"/"+dto.getDay());
 			}
 			
-			if(dto.getPetGender1().length()!=0 && dto.getPetGender2().length()!=0) {
-				dto.setPetGender(dto.getPetGender1()+"("+dto.getPetGender2()+")");
+			if(dto.getPetGender1().length()!=0) {
+				if(dto.getPetGender2().length()!=0) {
+					dto.setPetGender(dto.getPetGender1()+"/"+dto.getPetGender2());
+				} else {
+					dto.setPetGender(dto.getPetGender1());					
+				}
 			}
 			
 			int seq=dao.selectOne("miss.seq");
@@ -75,6 +79,18 @@ public class MissServiceImpl implements MissService {
 	@Override
 	public void updateMiss(Miss dto, String pathname) throws Exception {
 		try {
+			if(dto.getMissWhere1().length()!=0 && dto.getMissWhere2().length()!=0) {
+				dto.setMissWhere(dto.getMissWhere1()+"/"+dto.getMissWhere2());
+			}
+			
+			if(dto.getYear().length()!=0 && dto.getMonth().length()!=0 && dto.getDay().length()!=0) {
+				dto.setMissWhen(dto.getYear()+"/"+dto.getMonth()+"/"+dto.getDay());
+			}
+			
+			if(dto.getPetGender1().length()!=0 && dto.getPetGender2().length()!=0) {
+				dto.setPetGender(dto.getPetGender1()+"/"+dto.getPetGender2());
+			}
+
 			dao.updateData("miss.updateMiss", dto);
 			
 			String saveFilename=fileManager.doFileUpload(dto.getUpload(), pathname);
@@ -125,6 +141,12 @@ public class MissServiceImpl implements MissService {
 					dto.setYear(s[0]);
 					dto.setMonth(s[1]);
 					dto.setDay(s[2]);
+				}
+				
+				if(dto.getPetGender()!=null) {
+					String [] s=dto.getPetGender().split("/");
+					dto.setPetGender1(s[0]);
+					dto.setPetGender2(s[1]);
 				}
 			}
 		} catch (Exception e) {

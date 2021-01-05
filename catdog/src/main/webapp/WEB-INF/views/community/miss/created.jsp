@@ -35,6 +35,8 @@ function setDateBox(){
 			$("#DAY").append("<option value='"+ i +"'>"+ i + "</option>");
 		}
 }
+
+
 </script>
 <script>
 $(function() {
@@ -71,6 +73,7 @@ $(function() {
 	});
 
 });
+
 </script>
 
 <div class="body-container">
@@ -109,9 +112,8 @@ $(function() {
 			  	</td>
 			  	<td>* 성별</td>
 			  	<td>
-			  		<input type="radio" name="petGender1" value="암컷"> 암컷
-			  		<input type="radio" name="petGender1" value="수컷"> 수컷
-			  		<input type="checkbox" name="petGender2" value="중성화 O"> 중성화 여부
+			  		<input type="radio" name="petGender" value="암컷"> 암컷
+			  		<input type="radio" name="petGender" value="수컷"> 수컷
 			  	</td>
 			  </tr>
 			  
@@ -136,7 +138,7 @@ $(function() {
 			  
 			  <tr align="left">
 			  	<td>* 사진</td>
-			  	<td colspan="3" style="padding-left: 10px;">
+			  	<td colspan="3" style="padding-left: 10px;">		
 			  		<input type="file" name="upload">
 			  	</td>
 			  </tr>
@@ -144,9 +146,9 @@ $(function() {
 			  <tr align="left">
 				  <td>실종지역</td>
 			      <td style="padding-left:10px;">
-			      	<select name="missWhere1" style="width: 100px;">
+			      	<select id="missWhere1" name="missWhere1" style="width: 100px;">
 			      	</select>
-			      	<select name="missWhere2">
+			      	<select id="missWhere2" name="missWhere2">
 			      	</select>
 			      </td>
 			      <td>실종날짜</td>
@@ -189,6 +191,7 @@ $(function() {
 			        <button type="button" class="mybtn1" onclick="javascript:location.href='${pageContext.request.contextPath}/community/miss/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 			         <c:if test="${mode=='update'}">
 			         	<input type="hidden" name="state" value="0">
+			         	<input type="hidden" name="petImg" value="${dto.petImg}">
 			         	<input type="hidden" name="missNum" value="${dto.missNum}">
 			         	<input type="hidden" name="userId" value="${dto.userId}">
 			        	<input type="hidden" name="page" value="${page}">
@@ -204,12 +207,22 @@ $(function() {
 
 <script>
 var markers = [];
-
-var mapContainer = document.getElementById('map'), 
+var mode="${mode}";
+var lat="${dto.missWhereLat}";
+var lng="${dto.missWhereLng}";
+var mapContainer = document.getElementById('map'),
 mapOption = { 
         center: new kakao.maps.LatLng(37.55654090022184, 126.9195835015353), 
         level: 2
-    };
+};
+
+if(mode=='update') {
+	mapContainer = document.getElementById('map'),
+	mapOption = { 
+	        center: new kakao.maps.LatLng(lat, lng), 
+	        level: 2
+	};
+};
 
 var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places(); 
@@ -302,10 +315,10 @@ function sendOk() {
         return false;
     }
     
-    str=f.petGender1.value;
+    str=f.petGender.value;
     if(!str) {
     	alert("성별을 선택하세요.");
-    	f.petGender1.focus();
+    	f.petGender.focus();
     	return false;
     }
     
@@ -323,11 +336,13 @@ function sendOk() {
     	return false;
     }
     
+    var mode="${mode}";
     str=f.upload.value;
-    if(!str) {
-    	alert("사진을 첨부하세요.");
-    	f.upload.focus();
-    	return false;
+    if(mode=='created') {
+        if(!str) {
+           	alert("사진을 첨부해주세요.");
+           	return false;
+        }
     }
     
     str=f.missWhere1.value;
@@ -371,6 +386,7 @@ function sendOk() {
     	f.missContent.focus();
        	return false;
     }
+
         
     f.action="${pageContext.request.contextPath}/community/miss/${mode}";
     f.submit();
@@ -416,5 +432,17 @@ $(function() {
 		   });
 		  }
 		 });
+});
+
+$(function() {
+	var where1="${dto.missWhere1}";
+	var where2="${dto.missWhere2}";
+	
+	if(mode=='update') {
+		$("#missWhere1").val(where1);
+		$("#missWhere1").trigger("change");
+		$("#missWhere2").val(where2);
+		$("#missWhere2").trigger("change");
+	}
 });
 </script>

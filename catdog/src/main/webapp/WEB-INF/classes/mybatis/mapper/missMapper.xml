@@ -82,7 +82,7 @@
 	
 	<update id="updateMiss"	parameterType="com.sp.catdog.community.miss.Miss">
 		UPDATE comMiss SET missSubject=#{missSubject}, missContent=#{missContent}, missWhere=#{missWhere},
-			missWhen=#{missWhen}, missWhereLat=#{missWhereLat}, missWhereLng=#{missWhereLat}, missPet=#{missPet}
+			missWhen=#{missWhen}, missWhereLat=#{missWhereLat}, missWhereLng=#{missWhereLng}, missPet=#{missPet}
 		WHERE missNum=#{missNum}
 	</update>
 	
