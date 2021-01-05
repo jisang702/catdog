@@ -14,12 +14,14 @@
 }
 
 .chart-container2 {
-	width: 500px;
+	width: 400px;
 	box-sizing: border-box;
 	padding: 20px;
-	height: 400px;
-	margin: 10px auto;
+	height: 420px;
+	margin: 20px auto 0px;
 	text-align: center;
+	border: 1px solid #dadada;
+	border-radius: 10px;
 }
 .box{
 	border: 1px solid #dadada;
@@ -128,7 +130,7 @@ $(function(){
 		        type: 'pie'
 		    },
 		    title: {
-		        text: '연령대별 게시글 작성'
+		        text: '<b>연령대별 게시글 작성</b>'
 		    },
 		    plotOptions: {
 		        pie: {
@@ -150,7 +152,7 @@ $(function(){
 
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
-	     <div class="mypage2">
+	     <div class="mypage2" style="width: 100%">
 	     	<div class="mypagetab">
 	     		<p>게시물 통계</p>
 	     	</div>
@@ -158,7 +160,7 @@ $(function(){
 	     	<div id="chart-container1" class="chart-container">
 	     	
 	     	</div>
-	     	<div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
+	     	<div class="box" style="width: 40%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
     		<div>
         		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">게시판별 통계</p>
         		<p style="float: right; font-size: 10px;"><br><br>
@@ -169,24 +171,40 @@ $(function(){
 	    	 <thead>
 	               <tr align="center"  height="20" style="padding: 0"> 
 				      <th style="width: 120px; color: #787878;" >유형</th>
-				      <th style="width: 150px; color: #787878;">게시글 수</th>
-				      <th style="width: 120px; color: #787878;">댓글 수</th>
-				      <th style="width: 120px; color: #787878;">비율</th> 
+				      <th style="width: 150px; color: #787878;">게시글</th>
+				      <th style="width: 120px; color: #787878;">댓글</th>
 				  </tr>
 			 </thead>
 			 <tbody class="board-list">
-			 	<c:forEach var="dto" items="${newUserList}">
-				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
-				      onclick="detailMember('${dto.userId}');"> 
-				      <td style="padding: 0; height: 40px;">${dto.type==1 ? "일반" : (dto.type==2 ? "수의사" : "판매자" ) } </td>
-				      <td style="padding: 0;">${dto.userId}</td>
-				      <td style="padding: 0;">${dto.userNick}</td>      
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">자유</td>
+				      <td style="padding: 0;">${freeCount} (<fmt:formatNumber value="${(freeCount/totalCount)*100}" pattern=".0"/>%)</td>
+				      <td style="padding: 0;">${freeReplyCount} (<fmt:formatNumber value="${(freeReplyCount/totalReplyCount)*100}" pattern=".0"/>%)</td>
 				  </tr>
-			</c:forEach>
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">중고</td>
+				      <td style="padding: 0;">${dealCount} (<fmt:formatNumber value="${(dealCount/totalCount)*100}" pattern=".0"/>%)</td>
+				      <td style="padding: 0;">${dealReplyCount} (<fmt:formatNumber value="${(dealReplyCount/totalReplyCount)*100}" pattern=".0"/>%)</td>
+				  </tr>
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">포토</td>
+				      <td style="padding: 0;">${photoCount} (<fmt:formatNumber value="${(photoCount/totalCount)*100}" pattern=".0"/>%)</td>
+				      <td style="padding: 0;">${photoReplyCount} (<fmt:formatNumber value="${(photoReplyCount/totalReplyCount)*100}" pattern=".0"/>%)</td>
+				  </tr>
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">실종</td>
+				      <td style="padding: 0;">${missCount} (<fmt:formatNumber value="${(missCount/totalCount)*100}" pattern=".0"/>%)</td>
+				      <td style="padding: 0;">${missReplyCount} (<fmt:formatNumber value="${(missReplyCount/totalReplyCount)*100}" pattern=".0"/>%)</td>
+				  </tr>
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">비디오</td>
+				      <td style="padding: 0;">${vidCount} (<fmt:formatNumber value="${(vidCount/totalCount)*100}" pattern=".0"/>%)</td>
+				      <td style="padding: 0;">${vidReplyCount} (<fmt:formatNumber value="${(vidReplyCount/totalReplyCount)*100}" pattern=".0"/>%)</td>
+				  </tr>
 			 </tbody>
     		</table>
     	</div>
-	     	<div id="chart-container2" class="chart-container2">
+	     	<div id="chart-container2" class="chart-container2" style="display: inline-block;">
 	     	
 	     	</div>
 	     </div>

@@ -13,6 +13,7 @@ public class Main {
 	private String created;
 	private String userId;
 	private String userNick;
+	private String category;
 	private int type;
 	
 	public int getVisitNum() {
@@ -86,6 +87,12 @@ public class Main {
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }

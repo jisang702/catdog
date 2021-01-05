@@ -62,8 +62,8 @@ function detailReport(boardType, num){
 				$(this).dialog("close");
 			}
 		},
-		height: 520,
-		width: 800,
+		height: 400,
+		width: 700,
 		title: "신고 상세 정보",
 		close: function(event, ui){
 		

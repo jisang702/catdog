@@ -201,4 +201,37 @@
 ]]>				
 	</select>
 
+	<select id="listMemberSection" parameterType="Integer" resultType="com.sp.catdog.admin.memberManage.Analysis">
+		with board as (
+		    select to_date(userCreated, 'YYYY-MM-DD') AS created
+		    FROM member1
+            WHERE userType=#{userType}
+		)
+<![CDATA[
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
+		UNION ALL
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
+]]>
+	</select>
+	
 </mapper>

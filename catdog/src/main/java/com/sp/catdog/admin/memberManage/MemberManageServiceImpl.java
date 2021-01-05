@@ -190,4 +190,15 @@ public class MemberManageServiceImpl implements MemberManageService{
 		
 	}
 
+	@Override
+	public List<Analysis> listMemberSection(int userType) {
+		List<Analysis> list=null;
+		try {
+			list=dao.selectList("memberManage.listMemberSection",userType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

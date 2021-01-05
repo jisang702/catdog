@@ -35,16 +35,6 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public void insertVisitCount(Main dto) throws Exception {
-		try {
-			dao.insertData("admin.insertVisitCount", dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	@Override
 	public List<Main> newArticleList() {
 		List<Main> list=null;
 		try {
@@ -71,6 +61,28 @@ public class MainServiceImpl implements MainService{
 		List<Main> list=null;
 		try {
 			list=dao.selectList("admin.newProductList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return list;
+	}
+
+	@Override
+	public int questionCount() {
+		int result=0;
+		try {
+			result=dao.selectOne("admin.questionCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Main> newQuestionList() {
+		List<Main> list=null;
+		try {
+			list=dao.selectList("admin.newQuestionList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

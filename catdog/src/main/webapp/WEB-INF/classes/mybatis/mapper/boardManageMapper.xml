@@ -207,29 +207,29 @@
 		    FROM comFree
 		)
 <![CDATA[
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
 ]]>
 	</select>
 	<select id="listMissSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
@@ -238,29 +238,29 @@
 		    FROM comMiss
 		)
 <![CDATA[
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
 ]]>
 	</select>
 	<select id="listDealSection" resultType="com.sp.catdog.admin.boardManage.Analysis">
@@ -269,29 +269,29 @@
 		    FROM comDeal
 		)
 <![CDATA[
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
 ]]>
 	</select>
 	
@@ -301,29 +301,29 @@
 		    FROM comPhoto
 		)
 <![CDATA[
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
 ]]>
 	</select>
 	
@@ -333,29 +333,29 @@
 		    FROM vetVideo
 		)
 <![CDATA[
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-7, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-7 AND created > to_date(sysdate, 'YYYY-MM-DD')-8
+		select TO_CHAR(SYSDATE-7, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-7, 'YYYY-MM-DD') AND created > to_date(sysdate-8, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-6, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-6 AND created > to_date(sysdate, 'YYYY-MM-DD')-7
+		select TO_CHAR(SYSDATE-6, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-6, 'YYYY-MM-DD') AND created > to_date(sysdate-7, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-5, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-5 AND created > to_date(sysdate, 'YYYY-MM-DD')-6
+		select TO_CHAR(SYSDATE-5, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-5, 'YYYY-MM-DD') AND created > to_date(sysdate-6, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-4, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-4 AND created > to_date(sysdate, 'YYYY-MM-DD')-5
+		select TO_CHAR(SYSDATE-4, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-4, 'YYYY-MM-DD') AND created > to_date(sysdate-5, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-3, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-3 AND created > to_date(sysdate, 'YYYY-MM-DD')-4
+		select TO_CHAR(SYSDATE-3, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-3, 'YYYY-MM-DD') AND created > to_date(sysdate-4, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-2, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-2 AND created > to_date(sysdate, 'YYYY-MM-DD')-3
+		select TO_CHAR(SYSDATE-2, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-2, 'YYYY-MM-DD') AND created > to_date(sysdate-3, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD')-1, 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD')-1 AND created > to_date(sysdate, 'YYYY-MM-DD')-2
+		select TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate-1, 'YYYY-MM-DD') AND created > to_date(sysdate-2, 'YYYY-MM-DD')
 		UNION ALL
-		select TO_CHAR(TO_DATE(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') section, count(*) count from board 
-		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate, 'YYYY-MM-DD')-1
+		select TO_CHAR(SYSDATE, 'YYYY-MM-DD') section, count(*) count from board 
+		where created <= to_date(sysdate, 'YYYY-MM-DD') AND created > to_date(sysdate-1, 'YYYY-MM-DD')
 ]]>
 	</select>
 	

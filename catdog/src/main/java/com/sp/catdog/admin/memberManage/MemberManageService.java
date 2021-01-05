@@ -27,4 +27,5 @@ public interface MemberManageService {
 	
 	//차트
 	public List<Analysis> listAgeSection();
+	public List<Analysis> listMemberSection(int userType);
 }

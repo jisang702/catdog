@@ -47,4 +47,21 @@
 		ORDER BY prdCreated DESC
 		FETCH FIRST 6 ROWS ONLY
 	</select>
+	
+	<select id="newQuestionList" resultType="com.sp.catdog.admin.main.Main">
+		SELECT q.qnaNum AS num, q.userId, q.qnaSubject AS subject, qnaCategoryName AS category
+		FROM qna q
+		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
+		JOIN member1 m ON m.userId=q.userId
+		ORDER BY qnaCreated DESC
+		FETCH FIRST 3 ROWS ONLY
+	</select>
+	
+	<select id="questionCount" resultType="Integer">
+		select count(*)
+		from qna q
+		left outer join qna q2 on q2.qnaParent=q.qnaNum
+		where q.userId != 'admin' and NVL2(q2.qnaParent,1,0)=0
+		order by q.qnaNum DESC
+	</select>
 </mapper>

@@ -28,8 +28,49 @@ public class BoardController {
 	
 	@RequestMapping("analysis")
 	public String analysis(Model model) throws Exception{
+		Map<String, Object> map = new HashMap<>();
 		
+		map.put("boardType", "");
+		int totalCount=service.articleCount(map);
+		int totalReplyCount=service.replyCount(map);
 		
+		map.put("boardType", "free");
+		int freeCount=service.articleCount(map);
+		int freeReplyCount=service.replyCount(map);
+		
+		map.put("boardType", "deal");
+		int dealCount=service.articleCount(map);
+		int dealReplyCount=service.replyCount(map);
+		
+		map.put("boardType", "photo");
+		int photoCount=service.articleCount(map);
+		int photoReplyCount=service.replyCount(map);
+		
+		map.put("boardType", "miss");
+		int missCount=service.articleCount(map);
+		int missReplyCount=service.replyCount(map);
+		
+		map.put("boardType", "vid");
+		int vidCount=service.articleCount(map);
+		int vidReplyCount=service.replyCount(map);
+		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalReplyCount", totalReplyCount);
+		
+		model.addAttribute("freeCount", freeCount);
+		model.addAttribute("freeReplyCount", freeReplyCount);
+		
+		model.addAttribute("dealCount", dealCount);
+		model.addAttribute("dealReplyCount", dealReplyCount);
+		
+		model.addAttribute("photoCount", photoCount);
+		model.addAttribute("photoReplyCount", photoReplyCount);
+		
+		model.addAttribute("missCount", missCount);
+		model.addAttribute("missReplyCount", missReplyCount);
+		
+		model.addAttribute("vidCount", vidCount);
+		model.addAttribute("vidReplyCount", vidReplyCount);
 		
 		model.addAttribute("subMenu", 1);
 		return ".admin4.admin.boardManage.analysis";

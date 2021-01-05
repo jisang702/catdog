@@ -60,6 +60,22 @@ public class MemberManageController {
 		return model;
 	}
 	
+	@RequestMapping("memberAnalysis")
+	@ResponseBody
+	public Map<String, Object> listMemberSection() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Analysis> com=service.listMemberSection(1);
+		List<Analysis> vet=service.listMemberSection(2);
+		List<Analysis> sell=service.listMemberSection(3);
+
+		model.put("com", com);
+		model.put("vet", vet);
+		model.put("sell", sell);
+		
+		return model;
+	}
+	
 	@RequestMapping(value = "list")
 	public String list(
 			@RequestParam(value = "page", defaultValue = "1") int current_page,

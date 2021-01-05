@@ -53,6 +53,12 @@ public class MainController {
 		model.addAttribute("newArticleList", newArticleList);
 		model.addAttribute("newProductList", newProductList);
 		
+		
+		//신규 질문
+		List<Main> newQuestionList=service.newQuestionList();
+		
+		model.addAttribute("newQuestionList", newQuestionList);
+		
 		return ".adminLayout";
 	}
 	

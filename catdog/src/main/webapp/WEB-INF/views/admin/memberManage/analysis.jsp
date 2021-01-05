@@ -5,10 +5,19 @@
 
 <style>
 #chart-container {
-	width: 600px;
+	width: 800px;
 	box-sizing: border-box;
 	padding: 20px;
-	height: 600px;
+	height: 400px;
+	margin: 10px auto;
+	text-align: center;
+}
+
+#chart-container2 {
+	width: 400px;
+	box-sizing: border-box;
+	padding: 20px;
+	height: 400px;
 	border: 1px solid #ccc;
 	margin: 10px auto;
 	text-align: center;
@@ -19,6 +28,54 @@
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
 
 <script type="text/javascript">
+
+$(function(){
+	var url="${pageContext.request.contextPath}/admin/memberManage/memberAnalysis";
+	
+	$.getJSON(url, function(data){
+		var ctitles=[];
+		
+		var cvalues=[];
+		var vvalues=[];	
+		var svalues=[];
+		
+		for(var i=0; i<data.com.length; i++){
+			ctitles.push(data.com[i].section);
+			cvalues.push(data.com[i].count);
+			vvalues.push(data.vet[i].count);
+			svalues.push(data.sell[i].count);
+		}
+		
+		Highcharts.chart('chart-container', {
+		    chart: {
+		        type: 'area'
+		    },
+		    title: {
+		        text: ''
+		    },
+		    xAxis: {
+		        categories: ctitles
+		    },
+		    credits: {
+		        enabled: false
+		    },
+		    series: [
+		    {
+			    name: '일반',
+			    data: cvalues
+			 },
+		    {
+		        name: '수의사',
+		        data: vvalues
+		    },
+		    {
+		    	name: '판매자',
+		    	data: svalues
+		    }
+		    ]
+		});
+	});
+});
 
 $(function(){
 	var url="${pageContext.request.contextPath}/admin/memberManage/ageAnalysis";
@@ -38,7 +95,7 @@ $(function(){
 			arr.push(a);
 		}
 		
-		Highcharts.chart('chart-container', {
+		Highcharts.chart('chart-container2', {
 		    chart: {
 		        plotBackgroundColor: null,
 		        plotBorderWidth: null,
@@ -74,6 +131,10 @@ $(function(){
 	     	</div>
 	     	
 	     	<div id="chart-container">
+	     	
+	     	</div>
+	     	
+	     	<div id="chart-container2">
 	     	
 	     	</div>
 	     	

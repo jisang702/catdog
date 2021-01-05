@@ -40,7 +40,7 @@ $(function(){
 	<div id="mainMenu">
 		<div class="menu">
 		    <ul class="menunav">
-		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin">HOME</a></li>
+		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/main">HOME</a></li>
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/memberManage/analysis">회원관리</a></li>
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/boardManage/analysis">게시판관리</a></li>
 		        <li class="menu1"><a href="${pageContext.request.contextPath}/admin/storeManage/analysis">스토어관리</a></li>

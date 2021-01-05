@@ -121,24 +121,24 @@ $(function(){
     <div style="margin: 70px auto; width: 100%">
     	<div class="box" style="width: 70%; height: 280px; display: inline-block;"> 		
     		<p style="font-size: 20px; font-weight: bold; margin: 10px 20px;">오늘자 통계</p>
-    		<table class="listtable1">
-    			<tr>
+    		<table class="listtable1" style="height: 200px;">
+    			<tr height="20">
     				<th>현재 사용자 수</th>
 	    			<th>오늘 방문자 수</th>
 	    			<th>현재 가입자 수</th>
     			</tr>
-    			<tr>
+    			<tr height="20">
     				<td style="border: none;">${currentCount}</td>
     				<td style="border: none;">${todayCount}</td>
     				<td style="border: none;">${todayNewUserCount}</td>
     			</tr>
     			<tr>
-    				<td>&nbsp;</td>
-    				<td style="font-size: 12px;">
+    				<td height="20">&nbsp;</td>
+    				<td height="20" style="font-size: 12px;">
     					어제 방문자 수 : ${yesterdayCount}<br>
     					&emsp;&emsp;총 방문자 수    : ${totalCount}
     				</td>
-    				<td style="font-size: 12px;">
+    				<td height="20" style="font-size: 12px;">
     					누적 가입자 수 : ${totalUserCount}<br> 
     					&emsp;&emsp;
     				</td>
@@ -160,7 +160,7 @@ $(function(){
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/list'">  + 더보기</span>
         		</p>
         	</div>
-    		<table class="listtable1" style="width: 100%">
+    		<table class="listtable1" style="width: 100%; height: 300px">
 	    	 <thead>
 	               <tr align="center"  height="20" style="padding: 0"> 
 				      <th style="width: 120px; color: #787878;" >유형</th>
@@ -170,7 +170,7 @@ $(function(){
 			 </thead>
 			 <tbody class="board-list">
 			 	<c:forEach var="dto" items="${newUserList}">
-				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
+				  <tr align="center" style="border-bottom: 1px solid #cccccc;" class="hover-tr"
 				      onclick="detailMember('${dto.userId}');"> 
 				      <td style="padding: 0; height: 40px;">${dto.type==1 ? "일반" : (dto.type==2 ? "수의사" : "판매자" ) } </td>
 				      <td style="padding: 0;">${dto.userId}</td>
@@ -188,7 +188,7 @@ $(function(){
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/boardManage/listArticle'">  + 더보기</span>
         		</p>
         	</div>
-    		<table class="listtable1" style="width: 100%">
+    		<table class="listtable1" style="width: 100%; height: 300px">
 	    	 <thead>
 	               <tr align="center"  height="20" style="padding: 0"> 
 				      <th style="width: 120px; color: #787878;" >게시판</th>
@@ -214,7 +214,7 @@ $(function(){
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/storeManage/listProduct'">  + 더보기</span>
         		</p>
         	</div>
-    		<table class="listtable1" style="width: 100%">
+    		<table class="listtable1" style="width: 100%; height: 300px">
 	    	 <thead>
 	               <tr align="center"  height="20" style="padding: 0"> 
 				      <th style="width: 120px; color: #787878;">유형</th>
@@ -233,5 +233,60 @@ $(function(){
 			 </tbody>
     		</table>
         </div>
+         <div class="box" style="width: 49%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
+        	<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">새로 올라온 문의글</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
+        		</p>
+        	</div>
+    		<table class="listtable1" style="width: 80%; height: 180px">
+	    	 <thead>
+	               <tr align="center"  height="20" style="padding: 0"> 
+				      <th style="width: 120px; color: #787878;">유형</th>
+				      <th style="width: 250px; color: #787878;">질문</th>
+				      <th style="width: 120px; color: #787878;">아이디</th> 
+				  </tr>
+			 </thead>
+			 <tbody class="board-list">
+			 	<c:forEach var="dto" items="${newQuestionList}">
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">${dto.category}</td>
+				      <td style="padding: 0;">${dto.subject}</td>
+				      <td style="padding: 0;">${dto.userId}</td>      
+				  </tr>
+				</c:forEach>
+			 </tbody>
+    		</table>
+        </div>
+        
+        <div class="box" style="width: 29%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
+        	<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">새로 올라온 문의글</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
+        		</p>
+        	</div>
+    		<table class="listtable1" style="width: 100%">
+	    	 <thead>
+	               <tr align="center"  height="20" style="padding: 0"> 
+				      <th style="width: 120px; color: #787878;">유형</th>
+				      <th style="width: 250px; color: #787878;">질문</th>
+				      <th style="width: 120px; color: #787878;">아이디</th> 
+				  </tr>
+			 </thead>
+			 <tbody class="board-list">
+			 	<c:forEach var="dto" items="${newProductList}">
+				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				      <td style="padding: 0; height: 40px;">${dto.type}</td>
+				      <td style="padding: 0;">${dto.subject}</td>
+				      <td style="padding: 0;">${dto.userId}</td>      
+				  </tr>
+				</c:forEach>
+			 </tbody>
+    		</table>
+        </div>
+    
+        
     </div>
 </div>
