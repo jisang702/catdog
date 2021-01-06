@@ -51,7 +51,7 @@
 </style>
 
 <script type="text/javascript">
-<c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin' }">
+<c:if test="${not empty answerDto && sessionScope.member.userId=='admin' || sessionScope.member.userType==2}">
 function deleteQnA(qnaNum, mode) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
 		var url="${pageContext.request.contextPath}/doctor/qna/delete?qnaNum="+qnaNum+"&mode="+mode+"&${query}";
@@ -127,7 +127,7 @@ function deleteQnA(qnaNum, mode) {
 	        <c:if test="${not empty preReadDto}">
 		      	<c:choose>
 		      		<c:when test="${preReadDto.qnaSecret==1}">
-		      			<i class="fa fa-lock" title="공개여부" style="color: #333333;"></i>
+		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
 		      			<c:if test="${sessionScope.member.userId==preReadDto.userId || sessionScope.member.userId=='admin'}">
 		      			    <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
 		      			</c:if>
@@ -142,18 +142,18 @@ function deleteQnA(qnaNum, mode) {
 	        </c:if>
 	    </td>
 	</tr>
-	
+
 	<tr height="35" style="border-bottom: 1px solid #cccccc;">
 	    <td colspan="2" align="left" style="padding-left: 5px;">
 	       다음글 :
 	        <c:if test="${not empty nextReadDto}">
 		      	<c:choose>
 		      		<c:when test="${nextReadDto.qnaSecret==1}">
-		      			<i class="fa fa-lock" title="공개여부" style="color: #333333;"></i>
-		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userId=='admin'}">
+		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
+		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userId=='admin'|| sessionScope.member.userType==2}">
 		      				 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
 		      			</c:if>
-		      			<c:if test="${sessionScope.member.userId!=nextReadDto.userId && sessionScope.member.userId!='admin'}">
+		      			<c:if test="${sessionScope.member.userId!=nextReadDto.userId && sessionScope.member.userId!='admin'&& sessionScope.member.userType==2}">
 		      				${nextReadDto.qnaSubject}
 		      			</c:if>
 		      		</c:when>
