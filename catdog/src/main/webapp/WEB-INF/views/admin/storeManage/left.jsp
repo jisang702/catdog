@@ -18,5 +18,4 @@ $(function(){
        <a href="${pageContext.request.contextPath}/admin/storeManage/analysis" class="list-group-item">스토어통계</a>
        <a href="${pageContext.request.contextPath}/admin/storeManage/listCategory" class="list-group-item">상품카테고리관리</a>       
        <a href="${pageContext.request.contextPath}/admin/storeManage/listProduct" class="list-group-item">상품통합관리</a>
-       <a href="${pageContext.request.contextPath}/admin" class="list-group-item">게시판통계</a>
 </div>

@@ -19,8 +19,22 @@
 	padding: 20px;
 	height: 400px;
 	border: 1px solid #ccc;
-	margin: 10px auto;
+	margin: 20px auto 0px;
 	text-align: center;
+	font-weight: 700;
+	border: 1px solid #dadada;
+	border-radius: 10px;
+}
+.box{
+	border: 1px solid #dadada;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.box p{
+	font-size: 16px;
+    float: left;
+    font-weight: bold;
 }
 </style>
 
@@ -134,44 +148,49 @@ $(function(){
 	     	
 	     	</div>
 	     	
-	     	<div id="chart-container2">
 	     	
-	     	</div>
-	     	
-	     	<div style="margin-top: 30px;">
-	     		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px; text-align: left;">| 회원 유형별 통계</p>
-	     		<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
+	     	<div class="box" style="width: 40%; height: 360px; margin-top: 10px; padding: 20px; display: inline-block;">
+    		<div>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">회원 유형별 통계</p>
+        		<p style="float: right; font-size: 10px;"><br><br>
+        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/list'">  + 더보기</span>
+        		</p>
+        	</div>
+	     		<table class="listtable1" style="width: 100%">
 	               <thead>
-		               <tr align="center" bgcolor="#ccc" height="35" style="border-bottom: 1px solid #222;"> 
-					      <th style="width: 100px; color: #222; padding: 10px;">유형</th>
-					      <th style="width: 100px; color: #222; padding: 10px;">회원수</th>
-					      <th style="width: 100px; color: #222; padding: 10px;">비율</th>
-					      <th style="color: #222; padding: 10px;">그래프</th>      
+		               <tr align="center"  height="20" style="padding: 0"> 
+					      <th style="width: 120px; color: #787878;">유형</th>
+					      <th style="width: 120px; color: #787878;">회원수</th>
+					      <th style="width: 120px; color: #787878;">비율</th>  
 					  </tr>
 				 </thead>
 				 
 				 <tbody class="board-list">
-					  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-					      <td>일반</td>
-					      <td>${comDataCount}</td>
-					      <td><fmt:formatNumber value="${(comDataCount/totalDataCount)*100}" pattern=".0"/>%</td>
-					      <td></td>	      
+					  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+					      <td style="padding: 0; height: 40px;">일반</td>
+					      <td style="padding: 0;">${comDataCount}</td>
+					      <td style="padding: 0;"><fmt:formatNumber value="${(comDataCount/totalDataCount)*100}" pattern=".0"/>%</td>    
 					  </tr>
-					  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-					      <td>수의사</td>
-					      <td>${vetDataCount}</td>
-					      <td><fmt:formatNumber value="${(vetDataCount/totalDataCount)*100}" pattern=".0"/>%</td>
-					      <td>&nbsp;</td>	      
+					  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+					      <td style="padding: 0; height: 40px;">수의사</td>
+					      <td style="padding: 0;">${vetDataCount}</td>
+					      <td style="padding: 0;"><fmt:formatNumber value="${(vetDataCount/totalDataCount)*100}" pattern=".0"/>%</td>
 					  </tr>
-					  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-					      <td>판매자</td>
-					      <td>${sellDataCount}</td>
-					      <td><fmt:formatNumber value="${(vetDataCount/totalDataCount)*100}" pattern=".0"/>%</td>
-					      <td>&nbsp;</td>	      
+					  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+					      <td style="padding: 0; height: 40px;">판매자</td>
+					      <td style="padding: 0;">${sellDataCount}</td>
+					      <td style="padding: 0;"><fmt:formatNumber value="${(vetDataCount/totalDataCount)*100}" pattern=".0"/>%</td>    
 					  </tr>
 				</tbody>
 			</table>
 	     	</div>
+	     	
+	     	
+	     	<div id="chart-container2" style="display: inline-block;">
+	     	
+	     	</div>
+	     	
+	     	
 	     </div>
 	     
 	</div>

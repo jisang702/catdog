@@ -59,6 +59,10 @@ public class MainController {
 		
 		model.addAttribute("newQuestionList", newQuestionList);
 		
+		//신규 공지
+		List<Main> newNoticeList=service.newNoticeList();
+		model.addAttribute("newNoticeList", newNoticeList);
+		
 		return ".adminLayout";
 	}
 	

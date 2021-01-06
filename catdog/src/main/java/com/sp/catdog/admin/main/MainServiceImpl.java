@@ -89,4 +89,15 @@ public class MainServiceImpl implements MainService{
 		return list;
 	}
 
+	@Override
+	public List<Main> newNoticeList() {
+		List<Main> list=null;
+		try {
+			list=dao.selectList("admin.newNoticeList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return list;
+	}
+
 }

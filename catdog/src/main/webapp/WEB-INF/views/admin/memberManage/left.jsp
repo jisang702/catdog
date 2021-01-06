@@ -17,6 +17,6 @@ $(function(){
        <div class="list-group-item lefthead"><i></i>회원관리</div>
        <a href="${pageContext.request.contextPath}/admin/memberManage/analysis" class="list-group-item">회원분석</a>   
        <a href="${pageContext.request.contextPath}/admin/memberManage/list" class="list-group-item">회원목록</a>    
-       <a href="${pageContext.request.contextPath}/admin/memberManage/list?mode=black" class="list-group-item">신고회원관리</a>   
-       <a href="${pageContext.request.contextPath}/admin" class="list-group-item">탈퇴회원관리</a>
+       <a href="${pageContext.request.contextPath}/admin/memberManage/blacklist" class="list-group-item">신고회원관리</a>   
+       <a href="${pageContext.request.contextPath}/admin/memberManage/outlist" class="list-group-item">탈퇴회원관리</a>
 </div>

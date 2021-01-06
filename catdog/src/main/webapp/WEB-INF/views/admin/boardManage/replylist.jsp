@@ -118,7 +118,8 @@ function deleteReply(boardType, num){
 			          ${replyCount}개(${page}/${total_page} 페이지)
 			      </td>
 			      <td align="right">
-					  <button class="mybtn2" type="button" style="background: black; color: white">&nbsp;신고&nbsp;</button>      	
+					  <button class="mybtn2" type="button" style="background: black; color: white" 
+					  	onclick="javascript:location.href='${pageContext.request.contextPath}/admin/boardManage/listReplyReport'">&nbsp;신고&nbsp;</button>      	
 			          <select id="selectBoardType" class="selectField" onchange="searchList();">
 			          		<option value="" ${boardType=="" ? "selected='selected'":""}>::게시판::</option>
 			          		<option value="free" ${boardType=="free" ? "selected='selected'":""}>자유게시판</option>

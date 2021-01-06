@@ -12,4 +12,5 @@ public interface MainService {
 	public List<Main> newArticleList();
 	public List<Main> newProductList();
 	public List<Main> newQuestionList();
+	public List<Main> newNoticeList();
 }

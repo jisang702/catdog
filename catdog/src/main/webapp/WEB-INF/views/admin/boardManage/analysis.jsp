@@ -22,6 +22,7 @@
 	text-align: center;
 	border: 1px solid #dadada;
 	border-radius: 10px;
+	font-weight: 700;
 }
 .box{
 	border: 1px solid #dadada;

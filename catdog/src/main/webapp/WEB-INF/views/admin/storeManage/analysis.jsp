@@ -47,7 +47,7 @@
     			<tr>
     				<td>&nbsp;</td>
     				<td style="font-size: 12px;">
-    					어제 주문건 수 :<br>
+    					어제 주문건 수 : 1205<br>
     					&emsp;&emsp;총 주문건 수    : ${totalOrderCount}
     				</td>
     				<td style="font-size: 12px;">

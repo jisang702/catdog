@@ -64,4 +64,11 @@
 		where q.userId != 'admin' and NVL2(q2.qnaParent,1,0)=0
 		order by q.qnaNum DESC
 	</select>
+	
+	<select id="newNoticeList" resultType="com.sp.catdog.admin.main.Main">
+		SELECT noNum AS num, noSubject AS subject, noCreated AS created, userId
+		FROM notice
+		ORDER BY noCreated DESC
+        FETCH FIRST 3 ROWS ONLY
+	</select>
 </mapper>

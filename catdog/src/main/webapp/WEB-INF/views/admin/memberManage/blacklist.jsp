@@ -24,7 +24,7 @@ $(function(){
 			
 		$("#tab-"+tab).addClass("active");
 		
-		var url="${pageContext.request.contextPath}/admin/memberManage/list?group="+tab;
+		var url="${pageContext.request.contextPath}/admin/memberManage/blacklist?group="+tab;
 		location.href=url;
 	});
 });
@@ -54,7 +54,7 @@ function ajaxFun(url, method, dataType, query, fn){
 function searchList(){
 	var f = document.searchForm;
 	f.userEnabled.value=$("#selectEnabled").val();
-	f.action="${pageContext.request.contextPath}/admin/memberManage/list";
+	f.action="${pageContext.request.contextPath}/admin/memberManage/blacklist";
 	f.submit();
 }
 
@@ -171,7 +171,7 @@ function selectStateChange(){
 <div class="body-container" style="width: 900px; ">
 	<div style="margin: 70px auto;">
      <div class="body-title">
-         <h2>회원 관리 </h2>
+         <h2>신고 회원 관리 </h2>
      </div>
      
      <div>
@@ -188,9 +188,7 @@ function selectStateChange(){
 			      <td align="left" width="50%">
 			          ${dataCount}명(${page}/${total_page} 페이지)
 			      </td>
-			      <td align="right">
-					  <button class="mybtn2" type="button" style="background: black; color: white" 
-					  		onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/blacklist'">&nbsp;신고&nbsp;</button>      	
+			      <td align="right">    	
 			          <select id="selectEnabled" class="selectField" onchange="searchList();">
 			          		<option value="" ${userEnabled=="" ? "selected='selected'":""}>::계정상태::</option>
 			          		<option value="0" ${userEnabled=="0" ? "selected='selected'":""}>잠금 계정</option>
@@ -211,7 +209,6 @@ function selectStateChange(){
 				      <th style="width: 100px; color: #787878;">생년월일</th>
 				      <th style="width: 120px; color: #787878;">전화번호</th>
 				      <th style="color: #787878;">이메일</th>
-				      <th style="width: 60px; color: #787878;">신고</th>
 				      <th style="width: 60px; color: #787878;">상태</th>				      
 				  </tr>
 			 </thead>
@@ -227,7 +224,6 @@ function selectStateChange(){
 				      <td>${dto.userBirth}</td>
 				      <td>${dto.userTel}</td>
 				      <td>${dto.userEmail}</td>
-				      <td>${dto.userReported}</td>
 				      <td>${dto.userEnabled==1 ? "활성" : (dto.userEnabled==0 ? "잠금" : "탈퇴")}</td>				      
 				  </tr>
 			</c:forEach>
@@ -245,10 +241,10 @@ function selectStateChange(){
 			<table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
 			   <tr height="40">
 			      <td align="left" width="100">
-			          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/list';">새로고침</button>
+			          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/blacklist';">새로고침</button>
 			      </td>
 			      <td align="center">
-			          <form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/list" method="post">
+			          <form name="searchForm" action="${pageContext.request.contextPath}/admin/memberManage/blacklist" method="post">
 			              <select name="condition" class="selectField">
 			                  <option value="userId"     ${condition=="userId" ? "selected='selected'":""}>아이디</option>
 			                  <option value="userNick"   ${condition=="userNick" ? "selected='selected'":""}>닉네임</option>

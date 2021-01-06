@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Stylish&display=swap" rel="stylesheet">
 
 <style type="text/css">
+
 #chart-container {
 	width: 250px;
 	box-sizing: border-box;
@@ -155,7 +156,7 @@ $(function(){
     	
     	<div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
     		<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규회원</p>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-user-alt"></i>&nbsp;신규회원</p>
         		<p style="float: right; font-size: 10px;"><br><br>
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/memberManage/list'">  + 더보기</span>
         		</p>
@@ -183,7 +184,7 @@ $(function(){
     	
         <div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
         	<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규게시물</p>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="far fa-window-restore"></i>&nbsp;신규게시물</p>
         		<p style="float: right; font-size: 10px;"><br><br>
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/boardManage/listArticle'">  + 더보기</span>
         		</p>
@@ -209,7 +210,7 @@ $(function(){
         </div>
         <div class="box" style="width: 29%; height: 380px; margin-top: 10px; padding: 20px; display: inline-block;">
         	<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">신규상품</p>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-store"></i>&nbsp;신규상품</p>
         		<p style="float: right; font-size: 10px;"><br><br>
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/storeManage/listProduct'">  + 더보기</span>
         		</p>
@@ -234,35 +235,37 @@ $(function(){
     		</table>
         </div>
          <div class="box" style="width: 49%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
-        	<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">새로 올라온 문의글</p>
-        		<p style="float: right; font-size: 10px;"><br><br>
-        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
-        		</p>
-        	</div>
-    		<table class="listtable1" style="width: 80%; height: 180px">
-	    	 <thead>
-	               <tr align="center"  height="20" style="padding: 0"> 
-				      <th style="width: 120px; color: #787878;">유형</th>
-				      <th style="width: 250px; color: #787878;">질문</th>
-				      <th style="width: 120px; color: #787878;">아이디</th> 
-				  </tr>
-			 </thead>
-			 <tbody class="board-list">
-			 	<c:forEach var="dto" items="${newQuestionList}">
-				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-				      <td style="padding: 0; height: 40px;">${dto.category}</td>
-				      <td style="padding: 0;">${dto.subject}</td>
-				      <td style="padding: 0;">${dto.userId}</td>      
-				  </tr>
-				</c:forEach>
-			 </tbody>
-    		</table>
+	         <div style="width: 85%">
+	        	<div>
+	        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-bell"></i>&nbsp;새로 올라온 문의글</p>
+	        		<p style="float: right; font-size: 10px;"><br><br>
+	        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
+	        		</p>
+	        	</div>
+	    		<table class="listtable1" style="width: 80%; height: 180px">
+		    	 <thead>
+		               <tr align="center"  height="20" style="padding: 0"> 
+					      <th style="width: 120px; color: #787878;">유형</th>
+					      <th style="width: 250px; color: #787878;">질문</th>
+					      <th style="width: 120px; color: #787878;">아이디</th> 
+					  </tr>
+				 </thead>
+				 <tbody class="board-list">
+				 	<c:forEach var="dto" items="${newQuestionList}">
+					  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+					      <td style="padding: 0; height: 40px;">${dto.category}</td>
+					      <td style="padding: 0;">${dto.subject}</td>
+					      <td style="padding: 0;">${dto.userId}</td>      
+					  </tr>
+					</c:forEach>
+				 </tbody>
+	    		</table>
+	    	 </div>
         </div>
         
-        <div class="box" style="width: 29%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
+        <div class="box" style="width: 39%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
         	<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;">새로 올라온 문의글</p>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-bullhorn"></i>공지사항</p>
         		<p style="float: right; font-size: 10px;"><br><br>
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
         		</p>
@@ -270,17 +273,15 @@ $(function(){
     		<table class="listtable1" style="width: 100%">
 	    	 <thead>
 	               <tr align="center"  height="20" style="padding: 0"> 
-				      <th style="width: 120px; color: #787878;">유형</th>
-				      <th style="width: 250px; color: #787878;">질문</th>
-				      <th style="width: 120px; color: #787878;">아이디</th> 
+				      <th style="width: 300px; color: #787878;">제목</th>
+				      <th style="width: 120px; color: #787878;">아이디</th>
 				  </tr>
 			 </thead>
 			 <tbody class="board-list">
-			 	<c:forEach var="dto" items="${newProductList}">
+			 	<c:forEach var="dto" items="${newNoticeList}">
 				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-				      <td style="padding: 0; height: 40px;">${dto.type}</td>
-				      <td style="padding: 0;">${dto.subject}</td>
-				      <td style="padding: 0;">${dto.userId}</td>      
+				      <td style="padding: 0; height: 40px;">${dto.subject}</td>
+				      <td style="padding: 0;">${dto.userId}</td>
 				  </tr>
 				</c:forEach>
 			 </tbody>
