@@ -128,10 +128,10 @@ function deleteQnA(qnaNum, mode) {
 		      	<c:choose>
 		      		<c:when test="${preReadDto.qnaSecret==1}">
 		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
-		      			<c:if test="${sessionScope.member.userId==preReadDto.userId || sessionScope.member.userId=='admin'}">
+		      			<c:if test="${sessionScope.member.userId==preReadDto.userId ||sessionScope.member.userType==2}">
 		      			    <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
 		      			</c:if>
-		      			<c:if test="${sessionScope.member.userId!=preReadDto.userId && sessionScope.member.userId!='admin'}">
+		      			<c:if test="${sessionScope.member.userId!=preReadDto.userId}">
 		      				${preReadDto.qnaSubject}
 		      			</c:if>
 		      		</c:when>
@@ -150,10 +150,10 @@ function deleteQnA(qnaNum, mode) {
 		      	<c:choose>
 		      		<c:when test="${nextReadDto.qnaSecret==1}">
 		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
-		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userId=='admin'|| sessionScope.member.userType==2}">
+		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userType==2}">
 		      				 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
 		      			</c:if>
-		      			<c:if test="${sessionScope.member.userId!=nextReadDto.userId && sessionScope.member.userId!='admin'&& sessionScope.member.userType==2}">
+		      			<c:if test="${sessionScope.member.userId!=nextReadDto.userId }">
 		      				${nextReadDto.qnaSubject}
 		      			</c:if>
 		      		</c:when>
