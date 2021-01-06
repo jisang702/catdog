@@ -28,8 +28,8 @@
 	<!-- 문의 답변 글번호 -->
 
 	<insert id="prdQnainsertAnswer" parameterType="com.sp.catdog.seller.qna.StoreQna">
-		INSERT INTO prdQnaAnswer (qnaNum, qnaAnsContent, userId, qnaAnswerCreated)
-			VALUES (#{qnaNum}, #{qnaAnsContent}, #{userId}, SYSDATE)
+		INSERT INTO prdQnaAnswer (qnaNum, qnaansContent, userId, answerCreated)
+			VALUES (#{qnaNum}, #{qnaansContent}, #{userId}, SYSDATE)
 	</insert>
 	
 	<select id="prdQnadataCount" parameterType="map" resultType="Integer">
@@ -43,7 +43,7 @@
 	
 	<select id="prdQnalist" parameterType="map" resultType="com.sp.catdog.seller.qna.StoreQna">
 		SELECT  q.qnaNum, q.prdNum, prdName, q.userId, userName, qnaContent,qnaSecret, qnaCategory, qnaCreated,
-        qnaAnsContent, answerCreated
+        qnaansContent
 		FROM prdQna q
 		JOIN product p ON q.prdNum = p.prdNum
 		JOIN member1 m ON m.userId=q.userId

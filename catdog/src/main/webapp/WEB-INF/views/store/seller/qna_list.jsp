@@ -74,11 +74,13 @@ $(function(){
 			return false;
 		}
 		
-		var url="";
+		// var url="${pageContext.request.contextPath}/store/seller/main/qna";
+		var url="${pageContext.request.contextPath}/store/seller/qna/qna_created";
 		var query="qnaNum="+qnaNum+"&qnaansContent="+encodeURIComponent($ta.val());
 		
 		var fn = function(data) {
-			location.href="";
+			// location.href="${pageContext.request.contextPath}/store/seller/qna/qna_created";
+			location.href="${pageContext.request.contextPath}/store/seller/main/qna";
 		};
 		
 		ajaxJSON(url, "post", query, fn);
@@ -119,7 +121,22 @@ $(function(){
 		        </td>
 		    </tr>
 		    
-		    <c:choose>
+		    <c:if test="${empty qnaansContent}">
+	    		 <tr>
+			        <td colspan='2' valign='top' style='padding:5px 5px 5px 15px;'>
+			            <div style='clear: both; padding: 10px 10px;'>
+			                <div style='float: left; width: 5%;'>└</div>
+			                <div style='float: left; width:95%'>
+			                    <textarea cols='72' rows='12' class='boxTA' style='width:98%; height: 70px;'></textarea>
+			                 </div>
+			            </div>
+			             <div style='padding: 0px 13px 10px 10px; text-align: right;'>
+			                <button type='button' class='btn btnSendAnswer' data-qnaNum='${dto.qnaNum}'>답글 등록</button>
+			            </div>
+			        </td>
+			    </tr>
+			</c:if>
+	<%-- 	    <c:choose>
 		    	<c:when test="${not empty qnaansContent }">
 				    <tr >
 				        <td colspan='2' valign='top' style='padding:5px 5px 5px 15px;'>
@@ -148,7 +165,9 @@ $(function(){
 				    </tr>
 		    	
 		    	</c:otherwise>
-		    </c:choose>
+		    </c:choose> --%>
+		    
+		    
 		   
 		</c:forEach>
 		
