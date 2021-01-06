@@ -13,6 +13,27 @@
 				#{missPet}, 0, #{userId}, #{state}, #{missWhereLat}, #{missWhereLng})
 	</insert>
 	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(freeSubject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(missContent, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition == 'where'">
+			    DBMS_LOB.INSTR(missWhere, #{keyword}) &gt; 0
+			</when>
+			<when test="condition == 'subject'">
+			    DBMS_LOB.INSTR(missSubject, #{keyword}) &gt; 0
+			</when>
+			<when test="condition == 'content'">
+			    DBMS_LOB.INSTR(missContent, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<insert id="insertMissPet" parameterType="com.sp.catdog.community.miss.Miss">
 		INSERT INTO comMissPet(missNum, petBreed, petName, petAge, petGender, petCharacter, petImg) VALUES (
 			#{missNum}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petCharacter}, #{petImg} )
@@ -21,18 +42,33 @@
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM comMiss s
-		JOIN member1 m ON m.userId=s.userId	
+		JOIN member1 m ON m.userId=s.userId
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 
 	</select>
 	
 	<select id="listMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
 		SELECT s.missNum, missSubject, to_char(missCreated, 'YYYY-MM-DD') missCreated,
 			missHitCount, missWhere, to_char(missWhen, 'YYYY-MM-DD') missWhen, missPet, 
-			petName, petAge, petGender, petImg
+			petName, petAge, petGender, petImg, replyCount
 		FROM comMiss s
+		LEFT OUTER JOIN (
+			SELECT missNum, COUNT(*) replyCount FROM comMissReply
+			WHERE missReplyType=0
+			GROUP BY missNum
+		) c ON s.missNum=c.missNum
 		LEFT OUTER JOIN (
 			SELECT missNum, petName, petAge, petGender, petImg
 			FROM comMissPet
 		) n ON s.missNum=n.missNum
+		<where>
+			<if test="keyword!=null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where> 
 		ORDER BY missNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
@@ -55,7 +91,7 @@
 	</select>
 	
 	<select id="preReadMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
-		SELECT missNum, p.userId
+		SELECT missNum, p.userId, missSubject
 		FROM comMiss p
 		JOIN member1 m ON p.userId=m.userId
 		WHERE (missNum &gt; #{missNum})
@@ -64,7 +100,7 @@
 	</select>
 
 	<select id="nextReadMiss" parameterType="map" resultType="com.sp.catdog.community.miss.Miss">
-		SELECT missNum, p.userId
+		SELECT missNum, p.userId, missSubject
 		FROM comMiss p
 		JOIN member1 m ON p.userId=m.userId
 		WHERE (missNum &lt; #{missNum})
@@ -92,4 +128,92 @@
 		WHERE missNum=#{missNum}
 	</update>
 	
+	<insert id="insertReply" parameterType="com.sp.catdog.community.miss.Reply">
+		INSERT INTO comMissReply(missReplyNum, missReplyContent, missReplyCreated, missReplyType,
+			missNum, userId) VALUES (commissreply_seq.NEXTVAL, #{missReplyContent}, SYSDATE, #{missReplyType}, #{missNum}, #{userId})
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comMissReply
+		WHERE missNum=#{missNum} AND missReplyType=0
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.catdog.community.miss.Reply">
+		SELECT r.missReplyNum, r.userId, userNick, missNum, missReplyContent, 
+			to_char(missReplyCreated, 'YYYY-MM-DD') missReplyCreated, answerCount, replyLikeCount
+		FROM comMissReply r
+		JOIN member1 m ON m.userId=r.userId
+		LEFT OUTER JOIN (
+			SELECT missReplyType, COUNT(*) answerCount FROM comMissReply
+            where missReplyType!=0
+            Group by missReplyType
+		) c ON r.missReplyNum=c.missReplyType
+		LEFT OUTER JOIN (
+            SELECT missReplyNum, COUNT(*) replyLikeCount FROM commissReplyLike
+            WHERE likeNo=1
+            GROUP BY missReplyNum
+        ) l ON l.missReplyNum=r.missReplyNum
+		WHERE missNum=#{missNum} AND r.missReplyType=0
+		ORDER BY r.missReplyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<update id="updateReply" parameterType="com.sp.catdog.community.miss.Reply">
+		UPDATE comMissReply SET missReplyContent=#{missReplyContent}
+		WHERE missReplyNum=#{missReplyNum} AND userId=#{userId}
+	</update>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM comMissReply WHERE missReplyNum=#{missReplyNum}
+		<if test="mode=='reply'">
+			OR missReplyType=#{missReplyNum}
+		</if>
+	</delete>
+	
+	<select id="listAnswerReply" parameterType="Integer" resultType="com.sp.catdog.community.miss.Reply">
+		SELECT r.missReplyNum, r.userId, userNick, missNum, missReplyContent, 
+			to_char(missReplyCreated, 'YYYY-MM-DD') missReplyCreated, missReplyType, replyLikeCount
+		FROM commissReply r
+		JOIN member1 m ON m.userId=r.userId
+		LEFT OUTER JOIN (
+            SELECT missReplyNum, COUNT(*) replyLikeCount FROM commissReplyLike
+            WHERE likeNo=1
+            GROUP BY missReplyNum
+        ) l ON l.missReplyNum=r.missReplyNum
+		WHERE missReplyType=#{missReplyType}
+		ORDER BY r.missReplyNum ASC
+	</select>
+	
+	<select id="answerReplyCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comMissReply WHERE missReplyType = #{missReplyType}
+	</select>
+	
+	<insert id="insertReplyLike" parameterType="map">
+		INSERT INTO comMissReplyLike(missReplyNum, userId, likeNo) VALUES (#{missReplyNum}, #{userId}, 1)
+	</insert>
+	
+	<select id="replyLikeCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM comMissReplyLike 
+		WHERE missReplyNum=#{missReplyNum} AND likeNo=1
+	</select>
+	
+	<delete id="deleteReplyLike" parameterType="map">
+		DELETE FROM comMissReplyLike WHERE missReplyNum=#{missReplyNum} AND userId=#{userId}
+	</delete>
+	
+	<select id="replyLikeUser" parameterType="map" resultType="Integer">
+		SELECT likeNo FROM comMissReplyLike WHERE missReplyNum=#{missReplyNum} AND userId=#{userId}
+	</select>
+	
+	<insert id="insertPoint" parameterType="com.sp.catdog.community.miss.Miss">
+		INSERT INTO comPoint(pointNum, pointContent, pointCreated, pointType, pointQuantity, userId) VALUES 
+			(comPoint_seq.NEXTVAL, '찾아주세요 글 작성', SYSDATE, 1, 100, #{userId})
+	</insert>
+	
+	<insert id="insertReplyPoint" parameterType="com.sp.catdog.community.miss.Reply">
+		INSERT INTO comPoint(pointNum, pointContent, pointCreated, pointType, pointQuantity, userId) VALUES 
+			(comPoint_seq.NEXTVAL, '찾아주세요 댓글 작성', SYSDATE, 1, 10, #{userId})	
+	</insert>
 </mapper>

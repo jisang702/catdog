@@ -13,6 +13,8 @@
 		f.action="${pageContext.request.contextPath}/community/board/list";
 		f.submit();
 	}
+	
+	
 </script>
 
 <div class="body-container">

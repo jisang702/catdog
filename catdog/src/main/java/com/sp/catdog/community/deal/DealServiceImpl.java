@@ -18,6 +18,7 @@ public class DealServiceImpl implements DealService {
 	public void insertDeal(Deal dto) throws Exception {
 		try {
 			dao.insertData("deal.insertDeal", dto);
+			dao.insertData("deal.insertPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,6 +111,7 @@ public class DealServiceImpl implements DealService {
 	public void insertReply(Reply dto) throws Exception {
 		try {
 			dao.insertData("deal.insertReply", dto);
+			dao.insertData("deal.insertReplyPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

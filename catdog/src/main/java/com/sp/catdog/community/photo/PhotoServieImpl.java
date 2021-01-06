@@ -40,6 +40,8 @@ public class PhotoServieImpl implements PhotoService {
 					insertImage(dto);
 				}
 			}
+
+			dao.insertData("photo.insertPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -241,6 +243,7 @@ public class PhotoServieImpl implements PhotoService {
 	public void insertReply(Reply dto) throws Exception {
 		try {
 			dao.insertData("photo.insertReply", dto);
+			dao.insertData("photo.insertReplyPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -437,12 +437,14 @@ $(function() {
 $(function() {
 	var where1="${dto.missWhere1}";
 	var where2="${dto.missWhere2}";
+	var year="${dto.year}";
 	
 	if(mode=='update') {
 		$("#missWhere1").val(where1);
 		$("#missWhere1").trigger("change");
 		$("#missWhere2").val(where2);
 		$("#missWhere2").trigger("change");
+		$("#YEAR").val(year);
 	}
 });
 </script>

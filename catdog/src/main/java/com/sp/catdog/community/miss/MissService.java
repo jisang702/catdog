@@ -3,8 +3,6 @@ package com.sp.catdog.community.miss;
 import java.util.List;
 import java.util.Map;
 
-import com.sp.catdog.community.freeboard.Reply;
-
 public interface MissService {
 	public void insertMiss(Miss dto, String pathname) throws Exception;
 	public int dataCount(Map<String, Object> map);
@@ -24,5 +22,13 @@ public interface MissService {
 	public int replyCount(Map<String, Object> map);
 	public void updateReply(Reply dto) throws Exception;
 	public void deleteReply(Map<String, Object> map) throws Exception;
+	
+	public List<Reply> listAnswerReply(int missReplyType);
+	public int answerReplyCount(int missReplyType);
+
+	public void insertReplyLike(Map<String, Object> map) throws Exception;
+	public void deleteReplyLike(Map<String, Object> map) throws Exception;
+	public int replyLikeUser(Map<String, Object> map);
+	public int replyLikeCount(int missReplyNum);
 	
 }

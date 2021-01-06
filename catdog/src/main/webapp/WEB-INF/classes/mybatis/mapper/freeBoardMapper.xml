@@ -198,4 +198,14 @@
 		VALUES(replyReport_seq.NEXTVAL, #{boardType}, #{articleNum}, #{replyNum}, #{userId}, #{reportCode}, #{memo}, SYSDATE, #{report_id} )
 	</insert>
 	
+	<insert id="insertPoint" parameterType="com.sp.catdog.community.freeboard.Board">
+		INSERT INTO comPoint(pointNum, pointContent, pointCreated, pointType, pointQuantity, userId) VALUES 
+			(comPoint_seq.NEXTVAL, '자유게시판 글 작성', SYSDATE, 1, 100, #{userId})
+	</insert>
+	
+	<insert id="insertReplyPoint" parameterType="com.sp.catdog.community.freeboard.Reply">
+		INSERT INTO comPoint(pointNum, pointContent, pointCreated, pointType, pointQuantity, userId) VALUES 
+			(comPoint_seq.NEXTVAL, '자유게시판 댓글 작성', SYSDATE, 1, 10, #{userId})	
+	</insert>
+	
 </mapper>

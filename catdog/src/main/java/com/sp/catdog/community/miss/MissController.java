@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
 import com.sp.catdog.member.SessionInfo;
@@ -117,9 +118,22 @@ public class MissController {
 		if(dto==null)
 			return "redirect:/community/miss/list?"+query;
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("missNum", missNum);
+		
+
+		Miss preReadDto = service.preReadMiss(map);
+		Miss nextReadDto = service.nextReadMiss(map);
+		
+		int replyCount=service.replyCount(map);
+		
 		model.addAttribute("dto", dto);
+		model.addAttribute("preReadDto", preReadDto);
+		model.addAttribute("nextReadDto", nextReadDto);
+		
 		model.addAttribute("page", page);
-		model.addAttribute("query", query);
+		model.addAttribute("query", query);		
+		model.addAttribute("replyCount", replyCount);
 
 		return ".community.miss.article";
 	}
@@ -213,4 +227,197 @@ public class MissController {
 		
 		return "redirect:/community/miss/list?"+query;
 	}
+	
+	@RequestMapping("insertReply")
+	@ResponseBody
+	public Map<String, Object> insertReply(
+			Reply dto,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String state="true";
+		
+		try {
+			dto.setUserId(info.getUserId());
+			dto.setUserNick(info.getUserNick());
+			service.insertReply(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("missNum", dto.getMissNum());
+		int replyCount=service.replyCount(map);
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("replyCount", replyCount);
+		model.put("state", state);
+		
+		return model;
+	}
+	
+	@RequestMapping("listReply")
+	public String listReply(
+			@RequestParam int missNum,
+			@RequestParam(value="page", defaultValue="1") int current_page,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		int total_page=0;
+		int rows=5;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("missNum", missNum);
+		
+		int dataCount=service.replyCount(map);
+		
+		total_page=myUtil.pageCount(rows, dataCount);
+		
+		if (total_page < current_page)
+			current_page = total_page;
+
+        int offset = (current_page-1) * rows;
+		if(offset < 0) offset = 0;
+        map.put("offset", offset);
+        map.put("rows", rows);
+		
+		List<Reply> listReply=service.listReply(map);
+
+		for(Reply dto : listReply) {
+			dto.setMissReplyContent(dto.getMissReplyContent().replaceAll("\n", "<br>"));
+			
+			Map<String, Object> userMap=new HashMap<>();
+			userMap.put("userId", info.getUserId());
+			userMap.put("missReplyNum", dto.getMissReplyNum());
+			dto.setLikeUser(service.replyLikeUser(userMap));
+		}
+		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("replyCount", dataCount);
+		model.addAttribute("paging", paging);
+		
+		return "community/miss/listReply";
+	}
+	
+	@RequestMapping(value = "updateReply")
+	@ResponseBody
+	public String updateReply(
+			@RequestParam int missReplyNum,
+			Reply dto,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		try {
+			dto.setUserId(info.getUserId());
+			dto.setUserNick(info.getUserNick());
+			service.updateReply(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto", dto);
+		
+		return "redirect:/community/miss/listReply";
+	}
+	
+	@RequestMapping(value = "deleteReply")
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam(defaultValue="0") int missReplyType
+			) {
+		String state="true";
+		try {
+			service.deleteReply(paramMap);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		int replyCount=service.replyCount(paramMap);
+		int replyAnswerCount=service.answerReplyCount(missReplyType);
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", state);
+		map.put("replyCount", replyCount);
+		map.put("replyAnswerCount", replyAnswerCount);
+		
+		
+		return map;
+	}
+	
+	@RequestMapping("listAnswerReply")
+	public String listAnswerReply(
+			@RequestParam int missReplyType,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		List<Reply> listAnswerReply=service.listAnswerReply(missReplyType);
+		for(Reply dto:listAnswerReply) {
+			dto.setMissReplyContent(dto.getMissReplyContent().replaceAll("\n", "<br>"));
+
+			Map<String, Object> userMap=new HashMap<>();
+			userMap.put("userId", info.getUserId());
+			userMap.put("missReplyNum", dto.getMissReplyNum());
+			dto.setLikeUser(service.replyLikeUser(userMap));
+		}
+		
+		model.addAttribute("listAnswerReply", listAnswerReply);
+		return "community/miss/listAnswerReply";
+	}
+	
+	@RequestMapping("insertReplyLike")
+	@ResponseBody
+	public Map<String, Object> insertReplyLike(
+			@RequestParam int missReplyNum,
+			HttpSession session
+			) {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", info.getUserId());
+		map.put("missReplyNum", missReplyNum);		
+		
+		try {
+			service.insertReplyLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int replyLikeCount=service.replyLikeCount(missReplyNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("replyLikeCount", replyLikeCount);
+		
+		return model;
+	}
+	
+	@RequestMapping("deleteReplyLike")
+	@ResponseBody
+	public Map<String, Object> deleteReplyLike(
+			@RequestParam int missReplyNum,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("userId", info.getUserId());
+		map.put("missReplyNum", missReplyNum);		
+		
+		try {
+			service.deleteReplyLike(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		int replyLikeCount=service.replyLikeCount(missReplyNum);
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("replyLikeCount", replyLikeCount);
+		
+		return model;
+	}
+	
+	
 }

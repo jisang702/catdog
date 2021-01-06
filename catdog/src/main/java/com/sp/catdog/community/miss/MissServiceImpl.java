@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.sp.catdog.common.FileManager;
 import com.sp.catdog.common.dao.CommonDAO;
-import com.sp.catdog.community.freeboard.Reply;
 
 @Service("miss.missService")
 public class MissServiceImpl implements MissService {
@@ -29,14 +28,6 @@ public class MissServiceImpl implements MissService {
 				dto.setMissWhen(dto.getYear()+"/"+dto.getMonth()+"/"+dto.getDay());
 			}
 			
-			if(dto.getPetGender1().length()!=0) {
-				if(dto.getPetGender2().length()!=0) {
-					dto.setPetGender(dto.getPetGender1()+"/"+dto.getPetGender2());
-				} else {
-					dto.setPetGender(dto.getPetGender1());					
-				}
-			}
-			
 			int seq=dao.selectOne("miss.seq");
 			dto.setMissNum(seq);
 
@@ -48,6 +39,9 @@ public class MissServiceImpl implements MissService {
 
 				dao.insertData("miss.insertMissPet", dto);
 			}
+			
+			dao.insertData("miss.insertPoint", dto);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -85,10 +79,6 @@ public class MissServiceImpl implements MissService {
 			
 			if(dto.getYear().length()!=0 && dto.getMonth().length()!=0 && dto.getDay().length()!=0) {
 				dto.setMissWhen(dto.getYear()+"/"+dto.getMonth()+"/"+dto.getDay());
-			}
-			
-			if(dto.getPetGender1().length()!=0 && dto.getPetGender2().length()!=0) {
-				dto.setPetGender(dto.getPetGender1()+"/"+dto.getPetGender2());
 			}
 
 			dao.updateData("miss.updateMiss", dto);
@@ -142,12 +132,6 @@ public class MissServiceImpl implements MissService {
 					dto.setMonth(s[1]);
 					dto.setDay(s[2]);
 				}
-				
-				if(dto.getPetGender()!=null) {
-					String [] s=dto.getPetGender().split("/");
-					dto.setPetGender1(s[0]);
-					dto.setPetGender2(s[1]);
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,32 +163,115 @@ public class MissServiceImpl implements MissService {
 
 	@Override
 	public void insertReply(Reply dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.insertData("miss.insertReply", dto);
+			dao.insertData("miss.insertReplyPoint", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public List<Reply> listReply(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("miss.listReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
 	public int replyCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		try {
+			result=dao.selectOne("miss.replyCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
 	public void updateReply(Reply dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.updateData("miss.updateReply", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void deleteReply(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.deleteData("miss.deleteReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Reply> listAnswerReply(int missReplyType) {
+		List<Reply> list=null;
+		try {
+			list=dao.selectList("miss.listAnswerReply", missReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int answerReplyCount(int missReplyType) {
+		int result=0;
+		try {
+			result=dao.selectOne("miss.answerReplyCount", missReplyType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int replyLikeUser(Map<String, Object> map) {
+		int result=0;
+		try {
+			result=dao.selectOne("miss.replyLikeUser", map);
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int replyLikeCount(int missReplyNum) {
+		int result=0;
+		try {
+			result=dao.selectOne("miss.replyLikeCount", missReplyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void insertReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("miss.insertReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteReplyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("miss.deleteReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -17,6 +17,7 @@ public class BoardServiceImpl implements BoardService {
 	public void insertBoard(Board dto) throws Exception {
 		try {
 			dao.insertData("freeboard.insertBoard", dto);
+			dao.insertData("freeboard.insertPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,6 +135,7 @@ public class BoardServiceImpl implements BoardService {
 	public void insertReply(Reply dto) throws Exception {
 		try {
 			dao.insertData("freeboard.insertReply", dto);
+			dao.insertData("freeboard.insertReplyPoint", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
