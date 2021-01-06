@@ -8,11 +8,6 @@ function searchList() {
 	f.submit();
 }
 
-function whereList(f) {
-	f.action="${pageContext.request.contextPath}/community/miss/list";
-	f.submit();
-}
-
 function ajaxHTML(url, method, query, selector) {
 	$.ajax({
 		type:method
@@ -35,16 +30,6 @@ function ajaxHTML(url, method, query, selector) {
 	});
 }
 
-$(function() {
-	var area0 = ["전국","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
-
-	$("select[name^=where]").each(function() {
-		  $selsido = $(this);
-		  $.each(eval(area0), function() {
-		   $selsido.append("<option value='"+this+"'>"+this+"</option>");
-		  });
-	});
-})
 </script>
 <div class="body-container">
     <div class="board">
@@ -59,10 +44,9 @@ $(function() {
 			<div class="selectMiss">
 				<ul>
 					<li>
-						<form action="whereForm" action="${pageContext.request.contextPath}/community/miss/list" method="post">
-							<select name="where" onchange="whereList(this.form);">
-							</select>
-						</form>
+						<select>
+							<option value="전체">모든 지역</option>
+						</select>
 					</li>
 				</ul>
 			</div>

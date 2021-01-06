@@ -105,6 +105,18 @@
 	height: 200px;
 }
 
+
+.mypage1 .mypagelist .mypageBoard {
+	text-align: left;
+	border-bottom: 1px solid #dadada;
+	padding: 10px;
+	margin: 5px;
+	font-size: 18px;
+}
+.mypage1 .mypagelist ul li {
+	display: inline-block;
+}
+
 .mypage2 {
 	padding: 30px;
 	text-align: center;
@@ -204,6 +216,7 @@
 
 .petphoto img {
 	width: 200px;
+	height: 200px;
 	vertical-align: middle;
 	margin: 20px;
 	border-radius: 100px;
@@ -357,7 +370,7 @@
     background-color: #fff;
 }
 
-.settingbtn button.active {
+.settingbtn button.selectDate {
 	color: #fff;
     background-color: #71da65;
 }

@@ -5,17 +5,64 @@
 
 <script type="text/javascript">
 $(function() {
-	var date = new Date();
-	var yyyy = date.getFullYear();
-	var mm = date.getMonth() > 9 ? date.getMonth()+1 : '0' + date.getMonth()+1;
-	var dd = date.getDate() > 9 ? date.getDate() : '0' + date.getDate();
-	 
-	$("input[type=date]").val(yyyy+"-"+mm+"-"+dd);
+	$("body").on("click", "#d-7", function() {
+		$(".searchday1").val(lastWeek());
+		$(".searchday2").val(today());
+		$(".selectDate").attr("class", "");
+		$(this).attr("class", "selectDate");
+	});
 	
-	$("body").on("click", ".week", function() {
-		$("input[type=date]").val(yyyy+"-"+mm+"-"+dd-7);
+	$("body").on("click", "#m-1", function() {
+		$(".searchday1").val(lastMonth(1));
+		$(".searchday2").val(today());
+		$(".selectDate").attr("class", "");
+		$(this).attr("class", "selectDate");
+	});
+	
+	$("body").on("click", "#m-3", function() {
+		$(".searchday1").val(lastMonth(3));
+		$(".searchday2").val(today());
+		$(".selectDate").attr("class", "");
+		$(this).attr("class", "selectDate");
+	});
+	
+	$("body").on("click", "#m-6", function() {
+		$(".searchday1").val(lastMonth(6));
+		$(".searchday2").val(today());
+		$(".selectDate").attr("class", "");
+		$(this).attr("class", "selectDate");
 	});
 });
+
+function getDateStr(myDate){
+	var year = myDate.getFullYear();
+	var month = (myDate.getMonth() + 1);
+	var day = myDate.getDate();
+	
+	month = (month < 10) ? "0" + String(month) : month;
+	day = (day < 10) ? "0" + String(day) : day;
+	
+	return  year + '-' + month + '-' + day;
+}
+
+function today() {
+	  var d = new Date();
+	  return getDateStr(d);
+}
+
+function lastWeek() {
+	  var d = new Date();
+	  var dayOfMonth = d.getDate();
+	  d.setDate(dayOfMonth-7);
+	  return getDateStr(d);
+}
+
+function lastMonth(m) {
+	  var d = new Date();
+	  var monthOfYear = d.getMonth();
+	  d.setMonth(monthOfYear-m);
+	  return getDateStr(d);
+}
 
 $(function() {
 	$("body").on("click", "input[name=sortType]", function() {
@@ -26,7 +73,22 @@ $(function() {
 		location.href=url+query;
 	});
 	
-	$("input[name=pointType]:checked").next("span").attr("class", "sortchecked");
+	$("input[name=sortType]:checked").next("span").attr("class", "sortchecked");
+	
+	$("body").on("click", "#searchbtn", function() {
+		var fromDate=$(".searchday1").val();
+		var toDate=$(".searchday2").val();
+		var url="${pageContext.request.contextPath}/mypage/mypoint";
+		var query="?fromDate="+fromDate+"&toDate="+toDate;
+		
+		location.href=url+query;
+		
+		var fromDate="${fromDate}";
+		var toDate="${toDate}";
+
+		$(".searchday1").val(fromDate);
+		$(".searchday2").val(toDate);
+	});
 });
 </script>
 
@@ -49,18 +111,16 @@ $(function() {
 		</div>
 		<div class="settingdate">
 			<div class="settingbtn">
-				<form name="search" action="${pageContext.request.contextPath}/mypage/mypoint" method="post">					
-					<div>		
-						<button class="active d-7">1주일</button>
-						<button class="m-1">1개월</button>
-						<button class="m-3">3개월</button>
-						<button class="m-6">6개월</button>
-					</div>
-				</form>
+				<div>		
+					<button id="d-7">1주일</button>
+					<button id="m-1">1개월</button>
+					<button id="m-3">3개월</button>
+					<button id="m-6">6개월</button>
+				</div>
 			</div>
 			<div class="datebox">
 				<input type="date" class="searchday1"> - <input type="date" class="searchday2">
-			<button id="searchbtn" type="submit">조회</button>
+			<button id="searchbtn">조회</button>
 			</div>
 		</div>
 		<div class="pointlist">

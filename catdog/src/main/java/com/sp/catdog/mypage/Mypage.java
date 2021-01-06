@@ -1,5 +1,7 @@
 package com.sp.catdog.mypage;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Mypage {
 	private String userId;
 	
@@ -15,6 +17,14 @@ public class Mypage {
 	private String hitCount;
 	private String dataCount;
 	
+	private String petName;
+	private String petBirth, year, month, day;
+	private String PetGender;
+	private String petKind;
+	private String petImgName;
+	private String petContent;
+	
+	private MultipartFile upload; 
 	
 	public String getUserId() {
 		return userId;
@@ -81,6 +91,66 @@ public class Mypage {
 	}
 	public void setBoardType(String boardType) {
 		this.boardType = boardType;
+	}
+	public String getPetName() {
+		return petName;
+	}
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+	public String getPetBirth() {
+		return petBirth;
+	}
+	public void setPetBirth(String petBirth) {
+		this.petBirth = petBirth;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
+	public String getPetGender() {
+		return PetGender;
+	}
+	public void setPetGender(String petGender) {
+		PetGender = petGender;
+	}
+	public String getPetKind() {
+		return petKind;
+	}
+	public void setPetKind(String petKind) {
+		this.petKind = petKind;
+	}
+	public String getPetImgName() {
+		return petImgName;
+	}
+	public void setPetImgName(String petImgName) {
+		this.petImgName = petImgName;
+	}
+	public String getPetContent() {
+		return petContent;
+	}
+	public void setPetContent(String petContent) {
+		this.petContent = petContent;
+	}
+	public MultipartFile getUpload() {
+		return upload;
+	}
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
 	}
 	
 	

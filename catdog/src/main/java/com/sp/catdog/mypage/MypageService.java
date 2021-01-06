@@ -10,4 +10,8 @@ public interface MypageService {
 
 	public List<Mypage> selectList(Map<String, Object> map) throws Exception;
 	public int dataCount(Map<String, Object> map) throws Exception;
+	
+	public void insertPet(Mypage dto, String pathname) throws Exception;
+	public List<Mypage> petList(Map<String, Object> map) throws Exception;
+	public Mypage readPet(int petNum) throws Exception;
 }

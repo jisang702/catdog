@@ -7,7 +7,7 @@
 	<div class="mypageLayout">
 		<div class="mypage">
 			<div class="mypagetab">
-					<p>가가가님</p>
+					<p>${userName}님의 MyPage</p>
 			</div>
 			<div class="mypagesub1">
 				<ul class="mypagesub2">
@@ -18,7 +18,7 @@
 				</ul>
 				<ul>
 					<li>level 1</li>
-					<li>7000</li>
+					<li>${pointSum} P</li>
 					<li>1</li>
 					<li>0</li>
 				</ul>
@@ -27,25 +27,47 @@
 		<div class="mypage1">
 			<div class="mypagetab">
 				<p>My Pet</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
+				<button type="button" class="mybtn1" onclick="location.href='${pageContext.request.contextPath}/mypage/mypet';">더보기</button>	
 			</div>
 			<div class="mypagelist">
-				
+				<div>
+					<ul class="petphoto" style="text-align: left;">
+						<c:forEach var="vo" items="${petlist}">
+						<li><a href="#">
+								<img style="width: 170px; height: 170px;" src="${pageContext.request.contextPath}/uploads/pet/${vo.petImgName}">							
+						</a></li>
+					</c:forEach>
+					</ul>	
+				</div>		
 			</div>
 		</div>
 		<div class="mypage1">
 			<div class="mypagetab">
-				<p>주문내역</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
+				<p>게시글</p>
+				<button type="button" class="mybtn1" onclick="location.href='${pageContext.request.contextPath}/mypage/list';">더보기</button>	
 			</div>
 			<div class="mypagelist">
-				
+				<c:forEach var="dto" items="${list}">
+				<ul class="mypageBoard">
+					<li style="color: #71da65; font-weight: bold;">
+					<c:choose>
+						<c:when test="${dto.boardType=='free'}">[자유게시판]</c:when>
+						<c:when test="${dto.boardType=='photo'}">[포토갤러리]</c:when>
+						<c:when test="${dto.boardType=='miss'}">[찾아주세요]</c:when>
+						<c:when test="${dto.boardType=='deal'}">[중고장터]</c:when>
+					</c:choose>
+					</li>
+					<li style="color: #353535; font-weight: 100;">${dto.subject}
+					</li>
+					<li style="font-size: 12px;">${dto.created}</li>
+				</ul>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="mypage1">
 			<div class="mypagetab">
 				<p>문의내역</p>
-				<button type="button" class="mybtn1">자세히 보기</button>	
+				<button type="button" class="mybtn1" onclick="location.href='${pageContext.request.contextPath}/mypage/qna';">더보기</button>	
 			</div>
 			<div class="mypagelist">
 				

@@ -23,6 +23,22 @@ function article(boardType, num){
 	location.href=url;
 }
 
+function controll(boardType, type, num){
+	var url = "${pageContext.request.contextPath}";
+	if(boardType == "free"){
+		url+="/community/board/"+type+"?freeNum="+num;		
+	}else if(boardType == "deal"){
+		url+="/community/deal/"+type+"?dealNum="+num;		
+	}else if(boardType == "photo"){
+		url+="/community/photo/"+type+"?photoNum="+num;		
+	}else if(boardType == "miss"){
+		url+="/community/miss/"+type+"?missNum="+num;		
+	}
+	
+	location.href=url;
+}
+
+
 </script>
 <div class="mypageBody">
 	<div class="mypageLayout">
@@ -31,6 +47,7 @@ function article(boardType, num){
 				<p>내 게시글</p>
 				<form action="selectForm" action="${pageContext.request.contextPath}/mypage/list" method="post">
 					<select name="boardType" onchange="selectList(this.form);">
+						<option value="">전체게시판</option>
 						<option value="free" ${boardType=="free"?"selected='selected'":""}>자유게시판</option>
 						<option value="photo" ${boardType=="photo"?"selected='selected'":""}>포토갤러리</option>
 						<option value="miss" ${boardType=="miss"?"selected='selected'":""}>찾아주세요</option>
@@ -47,23 +64,27 @@ function article(boardType, num){
 						<th>제목</th>
 						<th>작성일</th>
 						<th>조회수</th>
+						<th>관리</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="dto" items="${list}">
 						<tr>
-							<td>[<span>
+							<td>
 								<c:choose>
-								<c:when test="${dto.boardType=='free'}"> 자유게시판 </c:when>
-								<c:when test="${dto.boardType=='photo'}"> 포토갤러리 </c:when>
-								<c:when test="${dto.boardType=='miss'}"> 찾아주세요 </c:when>
-								<c:when test="${dto.boardType=='deal'}"> 중고장터 </c:when>
-								<c:otherwise>자유게시판</c:otherwise>
+									<c:when test="${dto.boardType=='free'}">[자유게시판]</c:when>
+									<c:when test="${dto.boardType=='photo'}">[포토갤러리]</c:when>
+									<c:when test="${dto.boardType=='miss'}">[찾아주세요]</c:when>
+									<c:when test="${dto.boardType=='deal'}">[중고장터]</c:when>
 								</c:choose>
-							</span>]</td>
+							</td>
 							<td><a onclick="article('${dto.boardType}','${dto.num}');">${dto.subject}</a></td>
 							<td>${dto.created}</td>
 							<td>${dto.hitCount}</td>
+							<td>
+								<button type="button" onclick="controll('${dto.boardType}','update','${dto.num}');" class="mybtn1">수정</button>
+								<button type="button" onclick="controll('${dto.boardType}','delete','${dto.num}');" class="mybtn1">삭제</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

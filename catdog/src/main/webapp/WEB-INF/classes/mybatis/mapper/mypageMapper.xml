@@ -2,20 +2,20 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
+
 	<select id="listPoint" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
 		SELECT TO_CHAR(pointCreated, 'YYYY-MM-DD') pointCreated, pointContent, pointType, pointQuantity 
 		FROM comPoint
 		<where>
-			<choose>
-				<when test="sortType=='all'">
-					userId=#{userId}
-				</when>
-				<otherwise>
-					pointType=#{sortType} AND userId=#{userId}
-				</otherwise>
-			</choose>
+			userId=#{userId}
+			<if test="sortType!='all'">
+				AND pointType=#{sortType}
+			</if>
+			<if test="fromDate!=null and toDate!=null">
+				AND pointCreated <![CDATA[<=]]> #{toDate} AND pointCreated <![CDATA[>=]]> #{fromDate}
+			</if>
 		</where>
-		ORDER BY pointNum DESC
+		ORDER BY pointCreated DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -23,14 +23,13 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM comPoint p
 		<where>
-			<choose>
-				<when test="sortType=='all'">
-					userId=#{userId}
-				</when>
-				<otherwise>
-					pointType=#{sortType} AND userId=#{userId}
-				</otherwise>
-			</choose>
+			userId=#{userId}
+			<if test="sortType!='all'">
+				AND pointType=#{sortType}
+			</if>
+			<if test="fromDate!=null and toDate!=null">
+				AND pointCreated <![CDATA[<=]]> #{toDate} AND pointCreated <![CDATA[>=]]> #{fromDate}
+			</if>
 		</where>
 	</select>
 	
@@ -38,6 +37,7 @@
 		SELECT SUM(pointQuantity) FROM comPoint
 		WHERE userId=#{userId}
 	</select>
+	
 	
 	<select id="selectList" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
 		SELECT * FROM
@@ -60,7 +60,7 @@
 			</if>
 			AND userId=#{userId}
 		</where>
-		ORDER BY num DESC
+		ORDER BY created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -85,7 +85,22 @@
 			</if>
 			AND userId=#{userId}
 		</where>		
-		ORDER BY num DESC
+		ORDER BY created DESC
+	</select>
+	
+	<insert id="insertPet" parameterType="com.sp.catdog.mypage.Mypage">
+		INSERT INTO PET(petNum, petName, petBirth, petGender, petKind, petContent, petImgName, userId) 
+			VALUES (pet_seq.NEXTVAL, #{petName}, #{petBirth}, #{petGender}, #{petKind}, #{petContent}, #{petImgName, jdbcType=VARCHAR}, #{userId})
+	</insert>
+	
+	<select id="petList" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
+		SELECT petNum, petName, petImgName FROM pet WHERE userId=#{userId}
+		ORDER BY petNum ASC
+	</select>
+	
+	<select id="readPet" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
+		SELECT petNum, petName, petImgName, petBirth, petGender, petKind, petContent, petImgName
+		FROM pet WHERE petNum=#{petNum}
 	</select>
 	
 </mapper>
