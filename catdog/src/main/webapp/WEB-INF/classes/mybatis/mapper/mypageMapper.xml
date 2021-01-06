@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<select id="listPoint" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
+		SELECT TO_CHAR(pointCreated, 'YYYY-MM-DD') pointCreated, pointContent, pointType, pointQuantity 
+		FROM comPoint
+		<where>
+			<choose>
+				<when test="sortType=='all'">
+					userId=#{userId}
+				</when>
+				<otherwise>
+					pointType=#{sortType} AND userId=#{userId}
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY pointNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="pointCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM comPoint p
+		<where>
+			<choose>
+				<when test="sortType=='all'">
+					userId=#{userId}
+				</when>
+				<otherwise>
+					pointType=#{sortType} AND userId=#{userId}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="pointSum" parameterType="map" resultType="Integer">
+		SELECT SUM(pointQuantity) FROM comPoint
+		WHERE userId=#{userId}
+	</select>
+	
+	<select id="selectList" parameterType="map" resultType="com.sp.catdog.mypage.Mypage">
+		SELECT * FROM
+		(
+			SELECT boardType, freeNum num, freeSubject subject, TO_CHAR(freeCreated, 'YYYY-MM-DD') created, 
+				freeHitCount hitcount, userId FROM comFree
+			UNION ALL
+			SELECT boardType, dealNum  num, dealSubject subject, TO_CHAR(dealCreated, 'YYYY-MM-DD') created,
+				dealHitCount hitcount, userId FROM comDeal
+			UNION ALL
+			SELECT boardType, photoNum num, photoSubject subject, TO_CHAR(photoCreated, 'YYYY-MM-DD') created, 
+				photoHitCount hitcount, userId FROM comPhoto
+			UNION ALL
+			SELECT boardType, missNum num, missSubject subject, TO_CHAR(missCreated, 'YYYY-MM-DD') created, 
+				missHitCount hitcount, userId FROM comMiss
+		)
+		<where>
+			<if test="boardType!='' ">
+				boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+			AND userId=#{userId}
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="listCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(boardType)
+		FROM (
+			SELECT boardType, freeNum num, freeSubject subject, TO_CHAR(freeCreated, 'YYYY-MM-DD') created, 
+				freeHitCount hitcount, userId FROM comFree
+			UNION ALL
+			SELECT boardType, dealNum  num, dealSubject subject, TO_CHAR(dealCreated, 'YYYY-MM-DD') created,
+				dealHitCount hitcount, userId FROM comDeal
+			UNION ALL
+			SELECT boardType, photoNum num, photoSubject subject, TO_CHAR(photoCreated, 'YYYY-MM-DD') created, 
+				photoHitCount hitcount, userId FROM comPhoto
+			UNION ALL
+			SELECT boardType, missNum num, missSubject subject, TO_CHAR(missCreated, 'YYYY-MM-DD') created, 
+				missHitCount hitcount, userId FROM comMiss
+		)
+		<where>
+			<if test="boardType!='' ">
+				AND boardType=#{boardType, jdbcType=VARCHAR}
+			</if>
+			AND userId=#{userId}
+		</where>		
+		ORDER BY num DESC
+	</select>
+	
+</mapper>

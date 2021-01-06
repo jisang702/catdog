@@ -407,3 +407,12 @@
     border-bottom: 1px solid #eee;
     vertical-align: middle;
 }
+
+.list-sort input[type=radio] {
+	display: none;
+}
+
+.sortchecked {
+	color: #71da65;
+	font-weight: bold;
+}

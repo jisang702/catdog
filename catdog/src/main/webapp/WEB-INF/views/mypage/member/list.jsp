@@ -2,19 +2,43 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script>
+function selectList(f) {
+	f.action="${pageContext.request.contextPath}/mypage/list";
+	f.submit();
+}
 
+function article(boardType, num){
+	var url = "${pageContext.request.contextPath}";
+	if(boardType == "free"){
+		url+="/community/board/article?freeNum="+num;		
+	}else if(boardType == "deal"){
+		url+="/community/deal/article?dealNum="+num;		
+	}else if(boardType == "photo"){
+		url+="/community/photo/article?photoNum="+num;		
+	}else if(boardType == "miss"){
+		url+="/community/article?missNum="+num;		
+	}
+	
+	location.href=url;
+}
+
+</script>
 <div class="mypageBody">
 	<div class="mypageLayout">
 		<div class="mypage2">
 			<div class="mypagetab">
 				<p>내 게시글</p>
-				<select>
-					<option>자유게시판</option>
-					<option>포토갤러리</option>
-					<option>실종게시판</option>
-					<option>PetCare 새소식</option>
-					<option>PetCare 비디오</option>
-				</select>
+				<form action="selectForm" action="${pageContext.request.contextPath}/mypage/list" method="post">
+					<select name="boardType" onchange="selectList(this.form);">
+						<option value="free" ${boardType=="free"?"selected='selected'":""}>자유게시판</option>
+						<option value="photo" ${boardType=="photo"?"selected='selected'":""}>포토갤러리</option>
+						<option value="miss" ${boardType=="miss"?"selected='selected'":""}>찾아주세요</option>
+						<option value="deal" ${boardType=="deal"?"selected='selected'":""}>중고장터</option>
+						<option>PetCare 새소식</option>
+						<option>PetCare 비디오</option>
+					</select>
+				</form>
 			</div>
 			<table class="listtable1">
 				<thead>
@@ -22,22 +46,30 @@
 						<th>게시판</th>
 						<th>제목</th>
 						<th>작성일</th>
-						<th>추천수</th>
 						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>[<span>중고거래</span>]</td>
-						<td>@@@팝니다</td>
-						<td>2020-10-10</td>
-						<td>3</td>
-						<td>1</td>
-					</tr>
+					<c:forEach var="dto" items="${list}">
+						<tr>
+							<td>[<span>
+								<c:choose>
+								<c:when test="${dto.boardType=='free'}"> 자유게시판 </c:when>
+								<c:when test="${dto.boardType=='photo'}"> 포토갤러리 </c:when>
+								<c:when test="${dto.boardType=='miss'}"> 찾아주세요 </c:when>
+								<c:when test="${dto.boardType=='deal'}"> 중고장터 </c:when>
+								<c:otherwise>자유게시판</c:otherwise>
+								</c:choose>
+							</span>]</td>
+							<td><a onclick="article('${dto.boardType}','${dto.num}');">${dto.subject}</a></td>
+							<td>${dto.created}</td>
+							<td>${dto.hitCount}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
-			<div class="pagenum">
-				1 2 3
+			<div>
+				<span style="margin: 20px;">${dataCount==0?"<p style=\"margin: 100px;\">등록된 게시글이 없습니다.</p>":paging}</span>
 			</div>			
 		</div>
 	</div>

@@ -8,9 +8,9 @@
 	
 	<insert id="insertMiss" parameterType="com.sp.catdog.community.miss.Miss">
 		INSERT INTO comMiss(missNum, missSubject, missCreated, missWhere, missWhen, missContent,
-			missPet, missHitCount, userId, state, missWhereLat, missWhereLng) VALUES (
+			missPet, missHitCount, userId, state, missWhereLat, missWhereLng, boardType) VALUES (
 				#{missNum}, #{missSubject}, SYSDATE, #{missWhere}, #{missWhen}, #{missContent},
-				#{missPet}, 0, #{userId}, #{state}, #{missWhereLat}, #{missWhereLng})
+				#{missPet}, 0, #{userId}, #{state}, #{missWhereLat}, #{missWhereLng}, 'miss')
 	</insert>
 	
 	<sql id="where-list">

@@ -51,7 +51,7 @@ $(function() {
     	<div class="boardtitle">
 			<ul class="listtitle">
 				<li>
-					실종게시판
+					찾아주세요
 				</li>
 			</ul>
 		</div>
