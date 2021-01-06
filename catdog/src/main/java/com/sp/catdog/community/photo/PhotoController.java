@@ -96,7 +96,7 @@ public class PhotoController {
 	@RequestMapping("article")
 	public String article(
 			@RequestParam int photoNum,
-			@RequestParam String page,
+			@RequestParam(defaultValue = "") String page,
 			@RequestParam(defaultValue="all") String condition,
 			@RequestParam(defaultValue="") String keyword,
 			HttpSession session,
@@ -106,7 +106,10 @@ public class PhotoController {
 
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
-		String query="page="+page;
+		String query="";
+		if(page.length()!=0)
+			query+="page="+page;
+		
 		if(keyword.length()!=0) {
 			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
 		}

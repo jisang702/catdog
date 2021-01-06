@@ -22,8 +22,8 @@ $(function() {
 	<div class="header">
 		<div class="headerinner">
 			<div class="logo">
-				<a href="#"><img src="${pageContext.request.contextPath}/resources/css/images/dog.jpeg"></a>
-				<a href="##"><img src="${pageContext.request.contextPath}/resources/css/images/cat.jpeg"></a>
+				<a href="${pageContext.request.contextPath}/commu/"><img src="${pageContext.request.contextPath}/resources/css/images/dog.jpeg"></a>
+				<a href="${pageContext.request.contextPath}/commu/"><img src="${pageContext.request.contextPath}/resources/css/images/cat.jpeg"></a>
 			</div>
 			<div class="myMenu">
 				<c:if test="${empty sessionScope.member}">

@@ -19,6 +19,12 @@
  })(jQuery);	
 </script>
 
+<style type="text/css">
+.box{
+	 border-radius: 0 0 10px 10px; margin-bottom: 10px; text-overflow: ellipsis; padding: 45px 15px 10px;
+}
+</style>
+
 		<div style="width: 100%;">
 		   <div style="height: 700px;">
 		       <div class="box1" style="float:left; width:50%;">
@@ -45,56 +51,116 @@
            </div>
       </div>  
     
-		<div class="boardContainer" style="clear: both;">
+		<div class="boardContainer" style="clear: both; height: 900px">
 		       <div style="width:38%;float:left">
 		           <div class="box3">
-                   	 <h2>MONTHLY</h2>
+                   	 <h2>COMMUNITY</h2>
                         <ul class="tab-menu">
-                            <li class="icon_cat">고양이</li>
-                            <li class="icon_dog">강아지</li>
+                            <li class="icon_cat">&nbsp;</li>
+                            <li class="icon_dog">&nbsp;</li>
                         </ul>
                         <div class="Boardlayout">
-                    	 <dl style=" float:left; width: 35%;  clear:both;">
-                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">1등 이미지                       
+                        
+         				<c:forEach var="dto" items="${firstCommu}">
+                    	 <dl style=" float:left; width: 36%;  clear:both;">
+                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">                
                         		<img src="${pageContext.request.contextPath}/resources/css/img/ico_first.png" alt="1등">
+                        		<a href="${pageContext.request.contextPath}/community/photo/article?photoNum=${dto.num}">
+                        			<img src="${pageContext.request.contextPath}/uploads/photo/${dto.saveName}" style="width: 90%">
+                        		</a>
                         	</dt>
-                        	<dt style="height:100px;  border-radius: 0 0 10px 10px; margin-bottom: 10px;">1등 정보</dt>	                        
-                        </dl>	                             
-                        <dl style=" float:left; width: 35%;">
-                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">2등 이미지
+                        	<dt class="box" style="height:45px;  ">
+                        		<span style="font-size: 15px; font-weight: 700">${dto.subject}</span><br>
+                        		<span style="float: right; margin-top: 5px;"><i class="far fa-comment-dots"></i>&nbsp;6</span>
+                        		<span style="font-size: 13px; font-weight: 500; float: left; margin-top: 5px;">${dto.userNick}</span>
+                        	</dt>	                        
+                        </dl>
+                        </c:forEach>	
+                        
+                        <c:forEach var="dto" items="${secondCommu}">                             
+                        <dl style=" float:left; width: 36%; margin-left: 10px">
+                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">
                         		<img src="${pageContext.request.contextPath}/resources/css/img/ico_second.png" alt="2등" >
+                        		<a href="${pageContext.request.contextPath}/community/photo/article?photoNum=${dto.num}">
+                        			<img src="${pageContext.request.contextPath}/uploads/photo/${dto.saveName}" style="width: 90%; height: 93%">
+                        		</a>
                         	</dt>
-                        	<dt style="height:100px;  border-radius: 0 0 10px 10px;margin-bottom: 10px;">2등 정보</dt>	                        
-                        </dl>	                             
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">3등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-bottom: 10px;">4등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px;">5등</dt> </dl>
+                        	<dt class="box" style="height:45px;  ">
+                        		<span style="font-size: 15px; font-weight: 700">${dto.subject}</span><br>
+                        		<span style="float: right; margin-top: 5px;"><i class="far fa-comment-dots"></i>&nbsp;5</span>
+                        		<span style="font-size: 13px; font-weight: 500; float: left; margin-top: 5px;">${dto.userNick}</span>
+                        	</dt>                      
+                        </dl>
+                        </c:forEach>
+                        
+                          <c:forEach var="dto" items="${listCommu}" varStatus="status">                       
+					      <dl> 
+					      	<dt style="height:80px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">
+					      		<span style="font-size: 25px; font-weight: 300; float: left; margin: 25px 25px 0 25px; ">
+					      			<c:out value=" ${status.index+3}"></c:out>
+					      		</span>
+					      		<span style="width: 250px; float: left; font-size: 20px; font-weight: 500;  margin-top: 28px; margin-left: 0">
+					      			${dto.subject}
+					      		</span><i class="far fa-comment-dots"></i>&nbsp; | ${dto.userNick}
+					      	</dt> 
+					      </dl>
+					      </c:forEach>
+					      
+			
 					   </div>
 		           </div>
 		     </div>
 		       <div style="float:left; width:38%;">
 		           <div class="box3">
-                     <h2>WEEKLY</h2>
+                     <h2>PETCARE</h2>
                         <ul class="tab-menu">
-                            <li class="icon_cat">고양이</li>
-                            <li class="icon_dog">강아지</li>
+                            <li class="icon_cat">&nbsp;</li>
+                            <li class="icon_dog">&nbsp;</li>
                       		 </ul>
                         <div class="Boardlayout">
-                    	 <dl style=" float:left; width: 35%;  clear:both;">
-                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">1등 이미지
+                        
+                        <c:forEach var="dto" items="${firstVideo}">
+                    	 <dl style=" float:left; width: 36%;  clear:both;">
+                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">
                         		<img src="${pageContext.request.contextPath}/resources/css/img/ico_first.png" alt="1등">
+                        		<a href="${pageContext.request.contextPath}/doctor/video/article?vidNum=${dto.num}">
+                        			<img src="${pageContext.request.contextPath}/uploads/doctor/video/${dto.saveName}" style="width: 90%; height: 93%">
+                        		</a>
                         	</dt>
-                        	<dt style="height:100px;  border-radius: 0 0 10px 10px; margin-bottom: 10px;">1등 정보</dt>	                        
-                        </dl>	                             
-                        <dl style=" float:left; width: 35%;">
-                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">2등 이미지
+                        	<dt class="box" style="height:45px; ">
+                        		<span style="font-size: 15px; font-weight: 700; text-overflow: ellipsis;">${dto.subject}</span><br>
+                        		<span style="float: right; margin-top: 5px;"><i class="far fa-comment-dots"></i>&nbsp;6</span>
+                        		<span style="font-size: 13px; font-weight: 500; float: left; margin-top: 5px;">${dto.userNick}</span>
+                        	</dt>                     
+                        </dl>
+                        </c:forEach>
+                        	                             
+                        <c:forEach var="dto" items="${secondVideo}">                             
+                        <dl style=" float:left; width: 36%; margin-left: 10px">
+                        	<dt style="height:200px;  border-radius: 10px 10px 0 0;">
                         		<img src="${pageContext.request.contextPath}/resources/css/img/ico_second.png" alt="2등" >
+                        		<a href="${pageContext.request.contextPath}/doctor/video/article?vidNum=${dto.num}">
+                        			<img src="${pageContext.request.contextPath}/uploads/doctor/video/${dto.saveName}" style="width: 90%; height: 93%">
+                        		</a>
                         	</dt>
-                        	<dt style="height:100px;  border-radius: 0 0 10px 10px;margin-bottom: 10px;">2등 정보</dt>	                        
-                        </dl>	                             
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">3등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px; margin-bottom: 10px;">4등</dt> </dl>
-					      <dl> <dt style="height:100px;  width: 82%; border-radius: 10px;">5등</dt> </dl>
+                        	<dt class="box" style="height:45px;  ">
+                        		<span style="font-size: 15px; font-weight: 700">${dto.subject}</span><br>
+                        		<span style="float: right; margin-top: 5px;"><i class="far fa-comment-dots"></i>&nbsp;10</span>
+                        		<span style="font-size: 13px; font-weight: 500; float: left; margin-top: 5px;">${dto.userNick}</span>
+                        	</dt>                      
+                        </dl>
+                        </c:forEach>	  
+                        
+                        <c:forEach var="dto" items="${listVideo}" varStatus="status">                       
+					      <dl> 
+					      	<dt style="height:80px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">
+					      		<span style="font-size: 25px; font-weight: 300; float: left; margin: 25px;">
+					      			<c:out value=" ${status.index+3}"></c:out>
+					      		</span>
+					      		<span style="width: 250px;">${dto.subject}</span> | ${dto.userNick}
+					      	</dt> 
+					      </dl>
+					      </c:forEach>
 					   </div>
 		           </div>
 		       </div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commu">
+	<select id="listCommu" parameterType="map" resultType="com.sp.catdog.commu.Commu">
+		select p.photoNum AS num, photoSubject AS subject, userNick, imgNum, 
+				photoImgOriginalName AS originalName, photoImgSaveName AS saveName
+		from comPhoto p
+		JOIN member1 m ON m.userId=p.userId
+		JOIN comPhotoImg i ON p.photoNum=i.photoNum
+		order by photoHitCount DESC
+		<if test="mode=='first' ">
+			OFFSET 1 ROW FETCH FIRST 1 ROWS ONLY
+		</if>
+		<if test="mode=='second' ">
+			FETCH FIRST 1 ROWS ONLY
+		</if>
+		<if test="mode=='list' ">
+			OFFSET 2 ROW FETCH FIRST 3 ROWS ONLY
+		</if>
+	</select>
+	
+	<select id="listVideo" parameterType="map" resultType="com.sp.catdog.commu.Commu">
+		select vidNum AS num, vidSubject AS subject, userNick, vidThumb AS saveName
+		from vetVideo v
+		JOIN member1 m ON m.userId=v.userId
+		order by vidHitCount DESC
+		<if test="mode=='first' ">
+			OFFSET 1 ROW FETCH FIRST 1 ROWS ONLY
+		</if>
+		<if test="mode=='second' ">
+			FETCH FIRST 1 ROWS ONLY
+		</if>
+		<if test="mode=='list' ">
+			OFFSET 2 ROW FETCH FIRST 3 ROWS ONLY
+		</if>
+	</select>
+</mapper>
