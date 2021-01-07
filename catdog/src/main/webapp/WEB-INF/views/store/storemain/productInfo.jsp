@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 .rightbox{
-	width: 50%;
+	width: 35%;
 	margin-left: 20px;
 }
 .sub{
@@ -243,7 +243,7 @@ $(function() {
 					<li class="sub" style="float: right; margin-top: 30px; font-weight:800;"><p>총 상품 가격:<span id="total"></span>원</p></li>
 			
 				</ul>
-					<div class="click" onclick="javascript:orderDetail('${dto.prdNum}');">구매하기</div>	
+					<div style="font-size: 30px; font-weight: bold;" class="click" onclick="javascript:orderDetail('${dto.prdNum}');">구매하기</div>	
 			</div>
 		</div>
 	</div>
@@ -253,7 +253,7 @@ $(function() {
 	  <ul>
 	    <li id="tab1" class="btnCon"> <input type="radio" checked name="tabmenu" id="tabmenu1" >
 	      <label for="tabmenu1" class="tab-content">상품설명</label>
-	      <div class="tabCon" style="width: 100%;">
+	      <div class="tabCon" style="width: 100%; align-content: center;">
 				${dto.prdContent }
 		</div>
 	      

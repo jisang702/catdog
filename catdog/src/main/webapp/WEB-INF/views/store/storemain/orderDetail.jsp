@@ -99,7 +99,7 @@ ul{
 		
 		f.action="${pageContext.request.contextPath}/store/${gubun}/insertOrder"
 		f.submit;
-		
+		alert("구매완료!");
 	}
 </script>
 
@@ -116,11 +116,11 @@ ul{
                 <li style="font-size: 25px; text-align: center; font-weight: bold; margin-bottom: 30px;">주문상품 정보</li>
                 <li>
                 <div>
-                   <img style="width: 30%; height: 100px; border: 1px solid black; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
+                   <img style="width: 50%; height:60%; border: 1px solid black; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
                 </div>
-                <div style="float: left; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:${dto.prdName }</div>
-                <br>
-                <div style="font-size: 20px; font-weight: bold; margin-top: 30px;">가격:${dto.prdPrice}원</div>
+                <div style="float: right; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:${dto.prdName }</div>
+                <br><br>
+                <span style="font-size: 20px; font-weight: bold; ">가격:${dto.prdPrice}원</span>
                 
                 </li>
             </ul>
@@ -130,7 +130,7 @@ ul{
         <div class="right" style="border: 1px solid black; height: 350px;">
             <ul style="margin-bottom: 200px;">
                 <li style="font-size: 25px; font-weight: bold; text-align:center; margin-bottom: 30px;" >결제금액</li>
-                <li style="font-size: 25px;  font-weight: bold;">상품금액:${dto.prdPrice}원</li>
+                <li style="font-size: 25px; text-align:right; font-weight: bold;">상품금액:${dto.prdPrice}원</li>
                 <li style="font-size: 25px;  font-weight: bold;">할인:${dto.prdDisCount}%</li>
                 <br>
                	<hr>
@@ -261,6 +261,6 @@ ul{
 </div>
 
 <div class="right" style="margin-top: 100px;">
-<button style="width: 90%; height: 60px;"onclick="buy();">구매하기</button>
+<button style="width: 90%; height: 100px;"onclick="buy();">구매하기</button>
 
 </div>
