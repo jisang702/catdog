@@ -23,6 +23,19 @@
 .box{
 	 border-radius: 0 0 10px 10px; margin-bottom: 10px; text-overflow: ellipsis; padding: 45px 15px 10px;
 }
+
+.subject{
+	font-size: 20px; font-weight: 500;  margin-top: 28px; margin-left: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
+}
+
+.subject:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.info{
+	margin-top: 32px; margin-right: 15px; float: right;
+}
 </style>
 
 		<div style="width: 100%;">
@@ -51,7 +64,7 @@
            </div>
       </div>  
     
-		<div class="boardContainer" style="clear: both; height: 900px">
+		<div class="boardContainer" style="clear: both; height: 850px">
 		       <div style="width:38%;float:left">
 		           <div class="box3">
                    	 <h2>COMMUNITY</h2>
@@ -66,7 +79,7 @@
                         	<dt style="height:200px;  border-radius: 10px 10px 0 0;">                
                         		<img src="${pageContext.request.contextPath}/resources/css/img/ico_first.png" alt="1등">
                         		<a href="${pageContext.request.contextPath}/community/photo/article?photoNum=${dto.num}">
-                        			<img src="${pageContext.request.contextPath}/uploads/photo/${dto.saveName}" style="width: 90%">
+                        			<img src="${pageContext.request.contextPath}/uploads/photo/${dto.saveName}" style="width: 90%; height: 93%">
                         		</a>
                         	</dt>
                         	<dt class="box" style="height:45px;  ">
@@ -95,13 +108,20 @@
                         
                           <c:forEach var="dto" items="${listCommu}" varStatus="status">                       
 					      <dl> 
-					      	<dt style="height:80px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">
+					      	<dt style="height:80px;  width: 80%; border-radius: 10px; margin-bottom: 10px; clear:both;">
 					      		<span style="font-size: 25px; font-weight: 300; float: left; margin: 25px 25px 0 25px; ">
 					      			<c:out value=" ${status.index+3}"></c:out>
 					      		</span>
-					      		<span style="width: 250px; float: left; font-size: 20px; font-weight: 500;  margin-top: 28px; margin-left: 0">
-					      			${dto.subject}
-					      		</span><i class="far fa-comment-dots"></i>&nbsp; | ${dto.userNick}
+					      		<span class="subject" style=" float: left;">
+					      			<a href="${pageContext.request.contextPath}/community/photo/article?photoNum=${dto.num}">
+					      				${dto.subject}
+					      			</a>
+					      		</span>
+					      		<span class="info" ><i class="far fa-comment-dots"></i>
+					      		</span>
+					      		<span class="info" >
+					      			${dto.userNick}
+					      		</span>
 					      	</dt> 
 					      </dl>
 					      </c:forEach>
@@ -153,11 +173,20 @@
                         
                         <c:forEach var="dto" items="${listVideo}" varStatus="status">                       
 					      <dl> 
-					      	<dt style="height:80px;  width: 82%; border-radius: 10px; margin-bottom: 10px; clear:both;">
-					      		<span style="font-size: 25px; font-weight: 300; float: left; margin: 25px;">
+					      	<dt style="height:80px;  width: 80%; border-radius: 10px; margin-bottom: 10px; clear:both;">
+					      		<span style="font-size: 25px; font-weight: 300; float: left; margin: 25px 25px 0 25px; ">
 					      			<c:out value=" ${status.index+3}"></c:out>
 					      		</span>
-					      		<span style="width: 250px;">${dto.subject}</span> | ${dto.userNick}
+					      		<span class="subject" style="width: 250px; float: left; ">
+					      			<a href="${pageContext.request.contextPath}/doctor/video/article?vidNum=${dto.num}">
+					      				${dto.subject}
+					      			</a>
+					      		</span>
+					      		<span class="info" ><i class="far fa-comment-dots"></i>
+					      		</span>
+					      		<span class="info" >
+					      			${dto.userNick}
+					      		</span>
 					      	</dt> 
 					      </dl>
 					      </c:forEach>
@@ -181,24 +210,16 @@
 	           <div class="rcmPhoto2" style="height:300px;"></div>
 	           <div class="rcminfo" style="height:100px;">
 	           		<p>블랭크데이</p> 
-					<P>[블랭크데이]밤 장난감</P>
-				 	<h2>8000원</h2>
-	           </div>
-	       </div>
-			<div style="float:left; width: 350px; padding: 20px;">
-	           <div class="rcmPhoto3" style="height:300px"></div>
-	           <div class="rcminfo" style="height:100px;">
-	           		<p>블랭크데이</p> 
-					<P>[블랭크데이]밤 장난감</P>
-				 	<h2>8000원</h2>
+					<P>[블랭크데이]양모볼 세트</P>
+				 	<h2>9000원</h2>
 	           </div>
 	       </div>
 	       <div style="float:left; width: 350px; padding: 20px;">
 	           <div class="rcmPhoto4" style="height:300px;"></div>
 	           <div class="rcminfo" style="height:100px;">
-	           		<p>블랭크데이</p> 
-					<P>[블랭크데이]밤 장난감</P>
-				 	<h2>8000원</h2>
+	           		<p>묘생건강</p> 
+					<P>[묘생건강]건대구 스낵</P>
+				 	<h2>5000원</h2>
 	           </div>
 	       </div>
 		</div>  
@@ -212,36 +233,10 @@
 			    <li><img src="${pageContext.request.contextPath}/resources/css/img/catblue.JPG" alt="photo2"></li>
 			    <li><img src="${pageContext.request.contextPath}/resources/css/img/pet1.jpg" alt="photo3"></li>
 			    <li><img src="${pageContext.request.contextPath}/resources/css/img/dogpink.jpg" alt="photo4"></li>
-			    <li><img src="${pageContext.request.contextPath}/resources/css/img/cat1.jpg" alt="photo5"></li>
+			    <li><img src="${pageContext.request.contextPath}/resources/css/img/mainDog2.jpg" alt="photo5"></li>
 			</ul>	            
-        </div>
-   <div class="sellBoxWrap">
-		<h2>최다판매</h2>
-	<div class="sellBox" style="clear: both; margin: 50px auto;">			
-	   <div style="height:400px; padding: 20px;">
-	       <div style="float:left; width:300px; ">
-	           <div class="sellboxPhoto1" style="height: 350px; border:1px solid #e4e4e4; border-radius: 20px 0 0 20px;"></div>
-	       </div>
-	       <div style="float:left; width:300px;">
-	           <div style="height: 350px; background:#e4e4e4; border:1px solid #e4e4e4; border-radius: 0 20px 20px 0;">
-		           	<p>제품설명</p>
-		           	<p>제품 가격</p>
-	           </div>
-	       </div>
-	   </div>
-	   <div style="height:400px; padding: 20px;">
-			<div style="float:left; width:300px;">
-	           <div class="sellboxPhoto2" style="height: 350px; border:1px solid #e4e4e4; border-radius: 20px 0 0 20px;"></div>
-	       </div>
-	       <div style="float:left; width:300px;">
-	           <div style="height: 350px; background:#e4e4e4; border:1px solid #e4e4e4; border-radius: 0 20px 20px 0;">
-	           		<p>제품설명</p>
-		           	<p>제품 가격</p>
-	           </div>
-	       </div>
-	    </div>
-	</div>    
-  </div>    
+			
+        </div>   
 	
 	<div class="banner" style="float:left; width:100%;">
            <div class="banner" style="height: 100px;">

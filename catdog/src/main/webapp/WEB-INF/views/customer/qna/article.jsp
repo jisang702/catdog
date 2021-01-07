@@ -15,7 +15,7 @@
   .questionSubject{
     display: inline-block;
     position:absolute;
-    width:850px;
+    width:870px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -37,7 +37,7 @@
   .answerSubject{
     display: inline-block;
     position:absolute;
-    width:850px;
+    width:870px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;

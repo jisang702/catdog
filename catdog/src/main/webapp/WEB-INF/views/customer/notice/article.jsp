@@ -25,7 +25,7 @@
 	</tr>
 	
 	<tr style="border-bottom: 1px solid #cccccc;">
-		<td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
+		<td colspan="2" align="left" style="padding: 10px 5px; width: 100%" valign="top" height="200">
 			${dto.noContent}
 		</td>
 	</tr>

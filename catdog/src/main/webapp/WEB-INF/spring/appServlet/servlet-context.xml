@@ -64,6 +64,7 @@
     		<exclude-mapping path="/"/>
  			<exclude-mapping path="/commu"/>
     		<exclude-mapping path="/resources/**"/>
+    		<exclude-mapping path="/uploads/**"/>
     		<exclude-mapping path="/uploads/photo/**"/>
     		<exclude-mapping path="/member/login"/>
     		<exclude-mapping path="/member/logout"/>

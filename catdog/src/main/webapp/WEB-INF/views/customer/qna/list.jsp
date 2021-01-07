@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<style type="text/css">
+.notice{
+	display: inline-block; padding: 2px 3px; color: white; font-size: 13px; font-weight: 600;
+}
+</style>
+
 <div class="alert-info" style="background: #c6f3c0; color: #397233; border: 1px solid #6FA869">
   <i class="fas fa-info-circle"></i>
     질문과 답변을 할 수 있는 공간입니다.
@@ -30,7 +36,7 @@
   </tr>
   
   <c:forEach var="dto" items="${list}">
-  	<tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;">
+  	<tr align="center" bgcolor="#ffffff" height="40" style="border-bottom: 1px solid #cccccc;">
   		<td>${dto.listNum}</td>
   		<td>${dto.qnaCategoryName}</td>
   		<td align="left" style="padding-left: 10px;">
@@ -51,7 +57,9 @@
   		</td>
   		<td>${dto.userNick}</td>
   		<td>${dto.qnaCreated}</td>
-  		<td>${dto.isAnswer==1 ? "답변완료":"답변대기"}</td>
+  		<td> <c:if test="${dto.isAnswer==1}"><span class="mybtn1" >답변완료</span> </c:if> 
+  			 <c:if test="${dto.isAnswer!=1}"><span class="mybtn2" style="color: red; ">답변대기</span> </c:if>
+  		</td>
   	</tr>
   </c:forEach>
   
