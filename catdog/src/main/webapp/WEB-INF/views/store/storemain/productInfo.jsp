@@ -236,8 +236,8 @@ $(function() {
 					<li class="sub" >${dto.prdName }</li>
 					<li class="sub" style="text-align: right;">${dto.prdPrice}원</li>
 					<li class="sub">할인율:${dto.prdDisCount}%</li>
-							<li class="sub" style="text-align: right; margin-top: 30px;"><p>총 상품 가격:<span id="total"></span>원</p>
-					<li>
+					<li class="sub" style="text-align: right; margin-top: 30px;"><p>총 상품 가격:<span id="total"></span>원</p></li>
+			
 				</ul>
 					<div class="click" onclick="javascript:orderDetail('${dto.prdNum}');">구매하기</div>	
 			</div>

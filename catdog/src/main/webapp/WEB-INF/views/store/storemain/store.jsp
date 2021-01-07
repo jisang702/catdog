@@ -16,6 +16,10 @@ height: 200px;
 	margin-bottom: 20px;
 	
 }
+.ssubject{
+	font-size: 15px;
+	color: #A5E3E6;
+}
 </style>
 
 <div style="width: 100%; margin: 20px auto;">
@@ -36,8 +40,8 @@ height: 200px;
 </div>
 
 
-  
-<p align="center" class="subject">신상품</p>
+<p align="center" class="ssubject">신상품</p> 
+<p align="center" class="subject">NEW PRODUCT</p>
 <div  align="center">
 
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/new1.jpg"> </a>
@@ -48,7 +52,8 @@ height: 200px;
 </div>
 
 <br>
-<p align="center" class="subject">베스트 상품</p>
+<p align="center" class="ssubject">베스트 상품</p> 
+<p align="center" class="subject">BEST PRODUCT</p>
 <div align="center">
 
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogbest1.jpg"> </a>
@@ -58,7 +63,8 @@ height: 200px;
 
 </div>
 <br>
-<p align="center" class="subject">사료</p>
+<p align="center" class="ssubject">사료</p> 
+<p align="center" class="subject">feed</p>
 <div align="center">
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogeat1.jpg"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogeat2.jpg"> </a>
@@ -66,14 +72,16 @@ height: 200px;
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogeat4.jpg"> </a>
 </div>
 <br>
-<p align="center"class="subject">옷</p>
+<p align="center" class="ssubject">패션</p> 
+<p align="center"class="subject">dress</p>
 <div align="center">
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdress1.jpg"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdress2.jpg"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdress3.jpg"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdress4.jpg"> </a>
 </div>
-<p align="center" class="subject">간식</p>
+<p align="center" class="ssubject">간식</p> 
+<p align="center" class="subject">Snack</p>
 <div align="center">
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdessert1.png"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdessert2.png"> </a>
@@ -81,7 +89,8 @@ height: 200px;
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogdessert4.png"> </a>
 
 </div>
-<p align="center" class="subject">장난감</p>
+<p align="center" class="ssubject">장난감</p> 
+<p align="center" class="subject">toy</p>
 <div align="center">
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogtoy1.gif"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogtoy2.jpg"> </a>
@@ -89,7 +98,8 @@ height: 200px;
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogtoy4.jpg"> </a>
 
 </div>
-<p align="center" class="subject">기타상품</p>
+<p align="center" class="ssubject">기타상품</p> 
+<p align="center" class="subject">Other product</p>
 <div align="center">
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogect1.jpg"> </a>
 <a href="#"><img class="big" src="${pageContext.request.contextPath}/resources/storeimg/dogect2.jpg"> </a>

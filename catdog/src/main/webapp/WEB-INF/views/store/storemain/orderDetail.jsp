@@ -132,7 +132,9 @@ ul{
                 <li style="font-size: 25px; font-weight: bold; text-align:center; margin-bottom: 30px;" >결제금액</li>
                 <li style="font-size: 25px;  font-weight: bold;">상품금액:${dto.prdPrice}원</li>
                 <li style="font-size: 25px;  font-weight: bold;">할인:${dto.prdDisCount}%</li>
-                <li style="font-size: 25px; font-weight: bold; margin-top: 30px;">최종결제금액:${dto.price}원</li>
+                <br>
+               	<hr>
+                <li style="font-size: 25px; font-weight: bold; margin-top: 30px; float: right;">최종결제금액:${dto.price}원</li>
                 
             </ul>
 
