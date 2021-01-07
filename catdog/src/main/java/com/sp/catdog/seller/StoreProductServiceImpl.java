@@ -161,8 +161,24 @@ public class StoreProductServiceImpl implements StoreProductService {
 
 	@Override
 	public void updateProduct(StoreProduct dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			// 업로드한 파일이 존재한 경우
+			String saveFilename = fileManager.doFileUpload(dto.getUpload(), pathname);
 		
+			if (saveFilename != null) {
+				// 이전 파일 지우기
+				if(dto.getImgFilename().length()!=0) {
+					fileManager.doFileDelete(dto.getImgFilename(), pathname);
+				}
+					
+				dto.setImgFilename(saveFilename);
+			}
+			
+			dao.updateData("StoreSeller.updateProduct", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 	@Override

@@ -220,5 +220,43 @@ public class StoreProductController {
 		return "redirect:/store/seller/product_list?"+query;
 	}
 	
+	@RequestMapping(value="update", method = RequestMethod.GET)
+	public String updateForm(
+			@RequestParam int prdNum,
+			@RequestParam String page,
+			HttpSession session,
+			Model model) throws Exception {
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		StoreProduct dto = service.readProduct(prdNum);
+		if (dto == null)
+			return "redirect:/store/seller/product_list?page="+page;
+
+		// 글을 등록한 사람만 수정 가능
+		if(! dto.getUserId().equals(info.getUserId())) {
+			return "redirect:/store/seller/product_list?page="+page;
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("mode", "update");
+		return ".store.seller.product_created";
+	}
 	
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String updateSubmit(
+			StoreProduct dto,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+"uploads"+File.separator+"store";
+		
+		try {
+			service.updateProduct(dto, pathname);
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/store/seller/article?prdNum="+dto.getPrdNum()+"&page="+page;
+	}
 }

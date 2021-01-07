@@ -116,6 +116,14 @@
 		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
+	<update id="updateProduct" parameterType="com.sp.catdog.seller.StoreProduct">
+		UPDATE product SET prdName=#{prdName}, prdIntro=#{prdIntro}, prdContent=#{prdContent},
+			prdPrice=#{prdPrice}, prdDisCount=#{prdDisCount}, prdShip=#{prdShip}, prdPoint=#{prdPoint},
+			prdPet=#{prdPet}, prdState=#{prdState}
+		WHERE prdNum=#{prdNum}
+	
+	</update>
+	
 	<delete id="deleteProduct" parameterType="Integer">
 		DELETE FROM product WHERE prdNum=#{prdNum}
 	</delete>

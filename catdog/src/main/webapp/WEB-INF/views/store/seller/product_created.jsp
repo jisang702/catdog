@@ -107,19 +107,21 @@
 			      <td width="100"  bgcolor="#eeeeee" style="text-align: center;">
 			            <label>카테고리</label>
 			      </td>
-			      <td style="padding-left:10px;">
-			            <select name="prdCategoryNum" class="selectField">
-			                <option value="">선 택</option>
-			                <option value="1" ${dto.prdCategoryNum==1 ? "selected='selected'" : ""}>간식</option>
-			                <option value="2" ${dto.prdCategoryNum==5 ? "selected='selected'" : ""}>사료</option>
-			                <option value="3" ${dto.prdCatehoryNum==6 ? "selected='selected'" : ""}>케어</option>
-			                <option value="4" ${dto.prdCatehoryNum==7 ? "selected='selected'" : ""}>리빙</option>
-			                <option value="5" ${dto.prdCatehoryNum==8 ? "selected='selected'" : ""}>외출</option>
-			                <option value="6" ${dto.prdCatehoryNum==9 ? "selected='selected'" : ""}>장난감</option>
-			                <option value="7" ${dto.prdCatehoryNum==10 ? "selected='selected'" : ""}>패션</option>
-			                <option value="8" ${dto.prdCatehoryNum==11 ? "selected='selected'" : ""}>기타</option>
-			            </select>
-			      </td>
+			      <c:if test="${mode!='update'}">
+				      <td style="padding-left:10px;">
+				            <select name="prdCategoryNum" class="selectField">
+				                <option value="">선 택</option>
+				                <option value="1" ${dto.prdCategoryNum==1 ? "selected='selected'" : ""}>간식</option>
+				                <option value="2" ${dto.prdCategoryNum==5 ? "selected='selected'" : ""}>사료</option>
+				                <option value="3" ${dto.prdCategoryNum==6 ? "selected='selected'" : ""}>케어</option>
+				                <option value="4" ${dto.prdCategoryNum==7 ? "selected='selected'" : ""}>리빙</option>
+				                <option value="5" ${dto.prdCategoryNum==8 ? "selected='selected'" : ""}>외출</option>
+				                <option value="6" ${dto.prdCategoryNum==9 ? "selected='selected'" : ""}>장난감</option>
+				                <option value="7" ${dto.prdCategoryNum==10 ? "selected='selected'" : ""}>패션</option>
+				                <option value="8" ${dto.prdCategoryNum==11 ? "selected='selected'" : ""}>기타</option>
+				            </select>
+				      </td>
+			      </c:if>
 			  </tr>
 			  
 			  <tr align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
