@@ -60,6 +60,23 @@
 .tabmenu input:checked ~ .tabCon{
   display:block;
 }
+.blinking{
+   -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
 </style>
 <script type="text/javascript">
 function cart(prdNum) {
@@ -227,6 +244,7 @@ $(function() {
 <div style="width: 100%; clear: both; min-height: 200px;">
 	<div class="firstBox" style="width: 100%; display: flex; justify-content: center;">
 		<div class="second" style="width: 80%; display: flex;">
+	
 			<div style="width: 50%; height: 50%; border: none;">
 				<img style="width: 100%; max-height: 450px;"
 					src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
@@ -234,12 +252,12 @@ $(function() {
 			<div class="rightbox" style="height: 70%;">
 				<ul>
 					<li class="sub" >${dto.prdName }</li>
-					<br>
-					<li class="sub" style=" text-align: right ;">조회수:${dto.prdHitCount }</li>
-					<br>
-					<li class="sub" style="float: right;">${dto.prdPrice}원</li>
 					
-					<li class="sub" style="margin-top: 60px;">할인율:${dto.prdDisCount}%</li>
+					<li class="sub" style=" text-align: right ;">조회수:${dto.prdHitCount }</li>
+						
+					<li class="sub" style="float: right; text-decoration:line-through; opacity:0.5;">${dto.prdPrice}원</li>
+					
+					<li class="sub blinking" style="margin-top: 60px; color: red;">할인율:${dto.prdDisCount}%</li>
 					<li class="sub" style="float: right; margin-top: 30px; font-weight:800;"><p>총 상품 가격:<span id="total"></span>원</p></li>
 			
 				</ul>

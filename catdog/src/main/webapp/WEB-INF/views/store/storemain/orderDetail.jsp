@@ -32,7 +32,23 @@ ul{
     height: 1px;
     width: 100%;
 }
-
+.blinking{
+   -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+    -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
 
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -111,12 +127,12 @@ ul{
 </ul>
 <div>
     <div >
-        <div class="left" style="border: 1px solid black;">
-            <ul style="width: 80%; height: 200px;">
+        <div class="left" style="height: 200px; padding-left: 150px;">
+            <ul style="width: 80%;">
                 <li style="font-size: 25px; text-align: center; font-weight: bold; margin-bottom: 30px;">주문상품 정보</li>
                 <li>
                 <div>
-                   <img style="width: 50%; height:60%; border: 1px solid black; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
+                   <img style="width: 50%; height:60%; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
                 </div>
                 <div style="float: right; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:${dto.prdName }</div>
                 <br><br>
@@ -127,11 +143,11 @@ ul{
              
         </div>
          
-        <div class="right" style="border: 1px solid black; height: 350px;">
+        <div class="right" style="padding-right: 120px; height: 350px;">
             <ul style="margin-bottom: 200px;">
-                <li style="font-size: 25px; font-weight: bold; text-align:center; margin-bottom: 30px;" >결제금액</li>
-                <li style="font-size: 25px; text-align:right; font-weight: bold;">상품금액:${dto.prdPrice}원</li>
-                <li style="font-size: 25px;  font-weight: bold;">할인:${dto.prdDisCount}%</li>
+                <li style="font-size: 25px; font-weight: bold; text-align:center; margin-bottom: 30px; " >결제금액</li>
+                <li class="sub" style="font-size: 25px; text-align:right; font-weight: bold; text-decoration:line-through; opacity:0.5;">상품금액:${dto.prdPrice}원</li>
+                <li style="font-size: 25px;  font-weight: bold; color: red;" class="blinking" >할인:${dto.prdDisCount}%</li>
                 <br>
                	<hr>
                 <li style="font-size: 25px; font-weight: bold; margin-top: 30px; float: right;">최종결제금액:${dto.price}원</li>
@@ -143,8 +159,8 @@ ul{
     </div>
     
 </div>
-<div class="left" style="margin-top: 40px;">
-<div class="body-container" style="width: 700px;">
+<div class="left" style="margin-top: 159px;">
+<div class="body-container" style="width: 700px; margin: 100px">
     <div class="body-title">
         <h3  style="text-align: left; margin-left: 50px;"><i class="fas fa-user"></i> 배송지 </h3>
     </div>
@@ -261,6 +277,6 @@ ul{
 </div>
 
 <div class="right" style="margin-top: 100px;">
-<button style="width: 90%; height: 100px;"onclick="buy();">구매하기</button>
+<button style="width: 90%; height: 100px; background:#ffeebb; font-weight: bold; font-size: 20px;"onclick="buy();">구매하기</button>
 
 </div>
