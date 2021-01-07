@@ -15,10 +15,10 @@
             return false;
         }
 
-        str = f.content.value;
+        str = f.prdContent.value;
         if(!str || str=="<p>&nbsp;</p>") {
         	alert("내용을 입력하세요. ");
-     		f.content.focus();
+     		f.prdContent.focus();
         	return false;
         }
 
