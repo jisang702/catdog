@@ -2,6 +2,7 @@ package com.sp.catdog.seller.qna;
 
 import java.io.File;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class StoreQnaController {
 			HttpSession session,
 			Model model			
 			) throws Exception {
+		String cp = req.getContextPath();
 		
 		int rows = 10;
 		int total_page;
@@ -76,7 +78,16 @@ public class StoreQnaController {
 			n++;
 		}
 		
-		String paging=myUtil.pagingMethod(current_page, total_page, "listPage");
+		String query = "";
+		String listUrl = cp+"/store/qna/qna_list";
+		if(keyword.length()!=0) {
+			query = "condition="+condition+"&keyword="+URLEncoder.encode(keyword, "utf-8");
+		}
+		
+		if(query.length()!=0) {
+			listUrl = cp+"/store/qna/qna_list?" + query;
+		}
+		String paging=myUtil.pagingMethod(current_page, total_page, listUrl);
 		
 		model.addAttribute("page", current_page);
 		model.addAttribute("total_page", total_page);
