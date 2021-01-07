@@ -18,8 +18,8 @@
 	<tbody id='listReplyBody'>
 	<c:forEach var="vo" items="${listReply}">
 	    <tr height='45' style='background: #9FC93C;'>
-	       <td width='50%' style='padding:5px 5px; border:1px solid #9FC93C; border-right:none;' align="left">
-	           <span><b>${vo.userName}</b></span>
+	       <td width='50%' style='padding:5px 15px; border:1px solid #9FC93C; border-right:none;' align="left">
+	           <span><b>${vo.userName}</b> 님</span>
 	        </td>
 	       <td width='50%' style='padding:5px 5px; border:1px solid #9FC93C; border-left:none;' align='right'>
 	           <span>${vo.vidReplyCreated}</span> |

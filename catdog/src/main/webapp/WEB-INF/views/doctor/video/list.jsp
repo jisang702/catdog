@@ -16,11 +16,12 @@ function article(vidNum) {
 	var url="${articleUrl}&vidNum="+vidNum;
 	location.href=url;
 }
+
 </script>
 
 <div class="body-container boxText" style="width: 900px; margin-top: 50px; margin-bottom:50px; align:center; ">
     <div class="body-title" >
-	  	<img src="${pageContext.request.contextPath}/resources/css/img/doctor.jpg" style="width: 150px; height: 120px;">
+	  	<img src="${pageContext.request.contextPath}/resources/css/img/doctor.jpg" style="width: 120px; height: 100px;">
       <h2> 전문가가 알려주는 이야기  </h2>
     </div>
         
@@ -36,7 +37,7 @@ function article(vidNum) {
 	   </tr>
 	</table>
 		
-		<table style="width: 860px; margin: 0px auto; border-spacing: 0px;">
+		<table style="width: 860px; margin: 5px auto; border-spacing: 0px;">
 			<c:forEach var="dto" items="${list}" varStatus="status">
                  <c:if test="${status.index==0}">
                        <tr>
@@ -44,14 +45,23 @@ function article(vidNum) {
                  <c:if test="${status.index!=0 && status.index%3==0}">
                         <c:out value="</tr><tr>" escapeXml="false"/>
                  </c:if>
-			     <td width="210" align="center">
+			     <td width="225" align="center">
 			        <div class="imgLayout">
+			        	<div style="margin-bottom: 5px;">
+			        	<h3><i class="far fa-eye" style="color: #9FC93C;"></i>&nbsp;&nbsp; ${dto.vidHitCount} view</h3></div>
 			             <img src="${pageContext.request.contextPath}/uploads/doctor/video/${dto.vidThumb}" width="280" 
 			                   height="230" border="0" style="border-radius:10px;" onclick="javascript:article('${dto.vidNum}');">
 			             <div class="subject" onclick="javascript:article('${dto.vidNum}');"  >
-			                 	<div> ${dto.vidSubject}</div>
-					         	<div style="float: left;"><i class="far fa-comment-dots">&nbsp;&nbsp;</i>${dto.vidReplyCount}	</div>	                  
-					         	<div style="float: right"> <i class="far fa-eye"></i>&nbsp;&nbsp;${dto.vidHitCount} </div>
+			                 	<div> 
+			                 	<span>${dto.vidSubject}</span>
+			                 	</div>
+			                 	<div>
+			                 	<span style="float: right;"> By.${dto.userName}</span>
+			                 	</div>
+					         	<div style="clear:both; float: left;"> 
+					         		<b><i class="fas fa-heart" style="color: #FF0000;"></i>&nbsp;&nbsp;${dto.videoLikeCount}</b></div>	                  
+					         	<div style="float: right">${dto.vidReplyCount}&nbsp;&nbsp;<i class="far fa-comment-dots">&nbsp;&nbsp;</i>	
+					         	</div>
 			             </div>
 			            
 			         </div>

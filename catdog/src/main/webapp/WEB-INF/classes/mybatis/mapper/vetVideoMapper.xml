@@ -52,7 +52,8 @@
 		SELECT b.vidNum, b.userId, userName, vidSubject,
 				TO_CHAR(b.vidCreated, 'YYYY-MM-DD'),
 				vidHitCount, vidThumb,
-				NVL(vidReplyCount, 0) vidReplyCount
+				NVL(vidReplyCount, 0) vidReplyCount,
+				NVL(vidReplyCount, 0) videoLikeCount
 		FROM vetVideo b
 		JOIN member1 m on b.userId =  m.userId
 		LEFT OUTER JOIN(

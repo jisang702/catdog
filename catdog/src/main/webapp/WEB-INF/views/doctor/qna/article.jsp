@@ -126,9 +126,7 @@ function deleteQnA(qnaNum, mode) {
 		      			<c:if test="${sessionScope.member.userId==preReadDto.userId ||sessionScope.member.userType==2}">
 		      			    <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
 		      			</c:if>
-		      			<c:if test="${sessionScope.member.userId!=preReadDto.userId}">
-		      				${preReadDto.qnaSubject}
-		      			</c:if>
+		      			
 		      		</c:when>
 		      		<c:otherwise>
 		      			&nbsp;<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
@@ -148,9 +146,7 @@ function deleteQnA(qnaNum, mode) {
 		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userType==2}">
 		      				 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
 		      			</c:if>
-		      			<c:if test="${sessionScope.member.userId!=nextReadDto.userId }">
-		      				${nextReadDto.qnaSubject}
-		      			</c:if>
+		      			
 		      		</c:when>
 		      		<c:otherwise>
 		      			 &nbsp;<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
