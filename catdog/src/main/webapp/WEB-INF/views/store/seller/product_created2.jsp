@@ -110,14 +110,9 @@
 			      <td style="padding-left:10px;">
 			            <select name="prdCategoryNum" class="selectField">
 			                <option value="">선 택</option>
-			                <option value="1" ${dto.prdCategoryNum==1 ? "selected='selected'" : ""}>간식</option>
-			                <option value="2" ${dto.prdCategoryNum==5 ? "selected='selected'" : ""}>사료</option>
-			                <option value="3" ${dto.prdCatehoryNum==6 ? "selected='selected'" : ""}>케어</option>
-			                <option value="4" ${dto.prdCatehoryNum==7 ? "selected='selected'" : ""}>리빙</option>
-			                <option value="5" ${dto.prdCatehoryNum==8 ? "selected='selected'" : ""}>외출</option>
-			                <option value="6" ${dto.prdCatehoryNum==9 ? "selected='selected'" : ""}>장난감</option>
-			                <option value="7" ${dto.prdCatehoryNum==10 ? "selected='selected'" : ""}>패션</option>
-			                <option value="8" ${dto.prdCatehoryNum==11 ? "selected='selected'" : ""}>기타</option>
+			                <option value="1" ${dto.prdCategoryNum==1 ? "selected='selected'" : ""}>과자</option>
+			                <option value="2" ${dto.prdCategoryNum==2 ? "selected='selected'" : ""}>옷</option>
+			                <option value="3" ${dto.prdCatehoryNum==3 ? "selected='selected'" : ""}>놀이용품</option>
 			            </select>
 			      </td>
 			  </tr>
@@ -165,7 +160,7 @@
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "content",
+	elPlaceHolder: "prdContent",
 	sSkinURI: "${pageContext.request.contextPath}/resources/se/SmartEditor2Skin.html",	
 	htParams : {bUseToolbar : true,
 		fOnBeforeUnload : function(){
@@ -181,16 +176,16 @@ nhn.husky.EZCreator.createInIFrame({
 
 function pasteHTML() {
 	var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
-	oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+	oEditors.getById["prdContent"].exec("PASTE_HTML", [sHTML]);
 }
 
 function showHTML() {
-	var sHTML = oEditors.getById["content"].getIR();
+	var sHTML = oEditors.getById["prdContent"].getIR();
 	alert(sHTML);
 }
 	
 function submitContents(elClickedObj) {
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
+	oEditors.getById["prdContent"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("content").value를 이용해서 처리하면 됩니다.
 	
@@ -203,7 +198,7 @@ function submitContents(elClickedObj) {
 function setDefaultFont() {
 	var sDefaultFont = '돋움';
 	var nFontSize = 24;
-	oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
+	oEditors.getById["prdContent"].setDefaultFont(sDefaultFont, nFontSize);
 }
 </script>    
     

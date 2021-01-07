@@ -110,9 +110,9 @@ function article(prdNum) {
 					</div>
 					<span class="subject" onclick="javascript:article('${dto.prdNum}');">제목: ${dto.prdName}</span>
 						<br>
-					<span>가격 :${dto.prdPrice }</span> 
+					<span>가격 : ${dto.prdPrice }</span> 
 						<br>
-					<span>조회수:${dto.prdHitCount} </span>
+					<span>조회수 : ${dto.prdHitCount} </span>
 				</div>
 			</td>
 		</c:forEach>
