@@ -90,7 +90,7 @@
 	<!-- 상품글보기 -->
 	<select id="readProduct" parameterType="Integer" resultType="com.sp.catdog.seller.StoreProduct">
 		SELECT p.prdNum, prdName, prdIntro, prdContent, prdPrice, prdDisCount, prdShip, prdPoint, prdHitCount,
-			prdPet, prdState, prdCreated, imgFilename
+			prdPet, prdState, prdCreated, imgFilename, userId
 		FROM product p
 		LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
 		WHERE p.prdNum=#{prdNum}
@@ -98,7 +98,7 @@
 	
 	<!-- 이전글 -->
 	<select id="preReadProduct" parameterType="map" resultType="com.sp.catdog.seller.StoreProduct">
-		SELECT prdNum, prdName FROM product p
+		SELECT prdNum, prdName, userId FROM product p
 		JOIN member1 m ON p.userId=m.userId
 	</select>
 	
@@ -115,6 +115,10 @@
 		ORDER BY prdNum DESC
 		FETCH FIRST 1 ROWS ONLY
 	</select>
+	
+	<delete id="deleteProduct" parameterType="Integer">
+		DELETE FROM product WHERE prdNum=#{prdNum}
+	</delete>
 	
 
 	

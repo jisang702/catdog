@@ -132,17 +132,6 @@ public class StoreProductServiceImpl implements StoreProductService {
 		return dto;
 	}
 
-	@Override
-	public StoreProduct otherProductUser(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StoreProduct otherProductCate(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public StoreProduct preReadProduct(Map<String, Object> map) {
@@ -168,6 +157,31 @@ public class StoreProductServiceImpl implements StoreProductService {
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public void updateProduct(StoreProduct dto, String pathname) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteProduct(int num, String pathname, String userId) throws Exception {
+		try {
+			StoreProduct dto = readProduct(num);
+			if(dto==null || (! userId.equals("admin") && ! userId.equals(dto.getUserId())))
+				return;
+			
+			if(dto.getImgFilename()!=null)
+				fileManager.doFileDelete(dto.getImgFilename(), pathname);
+			
+			dao.deleteData("StoreSeller.deleteProduct", num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 
 }

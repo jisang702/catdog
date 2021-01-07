@@ -159,7 +159,7 @@ $(function() {
 			<table style="width: 60%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			
 			<tr style="border-bottom: 1px solid #cccccc;">
-			  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="50">
+			  <td colspan="2" align="center" style="padding: 10px 5px;" valign="top" height="50">
 			      ${dto.prdContent}
 			   </td>
 			</tr>

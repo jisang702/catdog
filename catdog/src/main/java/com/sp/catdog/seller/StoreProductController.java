@@ -193,5 +193,32 @@ public class StoreProductController {
 		
 	}
 	
+	@RequestMapping(value="delete", method = RequestMethod.GET)
+	public String delete(
+		@RequestParam int prdNum,
+		@RequestParam String page,
+		@RequestParam(defaultValue = "all") String condition,
+		@RequestParam(defaultValue = "") String keyword,
+		HttpSession session	) throws Exception {
+		
+		keyword = URLDecoder.decode(keyword, "utf-8");
+		String query="page="+page;
+		if(keyword.length()!=0) {
+			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
+		}
+		
+		String root=session.getServletContext().getRealPath("/");
+		String pathname=root+"uploads"+File.separator+"store";
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		
+		try {
+			service.deleteProduct(prdNum, pathname, info.getUserId());
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/store/seller/product_list?"+query;
+	}
+	
 	
 }

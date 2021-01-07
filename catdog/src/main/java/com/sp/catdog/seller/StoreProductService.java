@@ -9,8 +9,8 @@ public interface StoreProductService {
 	public List<StoreProduct> listProduct(Map<String, Object> map);
 	
 	public StoreProduct readProduct(int num);
-	public StoreProduct otherProductUser(Map<String, Object> map);
-	public StoreProduct otherProductCate(Map<String, Object> map);
+	public void updateProduct(StoreProduct dto, String pathname) throws Exception;
+	public void deleteProduct(int num, String pathname, String userId) throws Exception;
 	
 	public StoreProduct preReadProduct(Map<String, Object> map);
 	public StoreProduct nextReadProduct(Map<String, Object> map);
