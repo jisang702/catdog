@@ -51,37 +51,11 @@ ul{
 $(function(){
 	var url="${pageContext.request.contextPath}/store/seller/sales_list";
 	
-	$.getJSON(url, function(data){
-		var titles=[];
-		var values=[];
-		
-		for(var i=0; i<data.list.length; i++) {
-			titles.push(data.list[i].section);
-			values.push(data.list[i].cnt);
-		}
-		
-		Highcharts.chart("chart-container", {
-			title:{
-				text:"카테고리별 판매 현황"
-			},
-			xAxis : {
-				categories:data.gubuns	
-			},
-			yAxis : {
-				title:{
-					text:"판매량"	
-				}
-			},
+	$getJSON(url, function(data){
+		Highcharts.chart("", {
 			
-			series:[{
-				type: 'column',
-				colorByPoint: true,
-				name: '카테고리',
-				data: values,
-				showInLegend: false
-			}]
 		});
-	});
+	})
 });
 
 $(function(){
@@ -99,12 +73,11 @@ $(function(){
 <h1 align="center">판매 현황</h1>
 <br>
 
-<div class="body-container" style="width: 700px;">
-    <div class="body-title">
-        <h3><i class="fab fa-user"></i> 판매현황 </h3>
-    </div>
-    
-    <div>
-		<div id='chart-container'></div>
+<div class="container">
+	<h2>카테고리 판매 현황</h2>
+	
+	<div class="box-container" style="margin-top: 15px;">
+		<div id="lineContainer1" class="box"></div>
+		<
 	</div>
 </div>
