@@ -103,4 +103,17 @@
 		FROM pet WHERE petNum=#{petNum}
 	</select>
 	
+	<select id="listQna" parameterType="String" resultType="com.sp.catdog.mypage.Mypage">
+		SELECT q.qnaNum AS num, q.userId, q.qnaSubject AS subject, q.qnaCreated AS created, qnaCategoryName AS boardType
+		FROM qna q
+		JOIN qnaCategory c ON c.qnaCategoryNum=q.qnaCategoryNum
+		WHERE userId=#{userId}
+		ORDER BY qnaCreated DESC
+	</select>
+	
+	<select id="QnaCount" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM qna q
+		WHERE userId=#{userId}
+	</select>
 </mapper>

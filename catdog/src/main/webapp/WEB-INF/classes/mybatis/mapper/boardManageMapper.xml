@@ -51,6 +51,8 @@
 			UNION ALL
 			SELECT boardType, photoNum as num, photoSubject as subject, photoCreated as created, userId FROM comPhoto
 			UNION ALL
+			SELECT boardType, missNum as num, missSubject as subject, missCreated as created, userId FROM comMiss
+			UNION ALL
 			SELECT boardType, vidNum as num, vidSubject as subject, vidCreated as created, userId FROM vetVideo
 		)
 		<where>

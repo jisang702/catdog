@@ -19,8 +19,8 @@
 				<ul>
 					<li>level 1</li>
 					<li>${pointSum} P</li>
-					<li>1</li>
-					<li>0</li>
+					<li>10</li>
+					<li>${QnaCount}</li>
 				</ul>
 			</div>
 		</div>
@@ -70,7 +70,16 @@
 				<button type="button" class="mybtn1" onclick="location.href='${pageContext.request.contextPath}/mypage/qna';">더보기</button>	
 			</div>
 			<div class="mypagelist">
-				
+				<c:forEach var="dto" items="${listQna}">
+				<ul class="mypageBoard">
+					<li style="color: #71da65; font-weight: bold;">
+						[${dto.boardType}]
+					</li>
+					<li style="color: #353535; font-weight: 100;">${dto.subject}
+					</li>
+					<li style="font-size: 12px;">${dto.created}</li>
+				</ul>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

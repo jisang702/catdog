@@ -14,4 +14,7 @@ public interface MypageService {
 	public void insertPet(Mypage dto, String pathname) throws Exception;
 	public List<Mypage> petList(Map<String, Object> map) throws Exception;
 	public Mypage readPet(int petNum) throws Exception;
+	
+	public List<Mypage> listQna(String userId);
+	public int QnaCount(String userId);
 }

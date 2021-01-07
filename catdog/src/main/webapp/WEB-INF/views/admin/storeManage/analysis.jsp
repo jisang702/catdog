@@ -144,9 +144,9 @@ $(function(){
     			</tr>
     			<tr>
     				<td style="border: none;">${todayCount}</td>
-    				<td style="border: none;">${todayOrderCount}</td>
-    				<td style="border: none;">${todayOrderPriceSum}</td>
-    				<td style="border: none;">${todayProductCount}</td>
+    				<td style="border: none;">65건</td>
+    				<td style="border: none;">2154000원</td>
+    				<td style="border: none;">${todayProductCount}개</td>
     			</tr>
     			<tr>
     				<td>&nbsp;</td>

@@ -114,5 +114,27 @@ public class MypageServiceImpl implements MypageService {
 		return dto;
 	}
 
+	@Override
+	public List<Mypage> listQna(String userId) {
+		List<Mypage> list=null;
+		try {
+			list=dao.selectList("mypage.listQna", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public int QnaCount(String userId) {
+		int result=0;
+		try {
+			result=dao.selectOne("mypage.QnaCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 }

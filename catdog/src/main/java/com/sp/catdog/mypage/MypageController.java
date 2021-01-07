@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +48,7 @@ public class MypageController {
 
 		int pointSum=mypageService.pointSum(info.getUserId());
 		String userName=info.getUserName();
-		int rows=3;
+		int rows=4;
 		int offset = 0;
 		
 		Map<String, Object> map=new HashMap<>();
@@ -58,9 +59,14 @@ public class MypageController {
 		
 		List<Mypage> list=mypageService.selectList(map);
 		List<Mypage> petlist=mypageService.petList(map);
+		List<Mypage> listQna=mypageService.listQna(info.getUserId());
+		
+		int QnaCount=mypageService.QnaCount(info.getUserId());
 		
 		model.addAttribute("list", list);
 		model.addAttribute("petlist", petlist);
+		model.addAttribute("listQna", listQna);
+		model.addAttribute("QnaCount", QnaCount);
 		model.addAttribute("pointSum", pointSum);
 		model.addAttribute("userName",userName);
 		model.addAttribute("subMenu", 1);
