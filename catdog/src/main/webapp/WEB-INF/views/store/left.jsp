@@ -18,5 +18,4 @@ $(function(){
        <a href="${pageContext.request.contextPath}/store/seller/main/product" class="list-group-item">상품관리</a>
        <a href="${pageContext.request.contextPath}/store/seller/main/sales" class="list-group-item">판매현황</a>
        <a href="${pageContext.request.contextPath}/store/seller/main/qna" class="list-group-item">상품문의</a>
-       <a href="${pageContext.request.contextPath}/store/seller/main/ship" class="list-group-item">배송관리</a>
 </div>

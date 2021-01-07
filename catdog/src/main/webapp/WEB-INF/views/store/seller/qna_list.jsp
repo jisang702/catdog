@@ -62,6 +62,7 @@ ul.tabs li.current{
 }
 
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
 function article(prdNum) {
 	var url="${articleUrl}&prdNum="+prdNum;
@@ -120,17 +121,21 @@ $(function(){
 
 $(document).ready(function(){
 	
+	$("ul.tabs li:first").addClass("current").show();
+	$(".tab-content:first").show(); 
+	
 	$('ul.tabs li').click(function(){
 		var tab_id = $(this).attr('data-tab');
 
 		$('ul.tabs li').removeClass('current');
 		$('.tab-content').removeClass('current');
-
-		$(this).addClass('current');
+		
+		$(this).addClass('current');		
 		$("#"+tab_id).addClass('current');
-	})
+	 
+	});
 
-})
+});
 </script>
 
 <br>
@@ -140,11 +145,11 @@ $(document).ready(function(){
 
 <div class="container">
 	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1"> 답변 대기</li>
-		<li class="tab-link" data-tab="tab-2"> 전체 문의 </li>
+		<li class="tab-link" data-tab="tab-1"> 전체 문의</li>
+		<li class="tab-link" data-tab="tab-2"> 답변 대기 </li>
 	</ul>
 
-	<div id="tab-2" class="tab-content" style="margin:0 10px;">
+	<div id="tab-1" class="tab-content current" style="margin:0 10px;">
 		<table style=" margin: 30px; border-spacing: 0px;">
 			<c:forEach var="dto" items="${list}" varStatus="status">
 				
@@ -191,11 +196,8 @@ $(document).ready(function(){
 			    <c:choose>
 			    	<c:when test="${not empty dto.qnaansContent}">
 					    <tr>
-					        <td colspan='3' valign='top' style='padding:5px 5px 5px 15px; border:1px solid #71da65; border-top:none;'>
-					            <div style="background: #e4e4e4;">
-					            	<div style='float: left; width: 100%;'>└&nbsp;답변:&nbsp;${dto.qnaansContent}</div>
-	
-				            	</div>
+					        <td colspan='3' valign='top' style='padding:5px 5px 5px 5px; border:1px solid #71da65; border-top:none;'>
+					            <p style='float: left; width: 70%;'>└&nbsp;답변:&nbsp;${dto.qnaansContent}</p>
 					        </td>
 					    </tr>
 			    	</c:when>
@@ -242,7 +244,7 @@ $(document).ready(function(){
 	</div>
 	
 	
-	<div id="tab-1" class="tab-content" style="margin:0 10px;">
+	<div id="tab-2" class="tab-content" style="margin:0 10px;">
 		<table style=" margin: 30px; border-spacing: 0px;">
 			<c:forEach var="dto" items="${list}" varStatus="status">
 				<c:if test="${empty dto.qnaansContent}">

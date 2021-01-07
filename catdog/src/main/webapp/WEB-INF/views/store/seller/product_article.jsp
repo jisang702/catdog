@@ -142,12 +142,14 @@ $(function() {
 							<c:choose>
 								<c:when test="${dto.prdDisCount!=0}">
 									<li class="sub" style="float: right; text-decoration:line-through; opacity:0.5;">가격 : ${dto.prdPrice}원</li>
+									<li class="sub blinking" style="margin-top: 60px; text-align: right; color: red;">할인율:${dto.prdDisCount}%</li>
 								</c:when>
 								<c:otherwise>
 									<li class="sub" style="float: right;">가격 : ${dto.prdPrice}원</li>
+									<li class="sub" style="margin-top: 60px; text-align: right; opacity:0.5; font-size: 18px;">할인 중이 아니에요..</li>
 								</c:otherwise>
 							</c:choose>
-							<li class="sub blinking" style="margin-top: 60px; text-align: right; color: red;">할인율:${dto.prdDisCount}%</li>
+							
 							<li class="sub" style="float: right; margin-top: 30px;"><p>총 상품 가격 : <span id="total"></span>원</p></li>
 					
 						</ul>

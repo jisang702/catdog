@@ -108,7 +108,7 @@ function article(prdNum) {
 						<img src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}"
 						onclick="javascript:article('${dto.prdNum}');" >
 					</div>
-					<span class="subject" onclick="javascript:article('${dto.prdNum}');">제목: ${dto.prdName}</span>
+					<span class="subject" onclick="javascript:article('${dto.prdNum}');">상품명 : ${dto.prdName}</span>
 						<br>
 					<span>가격 : ${dto.prdPrice }</span> 
 						<br>
