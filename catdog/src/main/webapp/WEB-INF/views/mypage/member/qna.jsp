@@ -55,6 +55,24 @@ setInterval(function(){
 						</c:if>
 					</tr>
        				</c:forEach>
+       				
+       				<c:forEach var="dto" items="${listBoard}">
+					<tr> 
+       				    <td width="10%"> ${dto.qnaCategoryName} </td>
+       					<td width="40%">
+					<a href="${pageContext.request.contextPath}/customer/qna/article?qnaNum=${dto.qnaNum}&page=1&rows=10">
+       					 ${dto.qnaSubject}</a></td>
+       					<td width="15%"> ${dto.userNick}  </td>
+       					<td width="15%"> ${dto.qnaCreated}  </td>
+       					<c:if test="${dto.isAnswer==1}">
+							<td width="10%" style="color: #0390f4;">답변완료</td>
+						</c:if>
+						<c:if test="${dto.isAnswer==0}">       					
+							<td width="10%" style="color: #f75e2e;"><b class="blinkEle">답변대기</b></td>
+						</c:if>
+					</tr>
+       				</c:forEach>
+       				
 					</tbody>
 				</table>
 			</div>

@@ -62,6 +62,23 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 		
 	</select>
+
+	<select id="listQnA2" parameterType="map" resultType="com.sp.catdog.doctor.qna.QnA">
+		SELECT q.qnaNum, userName, q.userId, q.qnaSubject, q.qnaSecret,
+				q.qnaAnc, NVL2(q2.qnaAnc, 1, 0) isAnswer,
+				TO_CHAR(q.qnaCreated,  'YYYY-MM-DD') qnaCreated,
+				q.qnaCategoryNum, qnaCategoryName 
+		FROM vetQNA q
+		LEFT OUTER JOIN vetQNA q2 ON q.qnaNum = q2.qnaAnc
+		JOIN vetQNACategory c 	ON q.qnaCategoryNum = c.qnaCategoryNum
+		JOIN member1 m 	ON q.userId=m.userId
+		<if test="userId!='admin' and userTye != 2 ">
+			WHERE m.userId = #{userId}
+		</if>
+  		ORDER BY q.qnaNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		
+	</select>
 	
 	<select id="readQuestion" parameterType="Integer" resultType="com.sp.catdog.doctor.qna.QnA">
 		SELECT q.qnaNum, q.userId, userName, q.qnaSubject, q.qnaContent, q.qnaAnc, q.qnaCreated,

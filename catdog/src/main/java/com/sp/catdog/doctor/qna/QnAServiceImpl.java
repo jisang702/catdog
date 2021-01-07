@@ -46,6 +46,18 @@ public class QnAServiceImpl implements QnAService{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<QnA> listQnA2(Map<String, Object> map) {
+		List<QnA> list= null;
+		
+		try {
+			list=dao.selectList("vetQna.listQnA2", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	@Override
 	public QnA readQuestion(int qnaNum) {

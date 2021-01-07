@@ -8,6 +8,7 @@ public interface QnAService {
 	public int dataCount(Map<String, Object> map);
 	
 	public List<QnA> listQnA(Map<String, Object> map);
+	public List<QnA> listQnA2(Map<String, Object> map);
 	
 	public QnA readQuestion(int qnaNum);
 	public QnA readAnswer(int qnaAnc);

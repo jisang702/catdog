@@ -149,9 +149,10 @@ public class QnAController {
 			return "redirect:/doctor/qna/list?"+query;
 		}
 		
-		if(questionDto.getQnaSecret()==1 &&
-				 ( info.getUserType()!= 2 && ! info.getUserId().equals(questionDto.getUserId()))) {
-			return "redirect:/doctor/qna/list?"+query;
+		if(questionDto.getQnaSecret()==1) {
+			if(! info.getUserId().equals("admin") && (info.getUserType()!= 2 && (! info.getUserId().equals(questionDto.getUserId())))) {
+				return "redirect:/doctor/qna/list?"+query;
+			}
 		}
 		
 		questionDto.setQnaContent(questionDto.getQnaContent().replaceAll("\n", "<br>"));

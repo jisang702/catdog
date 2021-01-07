@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.catdog.common.MyUtil;
+import com.sp.catdog.customer.qna.Board;
+import com.sp.catdog.customer.qna.BoardService;
 import com.sp.catdog.doctor.qna.QnA;
 import com.sp.catdog.doctor.qna.QnAService;
 import com.sp.catdog.member.SessionInfo;
@@ -28,7 +30,8 @@ import com.sp.catdog.member.SessionInfo;
 public class MypageController {
 	@Autowired
 	private QnAService qnaService;
-	
+	@Autowired
+	private BoardService boardService;
 	@Autowired
 	private MypageService mypageService;
 
@@ -236,15 +239,21 @@ public class MypageController {
 	
 	@RequestMapping("qna")
 	public String mypageqna(
+			HttpSession session,
 			Model model) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", info.getUserId());
+		map.put("userType", info.getUserType());
 		map.put("offset", 0);
 		map.put("rows", 5);
 		
-		List<QnA> listQnA = qnaService.listQnA(map);
+		List<QnA> listQnA = qnaService.listQnA2(map);
+		List<Board> listBoard=boardService.listBoard(map);
 		
 		model.addAttribute("subMenu", 6);
+		model.addAttribute("listBoard", listBoard);
 		model.addAttribute("listQnA", listQnA);
 		
 		return ".four.mypage.member.qna";

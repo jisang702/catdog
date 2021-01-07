@@ -2,9 +2,16 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Stylish&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/doctor.css">
 
+<style type="text/css">
+.body-container {
+	font-family: "Noto Sans KR", sans-serif;
+}
+</style>
 <script type="text/javascript">
 $(function(){
 	$(".answer").hide();
@@ -71,21 +78,23 @@ function searchList() {
 		
 	<table style="width: 100%; height: 100%; border-spacing: 0px; border-collapse: collapse;">
 			<c:forEach var="dto" items="${list}">
-			<tr height="35" class="question" bgcolor="#eeeeee">
-				<td width="120" style="padding-left: 5px; border:1px solid #cccccc; border-right:none;">
-					${dto.faqCategoryName}
+			<tr height="55" class="question">
+				<td width="150" style="padding-left: 5px; border:1px solid #E4F7BA; border-right:none; background-color: #E4F7BA;">
+					<h3>${dto.faqCategoryName}</h3>
 				</td>
-				<td align="left" class="question-subject" style="padding-right: 5px; border:1px solid #cccccc; border-left:none;">
-					| <a href="#">${dto.faqQuestion}</a>
+				<td align="left" class="question-subject" style="padding-right: 5px; border:1px solid #E4F7BA; border-left:none; font-size: 15px;">
+					&nbsp;&nbsp;&nbsp;<b><i class="fab fa-quora" style="color:#71DA65;"></i></b>&nbsp;&nbsp;<a href="#">${dto.faqQuestion}</a>
 				</td>
 			</tr>
-			<tr height="50" class="answer">
-				<td colspan="2" style="padding: 5px; border:1px solid #cccccc; border-top:none;" align="left">
-					<div style="min-height: 50px;">${dto.faqAnswer}</div>
+			<tr height="55" class="answer">
+				<td colspan="2" style="padding: 30px; border:1px solid #E4F7BA; border-top:none;" align="left" >
+					<div style="min-height: 50px;">
+						 &nbsp;&nbsp; ${dto.faqAnswer}</div>
 						<c:if test="${sessionScope.member.userId=='admin'}">
 							<div style="padding-top: 5px; text-align: right;">
-								<a onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/faq/update?faqNum=${dto.faqNum}&page=${page}';">수정</a>&nbsp;|
-								<a onclick="deleteFaq('${dto.faqNum}', '${page}');">삭제</a>
+								<a onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/faq/update?faqNum=${dto.faqNum}&page=${page}';">
+								<b><i class="far fa-edit" style="color:#71DA65;" ></i></b></a> &nbsp;&nbsp;|&nbsp;&nbsp;
+								<a onclick="deleteFaq('${dto.faqNum}', '${page}');"><i class="far fa-trash-alt" style="color:#71DA65;"></i></a>
 							</div>
 						</c:if>
 				</td>
@@ -96,7 +105,7 @@ function searchList() {
 		</c:forEach>
 		</table>
 		 
-		<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		<table style="width: 100%; margin: 20px auto; border-spacing: 0px;">
 		   <tr height="35">
 			<td align="center">
 		       ${dataCount==0?"등록된 게시물이 없습니다.":paging}

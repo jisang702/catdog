@@ -66,10 +66,14 @@ setInterval(function(){
 	      	<c:choose>
 	      		<c:when test="${dto.qnaSecret==1}">
 	      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
-	      			<c:if test="${sessionScope.member.userId==dto.userId ||sessionScope.member.userId=='admin' || sessionScope.member.userType==2}">
+	      			<c:choose>
+	      				<c:when test="${sessionScope.member.userId==dto.userId ||sessionScope.member.userId=='admin' || sessionScope.member.userType==2}">
 	      				<a href="${articleUrl}&qnaNum=${dto.qnaNum}">${dto.qnaSubject}</a>
-	      			</c:if>
-	      			
+	      				</c:when>
+	      				<c:otherwise>
+	      					${dto.qnaSubject}
+	      				</c:otherwise>
+	      			</c:choose>
 	      		</c:when>
 	      		<c:otherwise>
 	      			<a href="${articleUrl}&qnaNum=${dto.qnaNum}">${dto.qnaSubject}</a>
