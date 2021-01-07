@@ -3,39 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <style type="text/css">
-* {
-	margin:0px;
-	padding:0px;
-}
-body {
-	font-size: 12px;
-	font-family:맑은 고딕, 돋움;
+
+body{
+	margin-left: 150px;
+	margin-right: 30px;
+	line-height: 1.6
 }
 
-.container {
-	margin: 30px auto;
-	width: 700px;
-	
-}
-.container .box-container {
-}
-.box-container .box {
+.box-container{
 	display: inline-block;
 	box-sizing: border-box;
 	padding: 20px;
-	width: 500px;
+	width: 600px;
 	height: 400px;
 	border: 1px solid #ccc;
 	margin: 10px;
 	text-align: center;
+	
 }
 </style>
 
@@ -98,8 +85,7 @@ $(function(){
 });
 
 </script>
-</head>
-<body>
+
 
 <br>
 <br><br>
@@ -107,18 +93,15 @@ $(function(){
 <br>
 
 <div class="container">
-	<h2 align="center">최근 12개월 매출</h2>
+	<h2>최근 12개월 매출</h2>
 	<div class="box-container" style="margin-top: 15px;">
 		<div id="lineContainer1" class="box"></div>
 	</div>
 	
 	<br>
 	
-	<h2 align="center">카테고리 판매 현황</h2>
+	<h2>카테고리 판매 현황</h2>
 	<div class="box-container">
 	    <div id="pie3dContainer" class="box"></div>
 	</div>
 </div>
-
-</body>
-</html>
