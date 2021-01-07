@@ -38,7 +38,7 @@ function sendLogin(){
 				<li class="loginmenu">
 					<a>아이디 찾기</a>&nbsp;&nbsp;&nbsp;
 					<a>비밀번호 찾기</a>&nbsp;&nbsp;&nbsp;
-					<a href="${pageContext.request.contextPath}/">회원가입</a>
+					<a href="${pageContext.request.contextPath}/member/register">회원가입</a>
 				</li>
 			</ul>
 			<ul>	

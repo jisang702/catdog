@@ -63,12 +63,13 @@
     		<!-- 제외 -->
     		<exclude-mapping path="/"/>
  			<exclude-mapping path="/commu"/>
+ 			<exclude-mapping path="/store"/>
     		<exclude-mapping path="/resources/**"/>
     		<exclude-mapping path="/uploads/**"/>
     		<exclude-mapping path="/uploads/photo/**"/>
     		<exclude-mapping path="/member/login"/>
     		<exclude-mapping path="/member/logout"/>
-    		<exclude-mapping path="/member/member"/>
+    		<exclude-mapping path="/member/register"/>
     		<exclude-mapping path="/member/userIdCheck"/>
     		<exclude-mapping path="/member/complete"/>
     		<exclude-mapping path="/member/pwdFind"/>

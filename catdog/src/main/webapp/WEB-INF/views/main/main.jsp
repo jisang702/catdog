@@ -56,10 +56,14 @@
 		   </div>
 	    </div>
 
-	   <div class="banner" style="float:left; width:100%;">
-           <div class="banner" style="height: 100px;">
+	   <div class="banner" style="float:left; width:100%; height: 0;">
+           <div class="banner" style="height: 0px;">
 			<ul>
-				<li class="bn1"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner1.png" alt="광고1"> </li>
+				<li class="bn3"> 
+					<a href="${pageContext.request.contextPath}/member/register">
+						<img  src="${pageContext.request.contextPath}/resources/css/img/banner3.jpg" alt="광고1"> 
+					</a>
+				</li>
 			</ul>
            </div>
       </div>  
@@ -241,8 +245,7 @@
 	<div class="banner" style="float:left; width:100%;">
            <div class="banner" style="height: 100px;">
 			<ul>
-				<li class="bn2"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner4.jpg" alt="광고2"> </li>				
-				<li class="bn3"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner3.jpg" alt="광고1"> </li>
+				<li class="bn1"> <img  src="${pageContext.request.contextPath}/resources/css/img/banner1.png" alt="광고1"> </li>				
 			</ul>
            </div>
       </div> 

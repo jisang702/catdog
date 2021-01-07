@@ -98,7 +98,7 @@
 	
 	<!-- 이전글 -->
 	<select id="preReadProduct" parameterType="map" resultType="com.sp.catdog.seller.StoreProduct">
-		SELECT prdNum, prdName, userId FROM product p
+		SELECT prdNum, prdName, p.userId FROM product p
 		JOIN member1 m ON p.userId=m.userId
 	</select>
 	
