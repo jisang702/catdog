@@ -15,8 +15,8 @@
 		</tr>
 	</thead>
 	
+	<c:forEach var="dto" items="${list}">
 	<tbody id='listReviewBody'>
-
 	    <tr height='35' style='background: #eeeeee;'>
 	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
 	           <span><b>${dto.userId }</b></span>
@@ -31,7 +31,7 @@
 	            ${dto.reContent}
 	        </td>
 	    </tr>
-
+</c:forEach>  
 
 	</tbody>
 	
