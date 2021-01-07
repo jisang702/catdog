@@ -42,6 +42,10 @@ function searchList() {
 	var f=document.searchForm;
 	f.submit();
 }
+
+setInterval(function(){
+	  $(".blinkEle").toggle();
+	}, 1000);
 </script>
 
 	<div class="body-container boxText" style="width: 900px; margin-top: 70px; margin-bottom:50px; align:center; " >
@@ -68,14 +72,19 @@ function searchList() {
 	  </tr>
   </c:forEach>
     
-    <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
-		<tr height="35" >
+    <table style="width: 100%; margin: 50px auto 0px; border-spacing: 0px; margin-bottom: 8px;">
+		<tr height="35" style="margin-bottom: 30px;">
 			<td align="left" width="50%">
 			<p>	${dataCount}개(${page}/${total_page} PAGE) </p> </td>
 			<td align="right">&nbsp;</td>
+			<td align="right">
+				<button type="button" class="sendBtn" 
+				onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/qna/list';"><b class="blinkEle"> 1:1 문의하기 </b></button>
+			</td>
 		</tr>
 	</table>    
 		
+	
 	<table style="width: 100%; height: 100%; border-spacing: 0px; border-collapse: collapse;">
 			<c:forEach var="dto" items="${list}">
 			<tr height="55" class="question">

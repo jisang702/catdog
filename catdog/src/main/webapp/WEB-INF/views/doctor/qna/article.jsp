@@ -9,13 +9,13 @@
     padding:7px 10px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #027d87;
+	background: #FFBB00;
 	text-align: center;
   }
   .questionSubject{
     display: inline-block;
     position:absolute;
-    width:966px;
+    width:860px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -24,20 +24,20 @@
     margin-left:1px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #027d87;
+	background: #FFBB00;
   }
   .answerA{
     display: inline-block;
     padding:7px 10px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #cc4901;
+	background: #9FC93C;
 	text-align: center;
   }
   .answerSubject{
     display: inline-block;
     position:absolute;
-    width:966px;
+    width:860px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -46,7 +46,7 @@
     margin-left:1px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #cc4901;
+	background: #9FC93C;
   }
 </style>
 
@@ -61,34 +61,29 @@ function deleteQnA(qnaNum, mode) {
 </c:if>
 </script>
 
-<div class="body-container" style="width: 1000px; margin-top: 50px;" >
+<div class="body-container" style="width: 880px; margin-top: 70px;" >
     <div class="body-title">
-        <h3><i class="fas fa-chalkboard-teacher"></i> QnA게시판 </h3>
+        <h3><i class="fas fa-chalkboard-teacher"></i>질문과 답변을 할 수 있는 공간입니다.</h3>
     </div>
-    
-	<div class="alert-info">
-	    <i class="fas fa-info-circle"></i>
-	         질문과 답변을 할 수 있는 공간입니다.
-	</div>
-	
+   
 	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-	<tr height="35">
+	<tr height="50">
 	    <td colspan="2" align="left">
 	    	<span class="questionQ">Q</span><span class="questionSubject">[${questionDto.qnaCategoryName}] ${questionDto.qnaSubject}</span>
 	    </td>
 	</tr>
 	
-	<tr height="35" style="border-bottom: 1px solid #cccccc;">
-	    <td width="50%" align="left" style="padding-left: 5px;">
-	       작성자 : ${questionDto.userName}
+	<tr height="40" style="border-bottom: 1px solid #FFBB00;">
+	    <td width="50%" align="left" style="padding-left: 10px;">
+	       작성자&nbsp;:&nbsp;${questionDto.userName} 님
 	    </td>
-	    <td width="50%" align="right" style="padding-right: 5px;">
-	     문의일자 : ${questionDto.qnaCreated}
+	    <td width="50%" align="right" style="padding-right: 10px;">
+	     문의일자 &nbsp;:&nbsp;&nbsp;${questionDto.qnaCreated}
 	    </td>
 	</tr>
 	
 	<tr>
-	  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
+	  <td colspan="2" align="left" style="padding: 20px 20px;" valign="top" height="230">
 	      ${questionDto.qnaContent}
 	   </td>
 	</tr>
@@ -96,15 +91,15 @@ function deleteQnA(qnaNum, mode) {
 	
 	<c:if test="${not empty answerDto}">
 		<table style="width: 100%; margin: 10px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-		<tr height="35">
+		<tr height="45">
 		    <td colspan="2" align="left">
 	    	<span class="answerA">A</span><span class="answerSubject">[RE] ${answerDto.qnaSubject}</span>
 		    </td>
 		</tr>
 		
-		<tr height="35" style="border-bottom: 1px solid #cccccc;">
+		<tr height="40" style="border-bottom: 1px solid #9FC93C;">
 		    <td width="50%" align="left" style="padding-left: 5px;">
-		       담당자 : ${answerDto.userName}
+		       담당자 : ${answerDto.userName} 수의사
 		    </td>
 		    <td width="50%" align="right" style="padding-right: 5px;">
 		     답변일자 :  ${answerDto.qnaCreated}
@@ -112,7 +107,7 @@ function deleteQnA(qnaNum, mode) {
 		</tr>
 		
 		<tr>
-		  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="200">
+		  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="230">
 		      ${answerDto.qnaContent}
 		   </td>
 		</tr>
@@ -121,13 +116,13 @@ function deleteQnA(qnaNum, mode) {
 	</c:if>
 	
 	<table style="width: 100%; margin: 0px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-	<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-	    <td colspan="2" align="left" style="padding-left: 5px;">
-	       이전글 :
+	<tr height="45" style="border-top: 1px solid #9FC93C; border-bottom: 1px solid #9FC93C;">
+	    <td colspan="2" align="left" style="padding-left: 10px;">
+	      <b>이전글&nbsp;&nbsp;<i class="fas fa-caret-up" style="color:#9FC93C;"></i></b>&nbsp;&nbsp;
 	        <c:if test="${not empty preReadDto}">
 		      	<c:choose>
 		      		<c:when test="${preReadDto.qnaSecret==1}">
-		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
+		      			&nbsp;<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>&nbsp;
 		      			<c:if test="${sessionScope.member.userId==preReadDto.userId ||sessionScope.member.userType==2}">
 		      			    <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
 		      			</c:if>
@@ -136,20 +131,20 @@ function deleteQnA(qnaNum, mode) {
 		      			</c:if>
 		      		</c:when>
 		      		<c:otherwise>
-		      			 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
+		      			&nbsp;<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${preReadDto.qnaNum}&${query}">${preReadDto.qnaSubject}</a>
 		      		</c:otherwise>
 		      	</c:choose>
 	        </c:if>
 	    </td>
 	</tr>
 
-	<tr height="35" style="border-bottom: 1px solid #cccccc;">
-	    <td colspan="2" align="left" style="padding-left: 5px;">
-	       다음글 :
+	<tr height="45" style="border-bottom: 1px solid #9FC93C;">
+	    <td colspan="2" align="left" style="padding-left: 10px;">
+	       <b>다음글&nbsp;&nbsp;<i class="fas fa-caret-down" style="color:#9FC93C;"></i></b>&nbsp;&nbsp;
 	        <c:if test="${not empty nextReadDto}">
 		      	<c:choose>
 		      		<c:when test="${nextReadDto.qnaSecret==1}">
-		      			<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>
+		      			&nbsp;<i class="fa fa-lock" title="공개여부" style="color: #8bc34a;"></i>&nbsp;
 		      			<c:if test="${sessionScope.member.userId==nextReadDto.userId || sessionScope.member.userType==2}">
 		      				 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
 		      			</c:if>
@@ -158,7 +153,7 @@ function deleteQnA(qnaNum, mode) {
 		      			</c:if>
 		      		</c:when>
 		      		<c:otherwise>
-		      			 <a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
+		      			 &nbsp;<a href="${pageContext.request.contextPath}/doctor/qna/article?qnaNum=${nextReadDto.qnaNum}&${query}">${nextReadDto.qnaSubject}</a>
 		      		</c:otherwise>
 		      	</c:choose>
 	        </c:if>
@@ -166,7 +161,7 @@ function deleteQnA(qnaNum, mode) {
 	</tr>
 	</table>
 	
-	<table style="width: 100%; margin: 0px auto 20px; border-spacing: 0px;">
+	<table style="width: 100%; margin: 10px auto 20px; border-spacing: 0px;">
 	<tr height="45">
 	    <td width="400" align="left">
 	        <c:if test="${sessionScope.member.userId==questionDto.userId}">

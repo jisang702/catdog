@@ -36,7 +36,7 @@ function article(vidNum) {
 	   </tr>
 	</table>
 		
-		<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		<table style="width: 860px; margin: 0px auto; border-spacing: 0px;">
 			<c:forEach var="dto" items="${list}" varStatus="status">
                  <c:if test="${status.index==0}">
                        <tr>
@@ -81,7 +81,7 @@ function article(vidNum) {
 		</table>
 
 		
-		<table style="width: 100%; margin: 10px auto; border-spacing: 0px;">
+		<table style="width: 100%; margin: 15px auto; border-spacing: 0px;">
 		   <tr height="40">
 		      <td align="left" width="100">
 		          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/video/list';"><i class="fas fa-redo-alt"></i></button>

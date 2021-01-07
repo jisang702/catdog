@@ -64,7 +64,7 @@
 				<td>${dto.userName}</td>
 				<td>${dto.newsCreated}</td>
 				<td><c:if test="${dto.fileCount !=0}">
-						<a href="${pageContext.request.contextPath}/doctor/news/zipdownload?newsNum=${dto.newsNum}"><i class="far fa-file-archive"></i></a>
+						<a href="${pageContext.request.contextPath}/doctor/news/zipdownload?newsNum=${dto.newsNum}"><i class="far fa-file-archive" style="color: #664B00;"></i></a>
 					</c:if></td>
 	
 				<td>${dto.newsHitCount}</td>

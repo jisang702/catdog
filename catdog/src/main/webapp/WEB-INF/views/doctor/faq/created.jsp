@@ -339,8 +339,9 @@ $("body").on("click", ".btnUpdateCancelIcon", function(){
 		        <p style="float: left;"><button type="reset" class="btn">새로고침</button>
 		         <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/doctor/faq/list';">${mode=='update'?'수정취소':'등록취소'}</button>
 		        </p>
-		        &nbsp;
+		        <p style="float: right;" >
 		        <button type="submit" class="btn">${mode=='update'?'수정완료':'등록하기'}</button>
+		        </p>
 		        
 		         <c:if test="${mode=='update'}">
 		         	 <input type="hidden" name="faqNum" value="${dto.faqNum}">

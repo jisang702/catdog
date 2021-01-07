@@ -2,9 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<style type="text/css">
-
-</style>
 
 <script type="text/javascript">
 function deleteVideo() {
@@ -290,22 +287,22 @@ $(function(){
 });
 </script>
 
-	<div class="body-container" style="width: 980px; margin-top: 50px;">
+	<div class="body-container boxText" style="width: 860px; margin-top: 70px; margin-bottom:50px; align:center; " >
    		 <div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			<tr height="55" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="center" style="background-color: #E6F8E0">
+			<tr class="alert-info" style="background-color: #FFBB00; color: #ffffff; border: 1px solid #FFBB00;" height="50">
+		    <td colspan="2" align="center">
 				 <h2>${dto.vidSubject}</h2>
 			    </td>
 			</tr>
 			
-			<tr height="50" style="border-bottom: 1px solid #cccccc;">
-			    <td width="50%" align="left" style="padding-left: 5px;">
-			       ${dto.userName}
-			    </td>
-			    <td width="50%" align="right" style="padding-right: 5px;">
-			        <p>${dto.vidCreated} &nbsp;&nbsp; |&nbsp;&nbsp; <i class="far fa-eye"></i> ${dto.vidHitCount}</p>
-			    </td>
+			<tr height="50" style="border-bottom: 2px solid #FFBB00;">
+		    <td width="400px" align="left" style="padding-left: 15px;">
+			     ${dto.userName}
+			 </td>
+			 <td width="400px" align="right" style="padding-right: 15px;">
+		       <span>${dto.vidCreated}&nbsp;&nbsp;|&nbsp;&nbsp;<i class="far fa-eye" style="color:#664B00;"></i>  ${dto.vidHitCount}</span> 
+		    </td>
 			</tr>
 			
 			<tr>
@@ -314,8 +311,8 @@ $(function(){
 			   </td>
 			</tr>			
 		   <tr>
-			   <td width="50%" align="center" style="padding-right: 5px;">
-			        <iframe width="750" height="600"
+			   <td width="50%" align="center"  style="padding-right: 5px;" >
+			        <iframe width="800" height="520" align="center"
 						src="${dto.vidUrl}" 
 						></iframe>
 			    </td>
@@ -326,33 +323,34 @@ $(function(){
 			   </td>
 			</tr>
 			
-			<tr style="border-bottom: 1px solid #cccccc;">
-				<td colspan="2" height="40" style="padding-bottom: 15px;" align="center">
-					<button type="button" class="btn btnSendVideoLike" title="좋아요"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;<span id="videoLikeCount">${dto.videoLikeCount}</span></button>
+			<tr style="border-bottom: 3px solid #FFBB00;">
+				<td colspan="2" height="60" style="padding-bottom: 15px;" align="center">
+					<button type="button" class="btn btnSendVideoLike" title="좋아요" style="border: none;">
+					<h1><i class="fas fa-heart" style="color: #FF0000;"></i></h1><br>
+						<p id="videoLikeCount" style="border-bottom: 2px dotted #FFBB00; ">${dto.videoLikeCount}</p></button>
 				</td>
 			</tr>
 			
-			<tr height="50" style="border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left" style="padding-left: 5px;">
-			      이전글 :
-			         <c:if test="${not empty preReadVideo}">
+			<tr height="55" style="border-bottom: 1px solid #FFBB00;">
+			    <td colspan="2" align="left" style="padding-left: 15px;">
+			     <b>이전글&nbsp;&nbsp;<i class="fas fa-caret-up" style="color:#FFBB00;"></i></b>&nbsp;&nbsp;&nbsp;
+		             <c:if test="${not empty preReadVideo}">
 			              <a href="${pageContext.request.contextPath}/doctor/video/article?${query}&vidNum=${preReadVideo.vidNum}">${preReadVideo.vidSubject}</a>
 			        </c:if>
 			    </td>
 			</tr>
 			
-			<tr height="50" style="border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       다음글 :
-			       <c:if test="${not empty nextReadVideo}">
+			<tr height="50" style="border-bottom: 3px solid #FFBB00;">
+		 	   <td colspan="2" align="left" style="padding-left: 15px;">
+			      <b>다음글&nbsp;&nbsp;<i class="fas fa-caret-down" style="color:#FFBB00;"></i></b>&nbsp;&nbsp;&nbsp;
+		          	<c:if test="${not empty nextReadVideo}">
 			              <a href="${pageContext.request.contextPath}/doctor/video/article?${query}&vidNum=${nextReadVideo.vidNum}">${nextReadVideo.vidSubject}</a>
 			        </c:if>
-			         
 			    </td>
 			</tr>
 			</table>
 			
-			<table style="width: 100%; margin: 0px auto 20px; border-spacing: 0px;">
+			<table style="width: 860px; margin: 0px auto 20px; border-spacing: 0px;">
 			<tr height="50">
 			    <td width="300" align="left">
 			       <c:if test="${sessionScope.member.userId==dto.userId}">				    
@@ -371,11 +369,11 @@ $(function(){
     </div>
 
      <div>
-		<table style='width: 100%; margin: 15px auto 0px; border-spacing: 0px;'>
+		<table style='width: 860px; margin: 15px auto 0px; border-spacing: 0px;'>
 			<tr height='50'> 
-				 <td align='left' >
-				 	<span style='font-weight: bold;' > &nbsp;댓글쓰기 <i class="far fa-comment-dots">&nbsp;</i> </span>
-				 	<span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>
+				 <td align='left'>
+				 	<span style='font-weight: bold;' >&nbsp;<h3>댓글쓰기 <i class="far fa-comment-dots" style="color: #FFBB00;">&nbsp;</i></h3></span>
+				 	<span>타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>
 				 </td>
 			</tr>
 			<tr>
@@ -385,7 +383,7 @@ $(function(){
 			</tr>
 			<tr>
 			   <td align='right'>
-			        <button type='button' class='btn btnSendReply' style='padding:10px 20px; background-color: #71DA65; color: #FFF; border:2px soild #FFF;'>댓글 등록</button>
+			        <button type='button' class='btn btnSendReply' style='padding:10px 20px; background-color: #FFBB00; color: #FFF; border:2px soild #FFF;'><b>댓글 등록</b></button>
 			    </td>
 			 </tr>
 		</table>
