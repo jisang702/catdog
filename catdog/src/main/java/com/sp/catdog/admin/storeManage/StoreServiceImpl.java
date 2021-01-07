@@ -106,5 +106,27 @@ public class StoreServiceImpl implements StoreService{
 		}
 	}
 
+	@Override
+	public List<Store> listOrdCount() {
+		List<Store> list=null;
+		try {
+			list=dao.selectList("storeManage.listOrdCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Store> listAmount() {
+		List<Store> list=null;
+		try {
+			list=dao.selectList("storeManage.listAmount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 }

@@ -71,7 +71,12 @@ $(function() {
 	            		<li><a href="${pageContext.request.contextPath}/customer/faq">자주하는질문</a></li>
 	            	</ul>
 	            </li>
-	            <li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>
+	             <c:if test="${sessionScope.member.userId!='admin'}">
+	            	<li class="menu1"><a href="${pageContext.request.contextPath}/mypage/home">마이페이지</a></li>
+	            </c:if>
+	            <c:if test="${sessionScope.member.userId=='admin'}">
+	            	<li class="menu1"><a href="#">&emsp;</a></li>
+	            </c:if>
 	            <li class="menu2"><a href="${pageContext.request.contextPath}/store"><img src="${pageContext.request.contextPath}/resources/css/images/cart.png"></a></li>
 	         </ul>
 		</div>

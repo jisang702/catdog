@@ -38,14 +38,25 @@
     font-weight: bold;
 }
 
-.send:hover{
+.send{
 	cursor: pointer;
 	color: tomato;
+}
+
+
+.send:hover{
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .board-list tr:hover{
 	cursor: pointer;
 	background-color: #f6f6f6;
+}
+
+.subject:hover{
+	cursor: pointer;
+	text-decoration: underline;
 }
 </style>
 
@@ -107,7 +118,7 @@ $(function(){
 		        }
 		    },
 		    series: [{
-		        
+		        name: '방문자',
 		        data: [data.before, data.total]
 		    }]
 		});
@@ -121,7 +132,7 @@ $(function(){
 <div class="body-container">
     <div style="margin: 70px auto; width: 100%">
     	<div class="box" style="width: 70%; height: 280px; display: inline-block;"> 		
-    		<p style="font-size: 20px; font-weight: bold; margin: 10px 20px;">오늘자 통계</p>
+    		<p style="font-size: 20px; font-weight: bold; margin: 10px 20px;"><i class="fas fa-chart-line"></i>&nbsp;오늘자 통계</p>
     		<table class="listtable1" style="height: 200px;">
     			<tr height="20">
     				<th>현재 사용자 수</th>
@@ -148,7 +159,7 @@ $(function(){
  			<p style="float:right; font-weight: 400; font-size: 12px; margin-top: 10px;"><%=time%> 기준</p>
     	</div>
     	<div class="box" style="width: 25%; height: 280px; padding-left:0; display: inline-block;">
-    		<p style="font-size: 20px; font-weight: bold; margin: 15px 20px;">방문자 요약</p>
+    		<p style="font-size: 20px; font-weight: bold; margin: 15px 20px;"><i class="fas fa-shoe-prints"></i>&nbsp;방문자 요약</p>
     		<div id="chart-container">
     				
     		</div>
@@ -199,9 +210,9 @@ $(function(){
 			 </thead>
 			 <tbody class="board-list">
 			 	<c:forEach var="dto" items="${newArticleList}">
-				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
+				  <tr align="center" height="20" style="width:100%; border-bottom: 1px solid #cccccc;" class="hover-tr"> 
 				      <td style="padding: 0; height: 40px;">${dto.boardType=="free" ? "자유" : (dto.boardType=="deal" ? "중고거래" : (dto.boardType=="vid" ? "비디오" : "포토") ) } </td>
-				      <td style="padding: 0;">${dto.subject}</td>
+				      <td style="padding: 0;" class="subject">${dto.subject}</td>
 				      <td style="padding: 0;">${dto.userId}</td>      
 				  </tr>
 			</c:forEach>
@@ -234,15 +245,15 @@ $(function(){
 			 </tbody>
     		</table>
         </div>
-         <div class="box" style="width: 49%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
-	         <div style="width: 85%">
+         <div class="box" style="width: 46%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
+	         <div style="width: 100%">
 	        	<div>
 	        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-bell"></i>&nbsp;새로 올라온 문의글</p>
 	        		<p style="float: right; font-size: 10px;"><br><br>
 	        			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
 	        		</p>
 	        	</div>
-	    		<table class="listtable1" style="width: 80%; height: 180px">
+	    		<table class="listtable1" style="width: 100%; height: 180px">
 		    	 <thead>
 		               <tr align="center"  height="20" style="padding: 0"> 
 					      <th style="width: 120px; color: #787878;">유형</th>
@@ -263,9 +274,9 @@ $(function(){
 	    	 </div>
         </div>
         
-        <div class="box" style="width: 39%; height: 230px; margin-top: 10px; padding: 20px; display: inline-block;">
+        <div class="box" style="width: 45%; height: 230px; margin-top: 10px; padding: 22px; display: inline-block;">
         	<div>
-        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-bullhorn"></i>공지사항</p>
+        		<p style="font-size: 20px; font-weight: bold; margin: 10px 10px 15px;"><i class="fas fa-bullhorn"></i>&nbsp;공지사항</p>
         		<p style="float: right; font-size: 10px;"><br><br>
         			<span class="send" onclick="javascript:location.href='${pageContext.request.contextPath}/admin/customer/qna/list'">  + 더보기</span>
         		</p>
@@ -280,7 +291,7 @@ $(function(){
 			 <tbody class="board-list">
 			 	<c:forEach var="dto" items="${newNoticeList}">
 				  <tr align="center" height="20" style="border-bottom: 1px solid #cccccc;" class="hover-tr"> 
-				      <td style="padding: 0; height: 40px;">${dto.subject}</td>
+				      <td style="padding: 0; height: 40px; text-align: left;">${dto.subject}</td>
 				      <td style="padding: 0;">${dto.userId}</td>
 				  </tr>
 				</c:forEach>

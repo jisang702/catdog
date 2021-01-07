@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.catdog.admin.memberManage.Analysis;
 import com.sp.catdog.common.CountManager;
 import com.sp.catdog.common.MyUtil;
 
@@ -51,8 +52,23 @@ public class StoreController {
 		model.addAttribute("totalOrderCount", totalOrderCount);
 		model.addAttribute("totalOrderPriceSum", totalOrderPriceSum);
 		model.addAttribute("totalProductCount", totalProductCount);
+		
 		model.addAttribute("subMenu", 1);
 		return ".admin4.admin.storeManage.analysis";
+	}
+	
+	@RequestMapping("ordAnalysis")
+	@ResponseBody
+	public Map<String, Object> ordAnalysis() throws Exception{
+		Map<String, Object> model = new HashMap<>();
+		
+		List<Store> listOrd=service.listOrdCount();
+		List<Store> listAmount=service.listAmount();
+
+		model.put("listOrd", listOrd);
+		model.put("listAmount", listAmount);
+		
+		return model;
 	}
 	
 	@RequestMapping("listCategory")

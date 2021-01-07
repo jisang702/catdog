@@ -308,7 +308,7 @@ function faqlist(faqCateNum){
 			       <li id="tab-faq" data-tab="faq">자주하는질문</li>
 			   </ul>
 		   </div>
-		   <div id="tab-content" style="clear:both; width: 100%; padding: 20px 10px 0px;"></div>
+		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>
 	</div>
 </div>
 

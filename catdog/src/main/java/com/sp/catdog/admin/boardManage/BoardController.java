@@ -179,7 +179,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 3);
+		model.addAttribute("subMenu", 2);
 
 		return ".admin4.admin.boardManage.articlelist";
 	};
@@ -279,7 +279,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 4);
+		model.addAttribute("subMenu", 3);
 
 		return ".admin4.admin.boardManage.replylist";
 	};
@@ -352,7 +352,7 @@ public class BoardController {
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("list", list);
-		model.addAttribute("subMenu", 5);
+		model.addAttribute("subMenu", 4);
 
 		return ".admin4.admin.boardManage.replyReportList";
 	};

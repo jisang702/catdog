@@ -5,7 +5,7 @@
 
 <style type="text/css">
 .notice{
-	display: inline-block; padding: 2px 3px; color: white; font-size: 13px; font-weight: 600;
+	border: 2px solid tomato; color: tomato; font-weight: 600
 }
 </style>
 
@@ -57,8 +57,8 @@
   		</td>
   		<td>${dto.userNick}</td>
   		<td>${dto.qnaCreated}</td>
-  		<td> <c:if test="${dto.isAnswer==1}"><span class="mybtn1" >답변완료</span> </c:if> 
-  			 <c:if test="${dto.isAnswer!=1}"><span class="mybtn2" style="color: red; ">답변대기</span> </c:if>
+  		<td> <c:if test="${dto.isAnswer==1}"><span class="mybtn1" style="padding: 5px 3px;" >답변완료</span> </c:if> 
+  			 <c:if test="${dto.isAnswer!=1}"><span class="mybtn1 notice" style="padding: 5px 3px; ">답변대기</span> </c:if>
   		</td>
   	</tr>
   </c:forEach>

@@ -14,6 +14,13 @@ public class Store {
 	private int enabled;
 	private int orderNo;
 	
+	private int num;
+	private int ordCount;
+	private int amount;
+	
+	private String section;
+	private int count;
+	
 	public int getListNum() {
 		return listNum;
 	}
@@ -79,6 +86,36 @@ public class Store {
 	}
 	public Integer getPrdState() {
 		return prdState;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public int getOrdCount() {
+		return ordCount;
+	}
+	public void setOrdCount(int ordCount) {
+		this.ordCount = ordCount;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	

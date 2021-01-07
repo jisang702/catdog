@@ -25,7 +25,111 @@
     float: left;
     font-weight: bold;
 }
+
+#chart-container {
+	width: 800px;
+	box-sizing: border-box;
+	padding: 20px;
+	height: 400px;
+	margin: 10px auto;
+	text-align: center;
+}
 </style>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	var url="${pageContext.request.contextPath}/admin/storeManage/ordAnalysis";
+	
+	$.getJSON(url, function(data){
+		var otitles=[];
+		
+		var ovalues=[];
+		var avalues=[];	
+		
+		for(var i=0; i<data.listOrd.length; i++){
+			otitles.push(data.listOrd[i].section);
+			ovalues.push(data.listOrd[i].count);
+			avalues.push(data.listAmount[i].count);
+		}
+		
+		Highcharts.chart('chart-container', {
+		    chart: {
+		        zoomType: 'xy'
+		    },
+		    title: {
+		        text: '<b>스토어 매출 통계</b>'
+		    },
+		    xAxis: [{
+		        categories: otitles,
+		        crosshair: true
+		    }],
+		    yAxis: [{ // Primary yAxis
+		        labels: {
+		            format: '{value} 원',
+		            style: {
+		                color: Highcharts.getOptions().colors[1]
+		            }
+		        },
+		        title: {
+		            text: '금액',
+		            style: {
+		                color: Highcharts.getOptions().colors[1]
+		            }
+		        }
+		    }, { // Secondary yAxis
+		        title: {
+		            text: '주문 건수',
+		            style: {
+		                color: Highcharts.getOptions().colors[0]
+		            }
+		        },
+		        labels: {
+		            format: '{value} 건',
+		            style: {
+		                color: Highcharts.getOptions().colors[0]
+		            }
+		        },
+		        opposite: true
+		    }],
+		    tooltip: {
+		        shared: true
+		    },
+		    legend: {
+		        layout: 'vertical',
+		        align: 'left',
+		        x: 120,
+		        verticalAlign: 'top',
+		        y: 100,
+		        floating: true,
+		        backgroundColor:
+		            Highcharts.defaultOptions.legend.backgroundColor || // theme
+		            'rgba(255,255,255,0.25)'
+		    },
+		    series: [{
+		        name: '주문',
+		        type: 'column',
+		        yAxis: 1,
+		        data: ovalues,
+		        tooltip: {
+		            valueSuffix: ' 건'
+		        }
+
+		    }, {
+		        name: '금액',
+		        type: 'spline',
+		        data: avalues,
+		        tooltip: {
+		            valueSuffix: '원'
+		        }
+		    }]
+		});
+	});
+});
+
+</script>
 
 <div class="body-container">
     <div style="margin: 70px auto; width: 100%">
@@ -47,15 +151,15 @@
     			<tr>
     				<td>&nbsp;</td>
     				<td style="font-size: 12px;">
-    					어제 주문건 수 : 1205<br>
-    					&emsp;&emsp;총 주문건 수    : ${totalOrderCount}
+    					&nbsp;어제 주문건 수 : 300건<br>
+    					&emsp;&emsp;총 주문건 수 : ${totalOrderCount}건
     				</td>
     				<td style="font-size: 12px;">
-    					누적 주문금액 수 : ${totalOrderPriceSum}<br> 
+    					누적 주문금액 : ${totalOrderPriceSum}원<br> 
     					&emsp;&emsp;
     				</td>
     				<td style="font-size: 12px;">
-    					누적 상품갯수 : ${totalProductCount}<br> 
+    					누적 상품갯수 : ${totalProductCount}개<br> 
     					&emsp;&emsp;
     				</td>
     			</tr>    			
@@ -63,6 +167,10 @@
  			<p style="float:right; font-weight: 400; font-size: 12px; margin-top: 10px;"><%=time%> 기준</p>
     	</div>
     	
-        
+    	<div class="box" style="width: 810px; margin-top: 10px;">
+	    	<div id="chart-container">
+		     	
+		    </div>
+        </div>
     </div>
 </div>

@@ -19,21 +19,19 @@
 	</sql>
 	
 	<select id="orderCount" parameterType="String" resultType="Integer">
-		SELECT NVL(COUNT(*),0) 
-		FROM ord
+		select sum(ordCount) from ordAnalysis
 		<where>
 			<if test="state == 'today' ">
-				TO_CHAR(orderDate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+				TO_CHAR(created, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			</if>
 		</where>
 	</select>
 	
-	<select id="orderPriceSum" parameterType="String" resultType="Integer">
-		SELECT NVL(SUM(orderPrice),0) 
-		FROM ord 
+	<select id="orderPriceSum" parameterType="String"  resultType="Integer">
+		select sum(amount) from ordAnalysis
 		<where>
 			<if test="state == 'today' ">
-				TO_CHAR(orderDate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+				TO_CHAR(created, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			</if>
 		</where>
 	</select>
@@ -115,5 +113,14 @@
 		</where>
 		ORDER BY created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<!-- 차트 쿼리 -->
+	<select id="listOrdCount" resultType="com.sp.catdog.admin.storeManage.Store">
+		select to_char(created, 'YYYY-MM-DD') section, ordCount AS count from ordAnalysis
+	</select>
+	
+	<select id="listAmount" resultType="com.sp.catdog.admin.storeManage.Store">
+		select to_char(created, 'YYYY-MM-DD') section, amount AS count from ordAnalysis
 	</select>
 </mapper>

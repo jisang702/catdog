@@ -16,4 +16,7 @@ public interface StoreService {
 	public void deleteCategory(int prdCategoryNum) throws Exception;
 	
 	public List<Store> listProduct(Map<String, Object> map);
+	
+	public List<Store> listOrdCount();
+	public List<Store> listAmount();
 }
