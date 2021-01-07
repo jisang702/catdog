@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ord">
+
+<select id="seq" resultType="Integer">
+	ord_seq.nextval FROM dual
+</select>
+
+<!-- 주문 -->
+<insert id="insertOrd" parameterType="com.sp.catdog.buyer.Ord">
+	INSERT INTO ord(orderNum,orderDate,orderPrice,userId,prdNum)
+	VALUES(#{orderNum},SYSDATE,#{orderPrice},#{userId},#{prdNum})
+</insert>
+
+<!-- 배송지 -->
+<insert id="insertshipLoca" parameterType="com.sp.catdog.buyer.Ord">
+	INSERT INTO shipLoca(loNum,loName,loTel,loZip,loAddr1,loAddr2,orderNum,userId,loMsg)
+	VALUES(shipLoca_seq.nextval,#{loName},#{loTel},#{loZip},#{loAddr1},#{loAddr2},#{orderNum},#{userId},#{loMsg})
+</insert>
+
+
+</mapper>

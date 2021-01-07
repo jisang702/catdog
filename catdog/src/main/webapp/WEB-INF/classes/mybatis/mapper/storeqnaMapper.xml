@@ -20,6 +20,7 @@
 	FROM prdQna q
 	JOIN member1 m ON m.userId=q.userId
 	LEFT OUTER JOIN prdQNAAnswer a ON q.qnaNum = a.qnaNum
+	WHERE q.prdNum=#{prdNum}
     ORDER BY q.qnaNum DESC
     OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY	
 </select>

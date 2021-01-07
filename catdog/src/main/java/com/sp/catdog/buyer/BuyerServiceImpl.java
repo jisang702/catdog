@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.catdog.common.dao.CommonDAO;
 
-@Service("buyer.buyService")
+@Service("buyer.buyerService")
 public class BuyerServiceImpl implements BuyerService{
 
 	@Autowired
@@ -55,6 +55,7 @@ public class BuyerServiceImpl implements BuyerService{
 		}
 		
 	}
+	
 
 }
 

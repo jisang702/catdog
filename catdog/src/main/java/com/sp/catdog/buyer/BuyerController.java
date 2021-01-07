@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.catdog.common.MyUtil;
+import com.sp.catdog.member.SessionInfo;
 
 @Controller("buyer.buyerController")
 @RequestMapping("/store/*")
@@ -22,6 +24,10 @@ public class BuyerController {
 
 	@Autowired
 	private BuyerService service;
+	
+	@Autowired
+	private OrdService ordService;
+	
 	@Autowired
 	private MyUtil myUtil;
 
@@ -88,11 +94,17 @@ public class BuyerController {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("gubun", gubun);
-	
+		
 		String cp=req.getContextPath();
 		String cartUrl =cp+"/store/"+gubun+"/cart";
 		String orderDetailUrl = cp+"/store/"+gubun+"/orderDetail"; 
 		Buyer dto = service.readBuyer(prdNum);
+		int prdPrice=dto.getPrdPrice();
+		int disCount=dto.getPrdDisCount();
+		int price=prdPrice*(disCount/100);
+		dto.setPrice(price);
+		
+		model.addAttribute("price", price);
 		model.addAttribute("gubun", gubun);
 		model.addAttribute("page",current_page);
 		model.addAttribute("dto", dto);
@@ -101,9 +113,9 @@ public class BuyerController {
 		model.addAttribute("gubun",gubun);
 		return ".store.storemain.productInfo";
 	}
+	
 	@RequestMapping(value ="{gubun}/orderDetail")
 	public String orderDetail(
-			
 			@PathVariable String gubun,
 			@RequestParam int prdNum,
 			@RequestParam(value="page", defaultValue = "1") int current_page,
@@ -116,36 +128,36 @@ public class BuyerController {
 		map.put("gubun", gubun);
 	
 		Buyer dto = service.readBuyer(prdNum);
+		
 		model.addAttribute("gubun", gubun);
 		model.addAttribute("page",current_page);
 		model.addAttribute("dto", dto);
-		model.addAttribute("gubun",gubun);
 		
 		return ".store.storemain.orderDetail";
 	}
 	
-	
-	@RequestMapping(value ="{gubun}/cart")
-	public String cart(
-			
+	@RequestMapping(value = "{gubun}/insertOrder")
+	public String insertOrder(
 			@PathVariable String gubun,
 			@RequestParam int prdNum,
-			@RequestParam(value="page", defaultValue = "1") int current_page,
-			@RequestParam String page,
-			@RequestParam(defaultValue = "") String keyword,
-			HttpServletRequest req,
-			Model model
-			) throws Exception{
-		Map<String, Object> map = new HashMap<>();
-		map.put("gubun", gubun);
-	
-		Buyer dto = service.readBuyer(prdNum);
-		model.addAttribute("gubun", gubun);
-		model.addAttribute("page",current_page);
-		model.addAttribute("dto", dto);
-		model.addAttribute("gubun",gubun);
+			Ord odto,
+			Buyer dto,
+			HttpSession session
+			) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
-		return ".store.storemain.cart";
+		dto=service.readBuyer(prdNum);
+		
+		try {
+			odto.setUserId(info.getUserId());
+			odto.setOrderPrice(dto.getPrice());
+			ordService.insertOrd(odto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/store"+gubun+"/main";
 	}
+	
 }
 

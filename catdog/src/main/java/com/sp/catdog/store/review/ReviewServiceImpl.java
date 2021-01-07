@@ -28,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService{
 	public int dataCount(Map<String, Object> map) {
 		int result =0;
 		try {
-			result=dao.insertData("storereview.dataCount",map);
+			result=dao.selectOne("storereview.dataCount", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

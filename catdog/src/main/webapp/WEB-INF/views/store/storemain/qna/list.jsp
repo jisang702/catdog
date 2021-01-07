@@ -2,7 +2,16 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<script type="text/javascript">
+<c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin' }">
+function deleteQna(prdNum) {
+	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
+		var url="${pageContext.request.contextPath}/list/delete?prdNum="+num+"&${query}";
+		location.href=url;
+	}
+}
+</c:if>
+</script>
 <table style='width: 100%; margin: 10px auto 30px; border-spacing: 0px;'>
 	<thead id='listQnaHeader'>
 		<tr height='35'>
@@ -35,6 +44,9 @@
 		              ${dto.qnaCategory==1?"상품문의" : (dto.qnaCategory==2?"배송문의":"교환/환불")}
 		           </span> |
 		           <span>${dto.qnaCreated}</span> 
+		          <c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin' }">
+			          		<button type="button" class="btn" onclick="deleteqna('${dto.qnaNum}');">삭제</button>
+			          </c:if>
 		        </td>
 		    </tr>
 		    <tr>
@@ -42,7 +54,7 @@
 		             	${dto.qnaContent}
 		        </td>
 		    </tr>
-		    <c:if test="${not empty qnaansContent }">
+		    <c:if test="${not empty q1naansContent }">
 			    <tr>
 			        <td colspan='2' valign='top' style='padding:5px 5px 5px 15px;'>
 			            <div style="background: #e4e4e4;">
@@ -53,6 +65,8 @@
 		            	</div>
 			        </td>
 			    </tr>
+			    
+			    
 		</c:if>
 		</c:otherwise>
 	</c:choose>

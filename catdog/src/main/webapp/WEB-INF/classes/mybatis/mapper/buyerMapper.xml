@@ -35,7 +35,8 @@
  
 <select id="readBuyer" parameterType="Integer" resultType="com.sp.catdog.buyer.Buyer">
 	SELECT p.prdNum,prdPrice, prdName, prdIntro, prdContent, prdDisCount,
-	 prdShip, prdPoint, prdPet, PrdHitCount,prdCreated,userId,imgFilename
+	 prdShip, prdPoint, prdPet, PrdHitCount,prdCreated,userId,imgFilename,
+	 (prdPrice*((100-prdDisCount)/100)) price
 	From product p
 	LEFT OUTER JOIN prdImage i ON p.prdNum = i.prdNum
 	WHERE p.prdNum=#{prdNum}	
@@ -44,4 +45,6 @@
 <update id="prdHitCount" parameterType="Integer">
 	UPDATE product SET prdHitCount=prdHitCount+1 WHERE prdNum = #{prdNum}
 </update>
+
+
 </mapper>

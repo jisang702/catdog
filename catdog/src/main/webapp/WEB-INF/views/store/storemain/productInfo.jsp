@@ -13,7 +13,7 @@
 	margin-bottom: 15px;
 }
 .click{
-	width: 45%;
+	width: 100%;
 	height: 60px;
 	background: orange; 
 	float: left; 
@@ -155,7 +155,7 @@ function listPage(page) {
 		url+="/storemain/prdqna/list";
 		selector=".qna-list"
 	} else if(tab==="review") {
-		url+="/storemain/review/list";
+		url+="/storemain/prdreview/list";
 		selector=".review-list";
 	}
 	var query="pageNo="+page+"&prdNum=${dto.prdNum}";
@@ -210,6 +210,16 @@ $(function(){
 		
 	});
 });
+
+//총금액 계산
+$(function() {
+	var prdPrice="${dto.prdPrice}"; //12300
+	var prdDisCount="${dto.prdDisCount}"; //10%
+	prdDisCount = prdPrice*(prdDisCount/100); //1230
+	var prdTotal = prdPrice-prdDisCount;
+	$("#total").html(prdTotal);
+	
+});
 </script>
 <br><br><br>
 
@@ -223,20 +233,13 @@ $(function(){
 			<div class="rightbox" style="height: 70%;">
 				<ul>
 					<li class="sub" style="float: right;">조회수:${dto.prdHitCount }</li>
-					<li class="sub">${dto.prdName }</li>
-					<li class="sub">리뷰: 별표로</li>
+					<li class="sub" >${dto.prdName }</li>
 					<li class="sub" style="text-align: right;">${dto.prdPrice}원</li>
-					<li class="sub">배송비 2500원 (30000원이상 무료배송)</li>
-					<li><select style="width: 80%">
-							<option>사이즈선택</option>
-							<option>블루</option>
-							<option>블랙</option>
-					</select>
-					<li class="sub" style="text-align: right; margin-top: 30px;">총 상품 가격:${dto.prdPrice	}원
+					<li class="sub">할인율:${dto.prdDisCount}%</li>
+							<li class="sub" style="text-align: right; margin-top: 30px;"><p>총 상품 가격:<span id="total"></span>원</p>
 					<li>
 				</ul>
-				<div class="click" onclick="javascript:cart('${dto.prdNum}');">장바구니</div>
-				<div class="click" onclick="javascript:orderDetail('${dto.prdNum}');">구매하기</div>	
+					<div class="click" onclick="javascript:orderDetail('${dto.prdNum}');">구매하기</div>	
 			</div>
 		</div>
 	</div>
@@ -247,9 +250,7 @@ $(function(){
 	    <li id="tab1" class="btnCon"> <input type="radio" checked name="tabmenu" id="tabmenu1" >
 	      <label for="tabmenu1" class="tab-content">상품설명</label>
 	      <div class="tabCon" style="width: 100%;">
-				상품 설명 란
-	
-	
+				${dto.prdContent }
 		</div>
 	      
 	    </li>

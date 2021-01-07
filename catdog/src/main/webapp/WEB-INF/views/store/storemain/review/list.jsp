@@ -19,16 +19,16 @@
 
 	    <tr height='35' style='background: #eeeeee;'>
 	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
-	           <span><b>홍길동</b></span>
+	           <span><b>${dto.userId }</b></span>
 	        </td>
 	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
-	           <span>2000-10-10</span> 
+	           <span>${dto.reCreated}</span> 
 	           
 	        </td>
 	    </tr>
 	    <tr>
 	        <td colspan='2' valign='top' style='padding:5px 5px;'>
-	              내용 입니다.
+	            ${dto.reContent}
 	        </td>
 	    </tr>
 
@@ -38,7 +38,7 @@
 	<tfoot id='listReviewFooter'>
 		<tr height='40' align="center">
             <td colspan='2' >
-              1 2 3
+            ${paging}
             </td>
            </tr>
 	</tfoot>

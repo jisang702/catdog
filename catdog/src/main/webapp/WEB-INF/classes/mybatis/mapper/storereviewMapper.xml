@@ -18,12 +18,16 @@
 	SELECT r.reNum,r.prdNum,r.userId,reContent,reCreated
 	FROM prdReview r
 	JOIN member1 m ON m.userId = r.userId
+	WHERE r.prdNum=#{prdNum}
 	ORDER BY r.reNum DESC
-	OFFSET # {offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	
 	</select>
 <delete id="deleteReview">
 	DELETE FROM prdReview WHERE ReNum = #{ReNum}
+		<if test="userId != 'admin'">
+			AND userId=#{userId}
+		</if>
 </delete>
 
 

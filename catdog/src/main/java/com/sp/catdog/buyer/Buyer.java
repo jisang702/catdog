@@ -1,11 +1,17 @@
 package com.sp.catdog.buyer;
 
+/**
+ * @author JS
+ *
+ */
 public class Buyer {
 	private int prdNum;
 	private String prdName;
 	private String prdIntro;
-	private int prdPrice;
-	private int prdDisCount;
+	private int prdPrice;  //
+	private int prdDisCount; //
+	private int price;
+	
 	private int prdShip;
 	private int prdPoint;
 	private int prdPet;
@@ -16,7 +22,14 @@ public class Buyer {
 	private int prdHitCount;
 	private int imgFileNum;
 	private String imgFilename;
-	
+	private String prdContent;	
+
+	public String getPrdContent() {
+		return prdContent;
+	}
+	public void setPrdContent(String prdContent) {
+		this.prdContent = prdContent;
+	}
 	public int getImgFileNum() {
 		return imgFileNum;
 	}
@@ -64,6 +77,13 @@ public class Buyer {
 	}
 	public void setPrdDisCount(int prdDisCount) {
 		this.prdDisCount = prdDisCount;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public int getPrdShip() {
 		return prdShip;
