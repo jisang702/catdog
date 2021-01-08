@@ -134,7 +134,7 @@ ul{
                 <div>
                    <img style="width: 50%; height:60%; margin: 0px; float: left;" src="${pageContext.request.contextPath}/uploads/store/${dto.imgFilename}">
                 </div>
-                <div style="float: right; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:${dto.prdName }</div>
+                <span style="float: right; font-size: 20px; font-weight: bold; border-bottom: 20px;">상품명:${dto.prdName }</span>
                 <br><br>
                 <span style="font-size: 20px; font-weight: bold; ">가격:${dto.prdPrice}원</span>
                 
@@ -159,7 +159,7 @@ ul{
     </div>
     
 </div>
-<div class="left" style="margin-top: 159px;">
+<div class="left" style="margin-top: 40px;">
 <div class="body-container" style="width: 700px; margin: 100px">
     <div class="body-title">
         <h3  style="text-align: left; margin-left: 50px;"><i class="fas fa-user"></i> 배송지 </h3>
