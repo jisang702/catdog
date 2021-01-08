@@ -298,13 +298,11 @@ $(function(){
 			
 			<tr  height="50" style="border-bottom: 2px solid #FFBB00;">
 		    <td align="center" style="padding-left:10px;">
-		       <i class="fas fa-paw" style="color: #FFBB00;">&nbsp;&nbsp;</i>
+			   <b><i class="fas fa-paw" style="color: #FFBB00;">;&nbsp;&nbsp;</i>${dto.userName}&nbsp;&nbsp; 수의사 님</b>
 		       <i class="fas fa-chevron-left" style="color: #9FC93C;"></i>
 		       &nbsp;&nbsp;${dto.vidCreated}&nbsp;&nbsp;
-		       <i class="fas fa-chevron-right" style="color: #9FC93C;"></i>
-		       &nbsp;&nbsp;업로드 된 
-		  	 	<b>${dto.userName}&nbsp;&nbsp;수의사 님의</b>    
-		       	 &nbsp;&nbsp;유익한 영상입니다 &nbsp;&nbsp;
+		       <i class="fas fa-chevron-right" style="color: #9FC93C;"></i>에
+		       &nbsp;&nbsp;업로드 된 유익한 영상입니다 
 		       <i class="fas fa-paw" style="color: #FFBB00;"></i>
 			 </td>
 			 <td align="right" style="width:100%;">
