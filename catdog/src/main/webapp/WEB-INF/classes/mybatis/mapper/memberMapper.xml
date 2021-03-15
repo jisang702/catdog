@@ -13,10 +13,4 @@
 		UPDATE member1 SET userLast=SYSDATE WHERE userId=#{userId}
 	</update>
 	
-	<select id="loginMemberState" parameterType="String" resultType="com.sp.catdog.member.Member">
-		SELECT m.userId, memo, userEnabled
-		FROM memberState m
-		JOIN member1 m1 ON m1.userId=m.userId
-		WHERE m.userId=#{userId} 
-	</select>
 </mapper>
